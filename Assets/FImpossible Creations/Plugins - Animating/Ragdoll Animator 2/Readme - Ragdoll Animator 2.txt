@@ -1,7 +1,7 @@
 ﻿__________________________________________________________________________________________
 
 Package "Ragdoll Animator 2"
-Version 1.0.2.4
+Version 1.0.2.8
 
 Made by FImpossible Creations - Filip Moeglich
 http://www.fimpossiblecreations.pl
@@ -30,6 +30,21 @@ If you encounter something like spine jittery, try lowering muscles spring power
 
 __________________________________________________________________________________________
 Changelog:
+
+version 1.0.2.8
+- Added object pooling example scene in the demos .unitypackage
+
+version 1.0.2.7
+- Updated 'Pose Manipulator' Extra Feature with few more parameters
+- Fix for rare error on first build when used Pre-Generated dummy, which was caused by OnValidate()
+
+version 1.0.2.6
+- Switching from Off to Fall mode will work properly now
+
+version 1.0.2.5
+- Calibration will not be applied on the anchor bone during fall animating mode
+- OnEnable during fall mode will not force restoring character pose
+- 'Optimize' extra feature now has 'Fade Speed' parameter and 'Store Pose' toggle
 
 version 1.0.2.4
 - Added link to Ragdoll Animator asset store when hiting "?" button on the right corner of the component

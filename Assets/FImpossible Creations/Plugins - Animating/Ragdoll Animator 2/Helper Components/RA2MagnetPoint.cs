@@ -1,9 +1,8 @@
 #if UNITY_EDITOR
-
 using UnityEditor;
-
 #endif
 
+using System;
 using UnityEngine;
 
 namespace FIMSpace.FProceduralAnimation
@@ -39,7 +38,9 @@ namespace FIMSpace.FProceduralAnimation
 
         private void Start()
         {
-            if( ObjectWithRagdollAnimator )
+            attachBone = null;
+
+            if(ObjectWithRagdollAnimator)
             {
                 handler = ObjectWithRagdollAnimator.GetComponent<IRagdollAnimator2HandlerOwner>();
             }
@@ -64,7 +65,7 @@ namespace FIMSpace.FProceduralAnimation
         }
 
         private Rigidbody moveRigidbody = null;
-        private RagdollChainBone attachBone;
+        [NonSerialized] private RagdollChainBone attachBone = null;
         private bool wasKinematic = false;
         private Transform lastToMove = null;
 

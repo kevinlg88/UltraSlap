@@ -57,6 +57,42 @@ namespace FIMSpace.FProceduralAnimation
 #else
 #if UNITY_6000_0_12
 #else
+#if UNITY_6000_0_13
+#else
+#if UNITY_6000_0_14
+#else
+#if UNITY_6000_0_15
+#else
+#if UNITY_6000_0_16
+#else
+#if UNITY_6000_0_17
+#else
+#if UNITY_6000_0_18
+#else
+#if UNITY_6000_0_19
+#else
+#if UNITY_6000_0_20
+#else
+#if UNITY_6000_0_21
+#else
+#if UNITY_6000_0_22
+#else
+#if UNITY_6000_0_23
+#else
+#if UNITY_6000_0_24
+#else
+#if UNITY_6000_0_25
+#else
+#if UNITY_6000_0_26
+#else
+#if UNITY_6000_0_27
+#else
+#if UNITY_6000_0_28
+#else
+#if UNITY_6000_0_29
+#else
+#if UNITY_6000_0_30
+#else
 #if UNITY_6000_0_OR_NEWER
 
             GUILayout.Space( 8 );
@@ -68,6 +104,24 @@ namespace FIMSpace.FProceduralAnimation
             EditorGUILayout.HelpBox( "Use Unity version 2023 or below, to make Ragdoll Animator 2 work properly.", MessageType.None );
             GUILayout.Space( 10 );
 
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
 #endif
 #endif
 #endif

@@ -4,16 +4,38 @@
     {
         public void PreCalibrate()
         {
-            //foreach (var extraBone in skeletonFillExtraBonesList) extraBone.Calibrate();
+            //if( ApplyPositions )
+            //{
+            //    foreach( var chain in chains ) chain.Calibrate();
+            //}
+            //else
+            //{
+            //    _playmodeAnchorBone.BoneProcessor.Calibrate();
+            //    foreach( var chain in chains ) chain.CalibrateJustRotation();
+            //}
 
             if( ApplyPositions )
             {
-                foreach( var chain in chains ) chain.Calibrate();
+                if( IsInStandingMode )
+                {
+                    foreach( var chain in chains ) chain.Calibrate();
+                }
+                else // Calibrate all, except anchor bone
+                {
+                    foreach( var chain in chains ) foreach( var proc in chain.RuntimeBoneProcessors ) { proc.Calibrate(); }
+                }
             }
             else
             {
-                _playmodeAnchorBone.BoneProcessor.Calibrate();
-                foreach( var chain in chains ) chain.CalibrateJustRotation();
+                if( IsInStandingMode )
+                {
+                    _playmodeAnchorBone.BoneProcessor.Calibrate(); // Calibrate anchror position all the time
+                    foreach( var chain in chains ) chain.CalibrateJustRotation();
+                }
+                else // Calibrate all, except anchor bone
+                {
+                    foreach( var chain in chains ) foreach( var proc in chain.RuntimeBoneProcessors ) { proc.CalibrateRotation(); }
+                }
             }
         }
 

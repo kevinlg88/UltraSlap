@@ -16,6 +16,8 @@ namespace FIMSpace.FProceduralAnimation
 
         protected FGenerating.FUniversalVariable distanceV;
         protected FGenerating.FUniversalVariable enterThresholdV;
+        protected FGenerating.FUniversalVariable fadeSpeedV;
+        protected FGenerating.FUniversalVariable storeCalibrateV;
 
 #if UNITY_EDITOR
         protected FGenerating.FUniversalVariable visibilityDebug;
@@ -37,6 +39,8 @@ namespace FIMSpace.FProceduralAnimation
 #if UNITY_EDITOR
             visibilityDebug = InitializedWith.RequestVariable( "Visibility Debug", false );
 #endif
+            fadeSpeedV = InitializedWith.RequestVariable( "Fade Speed", 1f );
+            storeCalibrateV = InitializedWith.RequestVariable( "Store Pose", false );
 
             lodHandler = new RagdollHandler.OptimizationHandler( ParentRagdollHandler );
 
@@ -62,15 +66,20 @@ namespace FIMSpace.FProceduralAnimation
             bool turnOn = CalculateShouldBeTurnedOn();
 
             if( turnOn )
-                lodHandler.TurnOnTick( Time.unscaledDeltaTime );
+            {
+                if( storeCalibrateV.GetBool() ) ParentRagdollHandler.StoreCalibrationPose();
+
+                lodHandler.TurnOnTick( Time.unscaledDeltaTime * fadeSpeedV.GetFloat() );
+            }
             else
-                lodHandler.TurnOffTick( Time.unscaledDeltaTime );
+                lodHandler.TurnOffTick( Time.unscaledDeltaTime * fadeSpeedV.GetFloat() );
         }
 
         protected bool CalculateShouldBeTurnedOn()
         {
             if( CalculateMeshVisibilityRequirement() == false ) return false;
             if( CalculateCameraDistanceRequirement() == false ) return false;
+
             return true;
         }
 
@@ -158,6 +167,11 @@ namespace FIMSpace.FProceduralAnimation
         public override void Editor_InspectorGUI( SerializedProperty toDirty, RagdollHandler ragdollHandler, RagdollAnimatorFeatureHelper helper )
         {
             GUILayout.Space( 3 );
+
+            var fadeSpeedV = helper.RequestVariable( "Fade Speed", 1f );
+            fadeSpeedV.AssignTooltip( "How fast should happen transition from disabled/enabled state" );
+            fadeSpeedV.SetMinMaxSlider( 0.5f, 10f );
+            fadeSpeedV.Editor_DisplayVariableGUI();
 
             var distanceV = helper.RequestVariable( "Max Distance:", 0f );
 
@@ -277,6 +291,12 @@ namespace FIMSpace.FProceduralAnimation
                 helper.customObjectList.RemoveAt( toRemove );
                 EditorUtility.SetDirty( toDirty.serializedObject.targetObject );
             }
+
+            GUI.enabled = true;
+            var storeCalibrateV = helper.RequestVariable( "Store Pose", false );
+            storeCalibrateV.AssignTooltip( "Storing animation pose if animator is visible, to prevent offscreen pose calibration issues" );
+            storeCalibrateV.Editor_DisplayVariableGUI();
+            GUI.enabled = !ragdollHandler.WasInitialized;
 
             if( ragdollHandler.WasInitialized )
             {

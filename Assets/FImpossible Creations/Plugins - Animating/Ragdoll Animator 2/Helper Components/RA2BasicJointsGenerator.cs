@@ -154,6 +154,7 @@ namespace FIMSpace.FProceduralAnimation
         {
             var bone = EndChildBone;
 
+            if (FirstParentBone == null) return;
             if( WasInitialized && FirstParentBone.GetComponent<Rigidbody>() == null ) return;
 
             while( bone != FirstParentBone.parent && bone != null )
