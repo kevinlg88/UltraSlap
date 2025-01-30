@@ -185,6 +185,7 @@ namespace FIMSpace.RagdollAnimatorDemo
             if( moveDirectionWorld != Vector3.zero )
             {
                 moving = true;
+
             }
 
             if( RotateToSpeed > 0f )
@@ -194,7 +195,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                     targetRotation = Quaternion.Euler( 0f, rotationAngle, 0f );// Quaternion.RotateTowards(targetRotation, targetInstantRotation, Time.deltaTime * 90f * RotateToSpeed);
                 }
 
-            if( Mecanim ) Mecanim.SetBool( "Moving", moving );
+            if( Mecanim ) Mecanim.SetBool( "isMoving", moving );
 
             float spd = MovementSpeed;
 
@@ -241,7 +242,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                 isGrounded = false;
                 jumpRequest = 0f;
                 jumpTime = Time.time;
-                if( Mecanim ) Mecanim.SetBool( "Grounded", false );
+                //if( Mecanim ) Mecanim.SetBool( "Grounded", false );
                 if( OnJump != null ) OnJump.Invoke();
             }
             else
@@ -271,7 +272,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                 if( isGrounded == true )
                 {
                     isGrounded = false;
-                    if( Mecanim ) Mecanim.SetBool( "Grounded", false );
+                    //if( Mecanim ) Mecanim.SetBool( "Grounded", false );
                 }
             }
 
@@ -284,7 +285,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                 if( isGrounded == false )
                 {
                     isGrounded = true;
-                    if( Mecanim ) Mecanim.SetBool( "Grounded", true );
+                    //if( Mecanim ) Mecanim.SetBool( "Grounded", true );
                 }
             }
             else
@@ -292,7 +293,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                 if( isGrounded == true )
                 {
                     isGrounded = false;
-                    if( Mecanim ) Mecanim.SetBool( "Grounded", false );
+                    //if( Mecanim ) Mecanim.SetBool( "Grounded", false );
                 }
             }
         }
