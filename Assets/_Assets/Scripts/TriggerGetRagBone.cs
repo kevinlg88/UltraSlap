@@ -5,14 +5,23 @@ using UnityEngine;
 
 public class TriggerGetRagBone : MonoBehaviour
 {
+    [SerializeField] float slapPower;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger");
-        if(other.TryGetComponent(out RagdollAnimator2BoneIndicator boneIndicator))
+        Debug.Log("trigger:" + other.name);
+        
+        //#### Detect Components ####
+
+        //Component[] components = other.GetComponents<Component>();
+        //foreach (Component component in components)
+        //{
+        //    Debug.Log($"Componente: {component.GetType().Name}");
+        //}
+
+        if(other.TryGetComponent(out Rigidbody rigidbody))
         {
-            Debug.Log("bone name: " + boneIndicator.name + "\n" +
-                "parent handler: " + boneIndicator.ParentHandler + "\n" +
-                "parent chain: " + boneIndicator.ParentChain.ChainName);
+            rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
+            Debug.Log("aplicou força");
         }
     }
 }
