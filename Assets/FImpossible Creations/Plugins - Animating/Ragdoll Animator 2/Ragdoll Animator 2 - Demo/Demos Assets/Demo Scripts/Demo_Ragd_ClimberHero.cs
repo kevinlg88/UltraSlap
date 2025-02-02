@@ -70,7 +70,7 @@ namespace FIMSpace.RagdollAnimatorDemo
             leftHand = new HandControll() { ragdollBone = RagdollAnimator.Handler.GetChain( ERagdollChainType.LeftArm ).LastBone };
             rightHand = new HandControll() { ragdollBone = RagdollAnimator.Handler.GetChain( ERagdollChainType.RightArm ).LastBone };
 
-            Mover.OnJump = OnJump;
+            //Mover.OnJump = OnJump;
         }
 
         private bool AnyCatched()

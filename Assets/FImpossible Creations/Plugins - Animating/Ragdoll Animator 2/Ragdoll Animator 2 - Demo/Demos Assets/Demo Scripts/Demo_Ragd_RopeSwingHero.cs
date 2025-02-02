@@ -27,7 +27,7 @@ namespace FIMSpace.RagdollAnimatorDemo
 
         private void Start()
         {
-            Mover.OnJump = OnJump;
+            //Mover.OnJump = OnJump;
 
             lHand = RagdollAnimator.User_GetBoneSetupByHumanoidBone( HumanBodyBones.LeftHand );
             rHand = RagdollAnimator.User_GetBoneSetupByHumanoidBone( HumanBodyBones.RightHand );

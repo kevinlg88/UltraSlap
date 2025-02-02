@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PlayerSlap : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] KeyCode keySlap;
+    Animator animator;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
-        
+        if (Input.GetKeyDown(keySlap)) 
+        {
+            animator.SetTrigger("triggerTapa");
+        }
     }
 }
