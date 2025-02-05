@@ -11995,7 +11995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectPrefab: {fileID: 1958806148300979593, guid: 1aceeea2f75452a4fbff82912fe6e57a,
     type: 3}
-  slapPower: 56
+  slapPower: 112
 --- !u!65 &1801229814
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12077,7 +12077,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.08719159, y: 0.58044255, z: 0.06269857, w: 0.8071884}
   m_LocalPosition: {x: 0.863, y: 0.283, z: 0}
-  m_LocalScale: {x: 0.52166307, y: 0.52166307, z: 0.52166307}
+  m_LocalScale: {x: 0.7475953, y: 0.7475953, z: 0.7475953}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 451786232}
