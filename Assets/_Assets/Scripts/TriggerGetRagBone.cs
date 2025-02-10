@@ -24,11 +24,26 @@ public class TriggerGetRagBone : MonoBehaviour
         {
             if (isSlapping) return;
             isSlapping = true;
+            RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
+            ragdoll.User_SwitchFallState();
+            //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
+            //ragdoll.
+            //ragdoll.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
+            //ragdoll.User_AddAllBonesImpact(this.gameObject.transform.forward * slapPower, 0.0f, ForceMode.Impulse);
+            //ragdoll.User_AddRigidbodyImpact(rigidbody,this.gameObject.transform.forward * slapPower, 0.0f, ForceMode.Impulse);
+            //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower,0.0f, ForceMode.Impulse);
             rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
             GameObject go = Instantiate(effectPrefab,this.transform.position, Quaternion.identity);
             Destroy(go,1f);
             Debug.Log("aplicou força");
         }
+    }
+
+    private RagdollAnimator2 GetRagdoll(GameObject go)
+    {
+        GameObject parent = go.transform.parent.gameObject;
+        if(!parent) return null;
+        return parent.GetComponent<RagdollAnimatorDummyReference>().ParentComponent as RagdollAnimator2;
     }
 
     private void OnDisable()
