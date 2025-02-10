@@ -2506,7 +2506,7 @@ MonoBehaviour:
   handler:
     _Editor_SelectedChain: 0
     _Editor_ChainCategory: 2
-    _EditorCategory: 4
+    _EditorCategory: 2
     _EditorMainCategory: 0
     _EditorMotionCategory: 0
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
@@ -4748,9 +4748,6 @@ MonoBehaviour:
   FixedRotation: 1
   DirectMovement: 0
   Interia: 1
-  GroundMask:
-    serializedVersion: 2
-    m_Bits: 1
   ExtraRaycastDistance: 0.05
   RaycastRadius: 0
   Mecanim: {fileID: 7322788133517942073}
