@@ -1471,6 +1471,7 @@ MonoBehaviour:
   maxZoom: 20
   zoomSpeed: 5
   offset: {x: 0, y: 1.36, z: 1.85}
+  heightThreshold: -7
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4068,7 +4069,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 10
   m_Drag: 0
-  m_AngularDrag: 10
+  m_AngularDrag: 6
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
