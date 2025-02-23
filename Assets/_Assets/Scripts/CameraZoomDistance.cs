@@ -8,6 +8,7 @@ public class CameraZoom : MonoBehaviour
 
     public float minZoom = 5f; // Distância mínima da câmera
     public float maxZoom = 20f; // Distância máxima da câmera
+    public float zoomFactor = 1.2f; // Influencia o ritmo de afastamento/aproximação da câmera quando os personagens se distanciam ou se aproximam
     public float zoomSpeed = 5f; // Velocidade de ajuste do zoom
     public Vector3 offset = new Vector3(0, 5, -10); // Offset da câmera
     public float heightThreshold = -5f; // Altura mínima para considerar um personagem ativo
@@ -27,7 +28,7 @@ public class CameraZoom : MonoBehaviour
         {
             // Ambos estão acima do limite, calcular normalmente
             float distance = Vector3.Distance(character1.position, character2.position);
-            targetZoom = Mathf.Clamp(distance, minZoom, maxZoom);
+            targetZoom = Mathf.Clamp(distance*zoomFactor, minZoom, maxZoom);
             Vector3 midPoint = (character1.position + character2.position) / 2;
             targetPosition = midPoint + offset.normalized * targetZoom;
         }
