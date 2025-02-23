@@ -648,8 +648,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76338017}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 12
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -796,6 +796,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1061,6 +1065,10 @@ PrefabInstance:
       value: SI_Env_Wall_04 (10)
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -1168,8 +1176,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123649649}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 12
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1590,6 +1598,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Stool (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 179162, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 445358, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.42
@@ -1953,8 +1965,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239027759}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 12
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -2218,6 +2230,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6120,6 +6136,10 @@ PrefabInstance:
       value: SI_Env_Wall_04 (11)
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -6267,6 +6287,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6547,6 +6571,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Stool (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 179162, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 445358, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.23
@@ -6702,6 +6730,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6953,6 +6985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Table_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 415122, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.67296
@@ -7029,6 +7065,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -7114,6 +7154,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -7256,8 +7300,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910456187}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 20
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -7364,8 +7408,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943285770}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 20
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -7394,6 +7438,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -7507,6 +7555,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -7954,6 +8006,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -8997,6 +9053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Table_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 415122, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.67296
@@ -9513,6 +9573,10 @@ PrefabInstance:
       value: SI_Env_Wall_04 (6)
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -9651,6 +9715,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Stool
       objectReference: {fileID: 0}
+    - target: {fileID: 179162, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 445358, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.38
@@ -9767,8 +9835,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514975737}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 20
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -10023,6 +10091,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Table_02 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 415122, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.67296
@@ -10188,6 +10260,10 @@ PrefabInstance:
     - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_Name
       value: SI_Prop_Table_02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 415122, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_LocalScale.x
@@ -10699,6 +10775,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Table_02 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 415122, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.67296
@@ -10863,6 +10943,10 @@ PrefabInstance:
     - target: {fileID: 179162, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
       propertyPath: m_Name
       value: SI_Prop_Stool (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 179162, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 445358, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11075,6 +11159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Food_Drink
       objectReference: {fileID: 0}
+    - target: {fileID: 195632, guid: f5dae46d58bbe2c42b95113ad170ac2c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 450530, guid: f5dae46d58bbe2c42b95113ad170ac2c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.11
@@ -11195,8 +11283,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785544243}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 20
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -11477,6 +11565,10 @@ PrefabInstance:
       value: SI_Env_Wall_04 (5)
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -11738,6 +11830,10 @@ PrefabInstance:
       value: SI_Env_Wall_04 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -11845,8 +11941,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895228385}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 20
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -12232,6 +12328,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Food_Drink (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 195632, guid: f5dae46d58bbe2c42b95113ad170ac2c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 450530, guid: f5dae46d58bbe2c42b95113ad170ac2c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.2
@@ -12296,6 +12396,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -12459,8 +12563,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993561852}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 12
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -12489,6 +12593,10 @@ PrefabInstance:
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_Name
       value: SI_Env_Wall_04 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -12574,6 +12682,10 @@ PrefabInstance:
     - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_Name
       value: SI_Prop_Table_02 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 415122, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff, type: 3}
       propertyPath: m_LocalScale.x
@@ -12754,6 +12866,10 @@ PrefabInstance:
       value: SI_Env_Wall_04 (13)
       objectReference: {fileID: 0}
     - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 155582, guid: c2b06be20bcb87148bd455c90eaf0c94, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -12861,8 +12977,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065149032}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 12
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -12984,6 +13100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SI_Prop_Stool (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 179162, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 445358, guid: 3cf7d11e15aa6ad40b1ce05a71384792, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.87
@@ -13072,8 +13192,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132243207}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 20
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

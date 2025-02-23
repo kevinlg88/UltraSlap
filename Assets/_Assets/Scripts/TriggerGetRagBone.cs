@@ -25,7 +25,10 @@ public class TriggerGetRagBone : MonoBehaviour
             if (isSlapping) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
-            ragdoll.User_SwitchFallState();
+            if (ragdoll != null)
+            {
+                ragdoll.User_SwitchFallState();
+            }
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
             //ragdoll.
             //ragdoll.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
@@ -41,6 +44,8 @@ public class TriggerGetRagBone : MonoBehaviour
 
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
+        if (go.transform.parent == null) return null; // Evita erro se não tiver parent
+
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
         return parent.GetComponent<RagdollAnimatorDummyReference>().ParentComponent as RagdollAnimator2;
