@@ -48,7 +48,11 @@ public class TriggerGetRagBone : MonoBehaviour
 
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
-        return parent.GetComponent<RagdollAnimatorDummyReference>().ParentComponent as RagdollAnimator2;
+        if(parent.TryGetComponent(out RagdollAnimatorDummyReference ragdollAnimatorDummyRef))
+        {
+            return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
+        }
+        return null;
     }
 
     private void OnDisable()

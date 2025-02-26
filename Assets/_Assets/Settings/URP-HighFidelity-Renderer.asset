@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc94fc06a5276be44b96b678983e934a, type: 3}
   m_Name: CustomPostProcessingRenderFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_bloomShader: {fileID: 4800000, guid: dc826836e8670af4eb5b128be772a098, type: 3}
   m_compositeShader: {fileID: -6465566751694194690, guid: b31397df7863e7c4185d4636dcc2c645,
     type: 3}
