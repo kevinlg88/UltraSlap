@@ -44,7 +44,6 @@ public class TriggerGetRagBone : MonoBehaviour
 
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
-        if (go.transform.parent == null) return null; // Evita erro se não tiver parent
 
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
@@ -52,6 +51,7 @@ public class TriggerGetRagBone : MonoBehaviour
         {
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
         }
+
         return null;
     }
 
