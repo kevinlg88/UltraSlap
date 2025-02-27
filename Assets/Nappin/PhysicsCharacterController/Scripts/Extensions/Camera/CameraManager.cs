@@ -7,7 +7,6 @@ using System.Collections;
 
 namespace PhysicsCharacterController
 {
-
     public class CameraManager : MonoBehaviour
     {
         [Header("Camera properties")]
