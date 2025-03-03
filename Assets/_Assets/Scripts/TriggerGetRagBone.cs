@@ -17,6 +17,27 @@ public class TriggerGetRagBone : MonoBehaviour
         if (!other.attachedRigidbody)
         {
             slapEnvironment.PlayFeedbacks();
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("Glass"))
+            {
+                Debug.Log("Tocou no vidro!");
+
+                // Tenta obter o componente BreakableWindow
+                if (other.TryGetComponent(out BreakableWindow breakableWindow))
+                {
+                    Debug.Log("Reduzindo vida do vidro");
+
+                    breakableWindow.health -= slapPower; // Diminui a vida do vidro
+
+                    if (breakableWindow.health <= 0)
+                    {
+                        Debug.Log("Vidro Quebrado!");
+                        breakableWindow.breakWindow();
+                        // Chame aqui qualquer método do BreakableWindow que inicie a quebra
+                    }
+                }
+            }
+
         }
         //#### Detect Components ####
 
@@ -52,6 +73,7 @@ public class TriggerGetRagBone : MonoBehaviour
 
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
+        
 
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
