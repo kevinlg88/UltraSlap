@@ -33,7 +33,7 @@ public class TriggerGetRagBone : MonoBehaviour
                     {
                         Debug.Log("Vidro Quebrado!");
                         breakableWindow.breakWindow();
-                        // Chame aqui qualquer método do BreakableWindow que inicie a quebra
+
                     }
                 }
             }
