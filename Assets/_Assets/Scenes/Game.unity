@@ -14872,7 +14872,7 @@ CapsuleCollider:
   m_Radius: 0.928837
   m_Height: 3.2514124
   m_Direction: 1
-  m_Center: {x: 0.011031303, y: 1.6257062, z: 0}
+  m_Center: {x: 0, y: 1.6257062, z: 0}
 --- !u!54 &1875459887457228364
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14895,9 +14895,9 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &1875459887457228366
@@ -14965,7 +14965,7 @@ MonoBehaviour:
   slopeCheckerThrashold: 0.51
   stepCheckerThrashold: 0.6
   maxClimbableSlopeAngle: 53.6
-  maxStepHeight: 0.74
+  maxStepHeight: 0.3
   speedMultiplierOnAngle:
     serializedVersion: 2
     m_Curve:
