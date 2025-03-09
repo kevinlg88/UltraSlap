@@ -21,6 +21,7 @@ public class BreakableWindow : MonoBehaviour {
     public bool useCollision = true;
     [Tooltip("Use 0 for breaking immediately if a collision is detected.")]
     public float health = 0;
+    private bool isBreaking = false;
 
     [Space]
     [Space]
@@ -132,7 +133,7 @@ public class BreakableWindow : MonoBehaviour {
         obj.transform.RotateAround(transform.position, transform.up, transform.rotation.eulerAngles.y);
         obj.transform.localScale = transform.localScale;
         obj.transform.rotation = transform.rotation;
-        obj.layer = layer.value;
+        obj.layer = 10; // Altera a layer para "Splinters"
         obj.name = "Glass Splinter";
         if (destroySplintersTime > 0)
             Destroy(obj, destroySplintersTime);
@@ -152,6 +153,7 @@ public class BreakableWindow : MonoBehaviour {
         MeshCollider col = obj.AddComponent<MeshCollider>();
         col.inflateMesh = true;
         col.convex = true;
+        col.enabled = false; // Disactivate Colliders
         if (destroyPhysicsTime > 0 && destroyColliderWithPhysics) Destroy(col, destroyPhysicsTime);
         
         Rigidbody rigid = obj.AddComponent<Rigidbody>();
@@ -197,6 +199,15 @@ public class BreakableWindow : MonoBehaviour {
     /// <returns>Returns an array of all splinter gameobjects.</returns>
     public GameObject[] breakWindow()
     {
+        if (isBreaking) return null;
+        isBreaking = true;
+
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.enabled = false; //Immediately disable collider
+        }
+        
         if (isBroken == false)
         {
             if (allreadyCalculated == true)
@@ -206,7 +217,19 @@ public class BreakableWindow : MonoBehaviour {
                 {
                     for (int i = 0; i < splinters.Count; i++)
                     {
-                        splinters[i].GetComponent<Rigidbody>().AddTorque(new Vector3(Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50));
+                        GameObject splinter = splinters[i]; // Cache the GameObject
+                        if (splinter != null) // Check if the splinter exists
+                        {
+                            Rigidbody rb=null;
+
+                            if (splinter.GetComponent<Rigidbody>() != null)// Check if the Rigidbody exists
+                                rb = splinter.GetComponent<Rigidbody>(); // Cache the Rigidbody
+
+                            if (rb != null)
+                            {
+                                rb.AddTorque(new Vector3(Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50));
+                            }
+                        }
                     }
                 }
             }
@@ -215,13 +238,16 @@ public class BreakableWindow : MonoBehaviour {
                 bakeVertices();
                 bakeSplinters();
             }
+       
 
             Physics.IgnoreLayerCollision(layer.value, layer.value, true);
             Destroy(GetComponent<Collider>());
             Destroy(GetComponent<MeshRenderer>());
             Destroy(GetComponent<MeshFilter>());
 
-            isBroken = true;            
+            isBreaking = false;
+            isBroken = true;   
+             
         }
 
         if (breakingSound != null)
@@ -229,6 +255,7 @@ public class BreakableWindow : MonoBehaviour {
             GetComponent<AudioSource>().clip = breakingSound;
             GetComponent<AudioSource>().Play();
         }
+
 
         return splinters.ToArray();
     }
