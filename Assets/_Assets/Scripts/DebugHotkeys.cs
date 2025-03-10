@@ -13,4 +13,6 @@ public class DebugHotkeys : MonoBehaviour
         }
 
     }
+
+    public void DebugText(string text){ Debug.Log(text); }
 }

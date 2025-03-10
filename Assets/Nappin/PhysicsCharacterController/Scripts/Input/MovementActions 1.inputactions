@@ -1,5 +1,5 @@
 {
-    "name": "MovementActions",
+    "name": "MovementActions 1",
     "maps": [
         {
             "name": "Gameplay",
@@ -75,8 +75,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WASD",
-                    "id": "e433ff48-5b56-434a-9d5f-aac3ec1979d2",
+                    "name": "Arrows",
+                    "id": "284a8a2e-7459-443d-8930-4712b94d670f",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -87,8 +87,8 @@
                 },
                 {
                     "name": "up",
-                    "id": "b364e981-6687-4e5b-ae41-baa2ed80f202",
-                    "path": "<Keyboard>/w",
+                    "id": "8b4f6b27-bfa2-4608-90ff-ad6abe07c69a",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -98,8 +98,8 @@
                 },
                 {
                     "name": "down",
-                    "id": "3e07b6c1-3629-4a07-88a3-407227a8ea2a",
-                    "path": "<Keyboard>/s",
+                    "id": "6623fcfe-17ef-44d6-ba62-4efbf720af50",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -109,8 +109,8 @@
                 },
                 {
                     "name": "left",
-                    "id": "e09524dc-d1a6-4ea6-bd02-af6506fb40fc",
-                    "path": "<Keyboard>/a",
+                    "id": "b061d890-06ff-416f-b018-815808f60f45",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -120,8 +120,8 @@
                 },
                 {
                     "name": "right",
-                    "id": "5bec65bd-978d-4bd3-890e-bae44bc0dbb1",
-                    "path": "<Keyboard>/d",
+                    "id": "a11bd760-885c-447d-b1aa-de6efbcd5a9f",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

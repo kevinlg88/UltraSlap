@@ -6,6 +6,8 @@ TagManager:
   tags:
   - asteroid
   - ship
+  - PlayerOne
+  - PlayerTwo
   layers:
   - Default
   - TransparentFX

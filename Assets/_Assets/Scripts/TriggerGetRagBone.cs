@@ -6,14 +6,19 @@ using MoreMountains.Feedbacks;
 
 public class TriggerGetRagBone : MonoBehaviour
 {
+    [SerializeField] RagdollAnimator2 myragdoll;
     [SerializeField] GameObject effectPrefab;
     [SerializeField] float slapPower;
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
     bool isSlapping = false;
+
+    private void Awake()
+    {
+        tag = gameObject.tag;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger:" + other.name);
-
+        //Debug.Log("trigger:" + other.name);
         if (!other.attachedRigidbody)
         {
             if (isSlapping) return;
@@ -57,6 +62,7 @@ public class TriggerGetRagBone : MonoBehaviour
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
             if (ragdoll != null)
             {
+                if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
                 ragdoll.User_SwitchFallState();
             }
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
@@ -68,7 +74,7 @@ public class TriggerGetRagBone : MonoBehaviour
             rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
             GameObject go = Instantiate(effectPrefab,this.transform.position, Quaternion.identity);
             Destroy(go,1f);
-            Debug.Log("aplicou força");
+            //Debug.Log("aplicou força");
 
 
         }
