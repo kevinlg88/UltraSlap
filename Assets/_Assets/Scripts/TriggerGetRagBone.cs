@@ -25,7 +25,7 @@ public class TriggerGetRagBone : MonoBehaviour
             isSlapping = true;
 
             slapEnvironment.PlayFeedbacks();
-            
+
             if (other.gameObject.layer == LayerMask.NameToLayer("Glass"))
             {
                 
@@ -64,6 +64,7 @@ public class TriggerGetRagBone : MonoBehaviour
             {
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
                 ragdoll.User_SwitchFallState();
+                slapEnemy.PlayFeedbacks();
             }
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
             //ragdoll.
@@ -84,12 +85,12 @@ public class TriggerGetRagBone : MonoBehaviour
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
         
-
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
+
         if(parent.TryGetComponent(out RagdollAnimatorDummyReference ragdollAnimatorDummyRef))
         {
-            slapEnemy.PlayFeedbacks();
+
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
         }
 
