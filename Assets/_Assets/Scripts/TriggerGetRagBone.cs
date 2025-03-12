@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using System.Diagnostics;
 
 public class TriggerGetRagBone : MonoBehaviour
 {
@@ -18,11 +19,15 @@ public class TriggerGetRagBone : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        UnityEngine.Debug.Log("dano de:" + slapPower);
+
         //Debug.Log("trigger:" + other.name);
         if (!other.attachedRigidbody)
         {
             if (isSlapping) return;
             isSlapping = true;
+
+
 
             slapEnvironment.PlayFeedbacks();
 
@@ -101,5 +106,10 @@ public class TriggerGetRagBone : MonoBehaviour
     private void OnDisable()
     {
         isSlapping = false;
+    }
+
+    public void SetSlapPower(float value)
+    {
+        slapPower = value;
     }
 }

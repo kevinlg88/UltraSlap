@@ -18,6 +18,8 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] private float quickSlapThreshold = 0.1f;
     [SerializeField] private float maxSlapThreshold = 5f;
 
+    [SerializeField] TriggerGetRagBone TriggerGetRagBone;
+
 
     private void Start()
     {
@@ -26,32 +28,41 @@ public class PlayerSlap : MonoBehaviour
     }
     void Update()
     {
+
+
         if (Input.GetKeyDown(keySlap) && !isCharging && !isSlapping) 
         {
             chargingTime = 0f;
             isCharging = true;
 
             animator.SetTrigger("triggerTapa");
-            
         }
 
+
         // Se o botão estiver pressionado, aumenta o tempo de carga
-        if (Input.GetKey(keySlap) && isCharging)
+        else if (Input.GetKey(keySlap) && isCharging)
         {
             chargingTime += Time.deltaTime;
 
         }
 
+        else if (!Input.GetKeyDown(keySlap) && isSlapping && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Slap"))
+        {
+            isSlapping = false;
+        }
+
+
         if (Input.GetKeyUp(keySlap))
         {
             isCharging = false;
 
+            TriggerGetRagBone.SetSlapPower(chargingTime*200); // Define o valor do Slap Power para o Slap Hit Box
+
             if (chargingTime <= quickSlapThreshold && !isSlapping)
             {
-                // Play immediate slap feedback (ou a animação correspondente ao quick slap)
+               
                 QuickSlap();
-                isCharging = false;
-                isSlapping = true;
+
             }
             else if (chargingTime > quickSlapThreshold && !isSlapping) // Caso contrário, é um charge slap
             {
@@ -94,6 +105,8 @@ public class PlayerSlap : MonoBehaviour
 
     void SlappingEnd()
     {
+        chargingTime = 0f;
         isSlapping = false;
+        isCharging = false;
     }
 }
