@@ -2216,6 +2216,7 @@ MonoBehaviour:
   chargingTime: 0
   quickSlapThreshold: 0.1
   maxSlapThreshold: 5
+  TriggerGetRagBone: {fileID: 0}
 --- !u!1001 &25846070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9968,6 +9969,7 @@ MonoBehaviour:
   chargingTime: 0
   quickSlapThreshold: 0.1
   maxSlapThreshold: 5
+  TriggerGetRagBone: {fileID: 2087319416}
 --- !u!4 &760942483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4203725767295450, guid: d1c4b4ade0a1b144983fb153ea5a16a6,
