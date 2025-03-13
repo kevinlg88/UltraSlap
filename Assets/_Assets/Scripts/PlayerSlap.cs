@@ -15,6 +15,12 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] bool buttonReleasedBeforeKeyframe = false;
     [SerializeField] float chargingTime = 0f;
 
+    [SerializeField] float minPower = 250;
+    [SerializeField] float maxPower = 1500;     //Variáveis para a definição da intensidade do tapa, de acordo com o tempo de carregamento
+    [SerializeField] float growthRate = 1.5f;
+    [SerializeField] float midPoint = 2.5f;
+
+
     [SerializeField] private float quickSlapThreshold = 0.1f;
     [SerializeField] private float maxSlapThreshold = 5f;
 
@@ -56,7 +62,8 @@ public class PlayerSlap : MonoBehaviour
         {
             isCharging = false;
 
-            TriggerGetRagBone.SetSlapPower(chargingTime*200); // Define o valor do Slap Power para o Slap Hit Box
+            TriggerGetRagBone.SetSlapPower(minPower + (maxPower - minPower) / (1 + Mathf.Exp(-growthRate * (chargingTime - midPoint)))); // Define o valor do Slap Power para o Slap Hit Box
+            UnityEngine.Debug.Log(minPower + (maxPower - minPower) / (1 + Mathf.Exp(-growthRate * (chargingTime - midPoint))));
 
             if (chargingTime <= quickSlapThreshold && !isSlapping)
             {
@@ -77,6 +84,7 @@ public class PlayerSlap : MonoBehaviour
 
     public void PauseChargeAnimation()
     {
+
         if (isCharging)
         {
             animator.speed = 0;  // Pausa a animação
@@ -89,6 +97,7 @@ public class PlayerSlap : MonoBehaviour
         slapWhoosh.PlayFeedbacks();
         isCharging = false;
         isSlapping = true;
+        chargingTime = 0f;
     }
 
     void ChargedSlap()

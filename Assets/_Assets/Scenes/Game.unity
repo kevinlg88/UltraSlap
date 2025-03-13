@@ -2208,7 +2208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7763fbe2ce8f45042b779a06ca1117c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keySlap: 303
+  keySlap: 256
   slapWhoosh: {fileID: 1276896076}
   isCharging: 0
   isSlapping: 0
@@ -2216,7 +2216,7 @@ MonoBehaviour:
   chargingTime: 0
   quickSlapThreshold: 0.1
   maxSlapThreshold: 5
-  TriggerGetRagBone: {fileID: 0}
+  TriggerGetRagBone: {fileID: 2146354361}
 --- !u!1001 &25846070
 PrefabInstance:
   m_ObjectHideFlags: 0
