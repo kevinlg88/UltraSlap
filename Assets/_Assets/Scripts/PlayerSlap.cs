@@ -9,6 +9,8 @@ public class PlayerSlap : MonoBehaviour
 {
     [SerializeField] KeyCode keySlap;
     [SerializeField] private MMFeedbacks slapWhoosh;
+    [SerializeField] private MMFeedbacks chargingSlap;
+    [SerializeField] private MMFeedbacks chargingSlapEnd;
     Animator animator;
 
     [SerializeField] bool isCharging = false;
@@ -107,6 +109,8 @@ public class PlayerSlap : MonoBehaviour
         if (isCharging)
         {
             animator.speed = 0;  // Pausa a animação
+            chargingSlap.PlayFeedbacks();
+
         }
     }
 
@@ -118,6 +122,7 @@ public class PlayerSlap : MonoBehaviour
             chargingTime = 0f;
             isSlapping = true;          // Bloqueia novos slaps até o cooldown
             isCharging = false;
+
         }
     }
 
@@ -150,6 +155,7 @@ public class PlayerSlap : MonoBehaviour
         isSlapping = false;
         isCharging = false;
         isOnCooldown = true;
+        chargingSlapEnd.PlayFeedbacks();
 
     }
 }
