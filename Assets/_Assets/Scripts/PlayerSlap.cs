@@ -117,12 +117,12 @@ public class PlayerSlap : MonoBehaviour
     void QuickSlap()
     {
         if (!isSlapping) {
-
             animator.speed = 1f;        // Retoma a animação ao soltar o botão  
             chargingTime = 0f;
             isSlapping = true;          // Bloqueia novos slaps até o cooldown
             isCharging = false;
 
+            chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
         }
     }
 
@@ -131,11 +131,12 @@ public class PlayerSlap : MonoBehaviour
 
         if (!isSlapping)
         {
-
             animator.speed = 1f;
             isCharging = false;
             isSlapping = true; // Bloqueia novos slaps
             isCharging = false;
+
+            chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
         }
     }
 
