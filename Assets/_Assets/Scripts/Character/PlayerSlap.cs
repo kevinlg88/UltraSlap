@@ -34,7 +34,7 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] private float quickSlapThreshold = 0.1f;
     [SerializeField] private float maxSlapThreshold = 5f;
 
-    [SerializeField] TriggerGetRagBone TriggerGetRagBone;
+    [SerializeField] TriggerHitbox TriggerGetRagBone;
 
 
     private void Start()

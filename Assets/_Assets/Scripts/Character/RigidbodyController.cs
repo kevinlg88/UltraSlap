@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RigidbodyController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class RigidbodyController : MonoBehaviour
     public Animator animator;
 
     [Header("Input Settings")]
+    public InputActionReference move;
     public bool enableInput = true;
 
     [Header("Gravity Settings")]
@@ -67,10 +69,13 @@ public class RigidbodyController : MonoBehaviour
         localMoveDirection = Vector2.zero;
 
         if (PlayerSlap.GetIsSlapping() == false) { 
-            if (Input.GetKey(KeyCode.A)) localMoveDirection += Vector2.left;
-            if (Input.GetKey(KeyCode.D)) localMoveDirection += Vector2.right;
-            if (Input.GetKey(KeyCode.W)) localMoveDirection += Vector2.up;
-            if (Input.GetKey(KeyCode.S)) localMoveDirection += Vector2.down;
+
+            localMoveDirection = move.action.ReadValue<Vector2>();
+
+            //if (Input.GetKey(KeyCode.A)) localMoveDirection += Vector2.left;
+            //if (Input.GetKey(KeyCode.D)) localMoveDirection += Vector2.right;
+            //if (Input.GetKey(KeyCode.W)) localMoveDirection += Vector2.up;
+            //if (Input.GetKey(KeyCode.S)) localMoveDirection += Vector2.down;
         }
 
         Quaternion cameraRotation = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);

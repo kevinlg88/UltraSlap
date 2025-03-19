@@ -5,7 +5,7 @@ using UnityEngine;
 using MoreMountains.Feedbacks;
 using System.Diagnostics;
 
-public class TriggerGetRagBone : MonoBehaviour
+public class TriggerHitbox : MonoBehaviour
 {
     [SerializeField] RagdollAnimator2 myragdoll;
     [SerializeField] GameObject effectPrefab;
