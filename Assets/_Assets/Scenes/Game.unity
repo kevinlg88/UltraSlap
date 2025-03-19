@@ -3431,7 +3431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character1: {fileID: 756714300}
-  character2: {fileID: 0}
+  character2: {fileID: 825700012}
   cameraTransform: {fileID: 330585546}
   minZoom: 25
   maxZoom: 50
@@ -9266,7 +9266,7 @@ MonoBehaviour:
   handler:
     _Editor_SelectedChain: 8
     _Editor_ChainCategory: 0
-    _EditorCategory: 2
+    _EditorCategory: 3
     _EditorMainCategory: 0
     _EditorMotionCategory: 2
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
