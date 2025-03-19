@@ -65,8 +65,8 @@ public class PlayerSlap : MonoBehaviour
 
         else if (isOnCooldown)
         {
-            cooldownTimer += Time.deltaTime;
-            if (cooldownTimer >= cooldown)
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0)
             {
                 isOnCooldown = false;
             }
@@ -145,18 +145,24 @@ public class PlayerSlap : MonoBehaviour
         slapWhoosh.PlayFeedbacks();
     }
 
-    void SlappingEnd()
+    void SlappingEnd()  //Define que não tem mais nenhum tapa ativo
     {
-        cooldown = Mathf.Min(minCooldown + (power - minPower) * cooldownGrowthRate, maxCooldown);
-
         animator.speed = 1f;
 
         chargingTime = 0f;
-        cooldownTimer = 0f;
+
+        cooldown = Mathf.Min(minCooldown + (power - minPower) * cooldownGrowthRate, maxCooldown);
+        cooldownTimer = cooldown;
+
         isSlapping = false;
         isCharging = false;
         isOnCooldown = true;
         chargingSlapEnd.PlayFeedbacks();
 
+    }
+
+    public bool GetIsSlapping()
+    {
+        return isSlapping;
     }
 }

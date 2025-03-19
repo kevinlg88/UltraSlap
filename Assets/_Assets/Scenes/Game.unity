@@ -10579,6 +10579,7 @@ MonoBehaviour:
   animator: {fileID: 756714302}
   enableInput: 1
   gravityMultiplier: 30
+  PlayerSlap: {fileID: 756714303}
 --- !u!136 &756714306
 CapsuleCollider:
   m_ObjectHideFlags: 0

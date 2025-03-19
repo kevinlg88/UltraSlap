@@ -33,6 +33,8 @@ public class RigidbodyController : MonoBehaviour
     public Vector3 worldMoveDirection { get; set; }
     public Vector3 currentAcceleration { get; private set; }
 
+    [SerializeField] PlayerSlap PlayerSlap;
+
     private void Start()
     {
         if (!rigidbodyComponent) rigidbodyComponent = GetComponent<Rigidbody>();
@@ -64,10 +66,12 @@ public class RigidbodyController : MonoBehaviour
     {
         localMoveDirection = Vector2.zero;
 
-        if (Input.GetKey(KeyCode.A)) localMoveDirection += Vector2.left;
-        if (Input.GetKey(KeyCode.D)) localMoveDirection += Vector2.right;
-        if (Input.GetKey(KeyCode.W)) localMoveDirection += Vector2.up;
-        if (Input.GetKey(KeyCode.S)) localMoveDirection += Vector2.down;
+        if (PlayerSlap.GetIsSlapping() == false) { 
+            if (Input.GetKey(KeyCode.A)) localMoveDirection += Vector2.left;
+            if (Input.GetKey(KeyCode.D)) localMoveDirection += Vector2.right;
+            if (Input.GetKey(KeyCode.W)) localMoveDirection += Vector2.up;
+            if (Input.GetKey(KeyCode.S)) localMoveDirection += Vector2.down;
+        }
 
         Quaternion cameraRotation = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);
 
