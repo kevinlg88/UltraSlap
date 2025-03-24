@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 public class TriggerHitbox : MonoBehaviour
 {
@@ -13,13 +14,13 @@ public class TriggerHitbox : MonoBehaviour
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
     bool isSlapping = false;
 
+
     private void Awake()
     {
         tag = gameObject.tag;
     }
     private void OnTriggerEnter(Collider other)
     {
-        UnityEngine.Debug.Log("dano de:" + slapPower);
 
         //Debug.Log("trigger:" + other.name);
         if (!other.attachedRigidbody)
@@ -62,11 +63,14 @@ public class TriggerHitbox : MonoBehaviour
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
+            
+
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
             if (ragdoll != null)
             {
+                UnityEngine.Debug.Log("bateu");
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
                 ragdoll.User_SwitchFallState();
                 slapEnemy.PlayFeedbacks();
@@ -103,8 +107,22 @@ public class TriggerHitbox : MonoBehaviour
         return null;
     }
 
+    private void OnEnable()
+    {
+
+        Time.timeScale = 0.1f; // Deixa o jogo rodando a 10% da velocidade normal
+
+        UnityEngine.Debug.Log("Scale: " + transform.localScale);
+
+
+    }
+
     private void OnDisable()
     {
+        transform.localScale = new Vector3(0.7475953f, 0.7475953f, 0.7475953f);
+
+        Time.timeScale = 1.0f; // Deixa o jogo rodando a 10% da velocidade normal
+
         isSlapping = false;
     }
 

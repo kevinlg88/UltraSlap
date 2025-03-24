@@ -51,7 +51,7 @@ public class PlayerSlap : MonoBehaviour
             chargingTime = 0f;
             isCharging = true;
 
-            
+
             animator.SetTrigger("triggerTapa");
         }
 
