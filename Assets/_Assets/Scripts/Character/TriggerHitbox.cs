@@ -63,7 +63,7 @@ public class TriggerHitbox : MonoBehaviour
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
-            
+            UnityEngine.Debug.Log("bateu");
 
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
@@ -110,7 +110,7 @@ public class TriggerHitbox : MonoBehaviour
     private void OnEnable()
     {
 
-        Time.timeScale = 0.1f; // Deixa o jogo rodando a 10% da velocidade normal
+        //Time.timeScale = 0.1f; // Deixa o jogo rodando a 10% da velocidade normal (camera lenta)
 
         UnityEngine.Debug.Log("Scale: " + transform.localScale);
 
@@ -121,7 +121,7 @@ public class TriggerHitbox : MonoBehaviour
     {
         transform.localScale = new Vector3(0.7475953f, 0.7475953f, 0.7475953f);
 
-        Time.timeScale = 1.0f; // Deixa o jogo rodando a 10% da velocidade normal
+        //Time.timeScale = 1.0f; // Deixa o jogo rodando na velocidade normal
 
         isSlapping = false;
     }
