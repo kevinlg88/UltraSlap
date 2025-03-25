@@ -4,6 +4,7 @@ using UnityEngine;
 using MoreMountains.Feedbacks;
 using System.Diagnostics;
 using System.Runtime;
+using System.Threading.Tasks;
 
 public class PlayerSlap : MonoBehaviour
 {

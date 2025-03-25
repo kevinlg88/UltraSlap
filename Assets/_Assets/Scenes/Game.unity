@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18376914, g: 0.22913153, b: 0.30443248, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8468,7 +8468,7 @@ PrefabInstance:
     - target: {fileID: 5817341314604482824, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: handler._EditorCategory
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5817341314604482824, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
@@ -8478,7 +8478,17 @@ PrefabInstance:
     - target: {fileID: 5817341314604482824, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: handler._EditorMainCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817341314604482824, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: handler._EditorMotionCategory
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817341314604482824, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: handler._Editor_ChainCategory
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5817341314604482824, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
