@@ -19,7 +19,7 @@ public class TriggerHitbox : MonoBehaviour
     {
         tag = gameObject.tag;
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
 
         //Debug.Log("trigger:" + other.name);
