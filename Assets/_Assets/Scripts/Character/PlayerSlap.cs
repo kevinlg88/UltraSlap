@@ -51,9 +51,7 @@ public class PlayerSlap : MonoBehaviour
         {
             chargingTime = 0f;
             isCharging = true;
-
-
-            animator.SetTrigger("triggerTapa");
+            animator.SetTrigger("triggerCharging");
         }
 
 
@@ -61,7 +59,10 @@ public class PlayerSlap : MonoBehaviour
         else if (Input.GetKey(keySlap) && isCharging && !isOnCooldown)
         {
             chargingTime += Time.deltaTime;
-
+            if(chargingTime > 0.3f)
+            {
+                animator.SetBool("isChargingSlap", true);
+            }
         }
 
         else if (isOnCooldown)
@@ -109,7 +110,7 @@ public class PlayerSlap : MonoBehaviour
 
         if (isCharging)
         {
-            animator.speed = 0;  // Pausa a animação
+            //animator.speed = 0;  // Pausa a animação
             chargingSlap.PlayFeedbacks();
 
         }
@@ -118,12 +119,14 @@ public class PlayerSlap : MonoBehaviour
     void QuickSlap()
     {
         if (!isSlapping) {
+            animator.SetTrigger("triggerTapa");
             animator.speed = 1f;        // Retoma a animação ao soltar o botão  
             chargingTime = 0f;
             isSlapping = true;          // Bloqueia novos slaps até o cooldown
             isCharging = false;
 
             chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
+            animator.SetBool("isChargingSlap", false);
         }
     }
 
@@ -133,11 +136,11 @@ public class PlayerSlap : MonoBehaviour
         if (!isSlapping)
         {
             animator.speed = 1f;
-            isCharging = false;
             isSlapping = true; // Bloqueia novos slaps
             isCharging = false;
 
             chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
+            animator.SetBool("isChargingSlap", false);
         }
     }
 
@@ -159,6 +162,8 @@ public class PlayerSlap : MonoBehaviour
         isCharging = false;
         isOnCooldown = true;
         chargingSlapEnd.PlayFeedbacks();
+        animator.SetBool("isChargingSlap", false);
+
 
     }
 
