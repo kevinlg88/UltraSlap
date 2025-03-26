@@ -11,7 +11,7 @@ public class CameraZoom : MonoBehaviour
     public float zoomFactor = 1.2f; // Influencia o ritmo de afastamento/aproximação da câmera quando os personagens se distanciam ou se aproximam
     public float zoomSpeed = 5f; // Velocidade de ajuste do zoom
     public Vector3 offset = new Vector3(0, 5, -10); // Offset da câmera
-    public float heightThreshold = -5f; // Altura mínima para considerar um personagem ativo
+    public float heightThreshold = -4f; // Altura mínima para considerar um personagem ativo
 
     void Update()
     {
@@ -36,11 +36,16 @@ public class CameraZoom : MonoBehaviour
         {
             // Apenas o personagem 1 está acima do limite, focar nele
             targetPosition = character1.position + offset.normalized * minZoom;
+
+            Destroy(character2.gameObject);
+
         }
         else if (isCharacter2AboveThreshold)
         {
             // Apenas o personagem 2 está acima do limite, focar nele
             targetPosition = character2.position + offset.normalized * minZoom;
+
+            Destroy(character1.gameObject);
         }
 
         // Aplicar interpolação para suavizar o movimento da câmera
