@@ -108,13 +108,16 @@ public class PlayerSlap : MonoBehaviour
     public void PauseChargeAnimation()
     {
 
+        UnityEngine.Debug.Log("carregando");
         if (isCharging)
         {
+            //UnityEngine.Debug.Log("carregando");
             //animator.speed = 0;  // Pausa a animação
             chargingSlap.PlayFeedbacks();
 
         }
     }
+
 
     void QuickSlap()
     {
