@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     void OnDestroy()
     {
         levelManager = FindObjectOfType<LevelManager>();
-        levelManager.roundVictory(playerIndex); //Verifica se o match acabou
+        if(levelManager != null )
+            levelManager.roundVictory(playerIndex); //Verifica se o match acabou
     }
 }
