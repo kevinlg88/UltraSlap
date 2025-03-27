@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 using UnityEngine.SceneManagement;
-using TMPro; // Importa TextMeshPro
+using TMPro;
+using MaskTransitions;
 
 public class LevelManager : MonoBehaviour
 {
@@ -60,7 +61,8 @@ public class LevelManager : MonoBehaviour
             isAlive[i] = true;
         }
 
-        SceneManager.LoadScene(0); // Recarrega a cena para um novo round
+        //SceneManager.LoadScene(0); // Recarrega a cena para um novo round
+        TransitionManager.Instance.LoadLevel("Game");
     }
 
     public void roundVictory(int playerIndex)

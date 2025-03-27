@@ -59,7 +59,7 @@ public class PlayerSlap : MonoBehaviour
         else if (Input.GetKey(keySlap) && isCharging && !isOnCooldown)
         {
             chargingTime += Time.deltaTime;
-            if(chargingTime > 0.3f)
+            if(chargingTime > 0.0f)
             {
                 animator.SetBool("isChargingSlap", true);
             }
