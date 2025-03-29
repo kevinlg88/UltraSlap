@@ -61,16 +61,23 @@ namespace MaskTransitions
             maxSize += maxSize / 4;
         }
 
-        void StartAnimation(float? totalTime = null)
+        void StartAnimation(float? totalTime = null, System.Action onComplete = null)
         {
             float animationTime = totalTime ?? individualTransitionTime;
 
             maskRect.sizeDelta = Vector2.zero;
             parentMaskRect.sizeDelta = Vector2.zero;
 
-            maskRect.DOSizeDelta(new Vector2(maxSize, maxSize), animationTime).SetEase(Ease.InOutQuad);
+            // Executa a animação
+            Tween tween = maskRect.DOSizeDelta(new Vector2(maxSize, maxSize), animationTime)
+                .SetEase(Ease.InOutQuad)
+                .OnComplete(() => onComplete?.Invoke()); // Chama o callback quando a animação termina
+
             if (rotation)
-                maskRect.DORotate(new Vector3(0, 0, 180), animationTime, RotateMode.FastBeyond360).SetEase(Ease.InOutQuad);
+            {
+                maskRect.DORotate(new Vector3(0, 0, 180), animationTime, RotateMode.FastBeyond360)
+                    .SetEase(Ease.InOutQuad);
+            }
         }
 
         Tween StartAnimationForLoad(float? totalTime = null)
@@ -155,9 +162,29 @@ namespace MaskTransitions
         #endregion
 
         #region Play Partial Transitions
-        public void PlayStartHalfTransition(float transitionTime, float startDelay = 0f)
+        public void PlayStartHalfTransition(float transitionTime, float startDelay = 0f, System.Action onComplete = null)
         {
-            StartCoroutine(PlayStartHalfTransitionWithDelay(transitionTime, startDelay));
+            // Espera o delay e depois inicia a animação
+            maskRect.sizeDelta = Vector2.zero;
+            parentMaskRect.sizeDelta = Vector2.zero;
+            maskRect.rotation = Quaternion.identity;
+
+            // Criação da Sequence
+            Sequence animationSequence = DOTween.Sequence();
+
+            // Adiciona a animação de tamanho à Sequence
+            animationSequence.Append(maskRect.DOSizeDelta(new Vector2(maxSize, maxSize), transitionTime)
+                                           .SetEase(Ease.InOutQuad));
+
+            // Se houver rotação, adiciona à Sequence
+            if (rotation)
+            {
+                animationSequence.Join(maskRect.DORotate(new Vector3(0, 0, 180), transitionTime, RotateMode.FastBeyond360)
+                                 .SetEase(Ease.InOutQuad));
+            }
+
+            // Quando a animação terminar, chama o callback
+            animationSequence.OnComplete(() => onComplete?.Invoke());
         }
         public void PlayEndHalfTransition(float transitionTime, float startDelay = 0f)
         {

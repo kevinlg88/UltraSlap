@@ -4,11 +4,17 @@ using UnityEngine;
 using MoreMountains.Feedbacks;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 using MaskTransitions;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private MMFeedbacks levelSong;
+    private CameraZoom cameraZoom; // Referência para CameraZoom
+
     [SerializeField] private int numberOfPlayers = 2; // Número fixo de jogadores
 
     [SerializeField] private TextMeshProUGUI matchWinnerText; // Referência ao texto da UI
@@ -18,6 +24,14 @@ public class LevelManager : MonoBehaviour
     public int maxVictories = 3;
 
     private static LevelManager instance;
+
+    public KeyCode continueKey;  // A tecla que vai despausar o jogo e executar a transição
+    public float transitionTime = 3f;  // Exemplo de tempo de transição
+
+    public UnityEngine.UI.Image[] TeamTags = new UnityEngine.UI.Image[8]; // Array de TeamTags para times de players por cor (material)
+    public Renderer[] playerRenderers; // Referência para os Renderers dos players (para pegar a cor do material)
+
+
 
     void Awake()
     {
@@ -33,6 +47,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+
         matchWinnerText.gameObject.SetActive(false);
 
         // Inicializar os arrays com base no número de jogadores
@@ -48,9 +63,93 @@ public class LevelManager : MonoBehaviour
         startMatch();
     }
 
+    private void Update()
+    {
+        // Verifica se o botão continuar foi pressionada quando o jogador está na tela de transição
+        if (Input.GetKeyDown(continueKey) && Time.timeScale == 0f)
+        {
+            SceneManager.LoadScene(0); // Recarrega a cena para um novo round
+
+            // Varre todas as TeamTags e as torna invisíveis
+            for (int i = 0; i < TeamTags.Length; i++)
+            {
+                if (TeamTags[i] != null)
+                {
+                    TeamTags[i].gameObject.SetActive(false); // Torna a tag invisível
+                }
+            }
+
+            StartCoroutine(WaitForSceneInitialization());
+
+
+
+            // Despausa o jogo
+            Time.timeScale = 1f;
+
+            // Chama o método para executar a transição de fim
+            TransitionManager.Instance.PlayEndHalfTransition(transitionTime);
+        }
+    }
+
+    private IEnumerator WaitForSceneInitialization()
+    {
+        yield return new WaitForSeconds(0.5f);  // Adiciona uma pequena pausa para garantir que todos os objetos foram carregados                                      
+        // Encontrar a instância da Camera na cena
+        cameraZoom = FindObjectOfType<CameraZoom>();
+        if (cameraZoom != null)                 // Chamar o método FindPlayersInScene para setar posição dos players na camera
+        {
+            cameraZoom.FindPlayersInScene();
+        }
+    }
+
+
     public void startMatch()
     {
         levelSong.PlayFeedbacks();
+
+        // Encontra todos os objetos que possuem o script PlayerManager
+        PlayerManager[] players = FindObjectsOfType<PlayerManager>();
+
+        // Ajusta o número de jogadores dinamicamente com base nos objetos encontrados
+        numberOfPlayers = players.Length;
+
+        // Redimensiona o array de renderizadores
+        playerRenderers = new Renderer[numberOfPlayers];
+
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            // Busca pelo filho chamado "Cube.002" dentro do player
+            Transform child = players[i].transform.Find("Cube.002");
+
+            if (child != null)
+            {
+                playerRenderers[i] = child.GetComponent<Renderer>();
+            }
+            else
+            {
+                UnityEngine.Debug.LogWarning($"Cube.002 não encontrado no Player {i}");
+            }
+        }
+
+        int tagIndex = 0;
+        List<Material> assignedMaterials = new List<Material>();  // Lista para rastrear materiais já atribuídos
+
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            if (playerRenderers[i] != null && tagIndex < TeamTags.Length)
+            {
+                Material playerMaterial = playerRenderers[i].material;
+
+                // Verifica se o material já foi atribuído
+                if (!assignedMaterials.Contains(playerMaterial))
+                {
+                    TeamTags[tagIndex].color = playerMaterial.color;  // Define a cor da tag para o material do jogador
+                    assignedMaterials.Add(playerMaterial);  // Adiciona o material à lista
+                    tagIndex++;  // Avança para a próxima tag
+                }
+            }
+        }
+
     }
 
     public void newRound()
@@ -61,9 +160,26 @@ public class LevelManager : MonoBehaviour
             isAlive[i] = true;
         }
 
-        //SceneManager.LoadScene(0); // Recarrega a cena para um novo round
-        TransitionManager.Instance.LoadLevel("Game");
+        TransitionManager.Instance.PlayStartHalfTransition(3f, 0f, () =>
+        {
+            // Pausa o jogo quando a transição estiver completa
+            Time.timeScale = 0f;
+
+            // Varre todas as TeamTags e torna visíveis apenas as que possuem uma cor diferente de branco
+            for (int i = 0; i < TeamTags.Length; i++)
+            {
+                if (TeamTags[i].color != Color.white)
+                {
+                    TeamTags[i].gameObject.SetActive(true); // Torna a tag visível
+                }
+                else
+                {
+                    TeamTags[i].gameObject.SetActive(false); // Torna invisível se ainda for branca
+                }
+            }
+        });
     }
+
 
     public void roundVictory(int playerIndex)
     {

@@ -1,9 +1,11 @@
+using System.Diagnostics;
 using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
 {
-    public Transform character1; // Primeiro personagem
-    public Transform character2; // Segundo personagem
+    public static CameraZoom Instance;
+
+    public Transform[] characters;  // Lista de jogadores na cena
     public Transform cameraTransform; // Transform da câmera
 
     public float minZoom = 5f; // Distância mínima da câmera
@@ -13,42 +15,84 @@ public class CameraZoom : MonoBehaviour
     public Vector3 offset = new Vector3(0, 5, -10); // Offset da câmera
     public float heightThreshold = -4f; // Altura mínima para considerar um personagem ativo
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        FindPlayersInScene();
+    }
+
+    public void FindPlayersInScene() //Procura todos os jogadores na partida
+    {
+        // Encontra todas as instâncias do prefab Player baseando-se no script PlayerManager
+        PlayerManager[] playerScripts = FindObjectsOfType<PlayerManager>();
+        characters = new Transform[playerScripts.Length];
+        //UnityEngine.Debug.Log($"Jogadores encontrados: {playerScripts.Length}");
+
+        for (int i = 0; i < playerScripts.Length; i++)
+        {
+            characters[i] = playerScripts[i].transform;
+            UnityEngine.Debug.Log($"Jogador {i + 1} encontrado: {characters[i].name}");
+
+        }
+
+
+        /*if (characters.Length < 2)
+        {
+            UnityEngine.Debug.LogWarning("Menos de 2 jogadores encontrados! Certifique-se de que os Players foram instanciados corretamente.");
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Jogadores encontrados: " + characters.Length);
+        }*/
+    }
+
     void Update()
     {
-        if (character1 == null || character2 == null || cameraTransform == null)
-            return;
-
-        bool isCharacter1AboveThreshold = character1.position.y >= heightThreshold;
-        bool isCharacter2AboveThreshold = character2.position.y >= heightThreshold;
-
-        Vector3 targetPosition = cameraTransform.position; // Mantém a posição atual se ambos estiverem abaixo do limite
-        float targetZoom = (maxZoom + minZoom) / 2; // Zoom médio padrão se nenhum personagem estiver acima do limite
-
-        if (isCharacter1AboveThreshold && isCharacter2AboveThreshold)
+        if (characters == null || characters.Length == 0 || cameraTransform == null)
         {
-            // Ambos estão acima do limite, calcular normalmente
-            float distance = Vector3.Distance(character1.position, character2.position);
-            targetZoom = Mathf.Clamp(distance*zoomFactor, minZoom, maxZoom);
-            Vector3 midPoint = (character1.position + character2.position) / 2;
+            FindPlayersInScene(); // Rebusca os players caso não existam
+            return;
+        }
+
+        // Criar uma nova lista de personagens vivos
+        Transform[] aliveCharacters = System.Array.FindAll(characters, c => c != null && c.position.y >= heightThreshold);
+
+        // Destruir os personagens que caíram abaixo do threshold
+        foreach (Transform character in characters)
+        {
+            if (character != null && character.position.y < heightThreshold)
+            {
+                UnityEngine.Debug.Log($"Eliminando {character.name} por cair abaixo do limite!");
+                Destroy(character.gameObject);
+            }
+        }
+
+        if (aliveCharacters.Length == 0) return; // Se ninguém está vivo, não move a câmera
+
+        Vector3 targetPosition = cameraTransform.position;
+        float targetZoom = (maxZoom + minZoom) / 2;
+
+        if (aliveCharacters.Length == 2)
+        {
+            float distance = Vector3.Distance(aliveCharacters[0].position, aliveCharacters[1].position);
+            targetZoom = Mathf.Clamp(distance * zoomFactor, minZoom, maxZoom);
+            Vector3 midPoint = (aliveCharacters[0].position + aliveCharacters[1].position) / 2;
             targetPosition = midPoint + offset.normalized * targetZoom;
         }
-        else if (isCharacter1AboveThreshold)
+        else if (aliveCharacters.Length == 1)
         {
-            // Apenas o personagem 1 está acima do limite, focar nele
-            targetPosition = character1.position + offset.normalized * minZoom;
-
-            Destroy(character2.gameObject);
-
-        }
-        else if (isCharacter2AboveThreshold)
-        {
-            // Apenas o personagem 2 está acima do limite, focar nele
-            targetPosition = character2.position + offset.normalized * minZoom;
-
-            Destroy(character1.gameObject);
+            targetPosition = aliveCharacters[0].position + offset.normalized * minZoom;
         }
 
-        // Aplicar interpolação para suavizar o movimento da câmera
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * zoomSpeed);
     }
 }
