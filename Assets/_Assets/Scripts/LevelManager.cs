@@ -16,20 +16,26 @@ public class LevelManager : MonoBehaviour
     private CameraZoom cameraZoom; // Referência para CameraZoom
 
     [SerializeField] private int numberOfPlayers = 2; // Número fixo de jogadores
+    [SerializeField] private PlayerManager[] players; // Jogadores na partida
 
     [SerializeField] private TextMeshProUGUI matchWinnerText; // Referência ao texto da UI
 
     public bool[] isAlive; // Verifica quais players estão vivos
     public int[] victoriesCounter; // Contagem de vitória para cada jogador
     public int maxVictories = 3;
+    public GameObject victoryHandPrefab; // Prefab do ícone de vitória ser instaanciado para representar quantas vezes cada player venceu
+    public GameObject[] victoryCounterGroup; //Objeto onde fica o contador visual de vitórias, contendo o prefab do ícone de vitória
 
     private static LevelManager instance;
 
     public KeyCode continueKey;  // A tecla que vai despausar o jogo e executar a transição
     public float transitionTime = 3f;  // Exemplo de tempo de transição
 
-    public UnityEngine.UI.Image[] TeamTags = new UnityEngine.UI.Image[8]; // Array de TeamTags para times de players por cor (material)
+    public UnityEngine.UI.Image[] TeamTagsIcons = new UnityEngine.UI.Image[8]; // Array de TeamTags para times de players por cor (material)
     public Renderer[] playerRenderers; // Referência para os Renderers dos players (para pegar a cor do material)
+
+    [Header("List of Pre-defined Teams Materials")]
+    [SerializeField] private Material[] teamMaterials; // 8 possíveis team materiais
 
 
 
@@ -71,35 +77,46 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(0); // Recarrega a cena para um novo round
 
             // Varre todas as TeamTags e as torna invisíveis
-            for (int i = 0; i < TeamTags.Length; i++)
+            for (int i = 0; i < TeamTagsIcons.Length; i++)
             {
-                if (TeamTags[i] != null)
+                if (TeamTagsIcons[i] != null)
                 {
-                    TeamTags[i].gameObject.SetActive(false); // Torna a tag invisível
+                    TeamTagsIcons[i].gameObject.SetActive(false); // Torna a tag invisível
                 }
             }
 
             StartCoroutine(WaitForSceneInitialization());
 
 
+            // Chama o método para executar a transição de fim
+            TransitionManager.Instance.PlayEndHalfTransition(transitionTime);
 
             // Despausa o jogo
             Time.timeScale = 1f;
 
-            // Chama o método para executar a transição de fim
-            TransitionManager.Instance.PlayEndHalfTransition(transitionTime);
         }
+
+
     }
 
     private IEnumerator WaitForSceneInitialization()
     {
-        yield return new WaitForSeconds(0.5f);  // Adiciona uma pequena pausa para garantir que todos os objetos foram carregados                                      
-        // Encontrar a instância da Camera na cena
+        yield return new WaitForSeconds(0.4f);
+
+        players = FindObjectsOfType<PlayerManager>();  // Atualiza a lista de jogadores APÓS o carregamento da cena
+
+        UnityEngine.Debug.Log($"Jogadores encontrados após cena recarregada: {players.Length}");
+
+        AssignTeamMaterials();
+
         cameraZoom = FindObjectOfType<CameraZoom>();
-        if (cameraZoom != null)                 // Chamar o método FindPlayersInScene para setar posição dos players na camera
+        if (cameraZoom != null)
         {
             cameraZoom.FindPlayersInScene();
         }
+
+        yield return new WaitForSeconds(0.6f);
+
     }
 
 
@@ -108,7 +125,7 @@ public class LevelManager : MonoBehaviour
         levelSong.PlayFeedbacks();
 
         // Encontra todos os objetos que possuem o script PlayerManager
-        PlayerManager[] players = FindObjectsOfType<PlayerManager>();
+        players = FindObjectsOfType<PlayerManager>();
 
         // Ajusta o número de jogadores dinamicamente com base nos objetos encontrados
         numberOfPlayers = players.Length;
@@ -134,47 +151,68 @@ public class LevelManager : MonoBehaviour
         int tagIndex = 0;
         List<Material> assignedMaterials = new List<Material>();  // Lista para rastrear materiais já atribuídos
 
+        AssignTeamMaterials();
+
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            if (playerRenderers[i] != null && tagIndex < TeamTags.Length)
+            if (playerRenderers[i] != null && tagIndex < TeamTagsIcons.Length)
             {
                 Material playerMaterial = playerRenderers[i].material;
 
                 // Verifica se o material já foi atribuído
                 if (!assignedMaterials.Contains(playerMaterial))
                 {
-                    TeamTags[tagIndex].color = playerMaterial.color;  // Define a cor da tag para o material do jogador
+                    TeamTagsIcons[tagIndex].color = playerMaterial.color;  // Define a cor da tag para o material do jogador
                     assignedMaterials.Add(playerMaterial);  // Adiciona o material à lista
                     tagIndex++;  // Avança para a próxima tag
                 }
             }
         }
 
+
+    }
+
+    public void AssignTeamMaterials()
+    {
+        // Encontra todos os jogadores ativos na cena
+        PlayerManager[] players = FindObjectsOfType<PlayerManager>();
+
+        foreach (PlayerManager player in players)
+        {
+            int teamIndex = Mathf.Clamp(player.team, 0, teamMaterials.Length - 1);
+            Material selectedMaterial = teamMaterials[teamIndex];
+
+            player.ApplyTeamMaterial(selectedMaterial);
+        }
     }
 
     public void newRound()
     {
+
         // Garante que todos os jogadores estejam vivos para um novo round
         for (int i = 0; i < numberOfPlayers; i++)
         {
             isAlive[i] = true;
         }
 
+        // ⚠️ IMPORTANTE: Atualiza a lista de jogadores para evitar referências nulas
+        players = FindObjectsOfType<PlayerManager>();
+
         TransitionManager.Instance.PlayStartHalfTransition(3f, 0f, () =>
         {
             // Pausa o jogo quando a transição estiver completa
             Time.timeScale = 0f;
 
-            // Varre todas as TeamTags e torna visíveis apenas as que possuem uma cor diferente de branco
-            for (int i = 0; i < TeamTags.Length; i++)
+            // Atualiza as TeamTags
+            for (int i = 0; i < TeamTagsIcons.Length; i++)
             {
-                if (TeamTags[i].color != Color.white)
+                if (TeamTagsIcons[i].color != Color.white)
                 {
-                    TeamTags[i].gameObject.SetActive(true); // Torna a tag visível
+                    TeamTagsIcons[i].gameObject.SetActive(true); // Torna a tag visível
                 }
                 else
                 {
-                    TeamTags[i].gameObject.SetActive(false); // Torna invisível se ainda for branca
+                    TeamTagsIcons[i].gameObject.SetActive(false); // Torna invisível se ainda for branca
                 }
             }
         });
@@ -198,26 +236,35 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        // Se restar apenas um jogador, ele vence a rodada
-        if (alivePlayers == 1 && winnerIndex != -1)
+        if (alivePlayers == 1) // Se apenas um jogador restou, ele venceu
         {
-            victoriesCounter[winnerIndex]++; // Incrementa vitórias do jogador vencedor
-            UnityEngine.Debug.Log($"Player {winnerIndex + 1} venceu a rodada! Vitórias: {victoriesCounter[winnerIndex]}");
+            // Verifica se players está atualizado e winnerIndex é válido
+            if (players == null || winnerIndex < 0 || winnerIndex >= players.Length || players[winnerIndex] == null)
+            {
+                UnityEngine.Debug.LogError($"Erro no roundVictory: Índice inválido ({winnerIndex}) ou referência nula.");
+                return;
+            }
 
-            // Verifica se o jogador atingiu o número máximo de vitórias
+            victoriesCounter[winnerIndex]++; // Incrementa a contagem de vitórias
+
+            // Apenas atualiza os contadores se o jogador ainda existir
+            if (victoriesCounter[winnerIndex] > 0)
+            {
+                UpdateVictoryCounters(winnerIndex);
+            }
+
             if (victoriesCounter[winnerIndex] >= maxVictories)
             {
-                UnityEngine.Debug.Log($"Player {winnerIndex + 1} Wins!");
-                // Aqui pode adicionar uma tela de vitória ou resetar o jogo
+                matchWinnerText.text = $"Jogador {winnerIndex + 1} Venceu a Partida!";
+                matchWinnerText.gameObject.SetActive(true);
 
-                ShowMatchWinner(winnerIndex);
+                TransitionManager.Instance.PlayEndHalfTransition(transitionTime);
             }
             else
             {
-                newRound(); // Reinicia a rodada
+                newRound(); // Inicia um novo round
             }
         }
-
 
     }
 
@@ -228,5 +275,38 @@ public class LevelManager : MonoBehaviour
             matchWinnerText.text = $"Player {winnerIndex + 1} Wins!";
             matchWinnerText.gameObject.SetActive(true);
         }
+    }
+
+    public void UpdateVictoryCounters(int winnerIndex)
+    {
+        int winnerTeam = players[winnerIndex].team; // Obtém o time do jogador vencedor
+        Material winnerMaterial = teamMaterials[winnerTeam]; // Obtém o material correspondente ao time
+        int counterIndex = -1; // Índice correspondente no victoryCounterGroup
+
+        // Percorre os ícones de teamTags para encontrar a correspondência com o material do vencedor
+        for (int i = 0; i < TeamTagsIcons.Length; i++)
+        {
+            if (TeamTagsIcons[i] != null && TeamTagsIcons[i].color != Color.white) // Verifica se a tag é válida
+            {
+                // Verifica se a cor do ícone do time corresponde à cor do material do vencedor
+                if (TeamTagsIcons[i].color == winnerMaterial.color)
+                {
+                    counterIndex = i; // Define o índice do grupo de contagem de vitórias
+                    break; // Sai do loop ao encontrar a correspondência
+                }
+            }
+        }
+
+        // Se encontrou um índice válido, instancia a vitória no local correto
+        if (counterIndex >= 0 && counterIndex < victoryCounterGroup.Length)
+        {
+            GameObject counterGroup = victoryCounterGroup[counterIndex]; // Obtém o grupo correto
+            Instantiate(victoryHandPrefab, counterGroup.transform); // Instancia a mão de vitória
+        }
+        else
+        {
+            UnityEngine.Debug.LogError($"Não foi possível encontrar um grupo válido para o time {winnerTeam}");
+        }
+
     }
 }
