@@ -51,7 +51,8 @@ public class PlayerSlap : MonoBehaviour
         {
             chargingTime = 0f;
             isCharging = true;
-            animator.SetTrigger("triggerCharging");
+            animator.SetTrigger("triggerSlap");
+            animator.SetBool("isChargingSlap", true);
         }
 
 
@@ -59,10 +60,6 @@ public class PlayerSlap : MonoBehaviour
         else if (Input.GetKey(keySlap) && isCharging && !isOnCooldown)
         {
             chargingTime += Time.deltaTime;
-            if(chargingTime > 0.0f)
-            {
-                animator.SetBool("isChargingSlap", true);
-            }
         }
 
         else if (isOnCooldown)
@@ -122,14 +119,13 @@ public class PlayerSlap : MonoBehaviour
     void QuickSlap()
     {
         if (!isSlapping) {
-            animator.SetTrigger("triggerTapa");
+            animator.SetBool("isChargingSlap", false);
             animator.speed = 1f;        // Retoma a animação ao soltar o botão  
             chargingTime = 0f;
             isSlapping = true;          // Bloqueia novos slaps até o cooldown
             isCharging = false;
 
             chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
-            animator.SetBool("isChargingSlap", false);
         }
     }
 
@@ -138,12 +134,12 @@ public class PlayerSlap : MonoBehaviour
 
         if (!isSlapping)
         {
+            animator.SetBool("isChargingSlap", false);
             animator.speed = 1f;
             isSlapping = true; // Bloqueia novos slaps
             isCharging = false;
 
             chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
-            animator.SetBool("isChargingSlap", false);
         }
     }
 
