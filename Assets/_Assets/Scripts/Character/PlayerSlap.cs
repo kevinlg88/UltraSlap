@@ -170,4 +170,14 @@ public class PlayerSlap : MonoBehaviour
     {
         return isSlapping;
     }
+
+    public float GetMinPower()
+    {
+        return minPower;
+    }
+
+    public float GetMaxPower()
+    {
+        return maxPower;
+    }
 }

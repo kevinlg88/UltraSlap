@@ -7754,6 +7754,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1878745275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1249685430157618018, guid: 2490b1b11a706474098ed495339f284a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5870259394952150934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7763fbe2ce8f45042b779a06ca1117c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1889413577 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 193710, guid: 9c8cb53c8c3a8444c96d513d1bde208a,
@@ -8223,6 +8235,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: playerSlap
+      value: 
+      objectReference: {fileID: 2003716757}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: effectPrefab
+      value: 
+      objectReference: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
+        type: 3}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: maxEffectPrefabScale
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8621374197728790150, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -8422,6 +8450,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2003064982}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2003716757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1249685430157618018, guid: 2490b1b11a706474098ed495339f284a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1944866253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7763fbe2ce8f45042b779a06ca1117c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2004537182
 GameObject:
   m_ObjectHideFlags: 0
@@ -9981,6 +10021,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -124.57301
       objectReference: {fileID: 0}
+    - target: {fileID: 8177324685711451938, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8247922267623107800, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9995,6 +10040,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.3278396
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: playerSlap
+      value: 
+      objectReference: {fileID: 1878745275}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: effectPrefab
+      value: 
+      objectReference: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
+        type: 3}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: maxEffectPrefabScale
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

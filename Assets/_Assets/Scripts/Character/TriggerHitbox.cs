@@ -9,10 +9,15 @@ using System.Security.Cryptography;
 public class TriggerHitbox : MonoBehaviour
 {
     [SerializeField] RagdollAnimator2 myragdoll;
+
     [SerializeField] GameObject effectPrefab;
+    [SerializeField] float maxEffectPrefabScale = 3.5f; //Variável para definição de tamanho máximo que o vfx do tapa é pode chegar, de acordo com a intensidade do slapPower
+
     [SerializeField] float slapPower;
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
     bool isSlapping = false;
+
+    [SerializeField] PlayerSlap playerSlap;
 
 
     private void Awake()
@@ -82,7 +87,20 @@ public class TriggerHitbox : MonoBehaviour
             //ragdoll.User_AddRigidbodyImpact(rigidbody,this.gameObject.transform.forward * slapPower, 0.0f, ForceMode.Impulse);
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower,0.0f, ForceMode.Impulse);
             rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
+
+
+
+            // Normaliza o slapPower entre 0 e 1
+            float t = Mathf.InverseLerp(playerSlap.GetMinPower(), playerSlap.GetMaxPower(), slapPower);
+            // Interpola entre 1 (escala base) e o valor máximo
+            float finalScale = Mathf.Lerp(1f, maxEffectPrefabScale, t);
+
             GameObject go = Instantiate(effectPrefab,this.transform.position, Quaternion.identity);
+            go.transform.localScale = Vector3.one * finalScale; // a escala do VFX é definida de acordo com a intensidade do powerSlap
+            
+            // Mover o efeito levemente nos eixos globais Y (altura) e Z (frente da câmera)
+            go.transform.position += new Vector3(0f, 0.9f, 0.9f); // Ajuste esses valores conforme necessário
+
             Destroy(go,1f);
             //Debug.Log("aplicou força");
 
