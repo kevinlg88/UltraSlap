@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     public int maxVictories = 3;
     public GameObject victoryHandPrefab; // Prefab do ícone de vitória ser instaanciado para representar quantas vezes cada player venceu
     public GameObject[] victoryCounterGroup; //Objeto onde fica o contador visual de vitórias, contendo o prefab do ícone de vitória
+    [SerializeField] private GameObject transitionUI;
 
     private static LevelManager instance;
 
@@ -76,14 +77,9 @@ public class LevelManager : MonoBehaviour
         {
             SceneManager.LoadScene(0); // Recarrega a cena para um novo round
 
-            // Varre todas as TeamTags e as torna invisíveis
-            for (int i = 0; i < TeamTagsIcons.Length; i++)
-            {
-                if (TeamTagsIcons[i] != null)
-                {
-                    TeamTagsIcons[i].gameObject.SetActive(false); // Torna a tag invisível
-                }
-            }
+            
+            transitionUI.SetActive(false); //Faz a tela de transição, com TeamTagsIcons e outros botões, ficar inativa
+
 
             StartCoroutine(WaitForSceneInitialization());
 
@@ -203,18 +199,7 @@ public class LevelManager : MonoBehaviour
             // Pausa o jogo quando a transição estiver completa
             Time.timeScale = 0f;
 
-            // Atualiza as TeamTags
-            for (int i = 0; i < TeamTagsIcons.Length; i++)
-            {
-                if (TeamTagsIcons[i].color != Color.white)
-                {
-                    TeamTagsIcons[i].gameObject.SetActive(true); // Torna a tag visível
-                }
-                else
-                {
-                    TeamTagsIcons[i].gameObject.SetActive(false); // Torna invisível se ainda for branca
-                }
-            }
+            transitionUI.SetActive(true); //Faz a tela de transição, com TeamTagsIcons e outros botões, ficar ativa
         });
     }
 
