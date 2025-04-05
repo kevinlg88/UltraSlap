@@ -7,7 +7,7 @@ public class FootStep : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger:" + other.name);
+        //Debug.Log("trigger:" + other.name);
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
