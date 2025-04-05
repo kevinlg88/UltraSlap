@@ -99,7 +99,7 @@ public class TriggerHitbox : MonoBehaviour
             go.transform.localScale = Vector3.one * finalScale; // a escala do VFX é definida de acordo com a intensidade do powerSlap
             
             // Mover o efeito levemente nos eixos globais Y (altura) e Z (frente da câmera)
-            go.transform.position += new Vector3(0f, 0.9f, 0.9f); // Ajuste esses valores conforme necessário
+            go.transform.position += new Vector3(0f, 0.9f, 1.0f); // Ajuste esses valores conforme necessário
 
             Destroy(go,1f);
             //Debug.Log("aplicou força");
@@ -137,7 +137,7 @@ public class TriggerHitbox : MonoBehaviour
 
     private void OnDisable()
     {
-        transform.localScale = new Vector3(0.7475953f, 0.7475953f, 0.7475953f);
+        transform.localScale = new Vector3(0.74759531f, 0.899999976f, 0.899999976f);
 
         //Time.timeScale = 1.0f; // Deixa o jogo rodando na velocidade normal
 
