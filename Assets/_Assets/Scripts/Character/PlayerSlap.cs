@@ -32,7 +32,7 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] float cooldownGrowthRate = 0.001f;
     [SerializeField] float cooldown;
 
-    [SerializeField] private float quickSlapThreshold = 0.1f;
+    [SerializeField] private float quickSlapThreshold = 0.2f;
     [SerializeField] private float maxSlapThreshold = 5f;
 
     [SerializeField] TriggerHitbox TriggerGetRagBone;
@@ -180,4 +180,20 @@ public class PlayerSlap : MonoBehaviour
     {
         return maxPower;
     }
+
+    public float GetPower()
+    {
+        return power;
+    }
+
+    public float GetQuickSlapThreshold()
+    {
+        return quickSlapThreshold;
+    }
+
+    public float GetChargingTime()
+    {
+        return chargingTime;
+    }
+
 }

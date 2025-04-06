@@ -8328,6 +8328,11 @@ PrefabInstance:
       propertyPath: maxEffectPrefabScale
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: slapPowerFallingThreshold
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 8621374197728790150, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -10243,6 +10248,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxEffectPrefabScale
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348099573801312205, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: slapPowerFallingThreshold
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,6 +14,7 @@ public class TriggerHitbox : MonoBehaviour
     [SerializeField] float maxEffectPrefabScale = 3.5f; //Variável para definição de tamanho máximo que o vfx do tapa é pode chegar, de acordo com a intensidade do slapPower
 
     [SerializeField] float slapPower;
+    [SerializeField] float slapPowerFallingThreshold;
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
     bool isSlapping = false;
 
@@ -68,16 +69,19 @@ public class TriggerHitbox : MonoBehaviour
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
-            UnityEngine.Debug.Log("bateu");
 
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
             if (ragdoll != null)
             {
-                UnityEngine.Debug.Log("bateu");
+
+                //UnityEngine.Debug.Log("bateu");
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
-                ragdoll.User_SwitchFallState();
+                
+                if (slapPower >= slapPowerFallingThreshold) 
+                    ragdoll.User_SwitchFallState();
+
                 slapEnemy.PlayFeedbacks();
             }
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
@@ -111,12 +115,23 @@ public class TriggerHitbox : MonoBehaviour
 
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
-        
+
+
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
 
         if(parent.TryGetComponent(out RagdollAnimatorDummyReference ragdollAnimatorDummyRef))
         {
+            RagdollAnimator2 originalRagdoll = ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
+            GameObject originalGameObject = originalRagdoll.gameObject;
+
+            if (playerSlap.GetChargingTime() <= playerSlap.GetQuickSlapThreshold()) //verifica se foi um quickslap, e se esse atingiu um outro player que tivesse preparando um chargingSlap
+            {
+                
+                UnityEngine.Debug.Log("Foi um quick slap");
+                UnityEngine.Debug.Log(originalGameObject);
+                //aqui na verdade deveria interromper um possível charging slap do player atingido, mas para isso precisamos primeiro fazer com que o player não entre em fall com qualquer mínimo ataque
+            }
 
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
         }
