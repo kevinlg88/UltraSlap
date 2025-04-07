@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,15 @@ public class RigidbodyController : MonoBehaviour
 
     [Range(0f, 1f)] public float directMovementFactor = 0f;
     [Range(0f, 1f)] public float inertiaFactor = 1f;
+
+    [Header("Dash Settings")]
+    public float dashForce = 10f;
+    public float dashDuration = 0.2f;
+    public InputActionReference dashInput;
+
+    private bool isDashing = false;
+    private float dashTimer = 0f;
+    private Vector3 dashDirection;
 
     [Header("Animator Settings")]
     public Animator animator;
@@ -54,6 +64,8 @@ public class RigidbodyController : MonoBehaviour
         targetRotation = transform.rotation;
         targetInstantRotation = transform.rotation;
         rotationAngle = transform.eulerAngles.y;
+
+        dashInput.action.Enable();
     }
 
     private void Update()
@@ -61,6 +73,13 @@ public class RigidbodyController : MonoBehaviour
         if (rigidbodyComponent == null || !enableInput) return;
 
         HandleMovementInput();
+        
+        if (dashInput.action.WasPressedThisFrame() && !isDashing && isGrounded) //Aciona o dash
+        {
+            StartDash();
+        }
+
+
         UpdateMovement();
     }
 
@@ -95,6 +114,21 @@ public class RigidbodyController : MonoBehaviour
     private void UpdateMovement()
     {
         bool isMoving = worldMoveDirection != Vector3.zero;
+
+        if (isDashing)
+        {
+            float dashSpeed = dashForce / dashDuration; // Converte a força em uma velocidade constante
+            rigidbodyComponent.MovePosition(rigidbodyComponent.position + dashDirection * dashSpeed * Time.deltaTime);
+
+            dashTimer -= Time.deltaTime;
+
+            if (dashTimer <= 0f)
+            {
+                isDashing = false;
+            }
+
+            return; // Ignora o resto do movimento durante o dash
+        }
 
         if (rotationSpeed > 0f && currentAcceleration != Vector3.zero)
         {
@@ -143,5 +177,25 @@ public class RigidbodyController : MonoBehaviour
         {
             rigidbodyComponent.rotation = targetRotation;
         }
+    }
+
+    private void StartDash()
+    {
+        // Ativa o estado de dash
+        isDashing = true;
+        dashTimer = dashDuration;
+
+        // Define a direção do dash como a direção que o personagem está olhando
+        dashDirection = transform.forward.normalized;
+
+        // Cancela aceleração normal durante o dash
+        currentAcceleration = Vector3.zero;
+
+        // Dispara animação se existir
+        if (animator != null)
+            animator.SetTrigger("Dash");
+
+        // Log para depuração
+        UnityEngine.Debug.Log("🚀 Dash iniciado!");
     }
 }
