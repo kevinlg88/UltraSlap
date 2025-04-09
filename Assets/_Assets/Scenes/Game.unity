@@ -9556,10 +9556,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
+      propertyPath: dashForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
       propertyPath: dashInput
       value: 
-      objectReference: {fileID: -5492267324544394804, guid: e8a4f688dd746d24a99a9764a44eca65,
+      objectReference: {fileID: 4974203068875086302, guid: e8a4f688dd746d24a99a9764a44eca65,
         type: 3}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: dashDuration
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 902408638976519994, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

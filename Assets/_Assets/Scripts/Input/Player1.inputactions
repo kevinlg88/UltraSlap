@@ -26,7 +26,7 @@
                 {
                     "name": "Dash",
                     "type": "Button",
-                    "id": "58c95e7c-0942-437e-8f80-fe5d69cd2a85",
+                    "id": "554d7966-4d36-4037-80be-a5f55e84fd15",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -102,8 +102,8 @@
                 },
                 {
                     "name": "",
-                    "id": "5c4c40b6-c4f5-468f-9f50-192d86a6c506",
-                    "path": "<Keyboard>/comma",
+                    "id": "6e5e1d45-acfb-40c4-8619-bfab8472474c",
+                    "path": "<Keyboard>/rightAlt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
