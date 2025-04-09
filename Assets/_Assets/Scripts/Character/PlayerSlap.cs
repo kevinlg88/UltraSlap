@@ -148,7 +148,7 @@ public class PlayerSlap : MonoBehaviour
         slapWhoosh.PlayFeedbacks();
     }
 
-    void SlappingEnd()  //Define que não tem mais nenhum tapa ativo
+    public void SlappingEnd()  //Define que não tem mais nenhum tapa ativo
     {
         animator.speed = 1f;
 
@@ -162,7 +162,6 @@ public class PlayerSlap : MonoBehaviour
         isOnCooldown = true;
         chargingSlapEnd.PlayFeedbacks();
         animator.SetBool("isChargingSlap", false);
-
 
     }
 

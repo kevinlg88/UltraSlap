@@ -129,8 +129,14 @@ public class TriggerHitbox : MonoBehaviour
             {
                 
                 UnityEngine.Debug.Log("Foi um quick slap");
-                UnityEngine.Debug.Log(originalGameObject);
+                UnityEngine.Debug.Log("ChargingTime do Adversário é: " + originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime());
                 //aqui na verdade deveria interromper um possível charging slap do player atingido, mas para isso precisamos primeiro fazer com que o player não entre em fall com qualquer mínimo ataque
+
+
+                if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
+                {
+                    originalGameObject.GetComponent<PlayerSlap>()?.SlappingEnd();
+                }
             }
 
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
