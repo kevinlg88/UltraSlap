@@ -135,7 +135,10 @@ public class TriggerHitbox : MonoBehaviour
 
                 if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
                 {
+                    originalGameObject.GetComponent<PlayerSlap>()?.animator.SetBool("isInterrupted", true);
+                    //originalGameObject.GetComponent<PlayerSlap>()?.stopSlapFeedback();
                     originalGameObject.GetComponent<PlayerSlap>()?.SlappingEnd();
+                    
                 }
             }
 

@@ -12,7 +12,7 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] private MMFeedbacks slapWhoosh;
     [SerializeField] private MMFeedbacks chargingSlap;
     [SerializeField] private MMFeedbacks chargingSlapEnd;
-    Animator animator;
+    [HideInInspector] public Animator animator;
 
     [SerializeField] bool isCharging = false;
     [SerializeField] bool isSlapping = false;
@@ -51,6 +51,7 @@ public class PlayerSlap : MonoBehaviour
         {
             chargingTime = 0f;
             isCharging = true;
+            animator.SetBool("isInterrupted", false);
             animator.SetTrigger("triggerSlap");
             animator.SetBool("isChargingSlap", true);
         }
@@ -125,7 +126,7 @@ public class PlayerSlap : MonoBehaviour
             isSlapping = true;          // Bloqueia novos slaps até o cooldown
             isCharging = false;
 
-            chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
+            stopSlapFeedback();
         }
     }
 
@@ -139,8 +140,14 @@ public class PlayerSlap : MonoBehaviour
             isSlapping = true; // Bloqueia novos slaps
             isCharging = false;
 
-            chargingSlap.StopFeedbacks(); // Para com os feedbacks de carregamento do tapa
+            stopSlapFeedback();
+
         }
+    }
+
+    public void stopSlapFeedback() // Para com os feedbacks de carregamento do tapa
+    {
+        chargingSlap.StopFeedbacks(); 
     }
 
     public void SlapFeedback()
@@ -160,6 +167,8 @@ public class PlayerSlap : MonoBehaviour
         isSlapping = false;
         isCharging = false;
         isOnCooldown = true;
+
+        stopSlapFeedback();
         chargingSlapEnd.PlayFeedbacks();
         animator.SetBool("isChargingSlap", false);
 
@@ -193,6 +202,11 @@ public class PlayerSlap : MonoBehaviour
     public float GetChargingTime()
     {
         return chargingTime;
+    }
+
+    public TriggerHitbox GetTriggerGetRagBone()
+    {
+        return TriggerGetRagBone;
     }
 
 }
