@@ -1883,7 +1883,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AOColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.764151, g: 0.65241194, b: 0.65241194, a: 1}
+    - _Color: {r: 0.7764706, g: 0.6313726, b: 0.6313726, a: 1}
     - _DepthGlowColor: {r: 1, g: 0.61369306, b: 0.5801887, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 2.6701567, g: 0.052356016, b: 0, a: 1}
@@ -4238,7 +4238,7 @@ Material:
   - _LIGHTMODEL_TOON
   - _MATCAPBLENDMODE_REPLACE
   - _OUTLINETYPE_SIMPLE
-  - _REFLECTIONS_CLASSIC
+  - _REFLECTIONS_TOON
   - _RIMLIGHTINGSTAGE_BEFORELIGHTINGLAST
   - _SHADINGMODEL_BASIC
   - _SPECULARMODEL_TOON
@@ -4471,8 +4471,8 @@ Material:
     - _PosterizeGamma: 0.75
     - _PosterizeNumColors: 8
     - _RecalculateNormals: 0
-    - _Reflections: 1
-    - _ReflectionsAtten: 0.379
+    - _Reflections: 2
+    - _ReflectionsAtten: 0.93
     - _RenderPreset: 1
     - _RimAttenuation: 0.993
     - _RimLighting: 0
@@ -4489,12 +4489,12 @@ Material:
     - _ShadingModel: 0
     - _ShakeBlend: 1
     - _ShakeSpeedMult: 1
-    - _Shininess: 3
+    - _Shininess: 1.6
     - _Smoothness: 1
-    - _SpecularAtten: 0.399
+    - _SpecularAtten: 0.133
     - _SpecularModel: 2
-    - _SpecularToonCutoff: 0.398
-    - _SpecularToonSmoothness: 0.197
+    - _SpecularToonCutoff: 0.132
+    - _SpecularToonSmoothness: 0.463
     - _SpherizeNormals: 0
     - _StencilRef: 1
     - _StochasticSampling: 0
@@ -4506,7 +4506,7 @@ Material:
     - _TextureBlendingSource: 0
     - _TimingSeed: 0
     - _ToonCutoff: 0.108
-    - _ToonFactor: 0
+    - _ToonFactor: 0.879
     - _ToonSmoothness: 0.81
     - _TopNormalStrength: 4.03
     - _TriplanarMappingOn: 0
@@ -4532,7 +4532,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AOColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.764151, g: 0.65241194, b: 0.65241194, a: 1}
+    - _Color: {r: 0.7735849, g: 0.63127446, b: 0.63127446, a: 1}
     - _DepthGlowColor: {r: 1, g: 0.61369306, b: 0.5801887, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 2.6701567, g: 0.052356016, b: 0, a: 1}
@@ -4869,7 +4869,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AOColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.764151, g: 0.65241194, b: 0.65241194, a: 1}
+    - _Color: {r: 0.7764706, g: 0.6313726, b: 0.6313726, a: 1}
     - _DepthGlowColor: {r: 1, g: 0.61369306, b: 0.5801887, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 2.6701567, g: 0.052356016, b: 0, a: 1}
