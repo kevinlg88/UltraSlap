@@ -25,6 +25,10 @@ public class RigidbodyController : MonoBehaviour
     private float dashTimer = 0f;
     private Vector3 dashDirection;
 
+    [Header("Dash Cooldown Settings")]
+    public float dashCooldownTime = 2.0f; // Tempo de cooldown em segundos
+    private float nextDashTime = 0f;      // Timestamp para o próximo dash
+
     [Header("Animator Settings")]
     public Animator animator;
 
@@ -74,11 +78,10 @@ public class RigidbodyController : MonoBehaviour
 
         HandleMovementInput();
         
-        if (dashInput.action.WasPressedThisFrame() && !isDashing && isGrounded) //Aciona o dash
+        if (dashInput.action.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime) //Aciona o dash se botão foi apertado, o personagem não está em dash, está no chão, e não está com cooldown ativo
         {
             StartDash();
         }
-
 
         UpdateMovement();
     }
@@ -197,5 +200,7 @@ public class RigidbodyController : MonoBehaviour
 
         // Log para depuração
         UnityEngine.Debug.Log("🚀 Dash iniciado!");
+
+        nextDashTime = Time.time + dashCooldownTime; //inicia o cooldown do dash
     }
 }

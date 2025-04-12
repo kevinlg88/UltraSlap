@@ -125,21 +125,14 @@ public class TriggerHitbox : MonoBehaviour
             RagdollAnimator2 originalRagdoll = ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
             GameObject originalGameObject = originalRagdoll.gameObject;
 
-            if (playerSlap.GetChargingTime() <= playerSlap.GetQuickSlapThreshold()) //verifica se foi um quickslap, e se esse atingiu um outro player que tivesse preparando um chargingSlap
+            if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
             {
-                
-                UnityEngine.Debug.Log("Foi um quick slap");
                 UnityEngine.Debug.Log("ChargingTime do Adversário é: " + originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime());
-                //aqui na verdade deveria interromper um possível charging slap do player atingido, mas para isso precisamos primeiro fazer com que o player não entre em fall com qualquer mínimo ataque
 
-
-                if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
-                {
-                    originalGameObject.GetComponent<PlayerSlap>()?.animator.SetBool("isInterrupted", true);
-                    //originalGameObject.GetComponent<PlayerSlap>()?.stopSlapFeedback();
-                    originalGameObject.GetComponent<PlayerSlap>()?.SlappingEnd();
+                originalGameObject.GetComponent<PlayerSlap>()?.animator.SetBool("isInterrupted", true);
+                //originalGameObject.GetComponent<PlayerSlap>()?.stopSlapFeedback();
+                originalGameObject.GetComponent<PlayerSlap>()?.SlappingEnd();
                     
-                }
             }
 
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
