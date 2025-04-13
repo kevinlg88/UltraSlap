@@ -3902,6 +3902,7 @@ MonoBehaviour:
   victoryCounterGroup:
   - {fileID: 244150682}
   - {fileID: 1466306400}
+  teamVictoryGroupMap: 
   transitionUI: {fileID: 1845326265}
   continueKey: 13
   transitionTime: 3
@@ -10715,6 +10716,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -82.909966
       objectReference: {fileID: 0}
+    - target: {fileID: 1062733783151034218, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1328104924267230219, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10799,6 +10805,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000003915814
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554844950797222818, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000025504771
       objectReference: {fileID: 0}
     - target: {fileID: 1801481518545160411, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
@@ -11290,6 +11301,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.010000018
       objectReference: {fileID: 0}
+    - target: {fileID: 6689383267878817650, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.064891234
+      objectReference: {fileID: 0}
     - target: {fileID: 6807560012967058576, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11435,6 +11451,11 @@ PrefabInstance:
         type: 3}
       propertyPath: slapPowerFallingThreshold
       value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 8551722940704694666, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

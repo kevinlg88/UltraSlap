@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     public int maxVictories = 3;
     public GameObject victoryHandPrefab; // Prefab do ícone de vitória ser instaanciado para representar quantas vezes cada player venceu
     public GameObject[] victoryCounterGroup; //Objeto onde fica o contador visual de vitórias, contendo o prefab do ícone de vitória
+    public List<int> teamVictoryGroupMap = new List<int>(); // Mapeia o ID de cada time para sua posição correspondente no array 'victoryCounterGroup'
     [SerializeField] private GameObject transitionUI;
 
     private static LevelManager instance;
@@ -61,11 +62,13 @@ public class LevelManager : MonoBehaviour
         isAlive = new bool[numberOfPlayers];
         victoriesCounter = new int[numberOfPlayers];
 
+
         // Definir todos os jogadores como vivos no início
         for (int i = 0; i < numberOfPlayers; i++)
         {
             isAlive[i] = true;
         }
+
 
         startMatch();
     }
@@ -160,6 +163,12 @@ public class LevelManager : MonoBehaviour
                 {
                     TeamTagsIcons[tagIndex].color = playerMaterial.color;  // Define a cor da tag para o material do jogador
                     assignedMaterials.Add(playerMaterial);  // Adiciona o material à lista
+
+                    //teamVictoryGroupMap[x] = playerRenderers[i].GetComponentInParent<PlayerManager>().team; //Mapeia o ID de cada time para sua posição correspondente no array 'victoryCounterGroup'
+
+                    int teamID = playerRenderers[i].GetComponentInParent<PlayerManager>().team;
+                    teamVictoryGroupMap.Add(teamID);
+
                     tagIndex++;  // Avança para a próxima tag
                 }
             }
@@ -204,12 +213,14 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void roundVictory(int playerIndex)
+    public void roundVictory(int playerIndex, int playerTeam)
     {
         isAlive[playerIndex] = false; // Marca o jogador como eliminado
 
         int alivePlayers = 0;
         int winnerIndex = -1;
+
+        UnityEngine.Debug.Log($"Time que ganhou originalmente: {playerTeam}");
 
         // Conta quantos jogadores ainda estão vivos
         for (int i = 0; i < numberOfPlayers; i++)
@@ -229,18 +240,21 @@ public class LevelManager : MonoBehaviour
                 UnityEngine.Debug.LogError($"Erro no roundVictory: Índice inválido ({winnerIndex}) ou referência nula.");
                 return;
             }
+            
+            //UnityEngine.Debug.Log($"Time que ganhou originalmente: {playerTeam}");
+            //UnityEngine.Debug.Log($"Outro: {teamVictoryGroupMap.IndexOf(playerTeam)}");
 
-            victoriesCounter[winnerIndex]++; // Incrementa a contagem de vitórias
+            victoriesCounter[teamVictoryGroupMap.IndexOf(playerTeam)]++; // Incrementa a contagem de vitórias
 
             // Apenas atualiza os contadores se o jogador ainda existir
-            if (victoriesCounter[winnerIndex] > 0)
+            if (victoriesCounter[teamVictoryGroupMap.IndexOf(playerTeam)] > 0)
             {
-                UpdateVictoryCounters(winnerIndex);
+                UpdateVictoryCounters(players[winnerIndex].team);
             }
 
-            if (victoriesCounter[winnerIndex] >= maxVictories)
+            if (victoriesCounter[teamVictoryGroupMap.IndexOf(playerTeam)] >= maxVictories)
             {
-                matchWinnerText.text = $"Jogador {winnerIndex + 1} Venceu a Partida!";
+                matchWinnerText.text = $"Time {playerTeam} Venceu a Partida!";
                 matchWinnerText.gameObject.SetActive(true);
 
                 TransitionManager.Instance.PlayEndHalfTransition(transitionTime);
@@ -253,45 +267,24 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    void ShowMatchWinner(int winnerIndex) //Exibe na tela quem ganhou a partida
+    public void UpdateVictoryCounters(int winnerTeam)
     {
-        if (matchWinnerText != null)
-        {
-            matchWinnerText.text = $"Player {winnerIndex + 1} Wins!";
-            matchWinnerText.gameObject.SetActive(true);
-        }
-    }
-
-    public void UpdateVictoryCounters(int winnerIndex)
-    {
-        int winnerTeam = players[winnerIndex].team; // Obtém o time do jogador vencedor
-        Material winnerMaterial = teamMaterials[winnerTeam]; // Obtém o material correspondente ao time
-        int counterIndex = -1; // Índice correspondente no victoryCounterGroup
-
-        // Percorre os ícones de teamTags para encontrar a correspondência com o material do vencedor
-        for (int i = 0; i < TeamTagsIcons.Length; i++)
-        {
-            if (TeamTagsIcons[i] != null && TeamTagsIcons[i].color != Color.white) // Verifica se a tag é válida
-            {
-                // Verifica se a cor do ícone do time corresponde à cor do material do vencedor
-                if (TeamTagsIcons[i].color == winnerMaterial.color)
-                {
-                    counterIndex = i; // Define o índice do grupo de contagem de vitórias
-                    break; // Sai do loop ao encontrar a correspondência
-                }
-            }
-        }
+        //UnityEngine.Debug.Log($"Time que ganhou originalmente: {winnerTeam}");
+        //Procura o índice do time vencedor dentro da lista mapeada
+        int counterIndex = teamVictoryGroupMap.IndexOf(winnerTeam);
+        UnityEngine.Debug.Log($"Qual posição do icontag do ganhador: {teamVictoryGroupMap.IndexOf(winnerTeam)}");
 
         // Se encontrou um índice válido, instancia a vitória no local correto
         if (counterIndex >= 0 && counterIndex < victoryCounterGroup.Length)
         {
-            GameObject counterGroup = victoryCounterGroup[counterIndex]; // Obtém o grupo correto
-            Instantiate(victoryHandPrefab, counterGroup.transform); // Instancia a mão de vitória
+            GameObject counterGroup = victoryCounterGroup[counterIndex];
+            Instantiate(victoryHandPrefab, counterGroup.transform);
         }
         else
         {
-            UnityEngine.Debug.LogError($"Não foi possível encontrar um grupo válido para o time {winnerTeam}");
+            UnityEngine.Debug.LogError($"Não foi possível encontrar um grupo de vitória para o time {winnerTeam}");
         }
-
     }
+
+
 }

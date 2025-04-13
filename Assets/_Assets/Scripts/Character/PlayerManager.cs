@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour
     {
         levelManager = FindObjectOfType<LevelManager>();
         if(levelManager != null )
-            levelManager.roundVictory(playerIndex); //Verifica se o match acabou
+            levelManager.roundVictory(playerIndex, team); //Verifica se o match acabou
     }
 
     public void ApplyTeamMaterial(Material material)
@@ -44,4 +44,5 @@ public class PlayerManager : MonoBehaviour
         body.material = material;
         hat.material = material;
     }
+
 }
