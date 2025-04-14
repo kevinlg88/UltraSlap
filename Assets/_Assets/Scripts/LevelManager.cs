@@ -123,8 +123,38 @@ public class LevelManager : MonoBehaviour
     {
         levelSong.PlayFeedbacks();
 
-        // Encontra todos os objetos que possuem o script PlayerManager
-        players = FindObjectsOfType<PlayerManager>();
+        // Encontra todos os objetos PlayerManager na cena (ordem não garantida)
+        PlayerManager[] foundPlayers = FindObjectsOfType<PlayerManager>();
+
+        // Inicializa o array players com o tamanho definido pelo número total de jogadores
+        players = new PlayerManager[numberOfPlayers];
+
+        // Organiza os jogadores no array players de acordo com o índice definido em playerIndex
+
+        foreach (PlayerManager p in foundPlayers)
+        {
+            // Garante que o playerIndex está dentro dos limites válidos
+            if (p.playerIndex >= 0 && p.playerIndex < numberOfPlayers)
+            {
+                // Atribui o PlayerManager ao índice correspondente no array players
+                players[p.playerIndex] = p;
+            }
+            else
+            {
+                // Emite um aviso se o playerIndex estiver fora dos limites esperados
+                UnityEngine.Debug.LogWarning($"PlayerManager com playerIndex inválido: {p.playerIndex}");
+            }
+        }
+
+        //Verifica se todos os índices foram preenchidos corretamente
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            if (players[i] == null)
+            {
+                // Exibe erro se algum índice do array players não tiver sido preenchido
+                UnityEngine.Debug.LogError($"Nenhum PlayerManager atribuído no índice {i}!");
+            }
+        }
 
         // Ajusta o número de jogadores dinamicamente com base nos objetos encontrados
         numberOfPlayers = players.Length;
@@ -168,6 +198,11 @@ public class LevelManager : MonoBehaviour
 
                     int teamID = playerRenderers[i].GetComponentInParent<PlayerManager>().team;
                     teamVictoryGroupMap.Add(teamID);
+
+                    
+                    //UnityEngine.Debug.Log($"Mapeamento de times - Posição no Indice : {i}");
+                    //UnityEngine.Debug.Log($"Mapeamento de times - Valor: {teamVictoryGroupMap[tagIndex]}");  //Verifica se deu tudo certo com a sincronização
+                    //UnityEngine.Debug.Log($"Mapeamento de times - Posição no TeamTags Icon: {tagIndex}");
 
                     tagIndex++;  // Avança para a próxima tag
                 }
@@ -220,15 +255,21 @@ public class LevelManager : MonoBehaviour
         int alivePlayers = 0;
         int winnerIndex = -1;
 
-        UnityEngine.Debug.Log($"Time que ganhou originalmente: {playerTeam}");
-
         // Conta quantos jogadores ainda estão vivos
         for (int i = 0; i < numberOfPlayers; i++)
         {
             if (isAlive[i])
             {
                 alivePlayers++;
-                winnerIndex = i; // Último jogador vivo
+
+                // Se já encontramos um antes, não há vencedor ainda
+                if (alivePlayers > 1)
+                {
+                    winnerIndex = -1;
+                    break;
+                }
+
+                winnerIndex = i; // Salva possível vencedor
             }
         }
 
@@ -241,8 +282,7 @@ public class LevelManager : MonoBehaviour
                 return;
             }
             
-            //UnityEngine.Debug.Log($"Time que ganhou originalmente: {playerTeam}");
-            //UnityEngine.Debug.Log($"Outro: {teamVictoryGroupMap.IndexOf(playerTeam)}");
+            
 
             victoriesCounter[teamVictoryGroupMap.IndexOf(playerTeam)]++; // Incrementa a contagem de vitórias
 
@@ -254,7 +294,7 @@ public class LevelManager : MonoBehaviour
 
             if (victoriesCounter[teamVictoryGroupMap.IndexOf(playerTeam)] >= maxVictories)
             {
-                matchWinnerText.text = $"Time {playerTeam} Venceu a Partida!";
+                matchWinnerText.text = $"Time {players[winnerIndex].team} Venceu a Partida!";
                 matchWinnerText.gameObject.SetActive(true);
 
                 TransitionManager.Instance.PlayEndHalfTransition(transitionTime);
@@ -269,15 +309,19 @@ public class LevelManager : MonoBehaviour
 
     public void UpdateVictoryCounters(int winnerTeam)
     {
-        //UnityEngine.Debug.Log($"Time que ganhou originalmente: {winnerTeam}");
+        int winnerGroupMap = teamVictoryGroupMap.IndexOf(winnerTeam);
+
+        UnityEngine.Debug.Log($"Time que ganhou: {winnerTeam}");
+        //UnityEngine.Debug.Log($"WinnerGroupMap: {winnerGroupMap}");
+
         //Procura o índice do time vencedor dentro da lista mapeada
-        int counterIndex = teamVictoryGroupMap.IndexOf(winnerTeam);
-        UnityEngine.Debug.Log($"Qual posição do icontag do ganhador: {teamVictoryGroupMap.IndexOf(winnerTeam)}");
+
+        //UnityEngine.Debug.Log($"Qual posição do icontag do ganhador: {teamVictoryGroupMap.IndexOf(winnerTeam)}");
 
         // Se encontrou um índice válido, instancia a vitória no local correto
-        if (counterIndex >= 0 && counterIndex < victoryCounterGroup.Length)
+        if (winnerGroupMap >= 0 && winnerGroupMap < victoryCounterGroup.Length)
         {
-            GameObject counterGroup = victoryCounterGroup[counterIndex];
+            GameObject counterGroup = victoryCounterGroup[winnerGroupMap];
             Instantiate(victoryHandPrefab, counterGroup.transform);
         }
         else
