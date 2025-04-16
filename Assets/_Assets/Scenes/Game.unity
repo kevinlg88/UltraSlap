@@ -8932,6 +8932,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104179351ca7dd24a8f5bd7beecf8d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1878745287 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1370434889509746620, guid: 2490b1b11a706474098ed495339f284a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5870259394952150934}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1889413577 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 193710, guid: 9c8cb53c8c3a8444c96d513d1bde208a,
@@ -9232,6 +9238,16 @@ PrefabInstance:
         type: 3}
       propertyPath: dashDuration
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: groundCheckPoint
+      value: 
+      objectReference: {fileID: 2003716769}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1249685430157618018, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
@@ -9671,6 +9687,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104179351ca7dd24a8f5bd7beecf8d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2003716769 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1370434889509746620, guid: 2490b1b11a706474098ed495339f284a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1944866253}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2004537182
 GameObject:
   m_ObjectHideFlags: 0
@@ -10678,6 +10700,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
+      propertyPath: isGrounded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
       propertyPath: dashDuration
       value: 0.3
       objectReference: {fileID: 0}
@@ -10685,6 +10712,21 @@ PrefabInstance:
         type: 3}
       propertyPath: dashCooldownTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: groundCheckPoint
+      value: 
+      objectReference: {fileID: 1878745287}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 835924185026261220, guid: 2490b1b11a706474098ed495339f284a,
+        type: 3}
+      propertyPath: directMovementFactor
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 902408638976519994, guid: 2490b1b11a706474098ed495339f284a,
         type: 3}
