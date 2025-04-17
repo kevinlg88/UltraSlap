@@ -44,12 +44,14 @@ public class RigidbodyController : MonoBehaviour
     private float rotationAngle = 0f;
     private float smoothRotationAngle = 0f;
 
+    [Header("Ground Detection Settings")]
     [SerializeField] private Transform groundCheckPoint; // Um ponto logo abaixo do jogador
     [SerializeField] private float groundCheckDistance = 0.2f; // Distância para considerar "no chão"
     [SerializeField] private LayerMask groundLayer; // Camada do chão
+    [SerializeField] private bool isGrounded = true;
+    [SerializeField] private float inertiaReductionFactor = 3.0f;
 
-    public bool isGrounded = true;
-
+    [Header("Move Direction and acceleration Settings")]
     [NonSerialized] public Vector2 localMoveDirection = Vector2.zero;
     public Vector3 worldMoveDirection { get; set; }
     public Vector3 currentAcceleration { get; private set; }
@@ -160,6 +162,10 @@ public class RigidbodyController : MonoBehaviour
         if (!isGrounded)
         {
             worldMoveDirection = Vector3.zero; // limpa o input
+
+            // Diminui bruscamente a velocidade no ar
+            currentAcceleration = Vector3.Lerp(currentAcceleration, Vector3.zero, Time.deltaTime * inertiaReductionFactor);
+
             return;
         }
 
@@ -180,11 +186,6 @@ public class RigidbodyController : MonoBehaviour
             {
                 currentAcceleration = Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration);
             }
-        }
-        else
-        {
-            // ✅ No ar, desacelera suavemente até parar (ou com air control, se quiser)
-            currentAcceleration = Vector3.Lerp(currentAcceleration, Vector3.zero, Time.deltaTime * 2f);
         }
 
         worldMoveDirection = Vector3.zero;
