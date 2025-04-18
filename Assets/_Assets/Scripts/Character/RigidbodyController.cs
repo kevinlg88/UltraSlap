@@ -43,8 +43,15 @@ public class RigidbodyController : MonoBehaviour
     private Quaternion targetInstantRotation;
     private float rotationAngle = 0f;
     private float smoothRotationAngle = 0f;
-    private bool isGrounded = true;
 
+    [Header("Ground Detection Settings")]
+    [SerializeField] private Transform groundCheckPoint; // Um ponto logo abaixo do jogador
+    [SerializeField] private float groundCheckDistance = 0.2f; // Distância para considerar "no chão"
+    [SerializeField] private LayerMask groundLayer; // Camada do chão
+    [SerializeField] private bool isGrounded = true;
+    [SerializeField] private float inertiaReductionFactor = 3.0f;
+
+    [Header("Move Direction and acceleration Settings")]
     [NonSerialized] public Vector2 localMoveDirection = Vector2.zero;
     public Vector3 worldMoveDirection { get; set; }
     public Vector3 currentAcceleration { get; private set; }
@@ -76,6 +83,8 @@ public class RigidbodyController : MonoBehaviour
     {
         if (rigidbodyComponent == null || !enableInput) return;
 
+        CheckGroundStatus();
+
         HandleMovementInput();
         
         if (dashInput.action.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime) //Aciona o dash se botão foi apertado, o personagem não está em dash, está no chão, e não está com cooldown ativo
@@ -84,6 +93,11 @@ public class RigidbodyController : MonoBehaviour
         }
 
         UpdateMovement();
+    }
+
+    void CheckGroundStatus() //Checa se o personagem está no chão
+    {
+        isGrounded = Physics.Raycast(groundCheckPoint.position, Vector3.down, groundCheckDistance, groundLayer);
     }
 
     private void HandleMovementInput()
@@ -144,19 +158,34 @@ public class RigidbodyController : MonoBehaviour
             animator.SetBool("isMoving", isMoving);
         }
 
+        // ❌ Se não está no chão, não atualiza a movimentação
+        if (!isGrounded)
+        {
+            worldMoveDirection = Vector3.zero; // limpa o input
+
+            // Diminui bruscamente a velocidade no ar
+            currentAcceleration = Vector3.Lerp(currentAcceleration, Vector3.zero, Time.deltaTime * inertiaReductionFactor);
+
+            return;
+        }
+
         float speed = movementSpeed;
         float acceleration = isMoving ? 5f * movementSpeed : 7f * movementSpeed;
 
-        if (inertiaFactor < 1f)
+        if (isGrounded)
         {
-            currentAcceleration = Vector3.Lerp(
-                Vector3.Slerp(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration),
-                Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration),
-                inertiaFactor);
-        }
-        else
-        {
-            currentAcceleration = Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration);
+            // ✅ Aplica aceleração normalmente se estiver no chão
+            if (inertiaFactor < 1f)
+            {
+                currentAcceleration = Vector3.Lerp(
+                    Vector3.Slerp(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration),
+                    Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration),
+                    inertiaFactor);
+            }
+            else
+            {
+                currentAcceleration = Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration);
+            }
         }
 
         worldMoveDirection = Vector3.zero;
