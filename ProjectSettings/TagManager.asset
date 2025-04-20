@@ -8,6 +8,8 @@ TagManager:
   - ship
   - PlayerOne
   - PlayerTwo
+  - PlayerThree
+  - PlayerFour
   layers:
   - Default
   - TransparentFX
