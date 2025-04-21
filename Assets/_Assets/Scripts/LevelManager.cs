@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
     public Renderer[] playerRenderers; // Referência para os Renderers dos players (para pegar a cor do material)
 
     [Header("List of Pre-defined Teams Materials")]
+    [SerializeField] private TeamMaterialLibrary teamMaterialLibrary; //Library de team materials
     [SerializeField] private Material[] teamMaterials; // 8 possíveis team materiais
 
 
@@ -51,6 +52,16 @@ public class LevelManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Inicializa o array teamMaterials com os materiais da library
+        if (teamMaterialLibrary != null)
+        {
+            teamMaterials = new Material[teamMaterialLibrary.teamMaterials.Count];
+            for (int i = 0; i < teamMaterialLibrary.teamMaterials.Count; i++)
+            {
+                teamMaterials[i] = teamMaterialLibrary.teamMaterials[i].material;
+            }
+        }
     }
 
     void Start()

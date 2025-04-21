@@ -17,8 +17,11 @@ MonoBehaviour:
   - name: White
     material: {fileID: 6370739270861536609, guid: 5c442f9e667c3ac4089fc4321d655698,
       type: 3}
-  - name: Brown
+  - name: Yellow
     material: {fileID: 2100000, guid: d430a9800d02cd14ab5bdf6bd377c33e, type: 2}
+  - name: Brown
+    material: {fileID: 8579982068934519327, guid: 4f428a8918c559c44b229715a237c4cc,
+      type: 3}
   - name: Black
     material: {fileID: 2110093186395255282, guid: 10f1060b18f7ba34f92053a256e89d10,
       type: 3}
