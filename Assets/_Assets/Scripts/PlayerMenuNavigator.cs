@@ -30,6 +30,8 @@ public class PlayerMenuNavigator : MonoBehaviour
     public Renderer rightEarRenderer;
 
     [SerializeField] private GameObject playerModel;
+    [SerializeField] private GameObject customizationUI;
+    [SerializeField] private GameObject readyTxt;
 
     void Start()
     {
@@ -64,12 +66,23 @@ public class PlayerMenuNavigator : MonoBehaviour
     {
         if (!playerModel.activeSelf)
             playerModel.SetActive(true);
+        else {
+            readyTxt.SetActive(true);
+            customizationUI.SetActive(false);
+        }
+
+        
     }
 
     void OnBack()
     {
-        if (playerModel.activeSelf)
+        if (playerModel.activeSelf && !readyTxt.activeSelf)
             playerModel.SetActive(false);
+        else if (playerModel.activeSelf && readyTxt.activeSelf)
+        {
+            readyTxt.SetActive(false);
+            customizationUI.SetActive(true);
+        }
 
         currentOptionIndex = 0;
         UpdateCustomizationSelection();
