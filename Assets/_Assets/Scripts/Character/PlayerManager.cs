@@ -11,8 +11,6 @@ public class PlayerManager : MonoBehaviour
     public int team;
 
     [Header("body parts to set up materials")]
-    [SerializeField] private Renderer leftArm;
-    [SerializeField] private Renderer rightArm;
     [SerializeField] private Renderer body;
     [SerializeField] private Renderer hat;
 
@@ -39,8 +37,6 @@ public class PlayerManager : MonoBehaviour
 
     public void ApplyTeamMaterial(Material material)
     {
-        leftArm.material = material;
-        rightArm.material = material;
         body.material = material;
         hat.material = material;
     }

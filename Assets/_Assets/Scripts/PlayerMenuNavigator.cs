@@ -24,10 +24,8 @@ public class PlayerMenuNavigator : MonoBehaviour
     public int currentSkinColorIndex = 0; // Índice para a lista de skinMaterials
     [SerializeField] private TeamMaterialLibrary teamMaterialLibrary; //Library de team materials
 
-    // Referências para as partes do corpo do personagem
+    // Referências para a cor da pele do personagem
     public Renderer headRenderer;
-    public Renderer leftEarRenderer;
-    public Renderer rightEarRenderer;
 
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject customizationUI;
@@ -190,9 +188,8 @@ public class PlayerMenuNavigator : MonoBehaviour
         // Acessa o material da opção selecionada da lista skinMaterials
         Material skinMaterial = customizationLibrary.skinMaterials[currentSkinColorIndex].material;
 
-        // Aplica o material nas partes do corpo usando as referências corretas
+        // Aplica o material na pele usando as referências corretas
         headRenderer.material = skinMaterial;
-        leftEarRenderer.material = skinMaterial;
-        rightEarRenderer.material = skinMaterial;
+
     }
 }
