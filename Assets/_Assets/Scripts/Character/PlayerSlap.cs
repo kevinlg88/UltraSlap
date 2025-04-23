@@ -40,7 +40,7 @@ public class PlayerSlap : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<RigidbodyController>().animator;
 
     }
     void Update()
