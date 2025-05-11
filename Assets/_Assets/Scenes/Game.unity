@@ -8449,6 +8449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937891189}
+  - component: {fileID: 937891190}
   m_Layer: 0
   m_Name: CharacterFeelManager
   m_TagString: Untagged
@@ -8479,6 +8480,35 @@ Transform:
   - {fileID: 1942330093}
   m_Father: {fileID: 543450653497735796}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &937891190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937891188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3e5b405038c093b84e6b9c2d681d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feedbacks:
+  - name: SlapEnemy
+    feedback: {fileID: 1647660579}
+  - name: SlapProp
+    feedback: {fileID: 125477065}
+  - name: SlapEnvironment
+    feedback: {fileID: 638443423}
+  - name: SlapWhoosh
+    feedback: {fileID: 2131050565}
+  - name: ChargingSlap
+    feedback: {fileID: 541637728}
+  - name: ChargingSlapEnd
+    feedback: {fileID: 2033913256}
+  - name: RightFootStep
+    feedback: {fileID: 740207091}
+  - name: LeftFootStep
+    feedback: {fileID: 1942330096}
 --- !u!1 &943285770 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 188066, guid: 166c94a2ce0074b4d8bdd2abbccbe7ff,
