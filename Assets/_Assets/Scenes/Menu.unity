@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18370044, g: 0.22913411, b: 0.30488932, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4369,11 +4369,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler:
-    _Editor_SelectedChain: 0
-    _Editor_ChainCategory: 2
-    _EditorCategory: 2
-    _EditorMainCategory: 1
-    _EditorMotionCategory: 0
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
       type: 3}
     m_cyli: {fileID: 2534964839176971238, guid: 2ea99bbc50a9266448416f21d645a771,
@@ -4383,6 +4378,11 @@ MonoBehaviour:
     m_box: {fileID: -5495902117074765545, guid: 556fd6baa0902304189e57acd1d60fa6,
       type: 3}
     _EditorBoneScenePreviews: []
+    _Editor_SelectedChain: 0
+    _Editor_ChainCategory: 2
+    _EditorCategory: 2
+    _EditorMainCategory: 1
+    _EditorMotionCategory: 0
     StoredReferenceTPose:
       BonePoses: []
       LastBaseTransform: {fileID: 0}
@@ -25796,11 +25796,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler:
-    _Editor_SelectedChain: 0
-    _Editor_ChainCategory: 2
-    _EditorCategory: 2
-    _EditorMainCategory: 1
-    _EditorMotionCategory: 0
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
       type: 3}
     m_cyli: {fileID: 2534964839176971238, guid: 2ea99bbc50a9266448416f21d645a771,
@@ -25810,6 +25805,11 @@ MonoBehaviour:
     m_box: {fileID: -5495902117074765545, guid: 556fd6baa0902304189e57acd1d60fa6,
       type: 3}
     _EditorBoneScenePreviews: []
+    _Editor_SelectedChain: 0
+    _Editor_ChainCategory: 2
+    _EditorCategory: 2
+    _EditorMainCategory: 1
+    _EditorMotionCategory: 0
     StoredReferenceTPose:
       BonePoses: []
       LastBaseTransform: {fileID: 0}
@@ -32906,11 +32906,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler:
-    _Editor_SelectedChain: 0
-    _Editor_ChainCategory: 2
-    _EditorCategory: 2
-    _EditorMainCategory: 1
-    _EditorMotionCategory: 0
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
       type: 3}
     m_cyli: {fileID: 2534964839176971238, guid: 2ea99bbc50a9266448416f21d645a771,
@@ -32920,6 +32915,11 @@ MonoBehaviour:
     m_box: {fileID: -5495902117074765545, guid: 556fd6baa0902304189e57acd1d60fa6,
       type: 3}
     _EditorBoneScenePreviews: []
+    _Editor_SelectedChain: 0
+    _Editor_ChainCategory: 2
+    _EditorCategory: 2
+    _EditorMainCategory: 1
+    _EditorMotionCategory: 0
     StoredReferenceTPose:
       BonePoses: []
       LastBaseTransform: {fileID: 0}
@@ -37514,7 +37514,7 @@ SceneRoots:
   - {fileID: 2031963756}
   - {fileID: 383638895}
   - {fileID: 116995822}
-  - {fileID: 1248498604}
   - {fileID: 838484127}
   - {fileID: 209227789}
   - {fileID: 844871250}
+  - {fileID: 1248498604}
