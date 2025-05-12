@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerLowerBody
+  m_Mask: 01000000000000000000000001000000010000000000000000000000000000000000000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/root
+    m_Weight: 1
+  - m_Path: Armature/root/ik.foot.l
+    m_Weight: 0
+  - m_Path: Armature/root/ik.foot.l/knee.l
+    m_Weight: 0
+  - m_Path: Armature/root/ik.foot.l/knee.l/knee.l_end
+    m_Weight: 0
+  - m_Path: Armature/root/ik.foot.r
+    m_Weight: 0
+  - m_Path: Armature/root/ik.foot.r/knee.r
+    m_Weight: 0
+  - m_Path: Armature/root/ik.foot.r/knee.r/knee.r_end
+    m_Weight: 0
+  - m_Path: Armature/root/ik.hand.l
+    m_Weight: 0
+  - m_Path: Armature/root/ik.hand.l/elbow.l
+    m_Weight: 0
+  - m_Path: Armature/root/ik.hand.l/elbow.l/elbow.l_end
+    m_Weight: 0
+  - m_Path: Armature/root/ik.hand.r
+    m_Weight: 0
+  - m_Path: Armature/root/ik.hand.r/elbow.r
+    m_Weight: 0
+  - m_Path: Armature/root/ik.hand.r/elbow.r/elbow.r_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.l
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.l/thigh.l
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.l/thigh.l/calf.l
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.l/thigh.l/calf.l/foot.l
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.l/thigh.l/calf.l/foot.l/toe.l
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.l/thigh.l/calf.l/foot.l/toe.l/toe.l_end
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.r
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.r/thigh.r
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.r/thigh.r/calf.r
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.r/thigh.r/calf.r/foot.r
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.r/thigh.r/calf.r/foot.r/toe.r
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/pelvis.r/thigh.r/calf.r/foot.r/toe.r/toe.r_end
+    m_Weight: 1
+  - m_Path: Armature/root/pelvis/spine.01
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/neck
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/neck/head
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/neck/head/props.head
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/neck/head/props.head/props.head_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/index.01.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/index.01.l/index.02.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/index.01.l/index.02.l/index.03.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/index.01.l/index.02.l/index.03.l/index.03.l_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/mid.01.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/mid.01.l/mid.02.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/mid.01.l/mid.02.l/mid.03.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/mid.01.l/mid.02.l/mid.03.l/mid.03.l_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/thumb.01.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/thumb.01.l/thumb.02.l
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.l/upperarm.l/forearm.l/hand.l/thumb.01.l/thumb.02.l/thumb.02.l_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/index.01.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/index.01.r/index.02.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/index.01.r/index.02.r/index.03.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/index.01.r/index.02.r/index.03.r/index.03.r_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/mid.01.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/mid.01.r/mid.02.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/mid.01.r/mid.02.r/mid.03.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/mid.01.r/mid.02.r/mid.03.r/mid.03.r_end
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/thumb.01.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/thumb.01.r/thumb.02.r
+    m_Weight: 0
+  - m_Path: Armature/root/pelvis/spine.01/spine.02/shoulder.r/upperarm.r/forearm.r/hand.r/thumb.01.r/thumb.02.r/thumb.02.r_end
+    m_Weight: 0
+  - m_Path: bone
+    m_Weight: 0
+  - m_Path: boxe
+    m_Weight: 0
+  - m_Path: bust
+    m_Weight: 0
+  - m_Path: capacete-football
+    m_Weight: 0
+  - m_Path: chapeu
+    m_Weight: 0
+  - m_Path: head
+    m_Weight: 0
+  - m_Path: headphone
+    m_Weight: 0
+  - m_Path: luva
+    m_Weight: 0
+  - m_Path: oculos
+    m_Weight: 0

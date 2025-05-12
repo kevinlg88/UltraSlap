@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
-using System.Diagnostics;
 using System.Security.Cryptography;
 
 public class TriggerHitbox : MonoBehaviour
@@ -16,7 +15,7 @@ public class TriggerHitbox : MonoBehaviour
     [SerializeField] float slapPower;
     [SerializeField] float slapPowerFallingThreshold;
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
-    bool isSlapping = false;
+    [SerializeField] bool isSlapping = false;
 
     [SerializeField] PlayerSlap playerSlap;
 
@@ -25,21 +24,17 @@ public class TriggerHitbox : MonoBehaviour
     {
         tag = gameObject.tag;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
 
-        //Debug.Log("trigger:" + other.name);
         if (!other.attachedRigidbody)
         {
-            if (isSlapping) return;
-            isSlapping = true;
-
-
-
             slapEnvironment.PlayFeedbacks();
 
             if (other.gameObject.layer == LayerMask.NameToLayer("Glass"))
             {
+                if (isSlapping) return;
+                isSlapping = true;
                 
                 if (other.TryGetComponent(out BreakableWindow breakableWindow))
                 {
@@ -56,16 +51,8 @@ public class TriggerHitbox : MonoBehaviour
                 }
 
             }
+        }
 
-
-            }
-        //#### Detect Components ####
-
-        //Component[] components = other.GetComponents<Component>();
-        //foreach (Component component in components)
-        //{
-        //    Debug.Log($"Componente: {component.GetType().Name}");
-        //}
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
@@ -75,15 +62,16 @@ public class TriggerHitbox : MonoBehaviour
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
             if (ragdoll != null)
             {
-
-                //UnityEngine.Debug.Log("bateu");
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
+
+                Debug.Log("bateu: " + ragdoll.gameObject.name);
                 
                 if (slapPower >= slapPowerFallingThreshold) 
                     ragdoll.User_SwitchFallState();
 
                 slapEnemy.PlayFeedbacks();
             }
+            Debug.Log("other:" + other.name);
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
             //ragdoll.
             //ragdoll.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
@@ -106,8 +94,8 @@ public class TriggerHitbox : MonoBehaviour
             go.transform.position += new Vector3(0f, 0.9f, 1.0f); // Ajuste esses valores conforme necessário
 
             Destroy(go,1f);
-            //Debug.Log("aplicou força");
-
+            Debug.Log("aplicou for?a");
+            
 
         }
     }
@@ -127,7 +115,7 @@ public class TriggerHitbox : MonoBehaviour
 
             if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
             {
-                UnityEngine.Debug.Log("ChargingTime do Adversário é: " + originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime());
+                //UnityEngine.Debug.Log("ChargingTime do Adversário é: " + originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime());
 
                 originalGameObject.GetComponent<PlayerSlap>()?.animator.SetBool("isInterrupted", true);
                 //originalGameObject.GetComponent<PlayerSlap>()?.stopSlapFeedback();
@@ -147,7 +135,7 @@ public class TriggerHitbox : MonoBehaviour
 
         //Time.timeScale = 0.1f; // Deixa o jogo rodando a 10% da velocidade normal (camera lenta)
 
-        UnityEngine.Debug.Log("Scale: " + transform.localScale);
+        //UnityEngine.Debug.Log("Scale: " + transform.localScale);
 
 
     }
