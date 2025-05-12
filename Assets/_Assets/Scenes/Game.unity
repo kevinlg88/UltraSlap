@@ -15615,7 +15615,7 @@ Transform:
   m_GameObject: {fileID: 919132149223776462}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.76, y: 0.913, z: 2.9858046}
+  m_LocalPosition: {x: 0.767, y: 0.444, z: 2.9858046}
   m_LocalScale: {x: 0.5669, y: 0.5669, z: 0.5669}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -16011,9 +16011,9 @@ MonoBehaviour:
     m_box: {fileID: -5495902117074765545, guid: 556fd6baa0902304189e57acd1d60fa6,
       type: 3}
     _EditorBoneScenePreviews: []
-    _Editor_SelectedChain: 4
+    _Editor_SelectedChain: -1
     _Editor_ChainCategory: 1
-    _EditorCategory: 1
+    _EditorCategory: 3
     _EditorMainCategory: 0
     _EditorMotionCategory: 2
     StoredReferenceTPose:
@@ -16267,7 +16267,7 @@ MonoBehaviour:
         LocalUp: {x: 0, y: 1, z: 0}
         LocalForward: {x: 0, y: 0, z: 1}
         ToBase: {x: 0, y: 0, z: 0}
-        _EditorCollFoldout: 1
+        _EditorCollFoldout: 0
         _EditorCollPosSliders: 0
         _EditorBoxCollSliders: 0
         _EditorMeshCollSliders: 0
@@ -16481,11 +16481,11 @@ MonoBehaviour:
         BoundedIgnoreScale: 1
         BoneID: 10
         colliders:
-        - ColliderType: 2
-          ColliderCenter: {x: 1.9961652e-19, y: 0.00063808524, z: 0.000060826405}
-          ColliderSizeMultiply: 1
+        - ColliderType: 1
+          ColliderCenter: {x: 1.6704993e-10, y: 0.0067022685, z: -0.0002215367}
+          ColliderSizeMultiply: 0.2
           CapsuleDirection: 1
-          ColliderRadius: 0.0012819609
+          ColliderRadius: 0.051
           ColliderLength: 0.0025639217
           ColliderBoxSize: {x: 0.003704357, y: 0.0012819609, z: 0.003704357}
           ColliderMesh: {fileID: 0}
@@ -16527,9 +16527,9 @@ MonoBehaviour:
         LocalUp: {x: 0, y: 1, z: 0}
         LocalForward: {x: 0, y: 0, z: 1}
         ToBase: {x: 0, y: 0, z: 0}
-        _EditorCollFoldout: 0
-        _EditorCollPosSliders: 0
-        _EditorBoxCollSliders: 0
+        _EditorCollFoldout: 1
+        _EditorCollPosSliders: 1
+        _EditorBoxCollSliders: 1
         _EditorMeshCollSliders: 0
         _EditorRadiusSliders: 1
         _EditorMaxSliderValue: 0.5
@@ -18008,7 +18008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2618077248397100320
 GameObject:
   m_ObjectHideFlags: 0
@@ -20552,7 +20552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7387422604114126022
 Transform:
   m_ObjectHideFlags: 0
@@ -20585,7 +20585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7574316132297573383
 GameObject:
   m_ObjectHideFlags: 0
@@ -20816,7 +20816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7993709547966628616
 Transform:
   m_ObjectHideFlags: 0
@@ -21192,7 +21192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8879528566648498922
 Transform:
   m_ObjectHideFlags: 0
