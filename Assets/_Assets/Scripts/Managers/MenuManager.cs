@@ -42,13 +42,12 @@ public class MenuManager : MonoBehaviour
         playersNumbers++;
         if (playerInput.devices[0] is Keyboard)
         {
-            if (playersNumbers == 1) playerInput.SwitchCurrentActionMap("Keyboard1");
-            else if (playersNumbers == 2) playerInput.SwitchCurrentActionMap("Keyboard2");
+            if (playersNumbers == 1) playerInput.SwitchCurrentActionMap("UIKeyboard1");
+            else if (playersNumbers == 2) playerInput.SwitchCurrentActionMap("UIKeyboard2");
         }
         else if (playerInput.devices[0] is Gamepad)
         {
-            playerInput.SwitchCurrentActionMap("Gamepad");   
+            playerInput.SwitchCurrentActionMap("UIGamepad");   
         }
-
     }
 }
