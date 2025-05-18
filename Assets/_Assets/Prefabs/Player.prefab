@@ -7448,8 +7448,6 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldownTime: 2
   animator: {fileID: 2697266724225812228}
-  inputActions: {fileID: -944628639613478452, guid: e8a4f688dd746d24a99a9764a44eca65,
-    type: 3}
   enableInput: 1
   gravityMultiplier: 1
   groundCheckPoint: {fileID: 6484622275020797135}
@@ -7472,7 +7470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7763fbe2ce8f45042b779a06ca1117c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keySlap: 32
   slapWhoosh: {fileID: 8231088769011993519}
   chargingSlap: {fileID: 1242122161229691052}
   chargingSlapEnd: {fileID: 716782088062456321}
@@ -7523,7 +7520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: e8a4f688dd746d24a99a9764a44eca65,
+    type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -7535,10 +7533,86 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ef1c25a-5e09-4f54-bf47-c617d3f93d17
+    m_ActionName: Gameplay/Slap
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c5db4271-119d-4e30-a4ff-2d13d9b2f14d
+    m_ActionName: Gameplay/Move
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 554d7966-4d36-4037-80be-a5f55e84fd15
+    m_ActionName: Gameplay/Dash
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e20a3a6a-e0ed-450c-887a-5c67b32e4d60
+    m_ActionName: Keyboard1/Slap[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3fc874b2-b585-4c04-908c-2fbb6bafc45f
+    m_ActionName: Keyboard1/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9c0302a-f4c0-4ce9-b53c-a784f003edb7
+    m_ActionName: Keyboard1/Dash[/Keyboard/rightAlt]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bc8c216e-c16d-4fcc-96bf-6bdefacf166a
+    m_ActionName: Keyboard2/Slap[/Keyboard/rightShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4f3610a-e403-4be7-8739-559fa4b95e9b
+    m_ActionName: Keyboard2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe6af8b4-2ada-48ed-95b5-0ae53afcaafd
+    m_ActionName: Keyboard2/Dash[/Keyboard/rightCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a4e001e5-8868-42d7-b5c2-a51d4215c6e3
+    m_ActionName: UIKeyboard1/Navigation[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f3cdadef-b683-4846-895e-973899d0e7c7
+    m_ActionName: UIKeyboard1/Confirm[/Keyboard/rightAlt]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fdceb46d-d883-421c-b6a9-1fcb58936afb
+    m_ActionName: UIKeyboard1/Back[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 11958a75-4a21-49c7-8703-2bd1d46f0dbf
+    m_ActionName: UIKeyboard2/Navigation[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b9a604d-dc79-4a76-bc89-24076016f6e1
+    m_ActionName: UIKeyboard2/Confirm[/Keyboard/rightCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1a4bfef-8d5d-4ed1-8c5b-dad0952b538b
+    m_ActionName: UIKeyboard2/Back[/Keyboard/rightShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 89a58fe2-9127-4c82-81e4-4746078013e7
+    m_ActionName: UIGamepad/Navigation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f65cf13-fa06-4cfd-8804-587bbc8ad7e7
+    m_ActionName: UIGamepad/Confirm
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a8c1d49f-a8ed-4be4-9baa-84d8e0d0035d
+    m_ActionName: UIGamepad/Back
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 41967d51-1de4-42a1-9442-0a8b02ae8a8f
+    m_ActionName: JoinActions/Join[/Keyboard/space,/Keyboard/rightCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: 667e052e-d7f1-4198-95ff-ac1b6df42cf7
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &8532073142637833729

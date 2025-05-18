@@ -5,14 +5,16 @@ using MoreMountains.Feedbacks;
 using System.Diagnostics;
 using System.Runtime;
 using System.Threading.Tasks;
+using UnityEngine.InputSystem;
 
 public class PlayerSlap : MonoBehaviour
 {
-    [SerializeField] KeyCode keySlap;
     [SerializeField] private MMFeedbacks slapWhoosh;
     [SerializeField] private MMFeedbacks chargingSlap;
     [SerializeField] private MMFeedbacks chargingSlapEnd;
     [HideInInspector] public Animator animator;
+    PlayerInput playerInput;
+    InputAction slapAction;
 
     [SerializeField] bool isCharging = false;
     [SerializeField] bool isSlapping = false;
@@ -38,16 +40,23 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] TriggerHitbox TriggerGetRagBone;
 
 
+
+    void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        slapAction = playerInput.currentActionMap["Slap"];
+        //slapAction.Enable();
+    }
+
     private void Start()
     {
         animator = GetComponent<RigidbodyController>().animator;
-
     }
     void Update()
     {
 
 
-        if (Input.GetKeyDown(keySlap) && !isCharging && !isSlapping && !isOnCooldown) 
+        if (slapAction.WasPressedThisFrame() && !isCharging && !isSlapping && !isOnCooldown) 
         {
             chargingTime = 0f;
             isCharging = true;
@@ -58,7 +67,7 @@ public class PlayerSlap : MonoBehaviour
 
 
         // Se o botão estiver pressionado, aumenta o tempo de carga
-        else if (Input.GetKey(keySlap) && isCharging && !isOnCooldown)
+        else if (slapAction.WasPerformedThisFrame() && isCharging && !isOnCooldown)
         {
             chargingTime += Time.deltaTime;
         }
@@ -72,13 +81,13 @@ public class PlayerSlap : MonoBehaviour
             }
         }
 
-        else if (!Input.GetKeyDown(keySlap) && isSlapping && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Slap"))
+        else if (!slapAction.IsPressed() && isSlapping && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Slap"))
         {
             isSlapping = false;
         }
 
 
-        else if (Input.GetKeyUp(keySlap) && !isOnCooldown)
+        else if (slapAction.WasReleasedThisFrame() && !isOnCooldown)
         {
 
             power = minPower + (maxPower - minPower) / (1 + Mathf.Exp(-growthRate * (chargingTime - midPoint))); // Calcula o valor de power

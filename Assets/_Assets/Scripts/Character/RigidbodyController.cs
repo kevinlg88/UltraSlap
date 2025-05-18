@@ -20,7 +20,6 @@ public class RigidbodyController : MonoBehaviour
     public float dashForce = 10f;
     public float dashDuration = 0.2f;
     public float dashCooldownTime = 2.0f;
-    private InputAction dashInputAction;
     private bool isDashing = false;
     private float dashTimer = 0f;
     private Vector3 dashDirection;
@@ -30,9 +29,9 @@ public class RigidbodyController : MonoBehaviour
     public Animator animator;
 
     [Header("Input Settings")]
-    public InputActionAsset inputActions;
     public bool enableInput = true;
-    private InputAction moveAction;
+    InputAction moveAction;
+    InputAction dashInputAction;
 
     [Header("Gravity Settings")]
     public float gravityMultiplier = 1f;
@@ -57,21 +56,12 @@ public class RigidbodyController : MonoBehaviour
     [SerializeField] PlayerSlap PlayerSlap;
 
 
-    void OnEnable()
-    {
-        inputActions.FindActionMap("Gameplay").Enable(); 
-    }
-    void OnDisable()
-    {
-        inputActions.FindActionMap("Gameplay").Disable(); 
-    }
-
     void Awake()
     {
-        moveAction = inputActions.FindAction("Gameplay/Move");
-        dashInputAction = inputActions.FindAction("Gameplay/Dash");   
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.currentActionMap["Move"];
+        dashInputAction = playerInput.currentActionMap["Dash"];
     }
-
     private void Start()
     {
         if (!rigidbodyComponent) rigidbodyComponent = GetComponent<Rigidbody>();
