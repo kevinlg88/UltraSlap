@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
     private CameraZoom cameraZoom; // Referência para CameraZoom
 
     [SerializeField] private int numberOfPlayers = 2; // Número fixo de jogadores
-    [SerializeField] private PlayerManager[] players; // Jogadores na partida
+    [SerializeField] private TeamManager[] players; // Jogadores na partida
 
     [SerializeField] private TextMeshProUGUI matchWinnerText; // Referência ao texto da UI
 
@@ -113,7 +113,7 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
 
-        players = FindObjectsOfType<PlayerManager>();  // Atualiza a lista de jogadores APÓS o carregamento da cena
+        players = FindObjectsOfType<TeamManager>();  // Atualiza a lista de jogadores APÓS o carregamento da cena
 
         UnityEngine.Debug.Log($"Jogadores encontrados após cena recarregada: {players.Length}");
 
@@ -135,14 +135,14 @@ public class LevelManager : MonoBehaviour
         levelSong.PlayFeedbacks();
 
         // Encontra todos os objetos PlayerManager na cena (ordem não garantida)
-        PlayerManager[] foundPlayers = FindObjectsOfType<PlayerManager>();
+        TeamManager[] foundPlayers = FindObjectsOfType<TeamManager>();
 
         // Inicializa o array players com o tamanho definido pelo número total de jogadores
-        players = new PlayerManager[numberOfPlayers];
+        players = new TeamManager[numberOfPlayers];
 
         // Organiza os jogadores no array players de acordo com o índice definido em playerIndex
 
-        foreach (PlayerManager p in foundPlayers)
+        foreach (TeamManager p in foundPlayers)
         {
             // Garante que o playerIndex está dentro dos limites válidos
             if (p.playerIndex >= 0 && p.playerIndex < numberOfPlayers)
@@ -207,7 +207,7 @@ public class LevelManager : MonoBehaviour
 
                     //teamVictoryGroupMap[x] = playerRenderers[i].GetComponentInParent<PlayerManager>().team; //Mapeia o ID de cada time para sua posição correspondente no array 'victoryCounterGroup'
 
-                    int teamID = playerRenderers[i].GetComponentInParent<PlayerManager>().team;
+                    int teamID = playerRenderers[i].GetComponentInParent<TeamManager>().team;
                     teamVictoryGroupMap.Add(teamID);
 
                     
@@ -226,9 +226,9 @@ public class LevelManager : MonoBehaviour
     public void AssignTeamMaterials()
     {
         // Encontra todos os jogadores ativos na cena
-        PlayerManager[] players = FindObjectsOfType<PlayerManager>();
+        TeamManager[] players = FindObjectsOfType<TeamManager>();
 
-        foreach (PlayerManager player in players)
+        foreach (TeamManager player in players)
         {
             int teamIndex = Mathf.Clamp(player.team, 0, teamMaterials.Length - 1);
             Material selectedMaterial = teamMaterials[teamIndex];
@@ -247,7 +247,7 @@ public class LevelManager : MonoBehaviour
         }
 
         // ⚠️ IMPORTANTE: Atualiza a lista de jogadores para evitar referências nulas
-        players = FindObjectsOfType<PlayerManager>();
+        players = FindObjectsOfType<TeamManager>();
 
         TransitionManager.Instance.PlayStartHalfTransition(3f, 0f, () =>
         {

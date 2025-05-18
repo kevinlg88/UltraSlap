@@ -19,22 +19,20 @@ public class RigidbodyController : MonoBehaviour
     [Header("Dash Settings")]
     public float dashForce = 10f;
     public float dashDuration = 0.2f;
-    public InputActionReference dashInput;
-
+    public float dashCooldownTime = 2.0f;
+    private InputAction dashInputAction;
     private bool isDashing = false;
     private float dashTimer = 0f;
     private Vector3 dashDirection;
-
-    [Header("Dash Cooldown Settings")]
-    public float dashCooldownTime = 2.0f; // Tempo de cooldown em segundos
-    private float nextDashTime = 0f;      // Timestamp para o próximo dash
+    private float nextDashTime = 0f;
 
     [Header("Animator Settings")]
     public Animator animator;
 
     [Header("Input Settings")]
-    public InputActionReference move;
+    public InputActionAsset inputActions;
     public bool enableInput = true;
+    private InputAction moveAction;
 
     [Header("Gravity Settings")]
     public float gravityMultiplier = 1f;
@@ -58,6 +56,22 @@ public class RigidbodyController : MonoBehaviour
 
     [SerializeField] PlayerSlap PlayerSlap;
 
+
+    void OnEnable()
+    {
+        inputActions.FindActionMap("Gameplay").Enable(); 
+    }
+    void OnDisable()
+    {
+        inputActions.FindActionMap("Gameplay").Disable(); 
+    }
+
+    void Awake()
+    {
+        moveAction = inputActions.FindAction("Gameplay/Move");
+        dashInputAction = inputActions.FindAction("Gameplay/Dash");   
+    }
+
     private void Start()
     {
         if (!rigidbodyComponent) rigidbodyComponent = GetComponent<Rigidbody>();
@@ -75,8 +89,6 @@ public class RigidbodyController : MonoBehaviour
         targetRotation = transform.rotation;
         targetInstantRotation = transform.rotation;
         rotationAngle = transform.eulerAngles.y;
-
-        dashInput.action.Enable();
     }
 
     private void Update()
@@ -87,7 +99,7 @@ public class RigidbodyController : MonoBehaviour
 
         HandleMovementInput();
         
-        if (dashInput.action.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime) //Aciona o dash se botão foi apertado, o personagem não está em dash, está no chão, e não está com cooldown ativo
+        if (dashInputAction.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime) //Aciona o dash se botão foi apertado, o personagem não está em dash, está no chão, e não está com cooldown ativo
         {
             StartDash();
         }
@@ -106,12 +118,7 @@ public class RigidbodyController : MonoBehaviour
 
         if (PlayerSlap.GetIsSlapping() == false) { 
 
-            localMoveDirection = move.action.ReadValue<Vector2>();
-
-            //if (Input.GetKey(KeyCode.A)) localMoveDirection += Vector2.left;
-            //if (Input.GetKey(KeyCode.D)) localMoveDirection += Vector2.right;
-            //if (Input.GetKey(KeyCode.W)) localMoveDirection += Vector2.up;
-            //if (Input.GetKey(KeyCode.S)) localMoveDirection += Vector2.down;
+            localMoveDirection = moveAction.ReadValue<Vector2>();
         }
 
         Quaternion cameraRotation = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);

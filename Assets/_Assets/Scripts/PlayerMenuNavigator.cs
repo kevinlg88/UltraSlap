@@ -48,7 +48,8 @@ public class PlayerMenuNavigator : MonoBehaviour
 
         UpdateCustomizationSelection(); // Inicializa visibilidade correta
 
-        playerModel.GetComponent<PlayerManager>().ApplyTeamMaterial(teamMaterialLibrary.teamMaterials[playerModel.GetComponent<PlayerManager>().team].material);
+        //TODO: Implement player view
+        //playerModel.GetComponent<PlayerManager>().ApplyTeamMaterial(teamMaterialLibrary.teamMaterials[playerModel.GetComponent<PlayerManager>().team].material);
 
 
     }
