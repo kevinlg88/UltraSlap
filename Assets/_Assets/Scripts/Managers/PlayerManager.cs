@@ -5,9 +5,6 @@ using Zenject;
 
 public class PlayerManager
 {
-    [Inject]
-    private PlayerManager _playerManager;
-
     public List<PlayerData> Players { get; private set; } = new List<PlayerData>();
 
     public void AddPlayer(PlayerData playerData)

@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 public class MenuManager : MonoBehaviour
 {
-    [Inject]
     private PlayerManager _playerManager;
-    // Start is called before the first frame update
+
+    [Inject]
+    public void Construct(PlayerManager playerManager)
+    {
+        _playerManager = playerManager;
+        _playerManager.ClearPlayers();
+        Debug.Log("MenuManager: PlayerManager cleared.");
+
+    }
     void Start()
     {
-        _playerManager.ClearPlayers();
+        int gamepadCount = Gamepad.all.Count;
+        Debug.Log("Gamepad count: " + gamepadCount);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
