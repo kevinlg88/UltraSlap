@@ -39,31 +39,16 @@ public class MenuManager : MonoBehaviour
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         Debug.Log("Player joined: " + playerInput.playerIndex);
-        Debug.Log("player count: " + playerInputManager.playerCount);
-/*         PlayerData playerData = new PlayerData();
-        playerData.PlayerName = "Player " + (playerInput.playerIndex); */
-        //TODO: Enum Input Maps 
-        //input.actions.actionMaps["Keyboard2"].Enable();
-        //_playerManager.AddPlayer(playerData);
-        //Debug.Log("Player added: " + playerData.PlayerName);
-    }
+        playersNumbers++;
+        if (playerInput.devices[0] is Keyboard)
+        {
+            if (playersNumbers == 1) playerInput.SwitchCurrentActionMap("Keyboard1");
+            else if (playersNumbers == 2) playerInput.SwitchCurrentActionMap("Keyboard2");
+        }
+        else if (playerInput.devices[0] is Gamepad)
+        {
+            playerInput.SwitchCurrentActionMap("Gamepad");   
+        }
 
-    private void CheckGamepad()
-    {
-        if (Gamepad.all.Count == 0)
-        {
-            Debug.Log("No Gamepad detected.");
-            // Handle keyboard for 2
-        }
-        else if (Gamepad.all.Count == 1)
-        {
-            Debug.Log("One Gamepad detected.");
-            // Handle keyboard and gamepad for 2
-        }
-        else
-        {
-            Debug.Log("more gamepads detected.");
-            // Handle Gamepad for 2
-        }
     }
 }
