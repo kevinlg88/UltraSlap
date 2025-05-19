@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class RigidbodyController : MonoBehaviour
 {
@@ -58,6 +59,12 @@ public class RigidbodyController : MonoBehaviour
 
     void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            enableInput = false;
+            return;
+        }
+        
         PlayerInput playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.currentActionMap["Move"];
         dashInputAction = playerInput.currentActionMap["Dash"];
@@ -199,6 +206,7 @@ public class RigidbodyController : MonoBehaviour
 
         // Apply gravity
         targetVelocity.y += Physics.gravity.y * gravityMultiplier * Time.fixedDeltaTime;
+        //targetVelocity.y = rigidbodyComponent.velocity.y; // Mantém a velocidade vertical atual
 
         rigidbodyComponent.velocity = targetVelocity;
 

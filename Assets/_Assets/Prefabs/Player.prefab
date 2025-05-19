@@ -5911,7 +5911,7 @@ MonoBehaviour:
     _Editor_SelectedChain: -1
     _Editor_ChainCategory: 1
     _EditorCategory: 3
-    _EditorMainCategory: 0
+    _EditorMainCategory: 1
     _EditorMotionCategory: 2
     StoredReferenceTPose:
       BonePoses:
@@ -6084,7 +6084,7 @@ MonoBehaviour:
     MaxDepenetrationVelocity: 0
     ProjectionMode: 0
     PreProcessing: 0
-    RagdollBlend: 0.6987952
+    RagdollBlend: 0.40467754
     animatingMode: 1
     UseReconstruction: 0
     UnitySolverIterations: 12
@@ -7449,7 +7449,7 @@ MonoBehaviour:
   dashCooldownTime: 2
   animator: {fileID: 2697266724225812228}
   enableInput: 1
-  gravityMultiplier: 1
+  gravityMultiplier: 10
   groundCheckPoint: {fileID: 6484622275020797135}
   groundCheckDistance: 0.2
   groundLayer:
@@ -7612,7 +7612,7 @@ MonoBehaviour:
     m_ActionName: JoinActions/Join[/Keyboard/space,/Keyboard/rightCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 667e052e-d7f1-4198-95ff-ac1b6df42cf7
+  m_DefaultActionMap: JoinActions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &8532073142637833729

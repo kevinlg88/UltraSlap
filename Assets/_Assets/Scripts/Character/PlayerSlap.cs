@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Runtime;
 using System.Threading.Tasks;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerSlap : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class PlayerSlap : MonoBehaviour
 
     void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "Menu")return;
+        
         playerInput = GetComponent<PlayerInput>();
         slapAction = playerInput.currentActionMap["Slap"];
         //slapAction.Enable();
@@ -54,7 +57,7 @@ public class PlayerSlap : MonoBehaviour
     }
     void Update()
     {
-
+        if(slapAction == null) return;
 
         if (slapAction.WasPressedThisFrame() && !isCharging && !isSlapping && !isOnCooldown) 
         {

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,13 +5,10 @@ using Zenject;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
+
     [Inject]
     private PlayerManager _playerManager;
-    //[Inject]
-    /* public void Construct(PlayerManager playerManager)
-    {
-        _playerManager = playerManager;
-    } */
     PlayerInputManager playerInputManager;
     int playersNumbers = 0;
     private void Awake()
@@ -47,7 +43,13 @@ public class MenuManager : MonoBehaviour
         }
         else if (playerInput.devices[0] is Gamepad)
         {
-            playerInput.SwitchCurrentActionMap("UIGamepad");   
+            playerInput.SwitchCurrentActionMap("UIGamepad");
         }
+        PlayerData playerData = new PlayerData();
+        playerData.Player = playerInput.gameObject;
+        _playerManager.AddPlayer(playerData);
+        Debug.Log("Player added: " + playerData.Player);
+
+        playerInput.gameObject.transform.position = spawnPoints[playersNumbers - 1].transform.position;
     }
 }
