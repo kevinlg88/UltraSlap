@@ -44,11 +44,14 @@ public class PlayerSlap : MonoBehaviour
 
     void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "Menu")return;
-        
+        if (SceneManager.GetActiveScene().name == "Menu") return;
+
         playerInput = GetComponent<PlayerInput>();
-        slapAction = playerInput.currentActionMap["Slap"];
-        //slapAction.Enable();
+        try
+        {
+            slapAction = playerInput.currentActionMap["Slap"];
+        }
+        catch{}
     }
 
     private void Start()

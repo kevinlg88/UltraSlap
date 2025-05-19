@@ -5846,9 +5846,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8487713490536925648}
   serializedVersion: 4
-  m_Mass: 20
-  m_Drag: 5
-  m_AngularDrag: 5
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -5863,7 +5863,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!95 &2697266724225812228
 Animator:
@@ -5911,8 +5911,8 @@ MonoBehaviour:
     _Editor_SelectedChain: -1
     _Editor_ChainCategory: 1
     _EditorCategory: 3
-    _EditorMainCategory: 1
-    _EditorMotionCategory: 2
+    _EditorMainCategory: 0
+    _EditorMotionCategory: 0
     StoredReferenceTPose:
       BonePoses:
       - SourceBone: {fileID: 1558407526849149659}
@@ -6029,8 +6029,160 @@ MonoBehaviour:
         type: 2}
       customStringList: []
       customObjectList: []
-      customEventsList: []
-      variables: []
+      customEventsList:
+      - m_PersistentCalls:
+          m_Calls: []
+      variables:
+      - VariableName: 'Minimum Delay:'
+        Tooltip: Minimum delay in seconds after falling to trigger get up action
+        _value: {x: 0.4, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
+      - VariableName: 'Minimum Stability:'
+        Tooltip: Minimum stable body duration to allow get up
+        _value: {x: 0.25, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
+      - VariableName: 'Max avg. Translation:'
+        Tooltip: 'If average translation of core chain will surpass this value, get
+          up will not be triggered.
+
+          Higher Value = Get up more frequently
+
+          Lower
+          Value = Get up only when ragdoll calm down'
+        _value: {x: 0.075, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
+      - VariableName: 'Max avg. Torque:'
+        Tooltip: 'If average angular velocity/torque of core chain will surpass this
+          value, get up will not be triggered.
+
+          Higher Value = Get up more
+          frequently
+
+          Lower Value = Get up only when ragdoll calm down'
+        _value: {x: 1, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
+      - VariableName: 'Ground Mask:'
+        Tooltip: 
+        _value: {x: 8, y: 0, z: 0, w: 1}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
+      - VariableName: 'To Standing Transition Duration:'
+        Tooltip: Duration of transition process from falling to standing ragdoll
+        _value: {x: 1, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 2, z: 0, w: 0}
+      - VariableName: 'Quick Blend Fade:'
+        Tooltip: Fade applied to the 'Ragdoll Blend' parameter to make character
+          be animated without any physical effect for Get Up animation.
+        _value: {x: 0.7, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 1, z: 0, w: 0}
+      - VariableName: 'Freeze Source Animator Hips:'
+        Tooltip: Freezing position/rotation of source animation anchor bone, to make
+          crossfade to get up animation seamless (no hovering - caused by falling
+          to get up animation crossfade)
+        _value: {x: 0, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0.5, z: 0, w: 0}
+      - VariableName: 'Animator Fade Delay:'
+        Tooltip: Adding delay of animator fade, in case of crossfading to get up
+          animation. If you transition immedietely to get up animation, set this
+          value as zero
+        _value: {x: 0, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 0
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
+      - VariableName: 'Allow Standing Restore:'
+        Tooltip: If character ragdoll falls, but is standing on both legs during
+          ragdolled state for a moment, you can trigger different 'Get Up', restoring
+          character to the standing animating mode without playing 'get up from floor'
+          animations.
+        _value: {x: 0, y: 0, z: 0, w: 0}
+        _string: 
+        _curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        _uObject: {fileID: 0}
+        VariableType: 1
+        _rangeHelper: {x: 0, y: 0, z: 0, w: 0}
     - CustomName: 
       enabled: 1
       FeatureReference: {fileID: 11400000, guid: 2b0eaf438020ae840881cc454505e615,
@@ -6046,7 +6198,7 @@ MonoBehaviour:
     SpringsValue: 1500
     SpringsOnFall: 0
     DampingValue: 40
-    DampingValueOnFall: 0
+    DampingValueOnFall: 0.63
     HardMatching: 0
     HardMatchPositions: 0
     HardMatchPositionsOnFall: 0
@@ -6067,24 +6219,24 @@ MonoBehaviour:
     RagdollThicknessMultiplier: 1
     ReferenceMass: 25
     RigidbodiesInterpolation: 1
-    RigidbodiesDetectionMode: 0
+    RigidbodiesDetectionMode: 1
     RigidbodyDragValue: 1.3
     RigidbodyAngularDragValue: 3.5
     JointContactDistance: 0
-    JointBounciness: 0
+    JointBounciness: 0.24
     JointLimitSpring: 0
     JointLimitDamper: 0
     ConnectedMassMultiply: 0.3
-    MassMultiplyOnFalling: 0.51
+    MassMultiplyOnFalling: 0.74
     CollidersPhysicMaterial: {fileID: 0}
     PhysicMaterialOnFall: {fileID: 0}
-    MaxAngularVelocity: 50
+    MaxAngularVelocity: 50.01
     MaxVelocity: 0
     NoGravityOnStanding: 0
     MaxDepenetrationVelocity: 0
     ProjectionMode: 0
     PreProcessing: 0
-    RagdollBlend: 0.40467754
+    RagdollBlend: 1
     animatingMode: 1
     UseReconstruction: 0
     UnitySolverIterations: 12
@@ -7438,26 +7590,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69885b94cd27f8b429d99afa24dfc0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodyComponent: {fileID: 8680014548563680691}
-  movementSpeed: 5
-  rotationSpeed: 0.8
-  useFixedRotation: 1
-  directMovementFactor: 0
+  rb: {fileID: 8680014548563680691}
+  animator: {fileID: 2697266724225812228}
+  playerSlap: {fileID: 3501899517015075803}
+  moveSpeed: 2
   inertiaFactor: 1
   dashForce: 10
   dashDuration: 0.2
-  dashCooldownTime: 2
-  animator: {fileID: 2697266724225812228}
-  enableInput: 1
-  gravityMultiplier: 10
-  groundCheckPoint: {fileID: 6484622275020797135}
-  groundCheckDistance: 0.2
-  groundLayer:
+  dashCooldown: 2
+  groundCheck: {fileID: 6484622275020797135}
+  groundDistance: 0.2
+  groundMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  isGrounded: 1
-  inertiaReductionFactor: 3
-  PlayerSlap: {fileID: 3501899517015075803}
+    m_Bits: 8
 --- !u!114 &3501899517015075803
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,240 +1,98 @@
-﻿using System;
-using System.Diagnostics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
 public class RigidbodyController : MonoBehaviour
 {
-    public Rigidbody rigidbodyComponent;
+    [Header("Components")]
+    public Rigidbody rb;
+    public Animator animator;
+    public PlayerSlap playerSlap;
 
-    [Header("Movement Settings")]
-    public float movementSpeed = 2f;
-    [Range(0f, 1f)] public float rotationSpeed = 0.8f;
-    [Tooltip("When true, applying rotation using rigidbody.rotation.\nWhen false, applying rotation using angular velocity (smoother interpolation)")]
-    public bool useFixedRotation = true;
-
-    [Range(0f, 1f)] public float directMovementFactor = 0f;
-    [Range(0f, 1f)] public float inertiaFactor = 1f;
-
-    [Header("Dash Settings")]
+    [Header("Settings")]
+    public float moveSpeed = 2f;
+    public float inertiaFactor = 1f;
     public float dashForce = 10f;
     public float dashDuration = 0.2f;
-    public float dashCooldownTime = 2.0f;
-    private bool isDashing = false;
-    private float dashTimer = 0f;
-    private Vector3 dashDirection;
-    private float nextDashTime = 0f;
+    public float dashCooldown = 2f;
 
-    [Header("Animator Settings")]
-    public Animator animator;
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundDistance = 0.2f;
+    public LayerMask groundMask;
 
-    [Header("Input Settings")]
-    public bool enableInput = true;
-    InputAction moveAction;
-    InputAction dashInputAction;
+    InputAction moveInput, dashInput;
 
-    [Header("Gravity Settings")]
-    public float gravityMultiplier = 1f;
-
-    private Quaternion targetRotation;
-    private Quaternion targetInstantRotation;
-    private float rotationAngle = 0f;
-    private float smoothRotationAngle = 0f;
-
-    [Header("Ground Detection Settings")]
-    [SerializeField] private Transform groundCheckPoint; // Um ponto logo abaixo do jogador
-    [SerializeField] private float groundCheckDistance = 0.2f; // Distância para considerar "no chão"
-    [SerializeField] private LayerMask groundLayer; // Camada do chão
-    [SerializeField] private bool isGrounded = true;
-    [SerializeField] private float inertiaReductionFactor = 3.0f;
-
-    [Header("Move Direction and acceleration Settings")]
-    [NonSerialized] public Vector2 localMoveDirection = Vector2.zero;
-    public Vector3 worldMoveDirection { get; set; }
-    public Vector3 currentAcceleration { get; private set; }
-
-    [SerializeField] PlayerSlap PlayerSlap;
-
+    bool isDashing, isGrounded;
+    float dashTimer, nextDashTime;
+    Vector3 dashDir, moveDir;
+    Quaternion targetRot;
 
     void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "Menu")
-        {
-            enableInput = false;
-            return;
-        }
-        
-        PlayerInput playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.currentActionMap["Move"];
-        dashInputAction = playerInput.currentActionMap["Dash"];
-    }
-    private void Start()
-    {
-        if (!rigidbodyComponent) rigidbodyComponent = GetComponent<Rigidbody>();
+        var input = GetComponent<PlayerInput>();
+        moveInput = input.currentActionMap.FindAction("Move");
+        dashInput = input.currentActionMap.FindAction("Dash");
 
-        if (rigidbodyComponent)
-        {
-            rigidbodyComponent.maxAngularVelocity = 30f;
-            if (rigidbodyComponent.interpolation == RigidbodyInterpolation.None)
-                rigidbodyComponent.interpolation = RigidbodyInterpolation.Interpolate;
-
-            rigidbodyComponent.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        }
-
-        isGrounded = true;
-        targetRotation = transform.rotation;
-        targetInstantRotation = transform.rotation;
-        rotationAngle = transform.eulerAngles.y;
+        rb = GetComponent<Rigidbody>();
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    private void Update()
+    void Update()
     {
-        if (rigidbodyComponent == null || !enableInput) return;
+        if (!rb || !groundCheck || Camera.main == null) return;
 
-        CheckGroundStatus();
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask);
 
-        HandleMovementInput();
-        
-        if (dashInputAction.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime) //Aciona o dash se botão foi apertado, o personagem não está em dash, está no chão, e não está com cooldown ativo
+        if(moveInput == null || dashInput == null) return;
+        Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput.ReadValue<Vector2>() : Vector2.zero;
+
+        if (input.sqrMagnitude > 0.01f)
         {
-            StartDash();
-        }
-
-        UpdateMovement();
-    }
-
-    void CheckGroundStatus() //Checa se o personagem está no chão
-    {
-        isGrounded = Physics.Raycast(groundCheckPoint.position, Vector3.down, groundCheckDistance, groundLayer);
-    }
-
-    private void HandleMovementInput()
-    {
-        localMoveDirection = Vector2.zero;
-
-        if (PlayerSlap.GetIsSlapping() == false) { 
-
-            localMoveDirection = moveAction.ReadValue<Vector2>();
-        }
-
-        Quaternion cameraRotation = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);
-
-        if (localMoveDirection != Vector2.zero)
-        {
-            localMoveDirection.Normalize();
-            worldMoveDirection = cameraRotation * new Vector3(localMoveDirection.x, 0f, localMoveDirection.y);
-            targetInstantRotation = Quaternion.LookRotation(worldMoveDirection);
+            Vector3 camForward = Camera.main.transform.forward;
+            camForward.y = 0;
+            Vector3 camRight = Camera.main.transform.right;
+            camRight.y = 0;
+            moveDir = (camForward.normalized * input.y + camRight.normalized * input.x).normalized;
+            targetRot = Quaternion.LookRotation(moveDir);
         }
         else
         {
-            worldMoveDirection = Vector3.zero;
+            moveDir = Vector3.zero;
         }
+
+        if (dashInput != null && dashInput.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime)
+        {
+            isDashing = true;
+            dashTimer = dashDuration;
+            dashDir = transform.forward;
+            nextDashTime = Time.time + dashCooldown;
+            if (animator) animator.SetTrigger("Dash");
+        }
+
+        if (animator) animator.SetBool("isMoving", moveDir != Vector3.zero);
     }
 
-    private void UpdateMovement()
+    void FixedUpdate()
     {
-        bool isMoving = worldMoveDirection != Vector3.zero;
+        if (!rb) return;
 
         if (isDashing)
         {
-            float dashSpeed = dashForce / dashDuration; // Converte a força em uma velocidade constante
-            rigidbodyComponent.MovePosition(rigidbodyComponent.position + dashDirection * dashSpeed * Time.deltaTime);
-
-            dashTimer -= Time.deltaTime;
-
-            if (dashTimer <= 0f)
-            {
-                isDashing = false;
-            }
-
-            return; // Ignora o resto do movimento durante o dash
-        }
-
-        if (rotationSpeed > 0f && currentAcceleration != Vector3.zero)
-        {
-            rotationAngle = Mathf.SmoothDampAngle(rotationAngle, targetInstantRotation.eulerAngles.y, ref smoothRotationAngle, Mathf.Lerp(0.5f, 0.01f, rotationSpeed));
-            targetRotation = Quaternion.Euler(0f, rotationAngle, 0f);
-        }
-
-        if (animator)
-        {
-            animator.SetBool("isMoving", isMoving);
-        }
-
-        // ❌ Se não está no chão, não atualiza a movimentação
-        if (!isGrounded)
-        {
-            worldMoveDirection = Vector3.zero; // limpa o input
-
-            // Diminui bruscamente a velocidade no ar
-            currentAcceleration = Vector3.Lerp(currentAcceleration, Vector3.zero, Time.deltaTime * inertiaReductionFactor);
-
+            rb.MovePosition(rb.position + dashDir * (dashForce / dashDuration) * Time.fixedDeltaTime);
+            dashTimer -= Time.fixedDeltaTime;
+            if (dashTimer <= 0f) isDashing = false;
             return;
         }
 
-        float speed = movementSpeed;
-        float acceleration = isMoving ? 5f * movementSpeed : 7f * movementSpeed;
+        Vector3 currentVel = rb.velocity;
+        float newX = Mathf.Lerp(currentVel.x, moveDir.x * moveSpeed, inertiaFactor);
+        float newZ = Mathf.Lerp(currentVel.z, moveDir.z * moveSpeed, inertiaFactor);
 
-        if (isGrounded)
-        {
-            // ✅ Aplica aceleração normalmente se estiver no chão
-            if (inertiaFactor < 1f)
-            {
-                currentAcceleration = Vector3.Lerp(
-                    Vector3.Slerp(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration),
-                    Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration),
-                    inertiaFactor);
-            }
-            else
-            {
-                currentAcceleration = Vector3.MoveTowards(currentAcceleration, worldMoveDirection * speed, Time.deltaTime * acceleration);
-            }
-        }
+        rb.velocity = new Vector3(newX, currentVel.y, newZ);
 
-        worldMoveDirection = Vector3.zero;
-    }
-
-    private void FixedUpdate()
-    {
-        if (rigidbodyComponent == null) return;
-
-        Vector3 targetVelocity = currentAcceleration;
-        float yAngleDifference = Mathf.DeltaAngle(rigidbodyComponent.rotation.eulerAngles.y, targetInstantRotation.eulerAngles.y);
-        float adjustedDirectMovement = directMovementFactor * Mathf.Lerp(1f, Mathf.InverseLerp(180f, 50f, Mathf.Abs(yAngleDifference)), inertiaFactor);
-        targetVelocity = Vector3.Lerp(targetVelocity, transform.forward * targetVelocity.magnitude, adjustedDirectMovement);
-
-        // Apply gravity
-        targetVelocity.y += Physics.gravity.y * gravityMultiplier * Time.fixedDeltaTime;
-        //targetVelocity.y = rigidbodyComponent.velocity.y; // Mantém a velocidade vertical atual
-
-        rigidbodyComponent.velocity = targetVelocity;
-
-        if (useFixedRotation)
-        {
-            rigidbodyComponent.rotation = targetRotation;
-        }
-    }
-
-    private void StartDash()
-    {
-        // Ativa o estado de dash
-        isDashing = true;
-        dashTimer = dashDuration;
-
-        // Define a direção do dash como a direção que o personagem está olhando
-        dashDirection = transform.forward.normalized;
-
-        // Cancela aceleração normal durante o dash
-        currentAcceleration = Vector3.zero;
-
-        // Dispara animação se existir
-        if (animator != null)
-            animator.SetTrigger("Dash");
-
-        // Log para depuração
-        UnityEngine.Debug.Log("🚀 Dash iniciado!");
-
-        nextDashTime = Time.time + dashCooldownTime; //inicia o cooldown do dash
+        if (moveDir != Vector3.zero)
+            rb.MoveRotation(targetRot);
     }
 }
