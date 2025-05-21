@@ -5493,7 +5493,7 @@ MonoBehaviour:
   effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
     type: 3}
   maxEffectPrefabScale: 3
-  slapPower: 250
+  slapPower: 500
   slapPowerFallingThreshold: 200
   slapEnemy: {fileID: 2585938176967159197}
   slapProp: {fileID: 2634629009332725838}
@@ -5863,7 +5863,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &2697266724225812228
 Animator:
@@ -5908,9 +5908,9 @@ MonoBehaviour:
     m_box: {fileID: -5495902117074765545, guid: 556fd6baa0902304189e57acd1d60fa6,
       type: 3}
     _EditorBoneScenePreviews: []
-    _Editor_SelectedChain: -1
-    _Editor_ChainCategory: 1
-    _EditorCategory: 3
+    _Editor_SelectedChain: 0
+    _Editor_ChainCategory: 0
+    _EditorCategory: 1
     _EditorMainCategory: 0
     _EditorMotionCategory: 0
     StoredReferenceTPose:
@@ -7757,7 +7757,7 @@ MonoBehaviour:
     m_ActionName: JoinActions/Join[/Keyboard/space,/Keyboard/rightCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Keyboard1
+  m_DefaultActionMap: 667e052e-d7f1-4198-95ff-ac1b6df42cf7
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &8532073142637833729

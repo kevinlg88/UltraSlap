@@ -71,6 +71,11 @@ public class TriggerHitbox : MonoBehaviour
                 if (slapPower >= slapPowerFallingThreshold)
                 {
                     ragdoll.User_SwitchFallState();
+                    //ragdoll.Handler.Mecanim.CrossFadeInFixedTime( "Fall", 0.25f );
+                    //ragdoll.Handler.GetAnchorBoneController.GameRigidbody.maxAngularVelocity = 20f;
+                    //ragdoll.User_SetPhysicalTorqueOnRigidbody( ragdoll.Handler.GetAnchorBoneController.GameRigidbody, ragdoll.User_BoneWorldRight( ragdoll.Handler.GetAnchorBoneController ) * 30f, 0.75f, false, ForceMode.VelocityChange );
+                    //ragdoll.User_ChangeAllRigidbodiesDrag( 0.5f );
+                    //ragdoll.User_SwitchAllBonesMaxVelocity( 30f );
                     //ragdoll.RagdollBlend = 1;
                 }
 
@@ -83,7 +88,9 @@ public class TriggerHitbox : MonoBehaviour
             //ragdoll.User_AddAllBonesImpact(this.gameObject.transform.forward * slapPower, 0.0f, ForceMode.Impulse);
             //ragdoll.User_AddRigidbodyImpact(rigidbody,this.gameObject.transform.forward * slapPower, 0.0f, ForceMode.Impulse);
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower,0.0f, ForceMode.Impulse);
-            rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
+
+            if(ragdoll)ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
+            else rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
 
 
 

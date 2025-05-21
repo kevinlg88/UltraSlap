@@ -97,7 +97,7 @@ public class PlayerSlap : MonoBehaviour
         {
 
             power = minPower + (maxPower - minPower) / (1 + Mathf.Exp(-growthRate * (chargingTime - midPoint))); // Calcula o valor de power
-            TriggerGetRagBone.SetSlapPower(power); // Define o valor do Slap Power para o Slap Hit Box
+            //TriggerGetRagBone.SetSlapPower(power); // Define o valor do Slap Power para o Slap Hit Box
 
             //UnityEngine.Debug.Log("Slap:",power);
 
