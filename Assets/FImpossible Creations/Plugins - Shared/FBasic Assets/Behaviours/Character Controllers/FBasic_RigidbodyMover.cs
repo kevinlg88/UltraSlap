@@ -19,7 +19,7 @@ namespace FIMSpace.RagdollAnimatorDemo
         [Range( 0f, 1f )] public float DirectMovement = 0f;
         [Range( 0f, 1f )] public float Interia = 1f;
 
-        //[Space( 4 )] public LayerMask GroundMask = 0 >> 1;
+        [Space( 4 )] public LayerMask GroundMask = 0 >> 1;
 
         [Space( 4 )] public float ExtraRaycastDistance = 0.01f;
 
@@ -63,7 +63,7 @@ namespace FIMSpace.RagdollAnimatorDemo
         public float HoldShiftForSpeed = 0f;
         public float HoldCtrlForSpeed = 0f;
 
-        //public Action OnJump = null;
+        public Action OnJump = null;
 
         bool wasInitialized = false;
 
@@ -74,7 +74,7 @@ namespace FIMSpace.RagdollAnimatorDemo
             rotationAngle = transform.eulerAngles.y;
 
             currentWorldAccel = Vector3.zero;
-            //jumpRequest = 0f;
+            jumpRequest = 0f;
         }
 
         void Start()
@@ -106,7 +106,7 @@ namespace FIMSpace.RagdollAnimatorDemo
             Rigb.detectCollisions = true;
             isGrounded = true;
             if( Mecanim ) isGrounded = Mecanim.GetBool( "Grounded" );
-            //CheckGroundedState();
+            CheckGroundedState();
         }
 
         private void OnDisable()
@@ -131,7 +131,7 @@ namespace FIMSpace.RagdollAnimatorDemo
 
         float rotationAngle = 0f;
         float sd_rotationAngle = 0f;
-        //float toJump = 0f;
+        float toJump = 0f;
 
         public bool isGrounded { get; private set; } = true;
 
@@ -145,14 +145,14 @@ namespace FIMSpace.RagdollAnimatorDemo
 
             if( UpdateInput && updateMovement )
             {
-                //if( Input.GetKeyDown( KeyCode.Space ) )
-                //{
-                //    if( toJump <= 0f )
-                //    {
-                //        jumpRequest = JumpPower;
-                //        toJump = 0f;
-                //    }
-                //}
+                if( Input.GetKeyDown( KeyCode.Space ) )
+                {
+                    if( toJump <= 0f )
+                    {
+                        jumpRequest = JumpPower;
+                        toJump = 0f;
+                    }
+                }
 
                 moveDirectionLocal = Vector2.zero;
 
@@ -185,7 +185,6 @@ namespace FIMSpace.RagdollAnimatorDemo
             if( moveDirectionWorld != Vector3.zero )
             {
                 moving = true;
-
             }
 
             if( RotateToSpeed > 0f )
@@ -195,7 +194,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                     targetRotation = Quaternion.Euler( 0f, rotationAngle, 0f );// Quaternion.RotateTowards(targetRotation, targetInstantRotation, Time.deltaTime * 90f * RotateToSpeed);
                 }
 
-            if( Mecanim ) Mecanim.SetBool( "isMoving", moving );
+            if( Mecanim ) Mecanim.SetBool( "Moving", moving );
 
             float spd = MovementSpeed;
 
@@ -233,25 +232,25 @@ namespace FIMSpace.RagdollAnimatorDemo
             targetVelo = Vector3.Lerp( targetVelo, ( transform.forward ) * targetVelo.magnitude, directMovement );
             targetVelo.y = Rigb.velocity.y;
 
-            //toJump -= Time.fixedDeltaTime;
+            toJump -= Time.fixedDeltaTime;
 
-            //if( jumpRequest != 0f && toJump <= 0f )
-            //{
-            //    Rigb.position += transform.up * jumpRequest * 0.01f;
-            //    targetVelo.y = jumpRequest;
-            //    isGrounded = false;
-            //    jumpRequest = 0f;
-            //    jumpTime = Time.time;
-            //    //if( Mecanim ) Mecanim.SetBool( "Grounded", false );
-            //    if( OnJump != null ) OnJump.Invoke();
-            //}
-            //else
-            //{
-            //    if( isGrounded ) // Basic not recommended but working solution - snapping to the ground (this approach will push player down quick when loosing ground)
-            //    {
-            //        targetVelo.y -= 2.5f * Time.fixedDeltaTime;
-            //    }
-            //}
+            if( jumpRequest != 0f && toJump <= 0f )
+            {
+                Rigb.position += transform.up * jumpRequest * 0.01f;
+                targetVelo.y = jumpRequest;
+                isGrounded = false;
+                jumpRequest = 0f;
+                jumpTime = Time.time;
+                if( Mecanim ) Mecanim.SetBool( "Grounded", false );
+                if( OnJump != null ) OnJump.Invoke();
+            }
+            else
+            {
+                if( isGrounded ) // Basic not recommended but working solution - snapping to the ground (this approach will push player down quick when loosing ground)
+                {
+                    targetVelo.y -= 2.5f * Time.fixedDeltaTime;
+                }
+            }
 
             if( wasRootmotion == false )
             {
@@ -265,38 +264,38 @@ namespace FIMSpace.RagdollAnimatorDemo
 
             if( Time.time - jumpTime > 0.2f )
             {
-                //CheckGroundedState();
+                CheckGroundedState();
             }
             else
             {
                 if( isGrounded == true )
                 {
                     isGrounded = false;
-                    //if( Mecanim ) Mecanim.SetBool( "Grounded", false );
+                    if( Mecanim ) Mecanim.SetBool( "Grounded", false );
                 }
             }
 
         }
 
-        //public void CheckGroundedState()
-        //{
-        //    if( DoRaycasting() )
-        //    {
-        //        if( isGrounded == false )
-        //        {
-        //            isGrounded = true;
-        //            //if( Mecanim ) Mecanim.SetBool( "Grounded", true );
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if( isGrounded == true )
-        //        {
-        //            isGrounded = false;
-        //            //if( Mecanim ) Mecanim.SetBool( "Grounded", false );
-        //        }
-        //    }
-        //}
+        public void CheckGroundedState()
+        {
+            if( DoRaycasting() )
+            {
+                if( isGrounded == false )
+                {
+                    isGrounded = true;
+                    if( Mecanim ) Mecanim.SetBool( "Grounded", true );
+                }
+            }
+            else
+            {
+                if( isGrounded == true )
+                {
+                    isGrounded = false;
+                    if( Mecanim ) Mecanim.SetBool( "Grounded", false );
+                }
+            }
+        }
 
         bool wasRootmotion = false;
         private void OnAnimatorMove()
@@ -306,17 +305,17 @@ namespace FIMSpace.RagdollAnimatorDemo
             Mecanim.ApplyBuiltinRootMotion();
         }
 
-        //bool DoRaycasting()
-        //{
-        //    if( RaycastRadius <= 0f )
-        //    {
-        //        return Physics.Raycast( transform.position + transform.up, -transform.up, ( isGrounded ? 1.2f : 1.01f ) + ExtraRaycastDistance, GroundMask, QueryTriggerInteraction.Ignore );
-        //    }
-        //    else
-        //    {
-        //        return Physics.SphereCast( new Ray( transform.position + transform.up, -transform.up ), RaycastRadius, ( isGrounded ? 1.2f : 1.01f ) + ExtraRaycastDistance - RaycastRadius * 0.5f, GroundMask, QueryTriggerInteraction.Ignore );
-        //    }
-        //}
+        bool DoRaycasting()
+        {
+            if( RaycastRadius <= 0f )
+            {
+                return Physics.Raycast( transform.position + transform.up, -transform.up, ( isGrounded ? 1.2f : 1.01f ) + ExtraRaycastDistance, GroundMask, QueryTriggerInteraction.Ignore );
+            }
+            else
+            {
+                return Physics.SphereCast( new Ray( transform.position + transform.up, -transform.up ), RaycastRadius, ( isGrounded ? 1.2f : 1.01f ) + ExtraRaycastDistance - RaycastRadius * 0.5f, GroundMask, QueryTriggerInteraction.Ignore );
+            }
+        }
 
         float jumpTime = -1f;
 

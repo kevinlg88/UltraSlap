@@ -5494,7 +5494,7 @@ MonoBehaviour:
     type: 3}
   maxEffectPrefabScale: 3
   slapPower: 250
-  slapPowerFallingThreshold: 600
+  slapPowerFallingThreshold: 200
   slapEnemy: {fileID: 2585938176967159197}
   slapProp: {fileID: 2634629009332725838}
   slapEnvironment: {fileID: 3575580219237085811}
@@ -6236,7 +6236,7 @@ MonoBehaviour:
     MaxDepenetrationVelocity: 0
     ProjectionMode: 0
     PreProcessing: 0
-    RagdollBlend: 1
+    RagdollBlend: 0.6
     animatingMode: 1
     UseReconstruction: 0
     UnitySolverIterations: 12
@@ -7757,7 +7757,7 @@ MonoBehaviour:
     m_ActionName: JoinActions/Join[/Keyboard/space,/Keyboard/rightCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: JoinActions
+  m_DefaultActionMap: Keyboard1
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &8532073142637833729

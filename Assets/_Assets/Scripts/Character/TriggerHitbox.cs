@@ -64,10 +64,15 @@ public class TriggerHitbox : MonoBehaviour
             {
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
 
-                Debug.Log("bateu: " + ragdoll.gameObject.name);
+                Debug.Log("bateu: " + ragdoll.gameObject.name + "\n" +
+                "slapPower: " + slapPower + " de " + "slapPowerFallingThreshold " + slapPowerFallingThreshold);
                 
-                if (slapPower >= slapPowerFallingThreshold) 
+                var ragdollBlend = ragdoll.RagdollBlend;
+                if (slapPower >= slapPowerFallingThreshold)
+                {
                     ragdoll.User_SwitchFallState();
+                    //ragdoll.RagdollBlend = 1;
+                }
 
                 slapEnemy.PlayFeedbacks();
             }
