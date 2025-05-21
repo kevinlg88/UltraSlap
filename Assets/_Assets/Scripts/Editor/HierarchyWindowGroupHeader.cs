@@ -21,7 +21,7 @@ public static class HierarchyWindowGroupHeader
 
         if (gameObject != null && gameObject.name.StartsWith("---", System.StringComparison.Ordinal))
         {
-            EditorGUI.DrawRect(selectionRect, Color.blue);
+            EditorGUI.DrawRect(selectionRect, new Color(0.2f, 0.2f, 0.7f));
             EditorGUI.DropShadowLabel(selectionRect, gameObject.name.Replace("-", "").ToUpperInvariant());
         }
     }
