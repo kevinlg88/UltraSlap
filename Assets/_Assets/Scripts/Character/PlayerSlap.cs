@@ -12,8 +12,10 @@ public class PlayerSlap : MonoBehaviour
 {
     [SerializeField] private MMFeedbacks slapWhoosh;
     [SerializeField] private MMFeedbacks chargingSlap;
+    [SerializeField] private MMFeedbacks wooshChargingSlap; // Som da girada de braço enquanto carregando
     [SerializeField] private MMFeedbacks chargingSlapEnd;
     [HideInInspector] public Animator animator;
+
     PlayerInput playerInput;
     InputAction slapAction;
 
@@ -57,6 +59,7 @@ public class PlayerSlap : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<RigidbodyController>().animator;
+
     }
     void Update()
     {
@@ -159,6 +162,12 @@ public class PlayerSlap : MonoBehaviour
 
         }
     }
+
+    public void WooshChargingSlap() // Toca o som da girada de braço enquanto carregando o slap
+    {
+        wooshChargingSlap.PlayFeedbacks();
+    }
+
 
     public void stopSlapFeedback() // Para com os feedbacks de carregamento do tapa
     {
