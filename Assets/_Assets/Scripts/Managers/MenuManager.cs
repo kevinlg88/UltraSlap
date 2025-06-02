@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class MenuManager : MonoBehaviour
@@ -30,6 +31,11 @@ public class MenuManager : MonoBehaviour
                 pairWithDevice: Keyboard.current
             );
         }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
 
     public void OnPlayerJoined(PlayerInput playerInput)
@@ -47,6 +53,7 @@ public class MenuManager : MonoBehaviour
         }
         PlayerData playerData = new PlayerData();
         playerData.Player = playerInput.gameObject;
+        playerData.PlayerName = "Player " + playersNumbers;
         _playerManager.AddPlayer(playerData);
         Debug.Log("Player added: " + playerData.Player);
 
