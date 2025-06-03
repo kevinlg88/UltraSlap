@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData
 {
-    private GameObject _player;
+    private CharacterVisualData _playervisual;
     private string _playerName;
     private int _playerScore;
     private int _playerHealth;
@@ -15,10 +15,10 @@ public class PlayerData
         get { return _playerName; }
         set{ _playerName = value; }
     }
-    public GameObject Player
+    public CharacterVisualData PlayerVisual
     {
-        get { return _player; }
-        set { _player = value; }
+        get { return _playervisual; }
+        set { _playervisual = value; }
     }
     public int PlayerScore { get { return _playerScore; } set { _playerScore = value; } }
     public int PlayerHealth { get{ return _playerHealth; } set{ _playerHealth = value; } }

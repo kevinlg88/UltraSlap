@@ -52,10 +52,10 @@ public class MenuManager : MonoBehaviour
             playerInput.SwitchCurrentActionMap("UIGamepad");
         }
         PlayerData playerData = new PlayerData();
-        playerData.Player = playerInput.gameObject;
+        //playerData.PlayerVisual = playerInput.gameObject;
         playerData.PlayerName = "Player " + playersNumbers;
         _playerManager.AddPlayer(playerData);
-        Debug.Log("Player added: " + playerData.Player);
+        //Debug.Log("Player added: " + playerData.Player);
 
         playerInput.gameObject.transform.position = spawnPoints[playersNumbers - 1].transform.position;
     }

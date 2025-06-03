@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] MeshRenderer headMeshRenderer;
+    [SerializeField] MeshRenderer bodyMeshRenderer;
+    [SerializeField] MeshRenderer glovesMeshRenderer;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
