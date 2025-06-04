@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject.SpaceFighter;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
 public class RigidbodyController : MonoBehaviour
@@ -45,7 +46,7 @@ public class RigidbodyController : MonoBehaviour
 
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask);
 
-        if(moveInput == null || dashInput == null) return;
+        if (moveInput == null || dashInput == null) return;
         Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput.ReadValue<Vector2>() : Vector2.zero;
 
         if (input.sqrMagnitude > 0.01f)
