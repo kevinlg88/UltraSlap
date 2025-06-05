@@ -1,24 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 using Zenject.SpaceFighter;
 
 public class CurrentLevelManager : MonoBehaviour
 {
+    [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] GameObject playerPrefab;
+
+    PlayerInputManager playerInputManager;
 
     [Inject]
     private PlayerManager _playerManager;
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        playerInputManager = GetComponent<PlayerInputManager>();
+    }
     void Start()
     {
+
+        int indexPlayer = 0;
         Debug.Log("Players Count: " + _playerManager.Players.Count);
-        foreach (var player in _playerManager.Players)
+        foreach (PlayerData player in _playerManager.Players)
         {
-            GameObject playerObject = Instantiate(playerPrefab);
-            //TODO: Set player data to the playerObject
-            playerObject.name = player.PlayerName;
+
+            PlayerInput newPlayerInput = PlayerInput.Instantiate(playerPrefab, 
+                controlScheme: player.PlayerMovementControllerMap, 
+                pairWithDevice: player.InputDevice, 
+                playerIndex: indexPlayer);
+
+            newPlayerInput.defaultActionMap = player.PlayerMovementControllerMap;
+            newPlayerInput.SwitchCurrentActionMap(player.PlayerMovementControllerMap);
+
+            newPlayerInput.gameObject.transform.SetPositionAndRotation(
+                spawnPoints[indexPlayer].transform.position,
+                Quaternion.identity
+            );
+
+            indexPlayer++;
         }
     }
 }
