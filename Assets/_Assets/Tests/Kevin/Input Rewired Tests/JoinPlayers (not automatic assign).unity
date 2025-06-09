@@ -385,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0ae86847fcc1d5949b64b85d9ad67fae, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0ae86847fcc1d5949b64b85d9ad67fae, type: 3}
       propertyPath: m_RootOrder
@@ -912,7 +912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0ae86847fcc1d5949b64b85d9ad67fae, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0ae86847fcc1d5949b64b85d9ad67fae, type: 3}
       propertyPath: m_RootOrder
@@ -1141,9 +1141,15 @@ MonoBehaviour:
       _descriptiveName: System
       _key: 
       _startPlaying: 1
-      _defaultJoystickMaps: []
+      _defaultJoystickMaps:
+      - _enabled: 1
+        _categoryId: 0
+        _layoutId: 0
       _defaultMouseMaps: []
-      _defaultKeyboardMaps: []
+      _defaultKeyboardMaps:
+      - _enabled: 1
+        _categoryId: 0
+        _layoutId: 1
       _defaultCustomControllerMaps: []
       _startingCustomControllers: []
       _assignMouseOnStart: 1
@@ -1160,7 +1166,7 @@ MonoBehaviour:
       _name: Player0
       _descriptiveName: Player0
       _key: 
-      _startPlaying: 1
+      _startPlaying: 0
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -1186,7 +1192,7 @@ MonoBehaviour:
       _name: Player1
       _descriptiveName: Player0
       _key: 
-      _startPlaying: 1
+      _startPlaying: 0
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -1541,7 +1547,7 @@ MonoBehaviour:
       - _actionCategoryId: 0
         _actionId: 3
         _elementType: 1
-        _elementIdentifierId: 5
+        _elementIdentifierId: 4
         _axisRange: 0
         _invert: 0
         _axisContribution: 0
