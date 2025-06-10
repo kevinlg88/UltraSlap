@@ -1,14 +1,16 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
-using Zenject.SpaceFighter;
+﻿using Rewired;
+using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
+[RequireComponent(typeof(Rigidbody))]
 public class RigidbodyController : MonoBehaviour
 {
     [Header("Components")]
     public Rigidbody rb;
     public Animator animator;
     public PlayerSlap playerSlap;
+
+    [Header("Input Setup")]
+    [SerializeField] int playerID;
 
     [Header("Settings")]
     public float moveSpeed = 2f;
@@ -22,32 +24,39 @@ public class RigidbodyController : MonoBehaviour
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
 
-    InputAction moveInput, dashInput;
 
+    bool initialized = false;
+    private Player player;
     bool isDashing, isGrounded;
     float dashTimer, nextDashTime;
     Vector3 dashDir, moveDir;
     Quaternion targetRot;
 
+
     void Awake()
     {
-        var input = GetComponent<PlayerInput>();
-        moveInput = input.currentActionMap.FindAction("Move");
-        dashInput = input.currentActionMap.FindAction("Dash");
-
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
+    void Initialize()
+    {
+        player = ReInput.players.GetPlayer(playerID);
+        this.GetComponent<PlayerSlap>().SetPlayer(player);
+        initialized = true;
+    }
+
     void Update()
     {
+        if (!ReInput.isReady) return; // Exit if Rewired isn't ready. This would only happen during a script recompile in the editor.
+        if (!initialized) Initialize();
         if (!rb || !groundCheck || Camera.main == null) return;
 
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask);
 
-        if (moveInput == null || dashInput == null) return;
-        Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput.ReadValue<Vector2>() : Vector2.zero;
+        Vector2 moveInput = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical"));
+        Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput : Vector2.zero;
 
         if (input.sqrMagnitude > 0.01f)
         {
@@ -63,7 +72,7 @@ public class RigidbodyController : MonoBehaviour
             moveDir = Vector3.zero;
         }
 
-        if (dashInput != null && dashInput.WasPressedThisFrame() && !isDashing && isGrounded && Time.time >= nextDashTime)
+        if (player.GetButtonDown("Dash") && !isDashing && isGrounded && Time.time >= nextDashTime)
         {
             isDashing = true;
             dashTimer = dashDuration;
@@ -96,4 +105,7 @@ public class RigidbodyController : MonoBehaviour
         if (moveDir != Vector3.zero)
             rb.MoveRotation(targetRot);
     }
+
+    public void SetPlayerId(int id) => playerID = id;
+    
 }

@@ -7,7 +7,7 @@ public class PlayerData
 {
     private CharacterVisualData _playervisual;
 
-    private InputDevice inputDevice;
+    private int _playerID;
 
     private string _playerUiControllerMap;
     private string _playerMovementControllerMap;
@@ -16,10 +16,10 @@ public class PlayerData
     private int _playerHealth;
     private int _playerMaxHealth;
 
-    public InputDevice InputDevice
+    public int PlayerID
     {
-        get { return inputDevice; }
-        set { inputDevice = value; }
+        get { return _playerID; }
+        set { _playerID = value; }
     }
     public string PlayerName
     {

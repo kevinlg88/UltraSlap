@@ -19,14 +19,9 @@ public class TriggerHitbox : MonoBehaviour
 
     [SerializeField] PlayerSlap playerSlap;
 
-
-    private void Awake()
-    {
-        tag = gameObject.tag;
-    }
     private void OnTriggerEnter(Collider other)
     {
-
+        //Debug.Log("Colidiu: " + other.gameObject.name);
         if (!other.attachedRigidbody)
         {
             slapEnvironment.PlayFeedbacks();
@@ -56,12 +51,12 @@ public class TriggerHitbox : MonoBehaviour
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
-
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
             if (ragdoll != null)
             {
+                Debug.Log("ragdoll: " + ragdoll.name);
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
 
                 Debug.Log("bateu: " + ragdoll.gameObject.name + "\n" +
@@ -154,7 +149,7 @@ public class TriggerHitbox : MonoBehaviour
 
     private void OnDisable()
     {
-        transform.localScale = new Vector3(0.74759531f, 0.899999976f, 0.899999976f);
+        //transform.localScale = new Vector3(0.74759531f, 0.899999976f, 0.899999976f);
 
         //Time.timeScale = 1.0f; // Deixa o jogo rodando na velocidade normal
 

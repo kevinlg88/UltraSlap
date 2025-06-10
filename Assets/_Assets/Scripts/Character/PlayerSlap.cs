@@ -1,24 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
-using System.Diagnostics;
-using System.Runtime;
-using System.Threading.Tasks;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using Rewired;
 
 public class PlayerSlap : MonoBehaviour
 {
+    [Header("Feel References")]
     [SerializeField] private MMFeedbacks slapWhoosh;
     [SerializeField] private MMFeedbacks chargingSlap;
     [SerializeField] private MMFeedbacks wooshChargingSlap; // Som da girada de braço enquanto carregando
     [SerializeField] private MMFeedbacks chargingSlapEnd;
     [HideInInspector] public Animator animator;
 
-    PlayerInput playerInput;
-    InputAction slapAction;
-
+    [Header("State")]
     [SerializeField] bool isCharging = false;
     [SerializeField] bool isSlapping = false;
     [SerializeField] bool buttonReleasedBeforeKeyframe = false;
@@ -42,30 +35,16 @@ public class PlayerSlap : MonoBehaviour
 
     [SerializeField] TriggerHitbox TriggerGetRagBone;
 
-
-
-    void Awake()
-    {
-        if (SceneManager.GetActiveScene().name == "Menu") return;
-
-        playerInput = GetComponent<PlayerInput>();
-        try
-        {
-            slapAction = playerInput.currentActionMap["Slap"];
-        }
-        catch{}
-    }
+    private Player player;
 
     private void Start()
     {
         animator = GetComponent<RigidbodyController>().animator;
-
     }
     void Update()
     {
-        if(slapAction == null) return;
-
-        if (slapAction.WasPressedThisFrame() && !isCharging && !isSlapping && !isOnCooldown) 
+        if (player == null) return;
+        if (player.GetButtonDown("Slap") && !isCharging && !isSlapping && !isOnCooldown)
         {
             chargingTime = 0f;
             isCharging = true;
@@ -76,7 +55,7 @@ public class PlayerSlap : MonoBehaviour
 
 
         // Se o botão estiver pressionado, aumenta o tempo de carga
-        else if (slapAction.WasPerformedThisFrame() && isCharging && !isOnCooldown)
+        else if (player.GetButton("Slap") && isCharging && !isOnCooldown)
         {
             chargingTime += Time.deltaTime;
         }
@@ -90,13 +69,13 @@ public class PlayerSlap : MonoBehaviour
             }
         }
 
-        else if (!slapAction.IsPressed() && isSlapping && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Slap"))
+        else if (!player.GetButtonDown("Slap") && isSlapping && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Slap"))
         {
             isSlapping = false;
         }
 
 
-        else if (slapAction.WasReleasedThisFrame() && !isOnCooldown)
+        else if (player.GetButtonUp("Slap") && !isOnCooldown)
         {
 
             power = minPower + (maxPower - minPower) / (1 + Mathf.Exp(-growthRate * (chargingTime - midPoint))); // Calcula o valor de power
@@ -107,13 +86,13 @@ public class PlayerSlap : MonoBehaviour
 
             if (chargingTime <= quickSlapThreshold && !isSlapping) // Verifica se é um quick slap
             {
-               
+
                 QuickSlap();
 
             }
             else if (chargingTime > quickSlapThreshold && !isSlapping) // Caso contrário, é um charge slap
             {
-                
+
                 ChargedSlap();
             }
 
@@ -171,7 +150,7 @@ public class PlayerSlap : MonoBehaviour
 
     public void stopSlapFeedback() // Para com os feedbacks de carregamento do tapa
     {
-        chargingSlap.StopFeedbacks(); 
+        chargingSlap.StopFeedbacks();
     }
 
     public void SlapFeedback()
@@ -231,6 +210,11 @@ public class PlayerSlap : MonoBehaviour
     public TriggerHitbox GetTriggerGetRagBone()
     {
         return TriggerGetRagBone;
+    }
+
+    public void SetPlayer(Player player)
+    {
+        this.player = player;
     }
 
 }

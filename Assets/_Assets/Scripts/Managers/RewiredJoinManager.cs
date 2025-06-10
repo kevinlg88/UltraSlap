@@ -106,11 +106,15 @@ public class RewiredJoinManager : MonoBehaviour
     {
         PlayerData playerData = new PlayerData();
         Debug.Log("Player joined: " + player.id);
+        playerData.PlayerID = player.id;
         playerData.PlayerName = "Player " + player.id;
         _playerManager.AddPlayer(playerData);
         GameObject newPlayer = Instantiate(playerPrefab,
             spawnPoints[player.id].transform.position,
             Quaternion.identity);
+        newPlayer.name = "Player " + player.id;
+        RigidbodyController rbController = newPlayer.GetComponent<RigidbodyController>();
+        rbController.SetPlayerId(player.id);
     }
 
 }
