@@ -1,0 +1,22 @@
+/* Move checkbox to the left*/
+.unity-property-field > .unity-toggle
+{
+    flex-direction: row-reverse;
+}
+
+/* Make label size grow */
+.unity-property-field > .unity-toggle .unity-label
+{
+    flex-grow: 1;
+}
+
+/* Keep checbox size small */
+.unity-property-field > .unity-toggle .unity-toggle__input
+{
+    max-width: 22px;
+}
+
+#unity-foldout-AutomaticParameters
+{
+    margin-left: 22px;
+}

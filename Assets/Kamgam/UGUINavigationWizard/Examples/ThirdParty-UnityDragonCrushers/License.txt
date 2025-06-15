@@ -1,0 +1,15 @@
+The following third party assets are used in the examples:
+* DragonCrusher_UI_atlas.psd
+* DragonCrushers_BgPatternTile.png
+
+Their use is covered by the "Unity Companion License":
+License Details: https://unity3d.com/legal/licenses/Unity_Companion_License
+
+Original Asset Source:
+https://assetstore.unity.com/packages/essentials/tutorial-projects/ui-toolkit-sample-dragon-crashers-231178
+
+I did ask permission to use these from a Unity employee just to be extra sure it is allowed.
+Original Discussion (only accessibly for employees or asset publishers):
+https://forum.unity.com/threads/resolved-unity-companion-license-are-we-allowed-to-use-these-in-our-examples.1594710/#post-9841788
+
+Quote: "Yes, just make sure you're not re-selling the content -- using it to support your content, demo your content, or even include as *part* of your content is fine." - Andrew S. 2024-05-17

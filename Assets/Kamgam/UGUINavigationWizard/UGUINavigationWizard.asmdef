@@ -1,0 +1,22 @@
+{
+    "name": "Kamgam.UGUINavigationWizard",
+    "rootNamespace": "",
+    "references": [
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "0.0.1",
+            "define": "KAMGAM_UGUINAVIGATION_INPUT_SYSTEM"
+        }
+    ],
+    "noEngineReferences": false
+}
