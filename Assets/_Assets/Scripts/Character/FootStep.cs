@@ -12,6 +12,7 @@ public class FootStep : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             footStepSfx.PlayFeedbacks();
+            UnityEngine.Debug.Log("pisou no chão");
         }
 
     }
