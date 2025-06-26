@@ -12,6 +12,13 @@ public class PlayerManager
         Players.Add(playerData);
     }
 
+    public void RemovePlayer(PlayerData playerData)
+    {
+        if (Players.Contains(playerData))
+        {
+            Players.Remove(playerData);
+        }
+    }
     public void ClearPlayers()
     {
         Players.Clear();

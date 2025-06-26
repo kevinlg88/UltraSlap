@@ -1,196 +1,132 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using MoreMountains.Feedbacks;
-using System.Diagnostics;
+using Rewired.Integration.UnityUI;
+using Rewired;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerMenuNavigator : MonoBehaviour
 {
-    public GameObject[] customizationOptions; // Lista de GameObjects vazios representando partes customizáveis
-    public int currentOptionIndex = 0;
+    [Header("UI References")]
+    [SerializeField] private RewiredStandaloneInputModule inputModule;
+    [SerializeField] private RewiredEventSystem rewiredEventSystem;
+    [SerializeField] GameObject UIReady;
 
-    public InputActionAsset inputActions; // Referência ao InputActionAsset configurado no Unity (Player1)
+    [Header("Feedbacks")]
+    [SerializeField] private MMF_Player feedback_SoundScrolling;
+    [SerializeField] private MMF_Player feedback_SoundSwitchingArrows;
 
-    private InputAction moveAction; //Para mover entre opções
-    private InputAction confirmAction; //Para confirmar escolhas
-    private InputAction backAction; //Para desfazer escolhas
+    private Player player;
+    private Button leftButton;
+    private Button rightButton;
+    private int playerId = 0; // Default player ID, can
+    private bool axisInUse = false;
 
-    [SerializeField] private MMFeedbacks scrollCategory;
-    [SerializeField] private MMFeedbacks switchOption;
-
-    [SerializeField] private float arrowBlinkDuration = 0.2f;
-
-    // Referência para a CustomizationLibrary
-    public CustomizationLibrary customizationLibrary; // A biblioteca de customização do personagem
-    public int currentSkinColorIndex = 0; // Índice para a lista de skinMaterials
-    [SerializeField] private TeamMaterialLibrary teamMaterialLibrary; //Library de team materials
-
-    // Referências para a cor da pele do personagem
-    public Renderer headRenderer;
-
-    [SerializeField] private GameObject playerModel;
-    [SerializeField] private GameObject customizationUI;
-    [SerializeField] private GameObject readyTxt;
-
-    void Start()
+    private GameObject _currentSelection;
+    private GameObject CurrentSelection
     {
-        // Busca a ações de navegação, Confirm e Back, dentro do Action Map chamado "UI"
-        moveAction = inputActions.FindActionMap("UI").FindAction("Navigation");
-        confirmAction = inputActions.FindActionMap("UI").FindAction("Confirm");
-        backAction = inputActions.FindActionMap("UI").FindAction("Back");
-
-        moveAction.Enable();
-        moveAction.performed += ctx => Navigate(ctx.ReadValue<Vector2>());
-
-        confirmAction.Enable();
-        backAction.Enable();
-        confirmAction.performed += ctx => OnConfirm();
-        backAction.performed += ctx => OnBack();
-
-        UpdateCustomizationSelection(); // Inicializa visibilidade correta
-
-        //TODO: Implement player view
-        //playerModel.GetComponent<PlayerManager>().ApplyTeamMaterial(teamMaterialLibrary.teamMaterials[playerModel.GetComponent<PlayerManager>().team].material);
-
-
-    }
-
-    void OnDisable()
-    {
-        moveAction.Disable();
-        confirmAction.Disable();
-        backAction.Disable();
-    }
-
-    void OnConfirm()
-    {
-        if (!playerModel.activeSelf)
-            playerModel.SetActive(true);
-        else {
-            readyTxt.SetActive(true);
-            customizationUI.SetActive(false);
-        }
-
-        
-    }
-
-    void OnBack()
-    {
-        if (playerModel.activeSelf && !readyTxt.activeSelf)
-            playerModel.SetActive(false);
-        else if (playerModel.activeSelf && readyTxt.activeSelf)
+        get { return _currentSelection; }
+        set
         {
-            readyTxt.SetActive(false);
-            customizationUI.SetActive(true);
-        }
-
-        currentOptionIndex = 0;
-        UpdateCustomizationSelection();
-    }
-
-    void Navigate(Vector2 direction)
-    {
-        if (!playerModel.activeSelf)
-        {
-            return;
-        }
-
-
-        // Detecta a movimentação para cima ou para baixo (opções de navegação de menu)
-        if (direction.y > 0.5f)
-        {
-            // Movimento para cima: Descer o índice
-            currentOptionIndex = Mathf.Max(0, currentOptionIndex - 1);
-            UpdateCustomizationSelection();
-
-            scrollCategory.PlayFeedbacks();
-
-        }
-        else if (direction.y < -0.5f)
-        {
-            // Movimento para baixo: Subir o índice
-            currentOptionIndex = Mathf.Min(customizationOptions.Length - 1, currentOptionIndex + 1);
-            UpdateCustomizationSelection();
-
-            scrollCategory.PlayFeedbacks();
-        }
-        else if (direction.x < -0.5f)
-        {
-            // Movimento para a esquerda (alterar a opção)
-            switchOption.PlayFeedbacks();
-            BlinkArrow("LeftArrow");
-
-            // Caso esteja na categoria de SkinColor, altera o material
-            if (currentOptionIndex == 1) // Corrigido para currentSkinColorIndex
+            if (value != _currentSelection)
             {
-                ChangeSkinMaterial(false); // Passar para o próximo material
+                feedback_SoundScrolling.PlayFeedbacks(transform.position);
+                _currentSelection = value;
             }
         }
-        else if (direction.x > 0.5f)
+    }
+    private Button CurrentLeftButton
+    {
+        get { return leftButton; }
+        set
         {
-            // Movimento para a direita (alterar a opção)
-            switchOption.PlayFeedbacks();
-            BlinkArrow("RightArrow");
-
-            // Caso esteja na categoria de SkinColor, altera o material
-            if (currentOptionIndex == 1) // Corrigido para currentSkinColorIndex
+            if (value != leftButton)
             {
-                ChangeSkinMaterial(true); // Passar para o material anterior
+                if (leftButton) leftButton.image.color = new Color(0, 0, 0, 0);
+                value.image.color = Color.white;
+                leftButton = value;
             }
         }
     }
 
-    void UpdateCustomizationSelection()
+    private Button CurrentRightButton
     {
-        for (int i = 0; i < customizationOptions.Length; i++)
+        get { return rightButton; }
+        set
         {
-            customizationOptions[i].SetActive(i == currentOptionIndex);
+            if (value != rightButton)
+            {
+                if (rightButton) rightButton.image.color = new Color(0, 0, 0, 0);
+                value.image.color = Color.white;
+                rightButton = value;
+            }
         }
     }
 
-    void BlinkArrow(string arrowName)
+    void Awake()
     {
-        Transform arrow = customizationOptions[currentOptionIndex].transform.Find(arrowName);
-        if (arrow != null)
+        inputModule.RewiredInputManager = FindObjectOfType<InputManager>();
+        player = ReInput.players.GetPlayer(playerId);
+    }
+
+    void Update()
+    {
+        CurrentSelection = rewiredEventSystem.currentSelectedGameObject;
+        SelectHorizontalButtonField(CurrentSelection);
+    }
+
+    private void SelectHorizontalButtonField(GameObject currentSelection)
+    {
+        if (currentSelection != null)
         {
-            StartCoroutine(Blink(arrow.gameObject));
+            CurrentLeftButton = currentSelection.transform.GetChild(0).GetComponent<Button>();
+            CurrentRightButton = currentSelection.transform.GetChild(1).GetComponent<Button>();
+            if (CurrentLeftButton != null && CurrentRightButton != null)
+            {
+                float horizontalInput = player.GetAxis("Move Horizontal");
+                if (horizontalInput < -0.5f && !axisInUse)
+                {
+                    feedback_SoundSwitchingArrows.PlayFeedbacks(transform.position);
+                    ExecuteEvents.Execute(CurrentLeftButton.gameObject,
+                        new PointerEventData(rewiredEventSystem),
+                        ExecuteEvents.submitHandler);
+
+                    axisInUse = true;
+                }
+
+                else if (horizontalInput > 0.5f && !axisInUse)
+                {
+                    feedback_SoundSwitchingArrows.PlayFeedbacks(transform.position);
+                    ExecuteEvents.Execute(CurrentRightButton.gameObject,
+                        new PointerEventData(rewiredEventSystem),
+                        ExecuteEvents.submitHandler);
+
+                    axisInUse = true;
+                }
+
+                if (Mathf.Abs(horizontalInput) < 0.2f && axisInUse)
+                {
+                    axisInUse = false;
+                }
+            }
         }
     }
 
-    System.Collections.IEnumerator Blink(GameObject arrow)
+    public void SetPlayerId(int id)
     {
-        arrow.SetActive(false);
-        yield return new WaitForSeconds(arrowBlinkDuration);
-        arrow.SetActive(true);
+        playerId = id;
+        player = ReInput.players.GetPlayer(playerId);
+        inputModule.RewiredPlayerIds = new int[] { playerId };
     }
 
-    // Função para alterar a cor da pele
-    void ChangeSkinMaterial(bool next)
+    public void SetReady(bool value)
     {
-        int skinMaterialCount = customizationLibrary.skinMaterials.Count;
-
-        if (skinMaterialCount == 0)
-        {
-            // Se não houver materiais na lista, não faz nada
-            return;
-        }
-
-        // Condicional para definir a navegação circular (ir para o próximo ou voltar para o anterior)
-        if (next)
-        {
-            // Avança para o próximo material, retornando ao índice 0 quando chegar ao final
-            currentSkinColorIndex = (currentSkinColorIndex + 1) % skinMaterialCount;
-        }
-        else
-        {
-            // Retrocede para o material anterior, retornando ao último índice quando chegar ao início
-            currentSkinColorIndex = (currentSkinColorIndex - 1 + skinMaterialCount) % skinMaterialCount;
-        }
-
-        // Acessa o material da opção selecionada da lista skinMaterials
-        Material skinMaterial = customizationLibrary.skinMaterials[currentSkinColorIndex].material;
-
-        // Aplica o material na pele usando as referências corretas
-        headRenderer.material = skinMaterial;
-
+        UIReady.SetActive(value);
     }
+    public void ButtonPressed(string msg)
+    {
+        Debug.Log("Button pressed: " + msg);
+    }
+
 }

@@ -5,43 +5,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerData
 {
-    private CharacterVisualData _playervisual;
 
     private int _playerID;
-
-    private string _playerUiControllerMap;
-    private string _playerMovementControllerMap;
     private string _playerName;
-    private int _playerScore;
+    private bool _isReady;
     private int _playerHealth;
     private int _playerMaxHealth;
+    private int _playerScore;
+    private GameObject _playerGameObjectRef;
+    private CharacterVisualData _playervisual;
 
-    public int PlayerID
-    {
-        get { return _playerID; }
-        set { _playerID = value; }
-    }
-    public string PlayerName
-    {
-        get { return _playerName; }
-        set { _playerName = value; }
-    }
-    public CharacterVisualData PlayerVisual
-    {
-        get { return _playervisual; }
-        set { _playervisual = value; }
-    }
-    public string PlayerUiControllerMap
-    {
-        get { return _playerUiControllerMap; }
-        set { _playerUiControllerMap = value; }
-    }
-    public string PlayerMovementControllerMap
-    {
-        get { return _playerMovementControllerMap; }
-        set { _playerMovementControllerMap = value; }
-    }
+    public int PlayerID { get { return _playerID; } set { _playerID = value; } }
+    public string PlayerName { get { return _playerName; } set { _playerName = value; } }
+    public bool IsReady { get { return _isReady; } set { _isReady = value; } }
+    public int PlayerHealth { get { return _playerHealth; } set { _playerHealth = value; } }
+    public int PlayerMaxHealth { get { return _playerMaxHealth; } set { _playerMaxHealth = value; } }
     public int PlayerScore { get { return _playerScore; } set { _playerScore = value; } }
-    public int PlayerHealth { get{ return _playerHealth; } set{ _playerHealth = value; } }
-    public int PlayerMaxHealth { get{ return _playerMaxHealth; } set{ _playerMaxHealth = value; } }
+    public GameObject PlayerGameObjectRef { get { return _playerGameObjectRef; } set { _playerGameObjectRef = value; } }
+    public CharacterVisualData PlayerVisual { get { return _playervisual; } set { _playervisual = value; } }
 }
