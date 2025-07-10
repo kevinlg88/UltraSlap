@@ -23,6 +23,8 @@ public class CurrentLevelManager : MonoBehaviour
             newPlayer.name = player.PlayerName;
             RigidbodyController rbController = newPlayer.GetComponent<RigidbodyController>();
             rbController.SetPlayerId(player.PlayerID);
+            PlayerCustomization playerCustomization = newPlayer.GetComponent<PlayerCustomization>();
+            playerCustomization.LoadCharacterVisual(player);
         }
     }
 }

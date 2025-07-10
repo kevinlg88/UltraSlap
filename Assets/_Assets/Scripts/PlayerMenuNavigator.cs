@@ -26,7 +26,7 @@ public class PlayerMenuNavigator : MonoBehaviour
     [SerializeField] private MMF_Player feedback_SoundScrolling;
     [SerializeField] private MMF_Player feedback_SoundSwitchingArrows;
 
-    private PlayerMenuCustomization playerMenuCustomization;
+    private PlayerCustomization playerMenuCustomization;
     private Player player;
     private Button leftButton;
     private Button rightButton;
@@ -84,7 +84,7 @@ public class PlayerMenuNavigator : MonoBehaviour
     {
         inputModule.RewiredInputManager = FindObjectOfType<InputManager>();
         player = ReInput.players.GetPlayer(playerId);
-        playerMenuCustomization = GetComponent<PlayerMenuCustomization>();
+        playerMenuCustomization = GetComponent<PlayerCustomization>();
     }
 
     void Update()

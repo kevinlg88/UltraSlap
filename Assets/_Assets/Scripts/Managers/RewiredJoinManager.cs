@@ -146,6 +146,8 @@ public class RewiredJoinManager : MonoBehaviour
                 {
                     playerData.IsReady = true;
                     PlayerMenuNavigator playerMenuNav = playerData.PlayerGameObjectRef.GetComponent<PlayerMenuNavigator>();
+                    PlayerCustomization playerCustomization = playerData.PlayerGameObjectRef.GetComponent<PlayerCustomization>();
+                    playerCustomization.SaveCharacterVisual(playerData);
                     playerMenuNav.SetReady(true);
                 }
             }
