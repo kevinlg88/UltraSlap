@@ -8889,7 +8889,7 @@ MonoBehaviour:
   - {fileID: 1718809197}
   - {fileID: 747385548}
   - {fileID: 738622426}
-  playerPrefab: {fileID: 3749568945997580051, guid: 6d123506100c81649a8f9221f33db5ac,
+  playerPrefab: {fileID: 4827978320911131526, guid: 2e3b05ea1d02b484b806a22e590dbfbb,
     type: 3}
 --- !u!4 &1990201866
 Transform:

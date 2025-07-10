@@ -6,8 +6,17 @@ using Rewired;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+
 public class PlayerMenuNavigator : MonoBehaviour
 {
+    public enum PlayerMenuButtons
+    {
+        Head,
+        SkinColor,
+        Face,
+        Outfit,
+        Presets
+    }
     [Header("UI References")]
     [SerializeField] private RewiredStandaloneInputModule inputModule;
     [SerializeField] private RewiredEventSystem rewiredEventSystem;
@@ -17,6 +26,7 @@ public class PlayerMenuNavigator : MonoBehaviour
     [SerializeField] private MMF_Player feedback_SoundScrolling;
     [SerializeField] private MMF_Player feedback_SoundSwitchingArrows;
 
+    private PlayerMenuCustomization playerMenuCustomization;
     private Player player;
     private Button leftButton;
     private Button rightButton;
@@ -43,7 +53,10 @@ public class PlayerMenuNavigator : MonoBehaviour
         {
             if (value != leftButton)
             {
-                if (leftButton) leftButton.image.color = new Color(0, 0, 0, 0);
+                if (leftButton)
+                {
+                    leftButton.image.color = new Color(0, 0, 0, 0);
+                }
                 value.image.color = Color.white;
                 leftButton = value;
             }
@@ -57,7 +70,10 @@ public class PlayerMenuNavigator : MonoBehaviour
         {
             if (value != rightButton)
             {
-                if (rightButton) rightButton.image.color = new Color(0, 0, 0, 0);
+                if (rightButton)
+                {
+                    rightButton.image.color = new Color(0, 0, 0, 0);
+                }
                 value.image.color = Color.white;
                 rightButton = value;
             }
@@ -68,6 +84,7 @@ public class PlayerMenuNavigator : MonoBehaviour
     {
         inputModule.RewiredInputManager = FindObjectOfType<InputManager>();
         player = ReInput.players.GetPlayer(playerId);
+        playerMenuCustomization = GetComponent<PlayerMenuCustomization>();
     }
 
     void Update()
@@ -84,24 +101,25 @@ public class PlayerMenuNavigator : MonoBehaviour
             CurrentRightButton = currentSelection.transform.GetChild(1).GetComponent<Button>();
             if (CurrentLeftButton != null && CurrentRightButton != null)
             {
-                float horizontalInput = player.GetAxis("Move Horizontal");
+                float horizontalInput = player.GetAxisRaw("Move Horizontal");
                 if (horizontalInput < -0.5f && !axisInUse)
                 {
                     feedback_SoundSwitchingArrows.PlayFeedbacks(transform.position);
+                    UseLeftButton();
                     ExecuteEvents.Execute(CurrentLeftButton.gameObject,
                         new PointerEventData(rewiredEventSystem),
                         ExecuteEvents.submitHandler);
-
+                    CurrentLeftButton.onClick.RemoveAllListeners();
                     axisInUse = true;
                 }
 
                 else if (horizontalInput > 0.5f && !axisInUse)
                 {
                     feedback_SoundSwitchingArrows.PlayFeedbacks(transform.position);
+                    UseRightButton();
                     ExecuteEvents.Execute(CurrentRightButton.gameObject,
                         new PointerEventData(rewiredEventSystem),
                         ExecuteEvents.submitHandler);
-
                     axisInUse = true;
                 }
 
@@ -113,6 +131,52 @@ public class PlayerMenuNavigator : MonoBehaviour
         }
     }
 
+    private void UseLeftButton()
+    {
+        Debug.Log("Left button pressed");
+        int optionIndex = CurrentLeftButton.transform.parent.GetSiblingIndex();
+        switch ((PlayerMenuButtons)optionIndex)
+        {
+            case PlayerMenuButtons.Head:
+                playerMenuCustomization.ChangeHeadAccessory(false);
+                break;
+            case PlayerMenuButtons.SkinColor:
+                playerMenuCustomization.ChangePlayerColor(false);
+                break;
+            case PlayerMenuButtons.Face:
+                playerMenuCustomization.ChangeFaceAccessory(false);
+                break;
+            case PlayerMenuButtons.Outfit:
+                playerMenuCustomization.ChangeSkin(false);
+                break;
+            // case PlayerMenuButtons.Presets:
+            //     playerMenuCustomization.ChangePreset(false);
+            //     break;
+        }
+    }
+    private void UseRightButton()
+    {
+        Debug.Log("Right button pressed");
+        int optionIndex = CurrentRightButton.transform.parent.GetSiblingIndex();
+        switch ((PlayerMenuButtons)optionIndex)
+        {
+            case PlayerMenuButtons.Head:
+                playerMenuCustomization.ChangeHeadAccessory(true);
+                break;
+            case PlayerMenuButtons.SkinColor:
+                playerMenuCustomization.ChangePlayerColor(true);
+                break;
+            case PlayerMenuButtons.Face:
+                playerMenuCustomization.ChangeFaceAccessory(true);
+                break;
+            case PlayerMenuButtons.Outfit:
+                playerMenuCustomization.ChangeSkin(true);
+                break;
+                // case PlayerMenuButtons.Presets:
+                //     playerMenuCustomization.ChangePreset(true);
+                //     break;
+        }
+    }
     public void SetPlayerId(int id)
     {
         playerId = id;
