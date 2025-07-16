@@ -276,6 +276,7 @@ GameObject:
   - component: {fileID: 5097114930021280886}
   - component: {fileID: 2537913277007733715}
   - component: {fileID: 8137303244636561863}
+  - component: {fileID: 1393379876795944695}
   m_Layer: 0
   m_Name: SkinColor
   m_TagString: Untagged
@@ -292,7 +293,7 @@ RectTransform:
   m_GameObject: {fileID: 340423604051552206}
   m_LocalRotation: {x: -0.000000014901161, y: 0.000000022351742, z: 0.0000000055879354,
     w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -302,7 +303,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185.00014, y: -250.99998}
+  m_AnchoredPosition: {x: 185.00014, y: -296}
   m_SizeDelta: {x: 358.2, y: 48.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5097114930021280886
@@ -384,6 +385,19 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2537913277007733715}
+--- !u!114 &1393379876795944695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340423604051552206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c864ce18f65149beee0c29ae058d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetTowardsCamera: 1
 --- !u!1 &569004820613697229
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +497,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -615,7 +629,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -660,6 +674,7 @@ GameObject:
   - component: {fileID: 2476480627402583406}
   - component: {fileID: 6137277045471158892}
   - component: {fileID: 1453007548779257244}
+  - component: {fileID: 3840985465959442131}
   m_Layer: 0
   m_Name: Presets
   m_TagString: Untagged
@@ -676,7 +691,7 @@ RectTransform:
   m_GameObject: {fileID: 1374913806181561669}
   m_LocalRotation: {x: -0.000000014901161, y: 0.000000022351742, z: 0.0000000055879354,
     w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -686,7 +701,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185.00014, y: -354}
+  m_AnchoredPosition: {x: 185.00014, y: -635}
   m_SizeDelta: {x: 358.2, y: 48.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2476480627402583406
@@ -768,6 +783,19 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6137277045471158892}
+--- !u!114 &3840985465959442131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374913806181561669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c864ce18f65149beee0c29ae058d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetTowardsCamera: 1
 --- !u!1 &2360156846257080622
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +808,7 @@ GameObject:
   - component: {fileID: 7863282978408570507}
   - component: {fileID: 7945582397188002246}
   - component: {fileID: 3386845573941277239}
+  - component: {fileID: 6080807796045259062}
   m_Layer: 0
   m_Name: Outfit
   m_TagString: Untagged
@@ -796,7 +825,7 @@ RectTransform:
   m_GameObject: {fileID: 2360156846257080622}
   m_LocalRotation: {x: -0.000000014901161, y: 0.000000022351742, z: 0.0000000055879354,
     w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -806,7 +835,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185.00014, y: -320}
+  m_AnchoredPosition: {x: 185.00014, y: -561}
   m_SizeDelta: {x: 358.2, y: 48.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7863282978408570507
@@ -888,6 +917,19 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 7945582397188002246}
+--- !u!114 &6080807796045259062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360156846257080622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c864ce18f65149beee0c29ae058d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetTowardsCamera: 1
 --- !u!1 &3382569106784510340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,6 +1122,7 @@ GameObject:
   - component: {fileID: 7980343075717364737}
   - component: {fileID: 8755383122719306849}
   - component: {fileID: 8570355814434979423}
+  - component: {fileID: 7900802755520142131}
   m_Layer: 0
   m_Name: Face
   m_TagString: Untagged
@@ -1096,7 +1139,7 @@ RectTransform:
   m_GameObject: {fileID: 3909266187681686868}
   m_LocalRotation: {x: -0.000000014901161, y: 0.000000022351742, z: 0.0000000055879354,
     w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1106,7 +1149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185.00014, y: -286}
+  m_AnchoredPosition: {x: 185.00014, y: -415}
   m_SizeDelta: {x: 358.2, y: 48.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7980343075717364737
@@ -1188,6 +1231,19 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 8755383122719306849}
+--- !u!114 &7900802755520142131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909266187681686868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c864ce18f65149beee0c29ae058d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetTowardsCamera: 1
 --- !u!1 &4207847656728328358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,8 +1465,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: 2106121099
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2345258589666615490
 MonoBehaviour:
@@ -1551,7 +1607,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1683,7 +1739,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2077,6 +2133,7 @@ GameObject:
   - component: {fileID: 1365464363289618794}
   - component: {fileID: 5432465893666976976}
   - component: {fileID: 3196444466642452438}
+  - component: {fileID: 618336598925691409}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -2093,7 +2150,7 @@ RectTransform:
   m_GameObject: {fileID: 7024397093495116333}
   m_LocalRotation: {x: -0.000000014901161, y: 0.000000022351742, z: 0.0000000055879354,
     w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2103,7 +2160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185, y: -219}
+  m_AnchoredPosition: {x: 185, y: -187}
   m_SizeDelta: {x: 358.2, y: 48.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1365464363289618794
@@ -2185,6 +2242,19 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 5432465893666976976}
+--- !u!114 &618336598925691409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024397093495116333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c864ce18f65149beee0c29ae058d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetTowardsCamera: 1
 --- !u!1 &7340409570168183478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,7 +2354,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2416,7 +2486,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2548,7 +2618,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2659,6 +2729,7 @@ GameObject:
   - component: {fileID: 5777126277713360749}
   - component: {fileID: 8448113978443304881}
   - component: {fileID: 8138699390798721045}
+  - component: {fileID: 6418587179113258592}
   m_Layer: 0
   m_Name: Ready
   m_TagString: Untagged
@@ -2683,7 +2754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.22, y: 4.125}
+  m_AnchoredPosition: {x: -0.22, y: 3.87}
   m_SizeDelta: {x: 272.891, y: 190.2998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5777126277713360749
@@ -2749,6 +2820,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6418587179113258592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8723307245710166069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6c864ce18f65149beee0c29ae058d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetTowardsCamera: 1
 --- !u!1 &8904842126688089816
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,7 +3236,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.77254903, g: 0.02745098, b: 0.02745098, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
