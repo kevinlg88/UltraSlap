@@ -3,19 +3,16 @@ using MoreMountains.Feedbacks;
 
 public class FootStep : MonoBehaviour
 {
-    [SerializeField] private MMFeedbacks footStepSfx;
+    [SerializeField] private MMFeedbacks leftFootStepSfx, rightFootStepSfx;
 
-    private void OnTriggerEnter(Collider other)
+    public void LeftStep()
     {
-        //Debug.Log("trigger:" + other.name);
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
-        {
-            footStepSfx.PlayFeedbacks();
-            //UnityEngine.Debug.Log("pisou no chão");
-        }
-
+        leftFootStepSfx.PlayFeedbacks();
     }
 
+    public void RightStep()
+    {
+        rightFootStepSfx.PlayFeedbacks();
+    }
 }
 
