@@ -15157,9 +15157,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.5844475
+  m_Height: 1.5680171
   m_Direction: 1
-  m_Center: {x: 0, y: 0.7476565, z: 0}
+  m_Center: {x: 0, y: 0.7558715, z: 0}
 --- !u!54 &8530121838403700919
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15222,10 +15222,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler:
     _Editor_SelectedChain: 1
-    _Editor_ChainCategory: 0
+    _Editor_ChainCategory: 1
     _EditorCategory: 3
     _EditorMainCategory: 0
-    _EditorMotionCategory: 0
+    _EditorMotionCategory: 1
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
       type: 3}
     m_cyli: {fileID: 2534964839176971238, guid: 2ea99bbc50a9266448416f21d645a771,
