@@ -54,6 +54,7 @@ public class TriggerHitbox : MonoBehaviour
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
+            Debug.Log("ragdoll: " + ragdoll.name);
             if (ragdoll != null)
             {
                 Debug.Log("ragdoll: " + ragdoll.name);
@@ -111,24 +112,23 @@ public class TriggerHitbox : MonoBehaviour
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
 
-
         GameObject parent = go.transform.parent.gameObject;
         if(!parent) return null;
 
         if(parent.TryGetComponent(out RagdollAnimatorDummyReference ragdollAnimatorDummyRef))
         {
             RagdollAnimator2 originalRagdoll = ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
-            GameObject originalGameObject = originalRagdoll.gameObject;
+            //GameObject originalGameObject = originalRagdoll.gameObject;
 
-            if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
-            {
-                //UnityEngine.Debug.Log("ChargingTime do Adversário é: " + originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime());
+            // if (originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime() >= playerSlap.GetQuickSlapThreshold())
+            // {
+            //     //UnityEngine.Debug.Log("ChargingTime do Adversário é: " + originalGameObject.GetComponent<PlayerSlap>()?.GetChargingTime());
 
-                originalGameObject.GetComponent<PlayerSlap>()?.animator.SetBool("isInterrupted", true);
-                //originalGameObject.GetComponent<PlayerSlap>()?.stopSlapFeedback();
-                originalGameObject.GetComponent<PlayerSlap>()?.SlappingEnd();
+            //     originalGameObject.GetComponent<PlayerSlap>()?.animator.SetBool("isInterrupted", true);
+            //     //originalGameObject.GetComponent<PlayerSlap>()?.stopSlapFeedback();
+            //     originalGameObject.GetComponent<PlayerSlap>()?.SlappingEnd();
                     
-            }
+            // }
 
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
         }
