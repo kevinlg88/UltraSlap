@@ -18,6 +18,7 @@ public class RigidbodyController : MonoBehaviour
     public float dashForce = 10f;
     public float dashDuration = 0.2f;
     public float dashCooldown = 2f;
+    public float jumpForce = 7f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -53,7 +54,31 @@ public class RigidbodyController : MonoBehaviour
         if (!initialized) Initialize();
         if (!rb || !groundCheck || Camera.main == null) return;
 
+        UpdateGroundedStatus();
+        HandleMovementInput();
+        HandleDashInput();
+        UpdateAnimator();
+    }
+
+    void UpdateGroundedStatus()
+    {
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask);
+    }
+
+    void Jump()
+    {
+        if (!isGrounded || isDashing || !rb) return;
+
+        Vector3 velocity = rb.velocity;
+        velocity.y = 0f;
+        rb.velocity = velocity + Vector3.up * jumpForce;
+
+        if (animator) animator.SetTrigger("Jump");
+    }
+
+    void HandleMovementInput()
+    {
+        if (!isGrounded) return;
 
         Vector2 moveInput = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical"));
         Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput : Vector2.zero;
@@ -64,6 +89,7 @@ public class RigidbodyController : MonoBehaviour
             camForward.y = 0;
             Vector3 camRight = Camera.main.transform.right;
             camRight.y = 0;
+
             moveDir = (camForward.normalized * input.y + camRight.normalized * input.x).normalized;
             targetRot = Quaternion.LookRotation(moveDir);
         }
@@ -71,18 +97,42 @@ public class RigidbodyController : MonoBehaviour
         {
             moveDir = Vector3.zero;
         }
+    }
+
+    void HandleDashInput()
+    {
+        if (!isGrounded) return;
 
         if (player.GetButtonDown("Dash") && !isDashing && isGrounded && Time.time >= nextDashTime)
         {
+            Jump();
+            return;
             isDashing = true;
             dashTimer = dashDuration;
             dashDir = transform.forward;
             nextDashTime = Time.time + dashCooldown;
             if (animator) animator.SetTrigger("Dash");
         }
-
-        if (animator) animator.SetBool("isMoving", moveDir != Vector3.zero);
     }
+
+    void UpdateAnimator()
+    {
+        if (animator)
+        {
+            animator.SetBool("isMoving", moveDir != Vector3.zero);
+
+            if (!isGrounded)
+            {
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isMoving", false);
+            }
+            else
+            {
+                animator.SetBool("isJumping", false);
+            }
+        }
+    }
+
 
     void FixedUpdate()
     {
@@ -90,17 +140,37 @@ public class RigidbodyController : MonoBehaviour
 
         if (isDashing)
         {
-            rb.MovePosition(rb.position + dashDir * (dashForce / dashDuration) * Time.fixedDeltaTime);
-            dashTimer -= Time.fixedDeltaTime;
-            if (dashTimer <= 0f) isDashing = false;
+            PerformDash();
             return;
         }
+
+        ApplyMovement();
+        RotateTowardsMovementDirection();
+    }
+
+    void PerformDash()
+    {
+        if (!isGrounded) return;
+
+        rb.MovePosition(rb.position + dashDir * (dashForce / dashDuration) * Time.fixedDeltaTime);
+        dashTimer -= Time.fixedDeltaTime;
+        if (dashTimer <= 0f)
+            isDashing = false;
+    }
+
+    void ApplyMovement()
+    {
+        if (!isGrounded) return;
 
         Vector3 currentVel = rb.velocity;
         float newX = Mathf.Lerp(currentVel.x, moveDir.x * moveSpeed, inertiaFactor);
         float newZ = Mathf.Lerp(currentVel.z, moveDir.z * moveSpeed, inertiaFactor);
-
         rb.velocity = new Vector3(newX, currentVel.y, newZ);
+    }
+
+    void RotateTowardsMovementDirection()
+    {
+        if (!isGrounded) return;
 
         if (moveDir != Vector3.zero)
             rb.MoveRotation(targetRot);
