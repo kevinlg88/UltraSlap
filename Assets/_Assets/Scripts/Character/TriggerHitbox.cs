@@ -51,10 +51,11 @@ public class TriggerHitbox : MonoBehaviour
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
+            Debug.Log("Rigidbody: " + rigidbody.gameObject.name);
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
-            Debug.Log("ragdoll: " + ragdoll.name);
+            //Debug.Log("ragdoll: " + ragdoll.name);
             if (ragdoll != null)
             {
                 Debug.Log("ragdoll: " + ragdoll.name);
