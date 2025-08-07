@@ -153,12 +153,13 @@ public class PlayerSlap : MonoBehaviour
         chargingSlap.StopFeedbacks();
     }
 
-    public void SlapFeedback()
+    public void AnimEvt_SlapFeedback()
     {
+        Debug.Log("AnimEvt_SlapFeedback");
         slapWhoosh.PlayFeedbacks();
     }
 
-    public void SlappingEnd()  //Define que não tem mais nenhum tapa ativo
+    public void AnimEvt_SlappingEnd()  //Define que não tem mais nenhum tapa ativo
     {
         animator.speed = 1f;
 

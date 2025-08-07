@@ -8,6 +8,7 @@ public class RewiredJoinManager : MonoBehaviour
 {
     [SerializeField] GameObject playerPrefab;
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
+    [SerializeField] int minPlayers = 2;
 
     [Header("Action Names")]
     [SerializeField] string joinAction = "Join";
@@ -171,7 +172,7 @@ public class RewiredJoinManager : MonoBehaviour
 
     private void TryStartGame()
     {
-        if (_playerManager.Players.Count < 2) return;
+        if (_playerManager.Players.Count < minPlayers) return;
         foreach (PlayerData playerData in _playerManager.Players)
         {
             if (!playerData.IsReady) return;

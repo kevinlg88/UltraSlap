@@ -119,11 +119,11 @@ public class PlayerCustomization : MonoBehaviour
             skinIndex--;
             if (skinIndex < 0) skinIndex = item.skins.Count - 1;
         }
-        body.materials[1].mainTexture = item.skins[skinIndex];
+        //body.materials[1].mainTexture = item.skins[skinIndex];
     }
     public void ChangeSkin()
     {
-        body.materials[1].mainTexture = item.skins[skinIndex];
+        //body.materials[1].mainTexture = item.skins[skinIndex];
     }
 
     public void SaveCharacterVisual(PlayerData playerData)

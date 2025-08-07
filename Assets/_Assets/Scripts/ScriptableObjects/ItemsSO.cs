@@ -8,6 +8,6 @@ public class ItemsSO : ScriptableObject
 {
     public List<GameObject> headAccessories = new List<GameObject>();
     public List<GameObject> faceAccessories = new List<GameObject>();
-    public List<Texture2D> skins = new List<Texture2D>();
+    public List<GameObject> skins = new List<GameObject>();
     public List<Color> colors = new List<Color>();
 }
