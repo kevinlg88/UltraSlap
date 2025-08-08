@@ -803,6 +803,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8530121838403700919, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8644257198737595198, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -965,7 +970,9 @@ MonoBehaviour:
   dashForce: 10
   dashDuration: 0.2
   dashCooldown: 2
-  jumpForce: 7
+  jumpForce: 18
+  fallMultiplier: 5
+  lowJumpMultiplier: 2.5
   groundCheck: {fileID: 6177632234658003788}
   groundDistance: 0.2
   groundMask:

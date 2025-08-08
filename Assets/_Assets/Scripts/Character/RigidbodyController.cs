@@ -19,6 +19,8 @@ public class RigidbodyController : MonoBehaviour
     public float dashDuration = 0.2f;
     public float dashCooldown = 2f;
     public float jumpForce = 7f;
+    [SerializeField] float fallMultiplier = 2.5f; //Variable for better jump/gravity control
+    [SerializeField] float lowJumpMultiplier = 2f; //Variable for better jump/gravity control
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -58,6 +60,16 @@ public class RigidbodyController : MonoBehaviour
         HandleMovementInput();
         HandleDashInput();
         UpdateAnimator();
+
+        // Aplicar gravidade extra para deixar a queda mais rápida
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 
     void UpdateGroundedStatus()
@@ -69,10 +81,14 @@ public class RigidbodyController : MonoBehaviour
     {
         if (!isGrounded || isDashing || !rb) return;
 
-        Vector3 velocity = rb.velocity;
+        /* Vector3 velocity = rb.velocity;
         velocity.y = 0f;
         rb.velocity = velocity + Vector3.up * jumpForce;
 
+        if (animator) animator.SetTrigger("Jump"); */
+
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if (animator) animator.SetTrigger("Jump");
     }
 
