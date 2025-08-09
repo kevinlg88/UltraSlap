@@ -17,8 +17,10 @@ public class RigidbodyController : MonoBehaviour
     public float inertiaFactor = 1f;
     public float dashForce = 10f;
     public float dashDuration = 0.2f;
-    public float dashCooldown = 2f;
     public float jumpForce = 7f;
+    public float jumpCooldown = 0.85f;
+    public float jumpCooldownTimer;
+
     [SerializeField] float fallMultiplier = 2.5f; //Variable for better jump/gravity control
     [SerializeField] float lowJumpMultiplier = 2f; //Variable for better jump/gravity control
 
@@ -30,8 +32,7 @@ public class RigidbodyController : MonoBehaviour
 
     bool initialized = false;
     private Player player;
-    bool isDashing, isGrounded;
-    float dashTimer, nextDashTime;
+    public bool isJumping, isGrounded;
     Vector3 dashDir, moveDir;
     Quaternion targetRot;
 
@@ -56,10 +57,19 @@ public class RigidbodyController : MonoBehaviour
         if (!initialized) Initialize();
         if (!rb || !groundCheck || Camera.main == null) return;
 
+
         UpdateGroundedStatus();
         HandleMovementInput();
-        HandleDashInput();
+        HandleJumpInput();
         UpdateAnimator();
+
+        if (jumpCooldownTimer>0)
+        {
+            jumpCooldownTimer -= Time.deltaTime;
+
+            if (jumpCooldownTimer < 0f)
+                jumpCooldownTimer = 0f; // Garante que não fique negativo
+        }
 
         // Aplicar gravidade extra para deixar a queda mais rápida
         if (rb.velocity.y < 0)
@@ -75,11 +85,12 @@ public class RigidbodyController : MonoBehaviour
     void UpdateGroundedStatus()
     {
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask);
+        if (isGrounded) isJumping = false;
     }
 
     void Jump()
     {
-        if (!isGrounded || isDashing || !rb) return;
+        if (!isGrounded || isJumping || !rb) return;
 
         /* Vector3 velocity = rb.velocity;
         velocity.y = 0f;
@@ -90,6 +101,8 @@ public class RigidbodyController : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if (animator) animator.SetTrigger("Jump");
+        isJumping = true;
+        jumpCooldownTimer = jumpCooldown;
     }
 
     void HandleMovementInput()
@@ -115,19 +128,14 @@ public class RigidbodyController : MonoBehaviour
         }
     }
 
-    void HandleDashInput()
+    void HandleJumpInput()
     {
         if (!isGrounded) return;
 
-        if (player.GetButtonDown("Dash") && !isDashing && isGrounded && Time.time >= nextDashTime)
+        if (player.GetButtonDown("Dash") && !isJumping && isGrounded && jumpCooldownTimer <= 0)
         {
             Jump();
             return;
-            isDashing = true;
-            dashTimer = dashDuration;
-            dashDir = transform.forward;
-            nextDashTime = Time.time + dashCooldown;
-            if (animator) animator.SetTrigger("Dash");
         }
     }
 
@@ -154,7 +162,7 @@ public class RigidbodyController : MonoBehaviour
     {
         if (!rb) return;
 
-        if (isDashing)
+        if (isJumping)
         {
             PerformDash();
             return;
@@ -166,12 +174,12 @@ public class RigidbodyController : MonoBehaviour
 
     void PerformDash()
     {
-        if (!isGrounded) return;
+        /*if (!isGrounded) return;
 
         rb.MovePosition(rb.position + dashDir * (dashForce / dashDuration) * Time.fixedDeltaTime);
         dashTimer -= Time.fixedDeltaTime;
         if (dashTimer <= 0f)
-            isDashing = false;
+            isJumping = false;*/
     }
 
     void ApplyMovement()

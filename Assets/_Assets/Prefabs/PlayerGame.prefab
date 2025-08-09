@@ -969,8 +969,9 @@ MonoBehaviour:
   inertiaFactor: 1
   dashForce: 10
   dashDuration: 0.2
-  dashCooldown: 2
   jumpForce: 18
+  jumpCooldown: 0.85
+  jumpCooldownTimer: 0
   fallMultiplier: 5
   lowJumpMultiplier: 2.5
   groundCheck: {fileID: 6177632234658003788}
@@ -978,6 +979,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  isJumping: 0
+  isGrounded: 0
 --- !u!114 &8162256866231592268
 MonoBehaviour:
   m_ObjectHideFlags: 0
