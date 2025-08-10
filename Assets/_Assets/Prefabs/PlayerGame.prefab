@@ -978,7 +978,7 @@ MonoBehaviour:
   groundDistance: 0.2
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   isJumping: 0
   isGrounded: 0
 --- !u!114 &8162256866231592268

@@ -57,7 +57,6 @@ public class RigidbodyController : MonoBehaviour
         if (!initialized) Initialize();
         if (!rb || !groundCheck || Camera.main == null) return;
 
-
         UpdateGroundedStatus();
         HandleMovementInput();
         HandleJumpInput();
@@ -71,7 +70,7 @@ public class RigidbodyController : MonoBehaviour
                 jumpCooldownTimer = 0f; // Garante que não fique negativo
         }
 
-        // Aplicar gravidade extra para deixar a queda mais rápida
+        // Aplicar gravidade extra para deixar a queda mais rápida 
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -91,12 +90,6 @@ public class RigidbodyController : MonoBehaviour
     void Jump()
     {
         if (!isGrounded || isJumping || !rb) return;
-
-        /* Vector3 velocity = rb.velocity;
-        velocity.y = 0f;
-        rb.velocity = velocity + Vector3.up * jumpForce;
-
-        if (animator) animator.SetTrigger("Jump"); */
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -201,5 +194,4 @@ public class RigidbodyController : MonoBehaviour
     }
 
     public void SetPlayerId(int id) => playerID = id;
-    
 }

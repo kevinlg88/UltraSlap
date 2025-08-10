@@ -4,15 +4,22 @@ using MoreMountains.Feedbacks;
 public class FootStep : MonoBehaviour
 {
     [SerializeField] private MMFeedbacks leftFootStepSfx, rightFootStepSfx;
+    public RigidbodyController controller;
 
     public void LeftStep()
     {
-        leftFootStepSfx.PlayFeedbacks();
+        if (controller.isGrounded)
+        {
+            leftFootStepSfx.PlayFeedbacks();
+        }
     }
 
     public void RightStep()
     {
-        rightFootStepSfx.PlayFeedbacks();
+        if (controller.isGrounded)
+        {
+            rightFootStepSfx.PlayFeedbacks();
+        }
     }
 }
 
