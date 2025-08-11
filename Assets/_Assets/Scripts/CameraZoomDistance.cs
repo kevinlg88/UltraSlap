@@ -33,7 +33,7 @@ public class CameraZoom : MonoBehaviour
     public void FindPlayersInScene() //Procura todos os jogadores na partida
     {
         // Encontra todas as instâncias do prefab Player baseando-se no script PlayerManager
-        TeamManager[] playerScripts = FindObjectsOfType<TeamManager>();
+        RigidbodyController[] playerScripts = FindObjectsOfType<RigidbodyController>();
         characters = new Transform[playerScripts.Length];
         //UnityEngine.Debug.Log($"Jogadores encontrados: {playerScripts.Length}");
 
