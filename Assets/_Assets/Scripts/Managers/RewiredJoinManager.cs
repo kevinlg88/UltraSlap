@@ -131,8 +131,6 @@ public class RewiredJoinManager : MonoBehaviour
         playerData.PlayerGameObjectRef = newPlayer;
 
         _playerManager.AddPlayer(playerData);
-        _playerManager.AddPlayer(playerData);
-        _playerManager.AddPlayer(playerData);
     }
 
     private void GetPlayerInput()
