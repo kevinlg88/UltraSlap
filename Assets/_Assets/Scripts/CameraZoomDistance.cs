@@ -86,11 +86,16 @@ public class CameraZoom : MonoBehaviour
         }
         else
         {
-            Vector3 midPoint = new Vector3();
-            foreach (Transform tf in aliveCharacters) midPoint += tf.position;
-            midPoint /= aliveCharacters.Length;
-            float distance = Vector3.Distance(aliveCharacters[0].position, aliveCharacters[1].position);
-            targetZoom = Mathf.Clamp(distance * zoomFactor, minZoom, maxZoom);
+            Bounds bounds = new Bounds(aliveCharacters[0].position, Vector3.zero);
+            for (int i = 1; i < aliveCharacters.Length; i++)
+                bounds.Encapsulate(aliveCharacters[i].position);
+
+            Vector3 midPoint = bounds.center;
+
+            float greatestSize = Mathf.Max(bounds.size.x, bounds.size.z);
+
+            targetZoom = Mathf.Clamp(greatestSize * zoomFactor, minZoom, maxZoom);
+
             targetPosition = midPoint + offset.normalized * targetZoom;
         }
 
