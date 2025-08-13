@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
@@ -71,7 +70,7 @@ public class CameraZoom : MonoBehaviour
         {
             if (character != null && character.position.y < heightThreshold)
             {
-                UnityEngine.Debug.Log($"Eliminando {character.name} por cair abaixo do limite!");
+                Debug.Log($"Eliminando {character.name} por cair abaixo do limite!");
                 Destroy(character.gameObject);
             }
         }
@@ -81,16 +80,18 @@ public class CameraZoom : MonoBehaviour
         Vector3 targetPosition = cameraTransform.position;
         float targetZoom = (maxZoom + minZoom) / 2;
 
-        if (aliveCharacters.Length == 2)
-        {
-            float distance = Vector3.Distance(aliveCharacters[0].position, aliveCharacters[1].position);
-            targetZoom = Mathf.Clamp(distance * zoomFactor, minZoom, maxZoom);
-            Vector3 midPoint = (aliveCharacters[0].position + aliveCharacters[1].position) / 2;
-            targetPosition = midPoint + offset.normalized * targetZoom;
-        }
-        else if (aliveCharacters.Length == 1)
+        if (aliveCharacters.Length == 1)
         {
             targetPosition = aliveCharacters[0].position + offset.normalized * minZoom;
+        }
+        else
+        {
+            Vector3 midPoint = new Vector3();
+            foreach (Transform tf in aliveCharacters) midPoint += tf.position;
+            midPoint /= aliveCharacters.Length;
+            float distance = Vector3.Distance(aliveCharacters[0].position, aliveCharacters[1].position);
+            targetZoom = Mathf.Clamp(distance * zoomFactor, minZoom, maxZoom);
+            targetPosition = midPoint + offset.normalized * targetZoom;
         }
 
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * zoomSpeed);
