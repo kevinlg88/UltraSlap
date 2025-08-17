@@ -213,6 +213,16 @@ public class PlayerSlap : MonoBehaviour
         return TriggerGetRagBone;
     }
 
+    public void ActivateHitbox()
+    {
+        TriggerGetRagBone.gameObject.SetActive(true);
+    }
+
+    public void DeactivateHitbox()
+    {
+        TriggerGetRagBone.gameObject.SetActive(false);
+    }
+
     public void SetPlayer(Player player)
     {
         this.player = player;
