@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_ChomperHit
   m_Shader: {fileID: 4800000, guid: 0dde7f0097aeb2541aea684ca0ad0e3c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALBEDOVERTEXCOLORMODE_REPLACE
   - _CAST_SHADOWS_ON
@@ -20,7 +22,7 @@ Material:
   - _MATCAPBLENDMODE_MULTIPLY
   - _OUTLINETYPE_NONE
   - _REFLECTIONS_CLASSIC
-  - _RIMLIGHTINGSTAGE_BEFORELIGHTING
+  - _RIMLIGHTINGSTAGE_AFTERLIGHTING
   - _RIM_LIGHTING_ON
   - _SHADINGMODEL_PBR
   - _SPECULARMODEL_CLASSIC
@@ -35,6 +37,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -204,6 +207,7 @@ Material:
     - _FadeBurnOn: 1
     - _FadeBurnWidth: 0.018
     - _FadeOn: 0
+    - _FadePower: 1
     - _FadeTransition: 0.046
     - _FogOn: 0
     - _GeneralAlpha: 1
@@ -259,11 +263,11 @@ Material:
     - _MatcapIntensity: 4
     - _MaxGradientHeight: 0.75
     - _MaxInflate: 0.2
-    - _MaxRim: 1
+    - _MaxRim: 0.199
     - _Metallic: 0
     - _MinGradientHeight: 0
     - _MinInflate: 0
-    - _MinRim: 0
+    - _MinRim: 0.25
     - _Mode: 0
     - _NormalInfluence: 1.15
     - _NormalMapEnabled: 0
@@ -280,9 +284,9 @@ Material:
     - _Reflections: 1
     - _ReflectionsAtten: 0.4
     - _RenderPreset: 1
-    - _RimAttenuation: 1
+    - _RimAttenuation: 0.959
     - _RimLighting: 1
-    - _RimLightingStage: 0
+    - _RimLightingStage: 2
     - _SSSAtten: 0.3
     - _SSSFrontAtten: 0.2
     - _SSSFrontPower: 5.9
