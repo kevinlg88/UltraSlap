@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_TestObj2
+  m_Name: MAT_TestObj2 LeftHand
   m_Shader: {fileID: 4800000, guid: 0dde7f0097aeb2541aea684ca0ad0e3c, type: 3}
   m_Parent: {fileID: 2100000, guid: ff5318b24412e9c48bc6df8a2815829e, type: 2}
   m_ModifiedSerializedProperties: 16
@@ -15,7 +15,6 @@ Material:
   - _ALBEDOVERTEXCOLORMODE_REPLACE
   - _CAST_SHADOWS_ON
   - _COLORRAMPLIGHTINGSTAGE_BEFORELIGHTING
-  - _COLOR_RAMP_ON
   - _EMISSION_ON
   - _GREYSCALESTAGE_BEFORELIGHTING
   - _HEIGHTGRADIENTPOSITIONSPACE_LOCAL
@@ -23,8 +22,7 @@ Material:
   - _MATCAPBLENDMODE_MULTIPLY
   - _OUTLINETYPE_NONE
   - _REFLECTIONS_CLASSIC
-  - _RIMLIGHTINGSTAGE_AFTERLIGHTING
-  - _RIM_LIGHTING_ON
+  - _RIMLIGHTINGSTAGE_BEFORELIGHTING
   - _SHADINGMODEL_PBR
   - _SPECULARMODEL_CLASSIC
   - _TEXTUREBLENDINGMODE_RGB
@@ -43,7 +41,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorRampTex:
-        m_Texture: {fileID: 2800000, guid: b615b551e5348a84e9da48c71c9b67b3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 23537e0e0e293bb419194ca5bcf6ec80, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTex:
@@ -58,14 +56,13 @@ Material:
     - _BlendSrc: 1
     - _ColorRampBlend: 1
     - _ColorRampLuminosity: 1
-    - _ColorRampOn: 1
+    - _ColorRampOn: 0
     - _ColorRampScrollSpeed: 0
     - _ColorRampTiling: 0.01
     - _ContrastBrightnessOn: 0
     - _CustomShadowColorOn: 0
     - _DepthGlowDist: 0.01
     - _EmissionEnabled: 1
-    - _EmissionSelfGlow: 1
     - _FadeBurnOn: 0
     - _FadeOn: 0
     - _FogOn: 0
@@ -89,9 +86,9 @@ Material:
     - _NormalInfluence: 0.5
     - _NormalMapEnabled: 0
     - _RenderPreset: 1
-    - _RimAttenuation: 0
-    - _RimLighting: 1
-    - _RimLightingStage: 2
+    - _RimAttenuation: 0.24
+    - _RimLighting: 0
+    - _RimLightingStage: 0
     - _SubsurfaceScattering: 0
     - _VertexShakeOn: 0
     - _ZWrite: 1
@@ -100,6 +97,6 @@ Material:
     - _GradientHeightColor01: {r: 1, g: 0.7311321, b: 0.7311321, a: 1}
     - _HighlightsColor: {r: 2.519016, g: 2.1791716, b: 0, a: 1}
     - _HitColor: {r: 1, g: 0.9295516, b: 0.4575472, a: 1}
-    - _RimColor: {r: 0.79607844, g: 0.27058825, b: 0.03529412, a: 1}
+    - _RimColor: {r: 0.8301887, g: 0.035243843, b: 0.121402875, a: 1}
     - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
