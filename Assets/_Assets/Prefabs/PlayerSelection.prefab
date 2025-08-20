@@ -3292,6 +3292,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: AutoPlayOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6370860611538428034, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: m_IsActive
@@ -3301,6 +3306,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268800669324069056, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: faceSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268800669324069056, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: headSlot
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7905835572390947710, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
