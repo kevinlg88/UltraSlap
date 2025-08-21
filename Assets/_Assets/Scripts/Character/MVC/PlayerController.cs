@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PlayerData PlayerData { get; set; }
+    public RigidbodyController PlayerMovement { get; set; }
+    public PlayerCustomization PlayerCustomization { get; set; }
 
-    // Update is called once per frame
-    void Update()
+    private bool isDead = false;
+    public bool IsDead => isDead;
+
+    public GameEvent _gameEvent;
+
+    // [Inject]
+    // public void Construct(GameEvent gameEvent)
+    // {
+    //     _gameEvent = gameEvent;
+    //     Debug.Log("GameEvent Instalado");
+    // }
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("DeathBox"))
+        {
+            isDead = true;
+            _gameEvent.onPlayerDeath.Invoke();
+        }
     }
 }

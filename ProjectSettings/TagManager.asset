@@ -10,6 +10,7 @@ TagManager:
   - PlayerTwo
   - PlayerThree
   - PlayerFour
+  - DeathBox
   layers:
   - Default
   - TransparentFX

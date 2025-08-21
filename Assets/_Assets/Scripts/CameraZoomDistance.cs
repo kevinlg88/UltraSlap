@@ -1,19 +1,33 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class CameraZoom : MonoBehaviour
 {
     public static CameraZoom Instance;
 
-    public Transform[] characters;  // Lista de jogadores na cena
-    public Transform cameraTransform; // Transform da câmera
+    public Transform[] characters;
+    public Transform cameraTransform;
 
-    public float minZoom = 5f; // Distância mínima da câmera
-    public float maxZoom = 20f; // Distância máxima da câmera
-    public float zoomFactor = 1.2f; // Influencia o ritmo de afastamento/aproximação da câmera quando os personagens se distanciam ou se aproximam
-    public float zoomSpeed = 5f; // Velocidade de ajuste do zoom
-    public Vector3 offset = new Vector3(0, 5, -10); // Offset da câmera
-    public float heightThreshold = -4f; // Altura mínima para considerar um personagem ativo
+    public float minZoom = 5f;
+    public float maxZoom = 20f;
+    public float zoomFactor = 1.2f;
+    public float zoomSpeed = 5f;
+    public Vector3 offset = new Vector3(0, 5, -10);
+    public float heightThreshold = -4f;
 
+    [SerializeField]private List<PlayerController> playersOnCamera = new List<PlayerController>();
+    private GameEvent _gameEvent;
+
+    [Inject]
+    public void Construct(GameEvent gameEvent)
+    {
+        Debug.Log($"Instalou game event na camera");
+        _gameEvent = gameEvent;
+        _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
+
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -29,69 +43,33 @@ public class CameraZoom : MonoBehaviour
         FindPlayersInScene();
     }
 
-    public void FindPlayersInScene() //Procura todos os jogadores na partida
+    public void FindPlayersInScene()
     {
-        // Encontra todas as instâncias do prefab Player baseando-se no script PlayerManager
-        RigidbodyController[] playerScripts = FindObjectsOfType<RigidbodyController>();
-        characters = new Transform[playerScripts.Length];
-        //UnityEngine.Debug.Log($"Jogadores encontrados: {playerScripts.Length}");
-
-        for (int i = 0; i < playerScripts.Length; i++)
-        {
-            characters[i] = playerScripts[i].transform;
-            UnityEngine.Debug.Log($"Jogador {i + 1} encontrado: {characters[i].name}");
-
-        }
-
-
-        /*if (characters.Length < 2)
-        {
-            UnityEngine.Debug.LogWarning("Menos de 2 jogadores encontrados! Certifique-se de que os Players foram instanciados corretamente.");
-        }
-        else
-        {
-            UnityEngine.Debug.Log("Jogadores encontrados: " + characters.Length);
-        }*/
+        playersOnCamera = FindObjectsOfType<PlayerController>()
+            .Where(p => !p.IsDead)
+            .ToList();
     }
 
     void Update()
     {
-        if (characters == null || characters.Length == 0 || cameraTransform == null)
+        if (playersOnCamera.Count == 0) return;
+
+        Vector3 targetPosition;
+        float targetZoom;
+
+        if (playersOnCamera.Count == 1)
         {
-            FindPlayersInScene(); // Rebusca os players caso não existam
-            return;
-        }
-
-        // Criar uma nova lista de personagens vivos
-        Transform[] aliveCharacters = System.Array.FindAll(characters, c => c != null && c.position.y >= heightThreshold);
-
-        // Destruir os personagens que caíram abaixo do threshold
-        foreach (Transform character in characters)
-        {
-            if (character != null && character.position.y < heightThreshold)
-            {
-                Debug.Log($"Eliminando {character.name} por cair abaixo do limite!");
-                Destroy(character.gameObject);
-            }
-        }
-
-        if (aliveCharacters.Length == 0) return; // Se ninguém está vivo, não move a câmera
-
-        Vector3 targetPosition = cameraTransform.position;
-        float targetZoom = (maxZoom + minZoom) / 2;
-
-        if (aliveCharacters.Length == 1)
-        {
-            targetPosition = aliveCharacters[0].position + offset.normalized * minZoom;
+            var playerPos = playersOnCamera[0].transform.position;
+            targetZoom = minZoom;
+            targetPosition = playerPos + offset.normalized * targetZoom;
         }
         else
         {
-            Bounds bounds = new Bounds(aliveCharacters[0].position, Vector3.zero);
-            for (int i = 1; i < aliveCharacters.Length; i++)
-                bounds.Encapsulate(aliveCharacters[i].position);
+            Bounds bounds = new Bounds(playersOnCamera[0].transform.position, Vector3.zero);
+            foreach (var player in playersOnCamera)
+                bounds.Encapsulate(player.transform.position);
 
             Vector3 midPoint = bounds.center;
-
             float greatestSize = Mathf.Max(bounds.size.x, bounds.size.z);
 
             targetZoom = Mathf.Clamp(greatestSize * zoomFactor, minZoom, maxZoom);
@@ -99,6 +77,17 @@ public class CameraZoom : MonoBehaviour
             targetPosition = midPoint + offset.normalized * targetZoom;
         }
 
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPosition, Time.deltaTime * zoomSpeed);
+        cameraTransform.position = Vector3.Lerp(
+            cameraTransform.position,
+            targetPosition,
+            Time.deltaTime * zoomSpeed
+        );
+    }
+
+
+    private void OnPlayerDeath()
+    {
+        playersOnCamera.RemoveAll(p => p.IsDead);
+        FindPlayersInScene();
     }
 }
