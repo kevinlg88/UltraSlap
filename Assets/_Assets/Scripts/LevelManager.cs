@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
+        UnityEngine.Debug.Log($"O som deveria tocar agora");
         if (instance != null)
         {
             Destroy(gameObject);
@@ -132,7 +133,8 @@ public class LevelManager : MonoBehaviour
 
     public void startMatch()
     {
-        levelSong.PlayFeedbacks();
+        //levelSong.PlayFeedbacks();
+        
 
         // Encontra todos os objetos PlayerManager na cena (ordem não garantida)
         TeamManager[] foundPlayers = FindObjectsOfType<TeamManager>();

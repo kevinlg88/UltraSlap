@@ -8736,6 +8736,7 @@ MonoBehaviour:
   - {fileID: 738622426}
   playerPrefab: {fileID: 4827978320911131526, guid: 2e3b05ea1d02b484b806a22e590dbfbb,
     type: 3}
+  levelSong: {fileID: 759009808}
 --- !u!4 &1990201866
 Transform:
   m_ObjectHideFlags: 0

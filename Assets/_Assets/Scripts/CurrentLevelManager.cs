@@ -5,17 +5,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 using Zenject.SpaceFighter;
+using MoreMountains.Feedbacks;
 
 public class CurrentLevelManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] GameObject playerPrefab;
+    [SerializeField] private MMFeedbacks levelSong;
 
     private List<PlayerController> playersInGame = new List<PlayerController>();
 
 
     private PlayerManager _playerManager;
     private GameEvent _gameEvent;
+
+
 
     [Inject]
     public void Construct(PlayerManager playerManager, GameEvent gameEvent)
@@ -49,7 +53,17 @@ public class CurrentLevelManager : MonoBehaviour
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
     }
 
-    private void OnPlayerDeath()
+    void Start()
+    {
+        startMatch();
+    }
+
+    public void startMatch()
+    {
+        levelSong.PlayFeedbacks(); // Toca música do level
+    }
+
+        private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
         //Debug.Log($"Player {player.name} morreu");
