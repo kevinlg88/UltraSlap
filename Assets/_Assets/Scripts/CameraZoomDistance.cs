@@ -70,7 +70,7 @@ public class CameraZoom : MonoBehaviour
                 bounds.Encapsulate(player.transform.position);
 
             Vector3 midPoint = bounds.center;
-            float greatestSize = Mathf.Max(bounds.size.x, bounds.size.z);
+            float greatestSize = Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z);
 
             targetZoom = Mathf.Clamp(greatestSize * zoomFactor, minZoom, maxZoom);
 
