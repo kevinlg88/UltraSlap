@@ -88,7 +88,7 @@ public class PlayerSlap : MonoBehaviour
             {
 
                 QuickSlap();
-
+                
             }
             else if (chargingTime > quickSlapThreshold && !isSlapping) // Caso contrário, é um charge slap
             {
@@ -116,12 +116,20 @@ public class PlayerSlap : MonoBehaviour
 
     void QuickSlap()
     {
+        
         if (!isSlapping) {
+            
             animator.SetBool("isChargingSlap", false);
             animator.speed = 1f;        // Retoma a animação ao soltar o botão  
             chargingTime = 0f;
             isSlapping = true;          // Bloqueia novos slaps até o cooldown
             isCharging = false;
+
+            UnityEngine.Debug.Log("foi um quick slap");
+
+            isOnCooldown = true;
+            cooldown = Mathf.Min(minCooldown + (power - minPower) * cooldownGrowthRate, maxCooldown);
+            cooldownTimer = cooldown;
 
             stopSlapFeedback();
         }
@@ -136,6 +144,10 @@ public class PlayerSlap : MonoBehaviour
             animator.speed = 1f;
             isSlapping = true; // Bloqueia novos slaps
             isCharging = false;
+
+            isOnCooldown = true;
+            cooldown = Mathf.Min(minCooldown + (power - minPower) * cooldownGrowthRate, maxCooldown);
+            cooldownTimer = cooldown;
 
             stopSlapFeedback();
 
@@ -165,12 +177,10 @@ public class PlayerSlap : MonoBehaviour
 
         chargingTime = 0f;
 
-        cooldown = Mathf.Min(minCooldown + (power - minPower) * cooldownGrowthRate, maxCooldown);
-        cooldownTimer = cooldown;
+
 
         isSlapping = false;
         isCharging = false;
-        isOnCooldown = true;
 
         stopSlapFeedback();
         chargingSlapEnd.PlayFeedbacks();
