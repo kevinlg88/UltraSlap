@@ -3524,8 +3524,8 @@ MonoBehaviour:
   RandomSfx: []
   TestButton: 0
   TestStopButton: 0
-  MinVolume: 0.13
-  MaxVolume: 0.18
+  MinVolume: 0.2
+  MaxVolume: 0.4
   MinPitch: 1
   MaxPitch: 1
   MmSoundManagerTrack: 1
@@ -3600,7 +3600,7 @@ MonoBehaviour:
   InitializationMode: 2
   AutoInitialization: 1
   SafeMode: 3
-  Direction: 0
+  Direction: 1
   AutoChangeDirectionOnEnd: 0
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
