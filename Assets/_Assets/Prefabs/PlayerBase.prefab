@@ -17181,6 +17181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8530121838403700919}
+  capsuleCollider: {fileID: 7670451256361373934}
   animator: {fileID: 7566958015380379863}
   playerSlap: {fileID: 4406342879990976752}
   playerID: 0
