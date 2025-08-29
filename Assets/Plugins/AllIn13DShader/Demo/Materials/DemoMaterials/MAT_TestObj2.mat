@@ -43,7 +43,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorRampTex:
-        m_Texture: {fileID: 2800000, guid: b615b551e5348a84e9da48c71c9b67b3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9739cc4b3406bec4099c70a86e0fa059, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTex:
