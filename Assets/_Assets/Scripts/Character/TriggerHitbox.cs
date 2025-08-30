@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 public class TriggerHitbox : MonoBehaviour
 {
@@ -51,21 +52,24 @@ public class TriggerHitbox : MonoBehaviour
 
         if (other.TryGetComponent(out Rigidbody rigidbody))
         {
-            Debug.Log("Rigidbody: " + rigidbody.gameObject.name);
+            UnityEngine.Debug.Log("Rigidbody: " + rigidbody.gameObject.name);
             if (isSlapping || other.gameObject.layer == 10) return;
             isSlapping = true;
             RagdollAnimator2 ragdoll = GetRagdoll(rigidbody.gameObject);
             //Debug.Log("ragdoll: " + ragdoll.name);
             if (ragdoll != null)
             {
-                Debug.Log("ragdoll: " + ragdoll.name);
+                //UnityEngine.Debug.Log("ragdoll: " + ragdoll.name);
                 if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
 
-                Debug.Log("bateu: " + ragdoll.gameObject.name + "\n" +
+                UnityEngine.Debug.Log("bateu: " + ragdoll.gameObject.name + "\n" +
                 "slapPower: " + slapPower + " de " + "slapPowerFallingThreshold " + slapPowerFallingThreshold);
-                
+
+
+                ApplyDamage(ragdoll.gameObject.GetComponent<PlayerStatus>()); //Aqui trata do dano causado ao HEALTH do alvo
+
                 var ragdollBlend = ragdoll.RagdollBlend;
-                if (slapPower >= slapPowerFallingThreshold)
+                if (slapPower >= slapPowerFallingThreshold) //esse if força a ativação do falling no adversário que recebe o ataque, se o slapPower >= slapPowerFallingThreshold
                 {
                     ragdoll.User_SwitchFallState();
                     //ragdoll.Handler.Mecanim.CrossFadeInFixedTime( "Fall", 0.25f );
@@ -78,7 +82,7 @@ public class TriggerHitbox : MonoBehaviour
 
                 slapEnemy.PlayFeedbacks();
             }
-            Debug.Log("other:" + other.name);
+            UnityEngine.Debug.Log("other:" + other.name);
             //ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
             //ragdoll.
             //ragdoll.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
@@ -88,7 +92,6 @@ public class TriggerHitbox : MonoBehaviour
 
             if(ragdoll)ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * slapPower);
             else rigidbody.AddForce(this.gameObject.transform.forward * slapPower, ForceMode.Impulse);
-
 
 
             // Normaliza o slapPower entre 0 e 1
@@ -103,12 +106,23 @@ public class TriggerHitbox : MonoBehaviour
             go.transform.position += new Vector3(0f, 0.9f, 1.0f); // Ajuste esses valores conforme necessário
 
             Destroy(go,1f);
-            Debug.Log("aplicou for?a");
+            //UnityEngine.Debug.Log("aplicou for?a");
             
 
         }
     }
 
+
+    private void ApplyDamage(PlayerStatus targetStatus)
+    {
+        int newHealth;
+
+        newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(slapPower); //Subtraindo o dano (arredondado) causado do health atual
+        targetStatus.SetHealth(newHealth);
+        
+        UnityEngine.Debug.Log(newHealth + " de life");
+
+    }
 
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {
