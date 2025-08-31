@@ -66,12 +66,16 @@ public class TriggerHitbox : MonoBehaviour
                 "slapPower: " + slapPower + " de " + "slapPowerFallingThreshold " + slapPowerFallingThreshold);
 
 
-                ApplyDamage(ragdoll.gameObject.GetComponent<PlayerStatus>()); //Aqui trata do dano causado ao HEALTH do alvo
+                ApplyDamage(ragdoll.gameObject.GetComponent<PlayerController>()); //Aqui trata do dano causado ao HEALTH do alvo
 
                 var ragdollBlend = ragdoll.RagdollBlend;
                 if (slapPower >= slapPowerFallingThreshold) //esse if força a ativação do falling no adversário que recebe o ataque, se o slapPower >= slapPowerFallingThreshold
                 {
-                    ragdoll.User_SwitchFallState();
+                    ragdoll.gameObject.GetComponent<PlayerController>().SetIsFalling();
+
+                    //ragdoll.User_SwitchFallState();
+
+
                     //ragdoll.Handler.Mecanim.CrossFadeInFixedTime( "Fall", 0.25f );
                     //ragdoll.Handler.GetAnchorBoneController.GameRigidbody.maxAngularVelocity = 20f;
                     //ragdoll.User_SetPhysicalTorqueOnRigidbody( ragdoll.Handler.GetAnchorBoneController.GameRigidbody, ragdoll.User_BoneWorldRight( ragdoll.Handler.GetAnchorBoneController ) * 30f, 0.75f, false, ForceMode.VelocityChange );
@@ -113,14 +117,13 @@ public class TriggerHitbox : MonoBehaviour
     }
 
 
-    private void ApplyDamage(PlayerStatus targetStatus)
+    private void ApplyDamage(PlayerController targetStatus)
     {
         int newHealth;
 
         newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(slapPower); //Subtraindo o dano (arredondado) causado do health atual
-        targetStatus.SetHealth(newHealth);
+        targetStatus.TakeHit(newHealth);
         
-        UnityEngine.Debug.Log(newHealth + " de life");
 
     }
 

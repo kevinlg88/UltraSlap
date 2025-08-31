@@ -978,7 +978,12 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler._EditorCategory
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[0].enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5588953081712880526, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -7560,10 +7565,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5564860348157876501}
-    - targetCorrespondingSourceObject: {fileID: 8866493572832654260, guid: 23f25bad1aea53240916c6d6e0b124b3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7770772671216551186}
     - targetCorrespondingSourceObject: {fileID: 4159587379362737982, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       insertIndex: -1
@@ -7834,20 +7835,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8afee658b520b84a16c639c0267869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7770772671216551186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4827978320911131526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d37a85410d6a47746ad568368aa83099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  stabilityCheckBaseTimer: 0.5
+  stabilityCheckTimer: 0
+  transformStabilityThreshold: 0.008
   maxHealth: 2500
   health: 0
+  ragdoll: {fileID: 0}
+  awakenRecoveredHealth: 0
+  standingTimeToHeal: 5
+  standingHealingTimer: 0
+  standingHealingPercentage: 0.05
+  baseDownedTimer: 5
+  definedDownedTimer: 0
+  downedTimer: 0
+  downedTimePerDamageUnit: 1
+  downedDamageUnit: 100
+  currentState: 0
 --- !u!137 &5339185523323432561 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8220451030145531459, guid: 23f25bad1aea53240916c6d6e0b124b3,
