@@ -28,15 +28,6 @@ public class CameraZoom : MonoBehaviour
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
 
     }
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
-    }
 
     private void Start()
     {
