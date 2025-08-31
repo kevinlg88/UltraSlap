@@ -38,8 +38,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float baseDownedTimer = 5; //Tempo base de tempo no estado caído
     [SerializeField] private float definedDownedTimer; //Tempo definido de tempo para o estado caído, levando em consideração quantidade de health negativo
     [SerializeField] private float downedTimer;
-    [SerializeField] private float downedTimePerDamageUnit = 1;
-    [SerializeField] private int downedDamageUnit = 100;
+    [SerializeField] private float downedTimePerDamageUnit = 1; //Quantos segundos é aumentado para a recuperação por quantidade de downedDamageUnit abaixo de zero
+    [SerializeField] private int downedDamageUnit = 100; //A partir de quanto HP abaixo de ZERO que o tempo de recuperação é aumentado
 
     public enum PlayerState
     {
