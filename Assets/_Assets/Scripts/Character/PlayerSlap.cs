@@ -2,6 +2,8 @@ using UnityEngine;
 using MoreMountains.Feedbacks;
 using Rewired;
 
+using PS = PlayerController.PlayerState; //Para verificar o estado do enum do player controller
+
 public class PlayerSlap : MonoBehaviour
 {
     [Header("Feel References")]
@@ -46,6 +48,9 @@ public class PlayerSlap : MonoBehaviour
         if (player == null) return;
         if (player.GetButtonDown("Slap") && !isCharging && !isSlapping && !isOnCooldown)
         {
+            if (!(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se não está na condição Standing
+                return;
+
             chargingTime = 0f;
             isCharging = true;
             animator.SetBool("isInterrupted", false);
@@ -191,6 +196,11 @@ public class PlayerSlap : MonoBehaviour
     public bool GetIsSlapping()
     {
         return isSlapping;
+    }
+
+    public bool GetIsCharging()
+    {
+        return isCharging;
     }
 
     public float GetMinPower()

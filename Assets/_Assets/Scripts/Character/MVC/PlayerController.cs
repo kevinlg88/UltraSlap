@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public RigidbodyController PlayerMovement { get; set; }
     public PlayerCustomization PlayerCustomization { get; set; }
 
-
     private bool isDead = false;
     public bool IsDead => isDead;
 
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("Falling State")]
     [SerializeField] private float timeToFalling; //Tempo "no ar" para mudar de outros estados para falling (quando já não está em falling)
     [SerializeField] private float fallingTimer; //Timer para contar se o tempo no ar atingiu o tempo especificado para mudar para o estado falling
-    [SerializeField] private float fallingCheckTolerance = -0.02f; //Tolerância para checagem da queda
+    [SerializeField] private float fallingCheckTolerance = -0.06f; //Tolerância para checagem da queda
 
     [Header("Downed State")]
     [SerializeField] private float baseDownedTimer = 5; //Tempo base de tempo no estado caído
@@ -45,6 +44,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float downedTimer;
     [SerializeField] private float downedTimePerDamageUnit = 1; //Quantos segundos é aumentado para a recuperação por quantidade de downedDamageUnit abaixo de zero
     [SerializeField] private int downedDamageUnit = 100; //A partir de quanto HP abaixo de ZERO que o tempo de recuperação é aumentado
+
+    [Header("Trying to Wake Up")]
+    [SerializeField] private float wakeUpPressesPerSecond = 5f; // Quantos toques por segundo
+    [SerializeField] private float wakeUpTimeReduction = 0.5f;  // Quanto cada grupo de toques reduz do timer
+    private float wakeUpPressCounter = 0f; // Contador de toques
+    private float wakeUpPressTimer = 0;        // Timer para medir o apertar de botão por segundo
+    private float wakeUpBaseTimeCheck = 1f;        // Intervalo de tempo em que é verificado quantas vezes o botão foi apertado
 
 
     public enum PlayerState
@@ -103,7 +109,7 @@ public class PlayerController : MonoBehaviour
                 downedTimer = 0;
                 SetIsStanding();
             }
-                
+            wakeUpPressTimer += Time.deltaTime;
         }
 
         if (currentState == PlayerState.Falling)
@@ -148,6 +154,11 @@ public class PlayerController : MonoBehaviour
     public int GetHealth()
     {
         return health;
+    }
+
+    public PlayerState GetCurrentState()
+    {
+        return currentState;
     }
 
     public void TakeHit(int newHealth)
@@ -204,6 +215,11 @@ public class PlayerController : MonoBehaviour
 
     public void SetIsStanding()
     {
+        if (!Physics.Raycast(transform.position, Vector3.down, 0.2f)) //No caso do player não estar no chão, não pode mudar para standing
+        {
+            return;
+        }
+
         currentState = PlayerState.Standing;
         ragdoll.User_TransitionToStandingMode();
 
@@ -213,10 +229,18 @@ public class PlayerController : MonoBehaviour
 
             standingHealingTimer = standingTimeToHeal; //Seta o timer para começar o heal passivo
         }
+
+
+        GetComponent<Animator>().enabled = true;
+
+        wakeUpPressTimer = 0;
     }
 
     public void SetIsFalling()
     {
+        if (GetComponent<PlayerSlap>().GetIsCharging())
+            GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+
         if (currentState == PlayerState.Standing)
         {
             if (health <= 0)
@@ -233,13 +257,16 @@ public class PlayerController : MonoBehaviour
             definedDownedTimer = downedTimer;
         }
       
-
         currentState = PlayerState.Falling;
         ragdoll.User_SwitchFallState();
+
+        GetComponent<Animator>().enabled = false;
 
         lastPosition = transform.position;
 
         stabilityCheckTimer = stabilityCheckBaseTimer;
+
+        wakeUpPressTimer = 0;
 
     }
 
@@ -247,5 +274,25 @@ public class PlayerController : MonoBehaviour
     {
         currentState = PlayerState.Downed;
         downedTimer = definedDownedTimer;
+        wakeUpPressTimer = 0;
+    }
+
+    public void TryingToWakeUp()
+    {
+        if (currentState != PlayerState.Downed) return; // Só faz efeito se estiver caído
+
+        // Conta o toque
+        wakeUpPressCounter += 1f;
+
+        if (wakeUpPressTimer >= wakeUpBaseTimeCheck)
+        {
+            if (wakeUpPressCounter >= wakeUpPressesPerSecond)
+            {
+                downedTimer -= wakeUpTimeReduction;
+            }
+
+            wakeUpPressCounter = 0;
+            wakeUpPressTimer = 0;
+        }
     }
 }
