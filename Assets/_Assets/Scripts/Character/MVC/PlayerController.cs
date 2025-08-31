@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float transformStabilityThreshold = 0.008f; // velocidade mínima para considerar parado. Quanto menor é mais fácil de ser considerado parado.
 
     [Header("Health")]
-    [SerializeField] private int maxHealth, health;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private int health;
     [SerializeField] private RagdollAnimator2 ragdoll;
     [SerializeField] private float awakenRecoveredHealth; //Percentual de life que o jogador recupera quando se levanda de um estado negativo de health
 
