@@ -34,12 +34,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float standingHealingTimer; //Timer para o próximo heal no estado standing
     [SerializeField] private float standingHealingPercentage; //Percentual de health points a ser recuperado quando sem receber dano durante um tempo no estado Standing
 
+    [Header("Falling State")]
+    [SerializeField] private float timeToFalling; //Tempo "no ar" para mudar de outros estados para falling (quando já não está em falling)
+    [SerializeField] private float fallingTimer; //Timer para contar se o tempo no ar atingiu o tempo especificado para mudar para o estado falling
+    [SerializeField] private float fallingCheckTolerance = -0.02f; //Tolerância para checagem da queda
+
     [Header("Downed State")]
     [SerializeField] private float baseDownedTimer = 5; //Tempo base de tempo no estado caído
     [SerializeField] private float definedDownedTimer; //Tempo definido de tempo para o estado caído, levando em consideração quantidade de health negativo
     [SerializeField] private float downedTimer;
     [SerializeField] private float downedTimePerDamageUnit = 1; //Quantos segundos é aumentado para a recuperação por quantidade de downedDamageUnit abaixo de zero
     [SerializeField] private int downedDamageUnit = 100; //A partir de quanto HP abaixo de ZERO que o tempo de recuperação é aumentado
+
 
     public enum PlayerState
     {
@@ -89,6 +95,8 @@ public class PlayerController : MonoBehaviour
 
         if (currentState == PlayerState.Downed)
         {
+            FallingCheck();
+
             downedTimer -= Time.deltaTime;
             if (downedTimer <= 0)
             {
@@ -110,11 +118,12 @@ public class PlayerController : MonoBehaviour
                 SetIsDowned();
             }
 
-            lastPosition = transform.position;
         }
 
         if (currentState == PlayerState.Standing)
         {
+            FallingCheck();
+
             if (health < maxHealth)
             {
                 standingHealingTimer -= Time.deltaTime;
@@ -127,6 +136,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        lastPosition = transform.position;
     }
 
     public int GetMaxHealth()
@@ -141,8 +152,11 @@ public class PlayerController : MonoBehaviour
 
     public void TakeHit(int newHealth)
     {
-        health = newHealth;
-
+        
+        if (currentState == PlayerState.Standing)
+        {
+            health = newHealth;
+        }
 
         if (health <= 0) //Se o life é menor ou igual a zero o player tem que cair
         {
@@ -150,18 +164,43 @@ public class PlayerController : MonoBehaviour
         }
         else if (health > 0) //E recebeu dano, mas o life ainda é maior do que zero, deve-se reiniciar o timer para o heal passivo
         {
+
             standingHealingTimer = standingTimeToHeal; //Seta o timer para começar o heal passivo
         }
          
     }
 
 
-    bool IsTransformStable()
+    bool IsTransformStable() //Checa se o personagem está "estável" no chão
     {
         float posDiff = Vector3.Distance(transform.position, lastPosition);
 
         return posDiff < transformStabilityThreshold;
     }
+
+
+    private void FallingCheck() //Checa se o personagem deve entrar no estado de queda mesmo sem ter levado um tapa
+    {
+
+        float deltaY = transform.position.y - lastPosition.y;
+
+        if (deltaY < fallingCheckTolerance) // tolerância pequena para não pegar microvariações
+        {
+            fallingTimer += Time.deltaTime;
+
+            if (fallingTimer >= timeToFalling)
+            {
+                SetIsFalling();
+            }
+        }
+        else
+        {
+        // Se não está mais descendo, reseta
+        fallingTimer = 0;
+        }
+
+    }
+
 
     public void SetIsStanding()
     {
@@ -201,7 +240,6 @@ public class PlayerController : MonoBehaviour
         lastPosition = transform.position;
 
         stabilityCheckTimer = stabilityCheckBaseTimer;
-
 
     }
 

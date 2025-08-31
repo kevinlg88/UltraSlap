@@ -7841,10 +7841,13 @@ MonoBehaviour:
   maxHealth: 2500
   health: 0
   ragdoll: {fileID: 0}
-  awakenRecoveredHealth: 0
+  awakenRecoveredHealth: 0.5
   standingTimeToHeal: 5
   standingHealingTimer: 0
   standingHealingPercentage: 0.05
+  timeToFalling: 0.2
+  fallingTimer: 0
+  fallingCheckTolerance: -0.06
   baseDownedTimer: 5
   definedDownedTimer: 0
   downedTimer: 0
