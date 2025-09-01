@@ -1,23 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Zenject;
 
 public class CameraZoom : MonoBehaviour
 {
-    public static CameraZoom Instance;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private float minZoom = 5f;
+    [SerializeField] private float maxZoom = 20f;
+    [SerializeField] private float zoomFactor = 1.2f;
+    [SerializeField] private float zoomSpeed = 5f;
+    [SerializeField] private Vector3 offset = new(0, 5, -10);
 
-    public Transform[] characters;
-    public Transform cameraTransform;
-
-    public float minZoom = 5f;
-    public float maxZoom = 20f;
-    public float zoomFactor = 1.2f;
-    public float zoomSpeed = 5f;
-    public Vector3 offset = new Vector3(0, 5, -10);
-    public float heightThreshold = -4f;
-
-    [SerializeField]private List<PlayerController> playersOnCamera = new List<PlayerController>();
+    [SerializeField] private List<PlayerController> playersOnCamera = new List<PlayerController>();
     private GameEvent _gameEvent;
 
     [Inject]
@@ -25,20 +19,9 @@ public class CameraZoom : MonoBehaviour
     {
         Debug.Log($"Instalou game event na camera");
         _gameEvent = gameEvent;
+        _gameEvent.onPlayersJoined.AddListener(OnPlayersJoined);
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
 
-    }
-
-    private void Start()
-    {
-        FindPlayersInScene();
-    }
-
-    public void FindPlayersInScene()
-    {
-        playersOnCamera = FindObjectsOfType<PlayerController>()
-            .Where(p => !p.IsDead)
-            .ToList();
     }
 
     void Update()
@@ -75,10 +58,6 @@ public class CameraZoom : MonoBehaviour
         );
     }
 
-
-    private void OnPlayerDeath()
-    {
-        playersOnCamera.RemoveAll(p => p.IsDead);
-        FindPlayersInScene();
-    }
+    private void OnPlayerDeath() => playersOnCamera.RemoveAll(p => p.IsDead);
+    private void OnPlayersJoined(List<PlayerController> players) => playersOnCamera = new List<PlayerController>(players);
 }

@@ -149,7 +149,8 @@ public class PlayerCustomization : MonoBehaviour
     {
         if (playerData != null)
         {
-            playerData.Team = (TeamEnum)teamIndex;
+
+            playerData.Team = new Team((TeamEnum) teamIndex, item.teamColors[teamIndex]);
             playerData.PlayerVisual = new CharacterVisualData(headIndex, faceIndex, clothIndex, colorSkinIndex);
         }
     }
@@ -158,7 +159,7 @@ public class PlayerCustomization : MonoBehaviour
     {
         if (playerData != null)
         {
-            teamIndex = (int)playerData.Team;
+            teamIndex = (int)playerData.Team.TeamEnum;
             colorSkinIndex = playerData.PlayerVisual.GetColorIndex();
             headIndex = playerData.PlayerVisual.GetHeadIndex();
             faceIndex = playerData.PlayerVisual.GetFaceIndex();

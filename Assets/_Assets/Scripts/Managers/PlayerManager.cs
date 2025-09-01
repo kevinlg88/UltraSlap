@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -24,14 +25,12 @@ public class PlayerManager
         Players.Clear();
     }
 
-    public List<TeamEnum> GetTeams()
+    public List<Team> GetTeams()
     {
-        HashSet<TeamEnum> teams = new HashSet<TeamEnum>();
-        foreach (PlayerData player in Players)
-        {
-            if(!teams.Contains(player.Team))
-                teams.Add(player.Team);
-        }
-        return new List<TeamEnum>(teams);
+        return Players
+            .Where(p => p.Team != null)
+            .GroupBy(p => p.Team.TeamEnum)
+            .Select(g => g.First().Team)
+            .ToList();
     }
 }

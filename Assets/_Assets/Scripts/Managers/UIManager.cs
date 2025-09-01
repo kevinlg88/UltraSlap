@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using MaskTransitions;
 using UnityEngine;
@@ -10,8 +11,9 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Score")]
     [SerializeField] private GameObject uiScoreMain;
-    [SerializeField] private GameObject teams;
+    [SerializeField] private GameObject teamsField;
     [SerializeField] private GameObject teamPrefab;
+    [SerializeField] private GameObject scorePrefab;
     [SerializeField] private Button scoreContinueBttn;
     [Header("UI RoundTransition")]
     [SerializeField] private GameObject uiRoundTransitionMain;
@@ -19,47 +21,109 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject handBlackScreen;
 
     [Header("UI RoundTransition Setup")]
-    [SerializeField] private float delayStartTransition = 1f;
+    [SerializeField] private int delayStartTransition = 1000;
     [SerializeField] private Vector3 maskHandFinalScale;
     [SerializeField] private float animDuration;
     [SerializeField] Ease easeType;
 
+    private List<Team> teams = new();
+
     [Inject]
-    public void Construct(PlayerManager playerManager,GameEvent gameEvent)
+    public void Construct(GameEvent gameEvent)
     {
-
+        gameEvent.onPlayersJoined.AddListener(OnPlayersJoined);
+        gameEvent.onRoundEnd.AddListener(OnRoundEnd);
     }
 
-
-#region Slap Transition Anim
-    private void StartMatchTransitionAnim()
+    private void OnPlayersJoined(List<PlayerController> players)
     {
+        HashSet<Team> teams = new();
+        foreach (PlayerController player in players)
+        {
+            if (player.PlayerData != null && !teams.Contains(player.PlayerData.Team))
+            {
+                teams.Add(player.PlayerData.Team);
+            }
+        }
+        this.teams = new List<Team>(teams);
+    }
+    private async void OnRoundEnd(Team winnerTeam)
+    {
+        Debug.Log("ITS OVER!!!");
+        await Task.Delay(2000);
+        await StartMatchTransitionAnim();
+        SetTeamScore(winnerTeam);
+    }
+    private void SetTeamScore(Team winnerTeam)
+    {
+        Debug.Log("SetTeamScore");
+        uiScoreMain.SetActive(true);
+        if (teamsField.transform.childCount == 0)
+        {
+            foreach (Team team in teams)
+            {
+                GameObject go = Instantiate(teamPrefab, teamsField.transform);
+                go.GetComponent<Image>().color = team.Color;
+                team.GameObjectUI = go;
+                if (team == winnerTeam)
+                {
+                    team.Score += 1;
+                    Instantiate(scorePrefab, go.transform);
+                }
+            }
+        }
+        else
+        {
+            foreach (Team team in teams)
+            {
+                if (team == winnerTeam)
+                {
+                    team.Score += 1;
+                    Instantiate(scorePrefab, team.GameObjectUI.transform);
+                }
+            }
+            //Check Win Match (Verificar scores dos times com score maximo de rounds)
+        }
+    }
+
+    #region ==== Slap Transition Anim ====
+
+    [ContextMenu("FazTransicao")]
+    public async Task StartMatchTransitionAnim()
+    {
+        Debug.Log("Começou transição");
         uiRoundTransitionMain.SetActive(true);
-        Invoke("HandBlackScreenTransitionAnim", delayStartTransition);
+        await Task.Delay(delayStartTransition);
+        await HandBlackScreenTransitionAnim();
+        uiScoreMain.SetActive(true);
+        await MaskScreenTransitionAnim();
     }
-    private void MaskScreenTransitionAnim()
+    private async Task HandBlackScreenTransitionAnim()
+    {
+        await handBlackScreen.transform
+            .DOScale(maskHandFinalScale, animDuration)
+            .SetEase(easeType)
+            .AsyncWaitForCompletion();
+    }
+
+    private async Task MaskScreenTransitionAnim()
     {
         maskHandTransparent.SetActive(true);
-        maskHandTransparent.transform.DOScale(maskHandFinalScale, animDuration)
+
+        await maskHandTransparent.transform
+            .DOScale(maskHandFinalScale, animDuration)
             .SetEase(easeType)
-            .OnComplete(() =>
-            {
-                maskHandTransparent.transform.localScale = Vector3.zero;
-                handBlackScreen.transform.localScale = Vector3.zero;
+            .AsyncWaitForCompletion();
 
-                maskHandTransparent.SetActive(false);
-                uiRoundTransitionMain.SetActive(false);
-            });
+        maskHandTransparent.transform.localScale = Vector3.zero;
+        handBlackScreen.transform.localScale = Vector3.zero;
+
+        maskHandTransparent.SetActive(false);
+        uiRoundTransitionMain.SetActive(false);
+
+        Debug.Log("Terminou");
     }
 
-    private void HandBlackScreenTransitionAnim()
-    {
-        handBlackScreen.transform.DOScale(maskHandFinalScale, animDuration)
-        .SetEase(easeType)
-        .OnComplete(() =>
-        {
-            MaskScreenTransitionAnim();
-        });
-    }
+
+    #endregion
 }
-#endregion

@@ -7,7 +7,7 @@ using Zenject;
 using Zenject.SpaceFighter;
 using MoreMountains.Feedbacks;
 
-public class CurrentLevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] GameObject playerPrefab;
@@ -26,7 +26,6 @@ public class CurrentLevelManager : MonoBehaviour
     {
         _playerManager = playerManager;
         _gameEvent = gameEvent;
-        Debug.Log("Players Count: " + _playerManager.Players.Count);
         foreach (PlayerData player in _playerManager.Players)
         {
             GameObject newPlayer = Instantiate(playerPrefab,
@@ -49,24 +48,39 @@ public class CurrentLevelManager : MonoBehaviour
             playersInGame.Add(playerController);
         }
 
-        //Suscribe Events
+        //Events
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
+
+        _gameEvent.onPlayersJoined.Invoke(playersInGame);
     }
 
     void Start()
     {
-        startMatch();
+        levelSong.PlayFeedbacks(); //Create a Audio manager for this
     }
-
-    public void startMatch()
-    {
-        levelSong.PlayFeedbacks(); // Toca música do level
-    }
-
     private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
-        //Debug.Log($"Player {player.name} morreu");
+        Debug.Log($"player {player} morreu");
         player.gameObject.SetActive(false);
+        CheckIfRoundIsOver();
+    }
+
+    private void CheckIfRoundIsOver()
+    {
+        List<Team> teams = GetTeamsInGame();
+        if (teams.Count <= 1) _gameEvent.onRoundEnd.Invoke(teams[0]);
+    }
+    private List<Team> GetTeamsInGame()
+    {
+        HashSet<Team> teams = new();
+        foreach (PlayerController player in playersInGame)
+        {
+            if (player.PlayerData != null && player.gameObject.activeSelf && !teams.Contains(player.PlayerData.Team))
+            {
+                teams.Add(player.PlayerData.Team);
+            }
+        }
+        return new List<Team>(teams);
     }
 }
