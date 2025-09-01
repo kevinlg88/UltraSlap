@@ -231,7 +231,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        GetComponent<Animator>().enabled = true;
+        //GetComponent<Animator>().enabled = true;
+        //GetComponent<Animator>().Play("EmptyState");
 
         wakeUpPressTimer = 0;
     }
@@ -239,7 +240,11 @@ public class PlayerController : MonoBehaviour
     public void SetIsFalling()
     {
         if (GetComponent<PlayerSlap>().GetIsCharging())
+        {
+            GetComponent<PlayerSlap>().stopSlapFeedback();
             GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+        }
+        GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
 
         if (currentState == PlayerState.Standing)
         {
@@ -260,7 +265,8 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Falling;
         ragdoll.User_SwitchFallState();
 
-        GetComponent<Animator>().enabled = false;
+        //GetComponent<Animator>().enabled = false;
+        //GetComponent<Animator>().Play("Idle");
 
         lastPosition = transform.position;
 
