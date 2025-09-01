@@ -20,30 +20,42 @@ public class PlayerCustomization : MonoBehaviour
     [SerializeField] private Transform faceSlot;
     [SerializeField] private Transform GlovesSlot;
 
+    int teamIndex = 0;
+    int colorSkinIndex = 0;
     int headIndex = 0;
     int faceIndex = 0;
-    int skinIndex = 0;
-    int colorIndex = 0;
+    int clothIndex = 0;
 
-    public void ChangePlayerColor(bool isNext)
+    #region  ==== CUSTOMIZATION ====
+
+    public void ChangeTeam(bool isNext)
     {
         if (isNext)
         {
-            colorIndex++;
-            if (colorIndex >= item.colors.Count) colorIndex = 0;
+            teamIndex++;
+            if (teamIndex >= item.teamColors.Count) teamIndex = 0;
         }
         else
         {
-            colorIndex--;
-            if (colorIndex < 0) colorIndex = item.colors.Count - 1;
+            teamIndex--;
+            if (teamIndex < 0) teamIndex = item.skinColors.Count - 1;
         }
-        body.materials[0].color = item.colors[colorIndex];
-        head.materials[0].color = item.colors[colorIndex];
+        Debug.Log($"team: {teamIndex}");
     }
-    public void ChangePlayerColor()
+    public void ChangePlayerSkinColor(bool isNext)
     {
-        body.materials[0].color = item.colors[colorIndex];
-        head.materials[0].color = item.colors[colorIndex];
+        if (isNext)
+        {
+            colorSkinIndex++;
+            if (colorSkinIndex >= item.skinColors.Count) colorSkinIndex = 0;
+        }
+        else
+        {
+            colorSkinIndex--;
+            if (colorSkinIndex < 0) colorSkinIndex = item.skinColors.Count - 1;
+        }
+        body.materials[0].color = item.skinColors[colorSkinIndex];
+        head.materials[0].color = item.skinColors[colorSkinIndex];
     }
 
     public void ChangeHeadAccessory(bool isNext)
@@ -60,16 +72,6 @@ public class PlayerCustomization : MonoBehaviour
             if (headIndex < 0) headIndex = item.headAccessories.Count - 1;
         }
 
-        GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot.position, Quaternion.identity);
-        SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
-        smr.bones = (body as SkinnedMeshRenderer).bones;
-        smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        accessory.transform.SetParent(headSlot);
-    }
-
-    public void ChangeHeadAccessory()
-    {
-        RemoveAccessory(headSlot);
         GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot.position, Quaternion.identity);
         SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
         smr.bones = (body as SkinnedMeshRenderer).bones;
@@ -97,7 +99,39 @@ public class PlayerCustomization : MonoBehaviour
         smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
         accessory.transform.SetParent(faceSlot);
     }
-    public void ChangeFaceAccessory()
+    public void ChangeCloth(bool isNext)
+    {
+        if (isNext)
+        {
+            clothIndex++;
+            if (clothIndex >= item.cloths.Count) clothIndex = 0;
+        }
+        else
+        {
+            clothIndex--;
+            if (clothIndex < 0) clothIndex = item.cloths.Count - 1;
+        }
+        //body.materials[1].mainTexture = item.skins[skinIndex];
+    }
+    #endregion
+
+    #region ==== LOAD CUSTOMIZATION ====
+
+    public void LoadPlayerSkinColor()
+    {
+        body.materials[0].color = item.skinColors[colorSkinIndex];
+        head.materials[0].color = item.skinColors[colorSkinIndex];
+    }
+    public void LoadHeadAccessory()
+    {
+        RemoveAccessory(headSlot);
+        GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot.position, Quaternion.identity);
+        SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
+        smr.bones = (body as SkinnedMeshRenderer).bones;
+        smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        accessory.transform.SetParent(headSlot);
+    }
+    public void LoadFaceAccessory()
     {
         RemoveAccessory(faceSlot);
         GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot.position, Quaternion.identity);
@@ -106,31 +140,17 @@ public class PlayerCustomization : MonoBehaviour
         smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
         accessory.transform.SetParent(faceSlot);
     }
-
-    public void ChangeSkin(bool isNext)
-    {
-        if (isNext)
-        {
-            skinIndex++;
-            if (skinIndex >= item.skins.Count) skinIndex = 0;
-        }
-        else
-        {
-            skinIndex--;
-            if (skinIndex < 0) skinIndex = item.skins.Count - 1;
-        }
-        //body.materials[1].mainTexture = item.skins[skinIndex];
-    }
-    public void ChangeSkin()
+    public void LoadCloth()
     {
         //body.materials[1].mainTexture = item.skins[skinIndex];
     }
-
+    #endregion
     public void SaveCharacterVisual(PlayerData playerData)
     {
         if (playerData != null)
         {
-            playerData.PlayerVisual = new CharacterVisualData(headIndex, faceIndex, skinIndex, colorIndex);
+            playerData.Team = (TeamEnum)teamIndex;
+            playerData.PlayerVisual = new CharacterVisualData(headIndex, faceIndex, clothIndex, colorSkinIndex);
         }
     }
 
@@ -138,15 +158,16 @@ public class PlayerCustomization : MonoBehaviour
     {
         if (playerData != null)
         {
+            teamIndex = (int)playerData.Team;
+            colorSkinIndex = playerData.PlayerVisual.GetColorIndex();
             headIndex = playerData.PlayerVisual.GetHeadIndex();
             faceIndex = playerData.PlayerVisual.GetFaceIndex();
-            skinIndex = playerData.PlayerVisual.GetSkinIndex();
-            colorIndex = playerData.PlayerVisual.GetColorIndex();
+            clothIndex = playerData.PlayerVisual.GetSkinIndex();
 
-            ChangeHeadAccessory();
-            ChangeFaceAccessory();
-            ChangeSkin();
-            ChangePlayerColor();
+            LoadPlayerSkinColor();
+            LoadHeadAccessory();
+            LoadFaceAccessory();
+            LoadCloth();
         }
     }
     private void RemoveAccessory(Transform slot)

@@ -23,4 +23,15 @@ public class PlayerManager
     {
         Players.Clear();
     }
+
+    public List<TeamEnum> GetTeams()
+    {
+        HashSet<TeamEnum> teams = new HashSet<TeamEnum>();
+        foreach (PlayerData player in Players)
+        {
+            if(!teams.Contains(player.Team))
+                teams.Add(player.Team);
+        }
+        return new List<TeamEnum>(teams);
+    }
 }

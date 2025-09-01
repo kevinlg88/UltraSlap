@@ -9,12 +9,13 @@ using UnityEngine.EventSystems;
 
 public class PlayerMenuNavigator : MonoBehaviour
 {
-    public enum PlayerMenuButtons
+    private enum PlayerMenuButtons
     {
-        Head,
+        Team,
         SkinColor,
+        Head,
         Face,
-        Outfit,
+        Cloth,
         Presets
     }
     [Header("UI References")]
@@ -109,7 +110,6 @@ public class PlayerMenuNavigator : MonoBehaviour
                     ExecuteEvents.Execute(CurrentLeftButton.gameObject,
                         new PointerEventData(rewiredEventSystem),
                         ExecuteEvents.submitHandler);
-                    CurrentLeftButton.onClick.RemoveAllListeners();
                     axisInUse = true;
                 }
 
@@ -135,46 +135,35 @@ public class PlayerMenuNavigator : MonoBehaviour
     {
         Debug.Log("Left button pressed");
         int optionIndex = CurrentLeftButton.transform.parent.GetSiblingIndex();
-        switch ((PlayerMenuButtons)optionIndex)
-        {
-            case PlayerMenuButtons.Head:
-                playerMenuCustomization.ChangeHeadAccessory(false);
-                break;
-            case PlayerMenuButtons.SkinColor:
-                playerMenuCustomization.ChangePlayerColor(false);
-                break;
-            case PlayerMenuButtons.Face:
-                playerMenuCustomization.ChangeFaceAccessory(false);
-                break;
-            case PlayerMenuButtons.Outfit:
-                playerMenuCustomization.ChangeSkin(false);
-                break;
-            // case PlayerMenuButtons.Presets:
-            //     playerMenuCustomization.ChangePreset(false);
-            //     break;
-        }
+        ChangeCustomization(optionIndex, false);
     }
     private void UseRightButton()
     {
         Debug.Log("Right button pressed");
         int optionIndex = CurrentRightButton.transform.parent.GetSiblingIndex();
+        ChangeCustomization(optionIndex, true);
+    }
+
+    private void ChangeCustomization(int optionIndex, bool isRightArrow)
+    {
+        Debug.Log($"Options: {optionIndex}");
         switch ((PlayerMenuButtons)optionIndex)
         {
-            case PlayerMenuButtons.Head:
-                playerMenuCustomization.ChangeHeadAccessory(true);
+            case PlayerMenuButtons.Team:
+                playerMenuCustomization.ChangeTeam(isRightArrow);
                 break;
             case PlayerMenuButtons.SkinColor:
-                playerMenuCustomization.ChangePlayerColor(true);
+                playerMenuCustomization.ChangePlayerSkinColor(isRightArrow);
+                break;
+            case PlayerMenuButtons.Head:
+                playerMenuCustomization.ChangeHeadAccessory(isRightArrow);
                 break;
             case PlayerMenuButtons.Face:
-                playerMenuCustomization.ChangeFaceAccessory(true);
+                playerMenuCustomization.ChangeFaceAccessory(isRightArrow);
                 break;
-            case PlayerMenuButtons.Outfit:
-                playerMenuCustomization.ChangeSkin(true);
+            case PlayerMenuButtons.Cloth:
+                playerMenuCustomization.ChangeCloth(isRightArrow);
                 break;
-                // case PlayerMenuButtons.Presets:
-                //     playerMenuCustomization.ChangePreset(true);
-                //     break;
         }
     }
     public void SetPlayerId(int id)
@@ -187,10 +176,6 @@ public class PlayerMenuNavigator : MonoBehaviour
     public void SetReady(bool value)
     {
         UIReady.SetActive(value);
-    }
-    public void ButtonPressed(string msg)
-    {
-        Debug.Log("Button pressed: " + msg);
     }
 
 }
