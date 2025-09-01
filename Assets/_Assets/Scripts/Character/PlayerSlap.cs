@@ -178,11 +178,9 @@ public class PlayerSlap : MonoBehaviour
 
     public void AnimEvt_SlappingEnd()  //Define que não tem mais nenhum tapa ativo
     {
-        animator.speed = 1f;
+        
 
         chargingTime = 0f;
-
-
 
         isSlapping = false;
         isCharging = false;
@@ -190,6 +188,8 @@ public class PlayerSlap : MonoBehaviour
         stopSlapFeedback();
         chargingSlapEnd.PlayFeedbacks();
         animator.SetBool("isChargingSlap", false);
+
+        animator.speed = 1f;
 
     }
 
