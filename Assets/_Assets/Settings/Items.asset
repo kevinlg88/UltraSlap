@@ -21,18 +21,20 @@ MonoBehaviour:
   faceAccessories:
   - {fileID: 3440144839866458970, guid: ee9c5372f2ad8104e929852952c89d19, type: 3}
   - {fileID: 3440144839866458970, guid: 3a8fbfdbe4e2e204ab2723d48cf8994b, type: 3}
-  skins:
-  - {fileID: 2800000, guid: 0a10d5eea5788984fa4b4d08a9ee08e9, type: 3}
-  - {fileID: 2800000, guid: 83fada778fce22548aeff207be9b70cc, type: 3}
-  - {fileID: 2800000, guid: aa9c29ecbc39f8144844ab3d016df8ff, type: 3}
-  - {fileID: 2800000, guid: 40b30978c98ef4d459837635972b3d2c, type: 3}
-  - {fileID: 2800000, guid: 7efb96761b42eac44a9cacc24a293371, type: 3}
-  - {fileID: 2800000, guid: 8179a12e0d468f64eb7f46a9033a759c, type: 3}
-  - {fileID: 2800000, guid: 92ba2bdf6d229fd408c740e1b4d72f67, type: 3}
-  colors:
-  - {r: 0.9622642, g: 0.83971167, b: 0.83971167, a: 0}
+  cloths: []
+  skinColors:
+  - {r: 0.9622642, g: 0.83971167, b: 0.83971167, a: 1}
   - {r: 0.9056604, g: 0.72196513, b: 0.72196513, a: 1}
   - {r: 0.735849, g: 0.5310609, b: 0.5310609, a: 1}
   - {r: 0.7830189, g: 0.73561877, b: 0.5577163, a: 1}
   - {r: 0.5754717, g: 0.377314, b: 0.377314, a: 1}
   - {r: 0.4056604, g: 0.19708973, b: 0.19708973, a: 1}
+  teamColors:
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
+  - {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
+  - {r: 0.64705884, g: 0.16470589, b: 0.16470589, a: 1}
+  - {r: 1, g: 0.64705884, b: 0, a: 1}

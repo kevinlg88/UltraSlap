@@ -63,7 +63,7 @@ public class CurrentLevelManager : MonoBehaviour
         levelSong.PlayFeedbacks(); // Toca música do level
     }
 
-        private void OnPlayerDeath()
+    private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
         //Debug.Log($"Player {player.name} morreu");

@@ -14,6 +14,10 @@ public class RewiredJoinManager : MonoBehaviour
     [SerializeField] string joinAction = "Join";
     [SerializeField] string cancelAction = "Cancel";
 
+    [Header("Debug")]
+    [SerializeField] bool isDebugMode = false;
+    [SerializeField] int playerDebugId = 2;
+
     [Inject]
     private PlayerManager _playerManager;
 
@@ -131,6 +135,27 @@ public class RewiredJoinManager : MonoBehaviour
         playerData.PlayerGameObjectRef = newPlayer;
 
         _playerManager.AddPlayer(playerData);
+        if (isDebugMode) //Create a new player 2 
+        {
+            Player playerInputDebug = ReInput.players.GetPlayer(playerDebugId);
+            playerInputDebug.controllers.AddController(ReInput.controllers.Keyboard, false);
+            PlayerData playerDataDebug = new PlayerData();
+            Debug.Log("Player joined: " + playerDebugId);
+            playerDataDebug.PlayerID = playerDebugId;
+            playerDataDebug.PlayerName = "Player " + playerDebugId;
+
+
+            //Spawning Player UI
+            GameObject newPlayerDebug = Instantiate(playerPrefab,
+                spawnPoints[playerDebugId].transform.position,
+                Quaternion.identity);
+            newPlayerDebug.name = "Player " + playerDebugId;
+            PlayerMenuNavigator playerMenuNavDebug = newPlayerDebug.GetComponent<PlayerMenuNavigator>();
+            playerMenuNavDebug.SetPlayerId(playerDebugId);
+
+            playerDataDebug.PlayerGameObjectRef = newPlayerDebug;   
+            _playerManager.AddPlayer(playerDataDebug);
+        }
     }
 
     private void GetPlayerInput()
