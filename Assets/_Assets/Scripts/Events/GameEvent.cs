@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
 public class GameEvent
 {
+    public UnityEvent<List<PlayerController>> onPlayersJoined = new();
     public UnityEvent onPlayerDeath = new();
+    public UnityEvent<Team> onRoundEnd = new();
 }

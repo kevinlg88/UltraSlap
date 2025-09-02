@@ -975,6 +975,112 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.6643383
       objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.SpringsOnFall
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler._EditorCategory
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.DampingValueOnFall
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler._EditorMotionCategory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[0].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].FeatureReference
+      value: 
+      objectReference: {fileID: 11400000, guid: bdfc80d350d68784b9ea1187fbe1b6c5,
+        type: 2}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[0]._value.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1]._value.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[0].VariableName
+      value: Multiplier
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1].VariableName
+      value: 'Transition Duration:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1]._rangeHelper.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1]._rangeHelper.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[0]._curve.m_PreInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1]._curve.m_PreInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[0]._curve.m_PostInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1]._curve.m_PostInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[0]._curve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[2].variables.Array.data[1]._curve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5588953081712880526, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: slapPowerFallingThreshold
@@ -7825,6 +7931,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8afee658b520b84a16c639c0267869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stabilityCheckBaseTimer: 0.5
+  stabilityCheckTimer: 0
+  transformStabilityThreshold: 0.008
+  maxHealth: 2500
+  health: 0
+  ragdoll: {fileID: 0}
+  awakenRecoveredHealth: 0.5
+  standingTimeToHeal: 5
+  standingHealingTimer: 0
+  standingHealingPercentage: 0.05
+  timeToFalling: 0.2
+  fallingTimer: 0
+  fallingCheckTolerance: -0.06
+  baseDownedTimer: 5
+  definedDownedTimer: 0
+  downedTimer: 0
+  downedTimePerDamageUnit: 1
+  downedDamageUnit: 100
+  wakeUpPressesPerSecond: 5
+  wakeUpTimeReduction: 0.5
+  currentState: 0
 --- !u!137 &5339185523323432561 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8220451030145531459, guid: 23f25bad1aea53240916c6d6e0b124b3,

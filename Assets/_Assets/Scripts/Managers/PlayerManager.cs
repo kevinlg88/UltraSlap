@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -22,5 +23,14 @@ public class PlayerManager
     public void ClearPlayers()
     {
         Players.Clear();
+    }
+
+    public List<Team> GetTeams()
+    {
+        return Players
+            .Where(p => p.Team != null)
+            .GroupBy(p => p.Team.TeamEnum)
+            .Select(g => g.First().Team)
+            .ToList();
     }
 }
