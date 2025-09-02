@@ -15359,7 +15359,8 @@ MonoBehaviour:
   teamsField: {fileID: 0}
   teamPrefab: {fileID: 7341626612579884886, guid: d4a5dfcc830a34e42b8a87a58a187452,
     type: 3}
-  scorePrefab: {fileID: 0}
+  scorePrefab: {fileID: 5677417933892049837, guid: 1a6d4761ee8664841a7471ddb482bebb,
+    type: 3}
   scoreContinueBttn: {fileID: 277538019}
   uiRoundTransitionMain: {fileID: 1689899117}
   maskHandTransparent: {fileID: 1983762837}
