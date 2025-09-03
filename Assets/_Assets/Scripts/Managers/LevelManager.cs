@@ -1,19 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
-using Zenject.SpaceFighter;
 using MoreMountains.Feedbacks;
+using FIMSpace.FProceduralAnimation;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
+    [SerializeField] List<GameObject> spawnPoints = new();
     [SerializeField] GameObject playerPrefab;
     [SerializeField] private MMFeedbacks levelSong;
 
-    private List<PlayerController> playersInGame = new List<PlayerController>();
+    private List<PlayerController> playersInGame = new();
 
 
     private PlayerManager _playerManager;
@@ -49,6 +46,8 @@ public class LevelManager : MonoBehaviour
         }
 
         //Events
+        _gameEvent.onRoundStart.AddListener(OnRoundStart);
+        _gameEvent.onSetupNextRound.AddListener(OnSetupNextRound);
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
 
         _gameEvent.onPlayersJoined.Invoke(playersInGame);
@@ -58,6 +57,7 @@ public class LevelManager : MonoBehaviour
     {
         levelSong.PlayFeedbacks(); //Create a Audio manager for this
     }
+    private void OnRoundStart() => Time.timeScale = 1;
     private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
@@ -65,11 +65,22 @@ public class LevelManager : MonoBehaviour
         player.gameObject.SetActive(false);
         CheckIfRoundIsOver();
     }
-
+    private void OnSetupNextRound()
+    {
+        foreach (PlayerController player in playersInGame)
+        {
+            player.gameObject.transform.position = spawnPoints[player.PlayerData.PlayerID].transform.position;
+            player.gameObject.SetActive(true);
+        }
+    }
     private void CheckIfRoundIsOver()
     {
         List<Team> teams = GetTeamsInGame();
-        if (teams.Count <= 1) _gameEvent.onRoundEnd.Invoke(teams[0]);
+        if (teams.Count <= 1)
+        {
+            Time.timeScale = 0;
+            _gameEvent.onRoundEnd.Invoke(teams[0]);
+        }
     }
     private List<Team> GetTeamsInGame()
     {

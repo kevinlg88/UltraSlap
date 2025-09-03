@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
-using MaskTransitions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -27,10 +26,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] Ease easeType;
 
     private List<Team> teams = new();
-
+    private GameEvent _gameEvent;
     [Inject]
     public void Construct(GameEvent gameEvent)
     {
+        _gameEvent = gameEvent;
         gameEvent.onPlayersJoined.AddListener(OnPlayersJoined);
         gameEvent.onRoundEnd.AddListener(OnRoundEnd);
     }
@@ -52,9 +52,15 @@ public class UIManager : MonoBehaviour
         Debug.Log("ITS OVER!!!");
         await Task.Delay(2000);
         await StartMatchTransitionAnim();
-        SetTeamScore(winnerTeam);
+        await SetTeamScore(winnerTeam);
+        await Task.Delay(5000);
+        await FadeIn();
+        uiScoreMain.SetActive(false);
+        _gameEvent.onSetupNextRound.Invoke();
+        await FadeOut();
+        _gameEvent.onRoundStart.Invoke();
     }
-    private void SetTeamScore(Team winnerTeam)
+    private async Task SetTeamScore(Team winnerTeam)
     {
         Debug.Log("SetTeamScore");
         uiScoreMain.SetActive(true);
@@ -84,12 +90,24 @@ public class UIManager : MonoBehaviour
             }
             //Check Win Match (Verificar scores dos times com score maximo de rounds)
         }
+        await Task.CompletedTask;
     }
 
     #region ==== Slap Transition Anim ====
 
-    [ContextMenu("FazTransicao")]
-    public async Task StartMatchTransitionAnim()
+    private async Task FadeIn()
+    {
+        uiRoundTransitionMain.SetActive(true);
+        await Task.Delay(delayStartTransition);
+        await HandBlackScreenTransitionAnim();
+    }
+    private async Task FadeOut()
+    {
+        uiRoundTransitionMain.SetActive(true);
+        await Task.Delay(delayStartTransition);
+        await MaskScreenTransitionAnim();
+    }
+    private async Task StartMatchTransitionAnim()
     {
         Debug.Log("Começou transição");
         uiRoundTransitionMain.SetActive(true);
@@ -103,6 +121,7 @@ public class UIManager : MonoBehaviour
         await handBlackScreen.transform
             .DOScale(maskHandFinalScale, animDuration)
             .SetEase(easeType)
+            .SetUpdate(true)
             .AsyncWaitForCompletion();
     }
 
@@ -113,6 +132,7 @@ public class UIManager : MonoBehaviour
         await maskHandTransparent.transform
             .DOScale(maskHandFinalScale, animDuration)
             .SetEase(easeType)
+            .SetUpdate(true)
             .AsyncWaitForCompletion();
 
         maskHandTransparent.transform.localScale = Vector3.zero;

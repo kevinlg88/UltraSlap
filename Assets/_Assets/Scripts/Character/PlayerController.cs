@@ -39,8 +39,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float baseDownedTimer = 5; //Tempo base de tempo no estado caído
     [SerializeField] private float definedDownedTimer; //Tempo definido de tempo para o estado caído, levando em consideração quantidade de health negativo
     [SerializeField] private float downedTimer;
-    [SerializeField] private float downedTimePerDamageUnit = 1; //Quantos segundos é aumentado para a recuperação por quantidade de downedDamageUnit abaixo de zero
-    [SerializeField] private int downedDamageUnit = 100; //A partir de quanto HP abaixo de ZERO que o tempo de recuperação é aumentado
 
     [Header("Trying to Wake Up")]
     [SerializeField] private float wakeUpPressesPerSecond = 5f; // Quantos toques por segundo
@@ -71,10 +69,46 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Standing;
         ragdoll = GetComponent<RagdollAnimator2>();
     }
+    void Update()
+    {
+        if (currentState == PlayerState.Downed)
+        {
+            FallingCheck();
+            downedTimer -= Time.deltaTime;
+            if (downedTimer <= 0)
+            {
+                downedTimer = 0;
+                SetIsStanding();
+            }
+            wakeUpPressTimer += Time.deltaTime;
+        }
+        if (currentState == PlayerState.Falling)
+        {
+            stabilityCheckTimer -= Time.deltaTime;
+            if (stabilityCheckTimer <= 0) stabilityCheckTimer = 0;
+            if (IsTransformStable() && stabilityCheckTimer <= 0) SetIsDowned();
+        }
+        if (currentState == PlayerState.Standing)
+        {
+            FallingCheck();
+            if (health < maxHealth)
+            {
+                standingHealingTimer -= Time.deltaTime;
+                if (standingHealingTimer <= 0)
+                {
+                    health = Mathf.Clamp(health + (int)(maxHealth * standingHealingPercentage), 0, maxHealth);
+                    standingHealingTimer = standingTimeToHeal;
+                }
+            }
+        }
+        lastPosition = transform.position;
+    }
 
     void OnEnable()
     {
+        //SetIsStanding();
         health = maxHealth;
+        isDead = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -86,144 +120,48 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-
-        if (currentState == PlayerState.Downed)
-        {
-            FallingCheck();
-
-            downedTimer -= Time.deltaTime;
-            if (downedTimer <= 0)
-            {
-                downedTimer = 0;
-                SetIsStanding();
-            }
-            wakeUpPressTimer += Time.deltaTime;
-        }
-
-        if (currentState == PlayerState.Falling)
-        {
-            stabilityCheckTimer -= Time.deltaTime;
-
-            if (stabilityCheckTimer <= 0)
-                stabilityCheckTimer = 0;
-
-            if (IsTransformStable() && stabilityCheckTimer <= 0)
-            {
-                SetIsDowned();
-            }
-
-        }
-
-        if (currentState == PlayerState.Standing)
-        {
-            FallingCheck();
-
-            if (health < maxHealth)
-            {
-                standingHealingTimer -= Time.deltaTime;
-
-                if (standingHealingTimer <= 0)
-                {
-                    health = Mathf.Clamp(health + (int)(maxHealth * standingHealingPercentage), 0, maxHealth);
-
-                    standingHealingTimer = standingTimeToHeal;
-                }
-            }
-        }
-
-        lastPosition = transform.position;
-    }
-
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public int GetHealth()
-    {
-        return health;
-    }
-
-    public PlayerState GetCurrentState()
-    {
-        return currentState;
-    }
-
+    public int GetMaxHealth() => maxHealth;
+    public int GetHealth() => health;
+    public PlayerState GetCurrentState() => currentState;
     public void TakeHit(int newHealth)
     {
-        
-        if (currentState == PlayerState.Standing)
-        {
-            health = newHealth;
-        }
-
-        if (health <= 0) //Se o life é menor ou igual a zero o player tem que cair
-        {
-            SetIsFalling();
-        }
-        else if (health > 0) //E recebeu dano, mas o life ainda é maior do que zero, deve-se reiniciar o timer para o heal passivo
-        {
-
-            standingHealingTimer = standingTimeToHeal; //Seta o timer para começar o heal passivo
-        }
-         
+        if (currentState == PlayerState.Standing) health = newHealth;
+        if (health <= 0) SetIsFalling();
+        else if (health > 0) standingHealingTimer = standingTimeToHeal;
     }
 
-
-    bool IsTransformStable() //Checa se o personagem está "estável" no chão
+    private bool IsTransformStable() //Checa se o personagem está "estável" no chão
     {
         float posDiff = Vector3.Distance(transform.position, lastPosition);
-
         return posDiff < transformStabilityThreshold;
     }
 
-
     private void FallingCheck() //Checa se o personagem deve entrar no estado de queda mesmo sem ter levado um tapa
     {
-
         float deltaY = transform.position.y - lastPosition.y;
-
         if (deltaY < fallingCheckTolerance) // tolerância pequena para não pegar microvariações
         {
             fallingTimer += Time.deltaTime;
-
             if (fallingTimer >= timeToFalling)
             {
                 SetIsFalling();
             }
         }
-        else
-        {
-        // Se não está mais descendo, reseta
-        fallingTimer = 0;
-        }
-
+        else fallingTimer = 0;
     }
-
 
     public void SetIsStanding()
     {
-        if (!Physics.Raycast(transform.position, Vector3.down, 0.2f)) //No caso do player não estar no chão, não pode mudar para standing
-        {
-            return;
-        }
-
+        //if (!Physics.Raycast(transform.position, Vector3.down, 0.2f)) return;
+        
         currentState = PlayerState.Standing;
-        ragdoll.User_TransitionToStandingMode();
+        if(ragdoll != null) ragdoll.User_TransitionToStandingMode();
 
         if (health < (int)(maxHealth * awakenRecoveredHealth)) // Se, ao se levantar, o life é menor do que a metade do life total, life = metade do life total
         {
             health = (int)(maxHealth * awakenRecoveredHealth);
-
             standingHealingTimer = standingTimeToHeal; //Seta o timer para começar o heal passivo
         }
-
-
-        //GetComponent<Animator>().enabled = true;
-        //GetComponent<Animator>().Play("EmptyState");
-
         wakeUpPressTimer = 0;
     }
 
@@ -238,32 +176,17 @@ public class PlayerController : MonoBehaviour
 
         if (currentState == PlayerState.Standing)
         {
-            if (health <= 0)
-            {
-                definedDownedTimer = baseDownedTimer + (int)((-1f * health) / 100f);
-            }
-            else
-            {
-                definedDownedTimer = baseDownedTimer;
-            }
+            if (health <= 0) definedDownedTimer = baseDownedTimer + (int)((-1f * health) / 100f);
+            else definedDownedTimer = baseDownedTimer;
         }
-        if (currentState == PlayerState.Downed || currentState == PlayerState.Falling)
-        {
-            definedDownedTimer = downedTimer;
-        }
-      
+        if (currentState == PlayerState.Downed || currentState == PlayerState.Falling) definedDownedTimer = downedTimer;
+        
         currentState = PlayerState.Falling;
         ragdoll.User_SwitchFallState();
 
-        //GetComponent<Animator>().enabled = false;
-        //GetComponent<Animator>().Play("Idle");
-
         lastPosition = transform.position;
-
         stabilityCheckTimer = stabilityCheckBaseTimer;
-
         wakeUpPressTimer = 0;
-
     }
 
     public void SetIsDowned()
@@ -275,18 +198,14 @@ public class PlayerController : MonoBehaviour
 
     public void TryingToWakeUp()
     {
-        if (currentState != PlayerState.Downed) return; // Só faz efeito se estiver caído
-
+        if (currentState != PlayerState.Downed) return;
         // Conta o toque
         wakeUpPressCounter += 1f;
 
         if (wakeUpPressTimer >= wakeUpBaseTimeCheck)
         {
-            if (wakeUpPressCounter >= wakeUpPressesPerSecond)
-            {
-                downedTimer -= wakeUpTimeReduction;
-            }
-
+            if (wakeUpPressCounter >= wakeUpPressesPerSecond) downedTimer -= wakeUpTimeReduction;
+            
             wakeUpPressCounter = 0;
             wakeUpPressTimer = 0;
         }

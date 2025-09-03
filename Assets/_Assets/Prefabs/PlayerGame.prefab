@@ -977,6 +977,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
+      propertyPath: handler.UnscaledTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
       propertyPath: handler.SpringsOnFall
       value: 19
       objectReference: {fileID: 0}
@@ -993,13 +998,18 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler._EditorMotionCategory
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler.ExtraFeatures.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.TargetParentForRagdollDummy
+      value: 
+      objectReference: {fileID: 6177632234658003788}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler.ExtraFeatures.Array.data[0].enabled
@@ -7947,14 +7957,18 @@ MonoBehaviour:
   baseDownedTimer: 5
   definedDownedTimer: 0
   downedTimer: 0
-  downedTimePerDamageUnit: 1
-  downedDamageUnit: 100
   wakeUpPressesPerSecond: 5
   wakeUpTimeReduction: 0.5
   currentState: 0
 --- !u!137 &5339185523323432561 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8220451030145531459, guid: 23f25bad1aea53240916c6d6e0b124b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4038726495593074738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6177632234658003788 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7905835572390947710, guid: 23f25bad1aea53240916c6d6e0b124b3,
     type: 3}
   m_PrefabInstance: {fileID: 4038726495593074738}
   m_PrefabAsset: {fileID: 0}
