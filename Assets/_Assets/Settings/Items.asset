@@ -13,14 +13,19 @@ MonoBehaviour:
   m_Name: Items
   m_EditorClassIdentifier: 
   headAccessories:
-  - {fileID: 8659793733722321397, guid: dbc7b9abdab16ad4baa4df8d274ad78c, type: 3}
-  - {fileID: 7746454839555459525, guid: 5c1fc3c4233810644a0b2f1b72de2ca7, type: 3}
-  - {fileID: 7278206916011085233, guid: 8520a0b1facc20b469c7c6a01e580372, type: 3}
-  - {fileID: 7592227661681879560, guid: bb7194bdc201efd4fa0ad262e444abaa, type: 3}
   - {fileID: 3440144839866458970, guid: 3a8fbfdbe4e2e204ab2723d48cf8994b, type: 3}
+  - {fileID: 8754323295875862765, guid: 5c61000ef8b15f24a938afbcf605a1e4, type: 3}
+  - {fileID: 3075112267765167606, guid: ca95e6446aa4b794ca46c00d08307e18, type: 3}
+  - {fileID: 7708512875194542912, guid: fc61e8eadc68826459bec66afefd028b, type: 3}
+  - {fileID: 5301962861819756922, guid: 36d220e0579469240929f4b5be8bc44c, type: 3}
   faceAccessories:
-  - {fileID: 3440144839866458970, guid: ee9c5372f2ad8104e929852952c89d19, type: 3}
   - {fileID: 3440144839866458970, guid: 3a8fbfdbe4e2e204ab2723d48cf8994b, type: 3}
+  - {fileID: 4979139155902313074, guid: 0067f60e354ff14418f3cead0769c469, type: 3}
+  - {fileID: 2535389520054249130, guid: 892768d85a70fd2489c103b0f18f6181, type: 3}
+  - {fileID: 6566730447072199154, guid: b9b115be99dcabb4bb3e252e260eef49, type: 3}
+  - {fileID: 5607674801429255354, guid: edb53a30347442a48ac4cc16bda6ca1e, type: 3}
+  - {fileID: 7590567874828039620, guid: 096ff5411a321434b99671a84466f3e8, type: 3}
+  - {fileID: 7820867319646978908, guid: abf5c9e945303624daada0ce7c94deeb, type: 3}
   cloths: []
   skinColors:
   - {r: 0.9622642, g: 0.83971167, b: 0.83971167, a: 1}

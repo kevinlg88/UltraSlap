@@ -72,11 +72,14 @@ public class PlayerCustomization : MonoBehaviour
             if (headIndex < 0) headIndex = item.headAccessories.Count - 1;
         }
 
-        GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot.position, Quaternion.identity);
-        SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
-        smr.bones = (body as SkinnedMeshRenderer).bones;
-        smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        accessory.transform.SetParent(headSlot);
+        GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot);
+        accessory.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        accessory.transform.localScale = Vector3.one;
+        // if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        // {
+        //     smr.bones = (body as SkinnedMeshRenderer).bones;
+        //     smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        // }
     }
 
     public void ChangeFaceAccessory(bool isNext)
@@ -93,11 +96,14 @@ public class PlayerCustomization : MonoBehaviour
             if (faceIndex < 0) faceIndex = item.faceAccessories.Count - 1;
         }
 
-        GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot.position, Quaternion.identity);
-        SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
-        smr.bones = (body as SkinnedMeshRenderer).bones;
-        smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        accessory.transform.SetParent(faceSlot);
+        GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot);
+        accessory.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        accessory.transform.localScale = Vector3.one;
+        // if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        // {
+        //     smr.bones = (body as SkinnedMeshRenderer).bones;
+        //     smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        // }
     }
     public void ChangeCloth(bool isNext)
     {
@@ -111,7 +117,14 @@ public class PlayerCustomization : MonoBehaviour
             clothIndex--;
             if (clothIndex < 0) clothIndex = item.cloths.Count - 1;
         }
-        //body.materials[1].mainTexture = item.skins[skinIndex];
+        // GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot);
+        // accessory.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        // accessory.transform.localScale = Vector3.one;
+        // if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        // {
+        //     smr.bones = (body as SkinnedMeshRenderer).bones;
+        //     smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        // }
     }
     #endregion
 

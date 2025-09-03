@@ -11003,6 +11003,7 @@ MonoBehaviour:
   - {fileID: 562336304}
   - {fileID: 1559086868}
   minPlayers: 2
+  minTeams: 2
   joinAction: Join
   cancelAction: Cancel
   isDebugMode: 1
