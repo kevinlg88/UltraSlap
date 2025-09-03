@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7006274450588283086}
+  - component: {fileID: 4434947953439974079}
   m_Layer: 0
   m_Name: TrafficCone
   m_TagString: Untagged
@@ -115,3 +116,18 @@ Transform:
   - {fileID: 4133227408552642632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4434947953439974079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5301962861819756922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinMaterial: {fileID: 0}
+  primaryMaterial: {fileID: 2100000, guid: ae2670d99dc51c9448662252a1e8bb8a, type: 2}
+  neutralMaterial: {fileID: 0}

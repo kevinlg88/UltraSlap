@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7589205525128689501}
   - component: {fileID: 4270216905867371915}
+  - component: {fileID: 1754680652202479546}
   m_Layer: 0
   m_Name: SmokingOutfit
   m_TagString: Untagged
@@ -138,3 +139,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0028177775, y: 0.0070611923, z: -0.002079771}
     m_Extent: {x: 0.011752343, y: 0.008743735, z: 0.006383597}
   m_DirtyAABB: 0
+--- !u!114 &1754680652202479546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015715935307553774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRenderer: {fileID: 4270216905867371915}
+  skinMaterial: {fileID: 2100000, guid: 5a8275cf5fa67ad4ab592b8a724a9d39, type: 2}
+  primaryMaterial: {fileID: 2100000, guid: 21cde8615024ecc429295a8cbb655216, type: 2}
+  neutralMaterial: {fileID: 2100000, guid: f5a5808ba2722de41817b1c0b99d8ab7, type: 2}

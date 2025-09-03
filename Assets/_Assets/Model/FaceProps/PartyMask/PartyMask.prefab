@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2792944097596986349}
+  - component: {fileID: 535539176440661052}
   m_Layer: 0
   m_Name: PartyMask
   m_TagString: Untagged
@@ -115,3 +116,18 @@ Transform:
   - {fileID: 2677312422599611268}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &535539176440661052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5607674801429255354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinMaterial: {fileID: 0}
+  primaryMaterial: {fileID: 2100000, guid: 30b1f0f6dedf8dd4e9a37c6266cb12d1, type: 2}
+  neutralMaterial: {fileID: 0}

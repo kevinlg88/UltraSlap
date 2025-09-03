@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2857151891331543204}
+  - component: {fileID: 559036709294215469}
   m_Layer: 0
   m_Name: FrenchMoustache
   m_TagString: Untagged
@@ -115,3 +116,18 @@ Transform:
   - {fileID: 5613853035372221278}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &559036709294215469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566730447072199154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinMaterial: {fileID: 0}
+  primaryMaterial: {fileID: 2100000, guid: 08a487744515b86479de0cf0de6bfaec, type: 2}
+  neutralMaterial: {fileID: 0}

@@ -18,6 +18,7 @@ public class PlayerCustomization : MonoBehaviour
     [Header("Slots Point References")]
     [SerializeField] private Transform headSlot;
     [SerializeField] private Transform faceSlot;
+    [SerializeField] private Transform clothSlot;
     [SerializeField] private Transform GlovesSlot;
 
     int teamIndex = 0;
@@ -40,7 +41,8 @@ public class PlayerCustomization : MonoBehaviour
             teamIndex--;
             if (teamIndex < 0) teamIndex = item.skinColors.Count - 1;
         }
-        Debug.Log($"team: {teamIndex}");
+        GetCurrentSlot(clothSlot).GetComponent<ItemMeshProperties>()
+            .SetPrimaryColor(item.teamColors[teamIndex]);
     }
     public void ChangePlayerSkinColor(bool isNext)
     {
@@ -54,8 +56,10 @@ public class PlayerCustomization : MonoBehaviour
             colorSkinIndex--;
             if (colorSkinIndex < 0) colorSkinIndex = item.skinColors.Count - 1;
         }
-        body.materials[0].color = item.skinColors[colorSkinIndex];
         head.materials[0].color = item.skinColors[colorSkinIndex];
+
+        GetCurrentSlot(clothSlot).GetComponent<ItemMeshProperties>()
+            .SetSkinColor(item.skinColors[colorSkinIndex]);  
     }
 
     public void ChangeHeadAccessory(bool isNext)
@@ -73,13 +77,11 @@ public class PlayerCustomization : MonoBehaviour
         }
 
         GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot);
-        accessory.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        accessory.transform.localScale = Vector3.one;
-        // if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
-        // {
-        //     smr.bones = (body as SkinnedMeshRenderer).bones;
-        //     smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        // }
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
     }
 
     public void ChangeFaceAccessory(bool isNext)
@@ -97,16 +99,15 @@ public class PlayerCustomization : MonoBehaviour
         }
 
         GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot);
-        accessory.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        accessory.transform.localScale = Vector3.one;
-        // if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
-        // {
-        //     smr.bones = (body as SkinnedMeshRenderer).bones;
-        //     smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        // }
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
     }
     public void ChangeCloth(bool isNext)
     {
+        RemoveAccessory(clothSlot);
         if (isNext)
         {
             clothIndex++;
@@ -117,14 +118,16 @@ public class PlayerCustomization : MonoBehaviour
             clothIndex--;
             if (clothIndex < 0) clothIndex = item.cloths.Count - 1;
         }
-        // GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot);
-        // accessory.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        // accessory.transform.localScale = Vector3.one;
-        // if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
-        // {
-        //     smr.bones = (body as SkinnedMeshRenderer).bones;
-        //     smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        // }
+        GameObject accessory = Instantiate(item.cloths[clothIndex], clothSlot);
+        accessory.GetComponent<ItemMeshProperties>()
+            .SetPrimaryColor(item.teamColors[teamIndex]);
+        accessory.GetComponent<ItemMeshProperties>()
+            .SetSkinColor(item.skinColors[colorSkinIndex]); 
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
     }
     #endregion
 
@@ -132,30 +135,41 @@ public class PlayerCustomization : MonoBehaviour
 
     public void LoadPlayerSkinColor()
     {
-        body.materials[0].color = item.skinColors[colorSkinIndex];
         head.materials[0].color = item.skinColors[colorSkinIndex];
     }
     public void LoadHeadAccessory()
     {
         RemoveAccessory(headSlot);
-        GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot.position, Quaternion.identity);
-        SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
-        smr.bones = (body as SkinnedMeshRenderer).bones;
-        smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        accessory.transform.SetParent(headSlot);
+        GameObject accessory = Instantiate(item.headAccessories[headIndex], headSlot);
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
     }
     public void LoadFaceAccessory()
     {
         RemoveAccessory(faceSlot);
-        GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot.position, Quaternion.identity);
-        SkinnedMeshRenderer smr = accessory.GetComponent<SkinnedMeshRenderer>();
-        smr.bones = (body as SkinnedMeshRenderer).bones;
-        smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
-        accessory.transform.SetParent(faceSlot);
+        GameObject accessory = Instantiate(item.faceAccessories[faceIndex], faceSlot);
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
     }
     public void LoadCloth()
     {
-        //body.materials[1].mainTexture = item.skins[skinIndex];
+        RemoveAccessory(clothSlot);
+        GameObject accessory = Instantiate(item.cloths[clothIndex], clothSlot);
+        accessory.GetComponent<ItemMeshProperties>()
+            .SetPrimaryColor(item.teamColors[teamIndex]);
+        accessory.GetComponent<ItemMeshProperties>()
+            .SetSkinColor(item.skinColors[colorSkinIndex]); 
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
     }
     #endregion
     public void SaveCharacterVisual(PlayerData playerData)
@@ -184,6 +198,7 @@ public class PlayerCustomization : MonoBehaviour
             LoadCloth();
         }
     }
+    private GameObject GetCurrentSlot(Transform slot) => slot.GetChild(0).gameObject;
     private void RemoveAccessory(Transform slot)
     {
         if (slot.childCount > 0)

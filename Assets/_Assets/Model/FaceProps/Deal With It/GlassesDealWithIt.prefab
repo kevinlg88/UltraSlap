@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 849800767129835226}
+  - component: {fileID: 2691326032229401956}
   m_Layer: 0
   m_Name: GlassesDealWithIt
   m_TagString: Untagged
@@ -115,3 +116,19 @@ Transform:
   - {fileID: 1497267718053777226}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2691326032229401956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4979139155902313074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRenderer: {fileID: 5686203688547015080}
+  skinMaterial: {fileID: 0}
+  primaryMaterial: {fileID: 2100000, guid: 94698cddae2d54048b045e0cde4c392f, type: 2}
+  neutralMaterial: {fileID: 0}

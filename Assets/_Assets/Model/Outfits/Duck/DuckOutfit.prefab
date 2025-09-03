@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5969454182051483581}
   - component: {fileID: 4872649702355432183}
+  - component: {fileID: 2628046010486990229}
   m_Layer: 0
   m_Name: DuckOutfit
   m_TagString: Untagged
@@ -138,3 +139,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0028177775, y: 0.0070611923, z: -0.002079771}
     m_Extent: {x: 0.011752343, y: 0.008743735, z: 0.006383597}
   m_DirtyAABB: 0
+--- !u!114 &2628046010486990229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268722884671997620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRenderer: {fileID: 4872649702355432183}
+  skinMaterial: {fileID: 2100000, guid: 1af99d0b2e27efc4eb9235e7e7199283, type: 2}
+  primaryMaterial: {fileID: 2100000, guid: d429f2f127675cf489961513a44fe362, type: 2}
+  neutralMaterial: {fileID: 2100000, guid: 3069ce4d31a34b9458e463909d0910bb, type: 2}

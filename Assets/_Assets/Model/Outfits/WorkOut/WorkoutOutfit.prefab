@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4045781728889885147}
   - component: {fileID: 441710962989754754}
+  - component: {fileID: 8056470817180649477}
   m_Layer: 0
   m_Name: WorkoutOutfit
   m_TagString: Untagged
@@ -138,3 +139,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0028177775, y: 0.0070611923, z: -0.002079771}
     m_Extent: {x: 0.011752343, y: 0.008743735, z: 0.006383597}
   m_DirtyAABB: 0
+--- !u!114 &8056470817180649477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563118945468043070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRenderer: {fileID: 441710962989754754}
+  skinMaterial: {fileID: 2100000, guid: 26e606b2a31145a4189bd5bfa917c41e, type: 2}
+  primaryMaterial: {fileID: 2100000, guid: fd9093c5c7b843a42ba3d2d412b75b09, type: 2}
+  neutralMaterial: {fileID: 2100000, guid: 4016f6dd188eb464cb471a74a57335d7, type: 2}

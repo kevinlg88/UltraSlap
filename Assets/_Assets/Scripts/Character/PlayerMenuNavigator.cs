@@ -146,7 +146,6 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     private void ChangeCustomization(int optionIndex, bool isRightArrow)
     {
-        Debug.Log($"Options: {optionIndex}");
         switch ((PlayerMenuButtons)optionIndex)
         {
             case PlayerMenuButtons.Team:

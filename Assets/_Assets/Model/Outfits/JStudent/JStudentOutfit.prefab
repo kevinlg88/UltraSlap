@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5305401909876566433}
   - component: {fileID: 1942297315996744480}
+  - component: {fileID: 1291710776921965814}
   m_Layer: 0
   m_Name: JStudentOutfit
   m_TagString: Untagged
@@ -138,3 +139,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0028177775, y: 0.0070611923, z: -0.002079771}
     m_Extent: {x: 0.011752343, y: 0.008743735, z: 0.006383597}
   m_DirtyAABB: 0
+--- !u!114 &1291710776921965814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682558086356762037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0321f226c07a4ef45a57e55b8afffb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRenderer: {fileID: 1942297315996744480}
+  skinMaterial: {fileID: 2100000, guid: 32ebc95e223185949a368af6bb9e9838, type: 2}
+  primaryMaterial: {fileID: 2100000, guid: 2f231900d12becb4ca1fa96656359fff, type: 2}
+  neutralMaterial: {fileID: 2100000, guid: d4e54abf1f0270d44ae36e329ff7dc9d, type: 2}
