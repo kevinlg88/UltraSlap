@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18370044, g: 0.2291341, b: 0.30488932, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11006,7 +11006,7 @@ MonoBehaviour:
   minTeams: 2
   joinAction: Join
   cancelAction: Cancel
-  isDebugMode: 0
+  isDebugMode: 1
   playerDebugId: 1
 --- !u!64 &38660988532060317
 MeshCollider:

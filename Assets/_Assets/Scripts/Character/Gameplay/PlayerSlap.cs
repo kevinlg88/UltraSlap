@@ -48,8 +48,8 @@ public class PlayerSlap : MonoBehaviour
         if (player == null) return;
         if (player.GetButtonDown("Slap") && !isCharging && !isSlapping && !isOnCooldown)
         {
-            if (!(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se não está na condição Standing
-                return;
+            // if (!(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se não está na condição Standing
+            //     return;
 
             chargingTime = 0f;
             isCharging = true;

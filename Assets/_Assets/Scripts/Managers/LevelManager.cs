@@ -62,16 +62,22 @@ public class LevelManager : MonoBehaviour
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
         Debug.Log($"player {player} morreu");
-        player.gameObject.SetActive(false);
+        //player.gameObject.SetActive(false);
+        player.gameObject.transform.position = new Vector3(0, -1000, 0);
         CheckIfRoundIsOver();
     }
     private void OnSetupNextRound()
     {
         foreach (PlayerController player in playersInGame)
         {
+            RagdollAnimator2 ragdoll = player.GetComponent<RagdollAnimator2>();
+            ragdoll.User_SetAllKinematic(true);
             player.gameObject.transform.position = spawnPoints[player.PlayerData.PlayerID].transform.position;
+            ragdoll.User_Teleport(spawnPoints[player.PlayerData.PlayerID].transform.position, Quaternion.identity);
             player.gameObject.SetActive(true);
+            ragdoll.User_SetAllKinematic(false);
         }
+        _gameEvent.onPlayersJoined.Invoke(playersInGame);
     }
     private void CheckIfRoundIsOver()
     {
@@ -87,7 +93,7 @@ public class LevelManager : MonoBehaviour
         HashSet<Team> teams = new();
         foreach (PlayerController player in playersInGame)
         {
-            if (player.PlayerData != null && player.gameObject.activeSelf && !teams.Contains(player.PlayerData.Team))
+            if (player.PlayerData != null && !player.IsDead && !teams.Contains(player.PlayerData.Team))
             {
                 teams.Add(player.PlayerData.Team);
             }

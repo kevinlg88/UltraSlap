@@ -103,8 +103,8 @@ public class RigidbodyController : MonoBehaviour
 
     void HandleMovementInput()
     {
-        if (!isGrounded || !(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se está no chão ou não está na condição Standing
-            return;
+        // if (!isGrounded || !(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se está no chão ou não está na condição Standing
+        //     return;
 
         Vector2 moveInput = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical"));
         Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput : Vector2.zero;
@@ -127,11 +127,11 @@ public class RigidbodyController : MonoBehaviour
 
     void HandleJumpInput()
     {
-        if (player.GetButtonDown("Dash") && !(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se não está na condição Standing
-        {
-            GetComponent<PlayerController>().TryingToWakeUp();
-            return;
-        }
+        // if (player.GetButtonDown("Dash") && !(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se não está na condição Standing
+        // {
+        //     GetComponent<PlayerController>().TryingToWakeUp();
+        //     return;
+        // }
 
         if (player.GetButtonDown("Dash") && !isJumping && isGrounded && jumpCooldownTimer <= 0)
         {

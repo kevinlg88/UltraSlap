@@ -66,12 +66,12 @@ public class TriggerHitbox : MonoBehaviour
                 "slapPower: " + slapPower + " de " + "slapPowerFallingThreshold " + slapPowerFallingThreshold);
 
 
-                ApplyDamage(ragdoll.gameObject.GetComponent<PlayerController>()); //Aqui trata do dano causado ao HEALTH do alvo
+                //ApplyDamage(ragdoll.gameObject.GetComponent<PlayerController>()); //Aqui trata do dano causado ao HEALTH do alvo
 
                 var ragdollBlend = ragdoll.RagdollBlend;
                 if (slapPower >= slapPowerFallingThreshold) //esse if força a ativação do falling no adversário que recebe o ataque, se o slapPower >= slapPowerFallingThreshold
                 {
-                    ragdoll.gameObject.GetComponent<PlayerController>().SetIsFalling();
+                    //ragdoll.gameObject.GetComponent<PlayerController>().SetIsFalling();
 
                     //ragdoll.User_SwitchFallState();
 
@@ -117,15 +117,15 @@ public class TriggerHitbox : MonoBehaviour
     }
 
 
-    private void ApplyDamage(PlayerController targetStatus)
-    {
-        int newHealth;
+    // private void ApplyDamage(PlayerController targetStatus)
+    // {
+    //     int newHealth;
 
-        newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(slapPower); //Subtraindo o dano (arredondado) causado do health atual
-        targetStatus.TakeHit(newHealth);
+    //     newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(slapPower); //Subtraindo o dano (arredondado) causado do health atual
+    //     targetStatus.TakeHit(newHealth);
         
 
-    }
+    // }
 
     private RagdollAnimator2 GetRagdoll(GameObject go)
     {

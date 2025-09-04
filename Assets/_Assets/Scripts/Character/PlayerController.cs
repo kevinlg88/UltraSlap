@@ -71,37 +71,37 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (currentState == PlayerState.Downed)
-        {
-            FallingCheck();
-            downedTimer -= Time.deltaTime;
-            if (downedTimer <= 0)
-            {
-                downedTimer = 0;
-                SetIsStanding();
-            }
-            wakeUpPressTimer += Time.deltaTime;
-        }
-        if (currentState == PlayerState.Falling)
-        {
-            stabilityCheckTimer -= Time.deltaTime;
-            if (stabilityCheckTimer <= 0) stabilityCheckTimer = 0;
-            if (IsTransformStable() && stabilityCheckTimer <= 0) SetIsDowned();
-        }
-        if (currentState == PlayerState.Standing)
-        {
-            FallingCheck();
-            if (health < maxHealth)
-            {
-                standingHealingTimer -= Time.deltaTime;
-                if (standingHealingTimer <= 0)
-                {
-                    health = Mathf.Clamp(health + (int)(maxHealth * standingHealingPercentage), 0, maxHealth);
-                    standingHealingTimer = standingTimeToHeal;
-                }
-            }
-        }
-        lastPosition = transform.position;
+        // if (currentState == PlayerState.Downed)
+        // {
+        //     FallingCheck();
+        //     downedTimer -= Time.deltaTime;
+        //     if (downedTimer <= 0)
+        //     {
+        //         downedTimer = 0;
+        //         SetIsStanding();
+        //     }
+        //     wakeUpPressTimer += Time.deltaTime;
+        // }
+        // if (currentState == PlayerState.Falling)
+        // {
+        //     stabilityCheckTimer -= Time.deltaTime;
+        //     if (stabilityCheckTimer <= 0) stabilityCheckTimer = 0;
+        //     if (IsTransformStable() && stabilityCheckTimer <= 0) SetIsDowned();
+        // }
+        // if (currentState == PlayerState.Standing)
+        // {
+        //     FallingCheck();
+        //     if (health < maxHealth)
+        //     {
+        //         standingHealingTimer -= Time.deltaTime;
+        //         if (standingHealingTimer <= 0)
+        //         {
+        //             health = Mathf.Clamp(health + (int)(maxHealth * standingHealingPercentage), 0, maxHealth);
+        //             standingHealingTimer = standingTimeToHeal;
+        //         }
+        //     }
+        // }
+        // lastPosition = transform.position;
     }
 
     void OnEnable()
@@ -120,94 +120,96 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public int GetMaxHealth() => maxHealth;
-    public int GetHealth() => health;
-    public PlayerState GetCurrentState() => currentState;
-    public void TakeHit(int newHealth)
-    {
-        if (currentState == PlayerState.Standing) health = newHealth;
-        if (health <= 0) SetIsFalling();
-        else if (health > 0) standingHealingTimer = standingTimeToHeal;
-    }
+    //public int GetMaxHealth() => maxHealth;
+    //public int GetHealth() => health;
+    //public PlayerState GetCurrentState() => currentState;
+    // public void TakeHit(int newHealth)
+    // {
+    //     if (currentState == PlayerState.Standing) health = newHealth;
+    //     if (health <= 0) SetIsFalling();
+    //     else if (health > 0) standingHealingTimer = standingTimeToHeal;
+    // }
 
-    private bool IsTransformStable() //Checa se o personagem está "estável" no chão
-    {
-        float posDiff = Vector3.Distance(transform.position, lastPosition);
-        return posDiff < transformStabilityThreshold;
-    }
+    // private bool IsTransformStable() //Checa se o personagem está "estável" no chão
+    // {
+    //     float posDiff = Vector3.Distance(transform.position, lastPosition);
+    //     return posDiff < transformStabilityThreshold;
+    // }
 
-    private void FallingCheck() //Checa se o personagem deve entrar no estado de queda mesmo sem ter levado um tapa
-    {
-        float deltaY = transform.position.y - lastPosition.y;
-        if (deltaY < fallingCheckTolerance) // tolerância pequena para não pegar microvariações
-        {
-            fallingTimer += Time.deltaTime;
-            if (fallingTimer >= timeToFalling)
-            {
-                SetIsFalling();
-            }
-        }
-        else fallingTimer = 0;
-    }
+    // private void FallingCheck() //Checa se o personagem deve entrar no estado de queda mesmo sem ter levado um tapa
+    // {
+    //     float deltaY = transform.position.y - lastPosition.y;
+    //     if (deltaY < fallingCheckTolerance) // tolerância pequena para não pegar microvariações
+    //     {
+    //         fallingTimer += Time.deltaTime;
+    //         if (fallingTimer >= timeToFalling)
+    //         {
+    //             SetIsFalling();
+    //         }
+    //     }
+    //     else fallingTimer = 0;
+    // }
 
-    public void SetIsStanding()
-    {
-        //if (!Physics.Raycast(transform.position, Vector3.down, 0.2f)) return;
+    // public void SetIsStanding()
+    // {
+    //     //if (!Physics.Raycast(transform.position, Vector3.down, 0.2f)) return;
         
-        currentState = PlayerState.Standing;
-        if(ragdoll != null) ragdoll.User_TransitionToStandingMode();
+    //     currentState = PlayerState.Standing;
+    //     if(ragdoll != null) ragdoll.RA2Event_SwitchToStand();
 
-        if (health < (int)(maxHealth * awakenRecoveredHealth)) // Se, ao se levantar, o life é menor do que a metade do life total, life = metade do life total
-        {
-            health = (int)(maxHealth * awakenRecoveredHealth);
-            standingHealingTimer = standingTimeToHeal; //Seta o timer para começar o heal passivo
-        }
-        wakeUpPressTimer = 0;
-    }
+    //     if (health < (int)(maxHealth * awakenRecoveredHealth)) // Se, ao se levantar, o life é menor do que a metade do life total, life = metade do life total
+    //     {
+    //         health = (int)(maxHealth * awakenRecoveredHealth);
+    //         standingHealingTimer = standingTimeToHeal; //Seta o timer para começar o heal passivo
+    //     }
+    //     wakeUpPressTimer = 0;
+    // }
 
-    public void SetIsFalling()
-    {
-        if (GetComponent<PlayerSlap>().GetIsCharging())
-        {
-            GetComponent<PlayerSlap>().stopSlapFeedback();
-            GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
-        }
-        GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+    // public void SetIsFalling()
+    // {
+    //     //Executar este bloco em um evento no slap
+    //     if (GetComponent<PlayerSlap>().GetIsCharging())
+    //     {
+    //         GetComponent<PlayerSlap>().stopSlapFeedback();
+    //         GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+    //     }
+    //     GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+    //     //-------------------------------------------
 
-        if (currentState == PlayerState.Standing)
-        {
-            if (health <= 0) definedDownedTimer = baseDownedTimer + (int)((-1f * health) / 100f);
-            else definedDownedTimer = baseDownedTimer;
-        }
-        if (currentState == PlayerState.Downed || currentState == PlayerState.Falling) definedDownedTimer = downedTimer;
+    //     if (currentState == PlayerState.Standing)
+    //     {
+    //         if (health <= 0) definedDownedTimer = baseDownedTimer + (int)((-1f * health) / 100f);
+    //         else definedDownedTimer = baseDownedTimer;
+    //     }
+    //     if (currentState == PlayerState.Downed || currentState == PlayerState.Falling) definedDownedTimer = downedTimer;
         
-        currentState = PlayerState.Falling;
-        ragdoll.User_SwitchFallState();
+    //     currentState = PlayerState.Falling;
+    //     ragdoll.RA2Event_SwitchToFall();
 
-        lastPosition = transform.position;
-        stabilityCheckTimer = stabilityCheckBaseTimer;
-        wakeUpPressTimer = 0;
-    }
+    //     lastPosition = transform.position;
+    //     stabilityCheckTimer = stabilityCheckBaseTimer;
+    //     wakeUpPressTimer = 0;
+    // }
 
-    public void SetIsDowned()
-    {
-        currentState = PlayerState.Downed;
-        downedTimer = definedDownedTimer;
-        wakeUpPressTimer = 0;
-    }
+    // public void SetIsDowned()
+    // {
+    //     currentState = PlayerState.Downed;
+    //     downedTimer = definedDownedTimer;
+    //     wakeUpPressTimer = 0;
+    // }
 
-    public void TryingToWakeUp()
-    {
-        if (currentState != PlayerState.Downed) return;
-        // Conta o toque
-        wakeUpPressCounter += 1f;
+    // public void TryingToWakeUp()
+    // {
+    //     if (currentState != PlayerState.Downed) return;
+    //     // Conta o toque
+    //     wakeUpPressCounter += 1f;
 
-        if (wakeUpPressTimer >= wakeUpBaseTimeCheck)
-        {
-            if (wakeUpPressCounter >= wakeUpPressesPerSecond) downedTimer -= wakeUpTimeReduction;
+    //     if (wakeUpPressTimer >= wakeUpBaseTimeCheck)
+    //     {
+    //         if (wakeUpPressCounter >= wakeUpPressesPerSecond) downedTimer -= wakeUpTimeReduction;
             
-            wakeUpPressCounter = 0;
-            wakeUpPressTimer = 0;
-        }
-    }
+    //         wakeUpPressCounter = 0;
+    //         wakeUpPressTimer = 0;
+    //     }
+    // }
 }
