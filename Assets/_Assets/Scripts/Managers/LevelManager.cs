@@ -61,8 +61,6 @@ public class LevelManager : MonoBehaviour
     private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
-        Debug.Log($"player {player} morreu");
-        //player.gameObject.SetActive(false);
         player.gameObject.transform.position = new Vector3(0, -1000, 0);
         CheckIfRoundIsOver();
     }
@@ -71,11 +69,10 @@ public class LevelManager : MonoBehaviour
         foreach (PlayerController player in playersInGame)
         {
             RagdollAnimator2 ragdoll = player.GetComponent<RagdollAnimator2>();
-            ragdoll.User_SetAllKinematic(true);
+            ragdoll.enabled = false;
             player.gameObject.transform.position = spawnPoints[player.PlayerData.PlayerID].transform.position;
-            ragdoll.User_Teleport(spawnPoints[player.PlayerData.PlayerID].transform.position, Quaternion.identity);
-            player.gameObject.SetActive(true);
-            ragdoll.User_SetAllKinematic(false);
+            ragdoll.enabled = true;
+            player.ResetState();
         }
         _gameEvent.onPlayersJoined.Invoke(playersInGame);
     }

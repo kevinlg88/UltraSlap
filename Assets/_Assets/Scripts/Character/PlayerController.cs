@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     // esta é a propriedade só de leitura (usada no código)
     public PlayerState CurrentState => currentState;
 
-    // Start is called before the first frame update
     void Start()
     {
         currentState = PlayerState.Standing;
@@ -104,7 +103,7 @@ public class PlayerController : MonoBehaviour
         // lastPosition = transform.position;
     }
 
-    void OnEnable()
+    public void ResetState()
     {
         //SetIsStanding();
         health = maxHealth;
