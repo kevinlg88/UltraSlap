@@ -1118,6 +1118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5588953081712880526, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5564860348157876501}
+    - target: {fileID: 5588953081712880526, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
       propertyPath: slapPowerFallingThreshold
       value: 600
       objectReference: {fileID: 0}
@@ -7506,6 +7511,11 @@ PrefabInstance:
       propertyPath: managedReferences[8694595439833382914].AnimateScaleTweenZ.Curve.m_Curve.Array.data[1].outSlope
       value: -0.97554725
       objectReference: {fileID: 0}
+    - target: {fileID: 6938453818131755669, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5564860348157876501}
     - target: {fileID: 7054144900904593381, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7581,6 +7591,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 62.41094
       objectReference: {fileID: 0}
+    - target: {fileID: 7839656485259759793, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5564860348157876501}
     - target: {fileID: 7839656485259759793, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: m_Enabled
@@ -7971,7 +7986,7 @@ MonoBehaviour:
   transformStabilityThreshold: 0.008
   maxHealth: 2500
   health: 0
-  ragdoll: {fileID: 0}
+  ragdoll: {fileID: 9168641464151087519}
   awakenRecoveredHealth: 0.5
   standingTimeToHeal: 5
   standingHealingTimer: 0
@@ -8019,5 +8034,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9168641464151087519 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4038726495593074738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827978320911131526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104179351ca7dd24a8f5bd7beecf8d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -1,15 +1,17 @@
 ﻿using Rewired;
 using UnityEngine;
-using PS = PlayerController.PlayerState; //Para verificar o estado do enum do player controller
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerSlap))]
 public class RigidbodyController : MonoBehaviour
 {
-    [Header("Components")]
-    public Rigidbody rb;
-    public CapsuleCollider capsuleCollider;
-    public Animator animator;
-    public PlayerSlap playerSlap;
+    [Header("References")]
+    [SerializeField] private PlayerController player;
+    [SerializeField] private CapsuleCollider capsuleCollider;
+    private Rigidbody rb;
+    private Animator animator;
+    private PlayerSlap playerSlap;
 
     [Header("Input Setup")]
     [SerializeField] int playerID;
@@ -33,15 +35,15 @@ public class RigidbodyController : MonoBehaviour
 
 
     bool initialized = false;
-    private Player player;
+    private Player playerInput;
     public bool isJumping, isGrounded;
-    Vector3 dashDir, moveDir;
+    Vector3 moveDir;
     Quaternion targetRot;
-
-
 
     void Awake()
     {
+        playerSlap = GetComponent<PlayerSlap>();
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -49,8 +51,8 @@ public class RigidbodyController : MonoBehaviour
 
     void Initialize()
     {
-        player = ReInput.players.GetPlayer(playerID);
-        this.GetComponent<PlayerSlap>().SetPlayer(player);
+        playerInput = ReInput.players.GetPlayer(playerID);
+        playerSlap.SetPlayer(playerInput);
         initialized = true;
     }
 
@@ -68,20 +70,15 @@ public class RigidbodyController : MonoBehaviour
         if (jumpCooldownTimer>0)
         {
             jumpCooldownTimer -= Time.deltaTime;
-
-            if (jumpCooldownTimer < 0f)
-                jumpCooldownTimer = 0f; // Garante que não fique negativo
+            if (jumpCooldownTimer < 0f) jumpCooldownTimer = 0f; // Garante que não fique negativo
         }
 
         // Aplicar gravidade extra para deixar a queda mais rápida 
         if (rb.velocity.y < 0)
-        {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (rb.velocity.y > 0 && !player.GetButton("Jump"))
-        {
+
+        else if (rb.velocity.y > 0 && !playerInput.GetButton("Jump"))
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
     }
 
     void UpdateGroundedStatus()
@@ -103,10 +100,10 @@ public class RigidbodyController : MonoBehaviour
 
     void HandleMovementInput()
     {
-        // if (!isGrounded || !(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se está no chão ou não está na condição Standing
-        //     return;
+        if (!isGrounded || !(player.GetCurrentState() == PlayerState.Standing)) //Verifica se está no chão ou não está na condição Standing
+            return;
 
-        Vector2 moveInput = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical"));
+        Vector2 moveInput = new Vector2(playerInput.GetAxis("Move Horizontal"), playerInput.GetAxis("Move Vertical"));
         Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput : Vector2.zero;
 
         if (input.sqrMagnitude > 0.01f)
@@ -119,23 +116,19 @@ public class RigidbodyController : MonoBehaviour
             moveDir = (camForward.normalized * input.y + camRight.normalized * input.x).normalized;
             targetRot = Quaternion.LookRotation(moveDir);
         }
-        else
-        {
-            moveDir = Vector3.zero;
-        }
+        else moveDir = Vector3.zero;
     }
 
     void HandleJumpInput()
     {
-        // if (player.GetButtonDown("Dash") && !(GetComponent<PlayerController>().GetCurrentState() == PS.Standing)) //Verifica se não está na condição Standing
-        // {
-        //     GetComponent<PlayerController>().TryingToWakeUp();
-        //     return;
-        // }
-
-        if (player.GetButtonDown("Dash") && !isJumping && isGrounded && jumpCooldownTimer <= 0)
+        if (playerInput.GetButtonDown("Dash") && !(player.GetCurrentState() == PlayerState.Standing)) //Verifica se não está na condição Standing
         {
+            player.TryingToWakeUp();
+            return;
+        }
 
+        if (playerInput.GetButtonDown("Dash") && !isJumping && isGrounded && jumpCooldownTimer <= 0)
+        {
             Jump();
             return;
         }
@@ -146,19 +139,14 @@ public class RigidbodyController : MonoBehaviour
         if (animator)
         {
             animator.SetBool("isMoving", moveDir != Vector3.zero);
-
             if (!isGrounded)
             {
                 animator.SetBool("isJumping", true);
                 animator.SetBool("isMoving", false);
             }
-            else
-            {
-                animator.SetBool("isJumping", false);
-            }
+            else animator.SetBool("isJumping", false);
         }
     }
-
 
     void FixedUpdate()
     {
@@ -169,7 +157,6 @@ public class RigidbodyController : MonoBehaviour
             PerformDash();
             return;
         }
-
         ApplyMovement();
         RotateTowardsMovementDirection();
     }
@@ -197,9 +184,7 @@ public class RigidbodyController : MonoBehaviour
     void RotateTowardsMovementDirection()
     {
         if (!isGrounded) return;
-
-        if (moveDir != Vector3.zero)
-            rb.MoveRotation(targetRot);
+        if (moveDir != Vector3.zero) rb.MoveRotation(targetRot);
     }
 
     public void SetPlayerId(int id) => playerID = id;

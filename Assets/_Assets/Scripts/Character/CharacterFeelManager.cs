@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
+[System.Serializable]
+public class NamedFeedback
+{
+    public string name;
+    public MMFeedbacks feedback;
+}
 public class CharacterFeelManager : MonoBehaviour
 {
-
-    [System.Serializable]
-    public class NamedFeedback
-    {
-        public string name;
-        public MMFeedbacks feedback;
-    }
-
     [Header("Feedbacks")]
     public List<NamedFeedback> feedbacks;
-
     private Dictionary<string, MMFeedbacks> feedbackDict;
 
     void Awake()
