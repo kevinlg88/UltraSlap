@@ -501,17 +501,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc3f02047b324843b1024d122300719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myragdoll: {fileID: 5130161327891548589}
-  effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
-    type: 3}
-  maxEffectPrefabScale: 3
-  slapPower: 500
-  slapPowerFallingThreshold: 200
+  player: {fileID: 0}
   slapEnemy: {fileID: 8254234158647348083}
   slapProp: {fileID: 1027013813812703395}
   slapEnvironment: {fileID: 1590479134853669964}
+  glassLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  slapPowerFallingThreshold: 200
   isSlapping: 0
-  playerSlap: {fileID: 4406342879990976752}
+  effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
+    type: 3}
+  maxEffectPrefabScale: 3
 --- !u!1 &1247060903981209385
 GameObject:
   m_ObjectHideFlags: 0
@@ -14961,17 +14962,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc3f02047b324843b1024d122300719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myragdoll: {fileID: 5130161327891548589}
-  effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
-    type: 3}
-  maxEffectPrefabScale: 3
-  slapPower: 500
-  slapPowerFallingThreshold: 200
+  player: {fileID: 0}
   slapEnemy: {fileID: 8254234158647348083}
   slapProp: {fileID: 1027013813812703395}
   slapEnvironment: {fileID: 1590479134853669964}
+  glassLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  slapPowerFallingThreshold: 200
   isSlapping: 0
-  playerSlap: {fileID: 4406342879990976752}
+  effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
+    type: 3}
+  maxEffectPrefabScale: 3
 --- !u!114 &7731336160055366695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15337,7 +15339,7 @@ MonoBehaviour:
     _Editor_ChainCategory: 1
     _EditorCategory: 3
     _EditorMainCategory: 0
-    _EditorMotionCategory: 1
+    _EditorMotionCategory: 2
     m_hemi: {fileID: -2508796484986968503, guid: 44d994eaad14fdf49a2dd378b4d62094,
       type: 3}
     m_cyli: {fileID: 2534964839176971238, guid: 2ea99bbc50a9266448416f21d645a771,
@@ -17091,10 +17093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69885b94cd27f8b429d99afa24dfc0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 8530121838403700919}
+  player: {fileID: 0}
   capsuleCollider: {fileID: 7670451256361373934}
-  animator: {fileID: 7566958015380379863}
-  playerSlap: {fileID: 4406342879990976752}
   playerID: 0
   moveSpeed: 4
   inertiaFactor: 1
@@ -17124,29 +17124,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7763fbe2ce8f45042b779a06ca1117c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TriggerGetRagBone: {fileID: 5588953081712880526}
   slapWhoosh: {fileID: 7994800092813128390}
   chargingSlap: {fileID: 6303212243255115372}
   wooshChargingSlap: {fileID: 1221115905856110081}
   chargingSlapEnd: {fileID: 6725627023822384777}
-  animator: {fileID: 0}
-  isCharging: 0
-  isSlapping: 0
-  buttonReleasedBeforeKeyframe: 0
-  chargingTime: 0
   minPower: 250
   maxPower: 1500
-  power: 278.7217
   growthRate: 1.5
   midPoint: 2.5
   minCooldown: 0.1
   maxCooldown: 0.8
-  isOnCooldown: 0
   cooldownTimer: 0
   cooldownGrowthRate: 0.001
-  cooldown: 0
   quickSlapThreshold: 0.2
   maxSlapThreshold: 5
-  TriggerGetRagBone: {fileID: 5588953081712880526}
+  isCharging: 0
+  isSlapping: 0
+  isOnCooldown: 0
+  buttonReleasedBeforeKeyframe: 0
+  chargingTime: 0
+  power: 278.7217
+  cooldown: 0
 --- !u!114 &7268800669324069056
 MonoBehaviour:
   m_ObjectHideFlags: 0

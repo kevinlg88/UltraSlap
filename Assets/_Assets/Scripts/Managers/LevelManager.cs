@@ -3,16 +3,18 @@ using UnityEngine;
 using Zenject;
 using MoreMountains.Feedbacks;
 using FIMSpace.FProceduralAnimation;
+using System.Threading.Tasks;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private MMFeedbacks levelSong;
     [SerializeField] List<GameObject> spawnPoints = new();
     [SerializeField] GameObject playerPrefab;
-    [SerializeField] private MMFeedbacks levelSong;
 
+    [Header("Setup")]
+    [SerializeField] Vector3 spawnOffset = new(0, 0.34f, 0);
     private List<PlayerController> playersInGame = new();
-
-
     private PlayerManager _playerManager;
     private GameEvent _gameEvent;
 
@@ -61,20 +63,19 @@ public class LevelManager : MonoBehaviour
     private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
-        player.gameObject.transform.position = new Vector3(0, -1000, 0);
+        player.gameObject.transform.position = new Vector3(0, 1000, 0);
         CheckIfRoundIsOver();
     }
-    private void OnSetupNextRound()
+    private async void OnSetupNextRound()
     {
+        Time.timeScale = 1;
         foreach (PlayerController player in playersInGame)
         {
-            RagdollAnimator2 ragdoll = player.GetComponent<RagdollAnimator2>();
-            ragdoll.enabled = false;
-            player.gameObject.transform.position = spawnPoints[player.PlayerData.PlayerID].transform.position;
-            ragdoll.enabled = true;
-            player.ResetState();
+            Vector3 pos = spawnPoints[player.PlayerData.PlayerID].transform.position + spawnOffset;
+            await player.ResetPositionAndRagdoll(pos);
         }
         _gameEvent.onPlayersJoined.Invoke(playersInGame);
+        Time.timeScale = 0;
     }
     private void CheckIfRoundIsOver()
     {

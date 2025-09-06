@@ -54,9 +54,10 @@ public class UIManager : MonoBehaviour
         await StartMatchTransitionAnim();
         await SetTeamScore(winnerTeam);
         await Task.Delay(5000);
-        await FadeIn();
-        uiScoreMain.SetActive(false);
         _gameEvent.onSetupNextRound.Invoke();
+        await FadeIn();
+        await Task.Delay(1000);
+        uiScoreMain.SetActive(false);
         await FadeOut();
         _gameEvent.onRoundStart.Invoke();
     }

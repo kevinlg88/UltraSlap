@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public GameEvent _gameEvent;
     private bool isDead = false;
     public bool IsDead => isDead;
+    RagdollAnimator2 ragdoll;
+    Rigidbody rb;
 
 
     [Header("Stability Detection")]
@@ -29,7 +32,6 @@ public class PlayerController : MonoBehaviour
     [Header("Health")]
     [SerializeField] private int maxHealth;
     [SerializeField] private int health;
-    [SerializeField] private RagdollAnimator2 ragdoll;
     [SerializeField] private float awakenRecoveredHealth; //Percentual de life que o jogador recupera quando se levanda de um estado negativo de health
 
     [Header("Standing State")]
@@ -62,10 +64,16 @@ public class PlayerController : MonoBehaviour
     // esta é a propriedade só de leitura (usada no código)
     public PlayerState CurrentState => currentState;
 
+    void Awake()
+    {
+        ragdoll = GetComponent<RagdollAnimator2>();
+        rb = GetComponent<Rigidbody>();
+    }
     void Start()
     {
         currentState = PlayerState.Standing;
-        ragdoll = GetComponent<RagdollAnimator2>();
+        health = maxHealth;
+        isDead = false;
     }
     void Update()
     {
@@ -102,30 +110,13 @@ public class PlayerController : MonoBehaviour
         lastPosition = transform.position;
     }
 
-    public void ResetState()
-    {
-        SetIsStanding();
-        health = maxHealth;
-        isDead = false;
-    }
-
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("DeathBox"))
+        if (other.CompareTag("DeathBox") && !isDead)
         {
             isDead = true;
             _gameEvent.onPlayerDeath.Invoke();
         }
-    }
-
-    public int GetMaxHealth() => maxHealth;
-    public int GetHealth() => health;
-    public PlayerState GetCurrentState() => currentState;
-    public void TakeHit(int newHealth)
-    {
-        if (currentState == PlayerState.Standing) health = newHealth;
-        if (health <= 0) SetIsFalling();
-        else if (health > 0) standingHealingTimer = standingTimeToHeal;
     }
 
     private bool IsTransformStable() //Checa se o personagem está "estável" no chão
@@ -148,12 +139,12 @@ public class PlayerController : MonoBehaviour
         else fallingTimer = 0;
     }
 
-    public void SetIsStanding()
+    private void SetIsStanding()
     {
         //if (!Physics.Raycast(transform.position, Vector3.down, 0.2f)) return;
 
         currentState = PlayerState.Standing;
-        if(ragdoll != null) ragdoll.RA2Event_SwitchToStand();
+        if (ragdoll != null) ragdoll.RA2Event_SwitchToStand();
 
         if (health < (int)(maxHealth * awakenRecoveredHealth)) // Se, ao se levantar, o life é menor do que a metade do life total, life = metade do life total
         {
@@ -163,6 +154,49 @@ public class PlayerController : MonoBehaviour
         wakeUpPressTimer = 0;
     }
 
+
+
+    private void SetIsDowned()
+    {
+        currentState = PlayerState.Downed;
+        downedTimer = definedDownedTimer;
+        wakeUpPressTimer = 0;
+    }
+
+    private void ResetState()
+    {
+        currentState = PlayerState.Standing;
+        SetIsStanding();
+        health = maxHealth;
+        isDead = false;
+    }
+    public int GetHealth() => health;
+    public PlayerState GetCurrentState() => currentState;
+
+    public async Task ResetPositionAndRagdoll(Vector3 pointPosition)
+    {
+        ragdoll.enabled = false;
+        rb.isKinematic = true;
+        await Task.Delay(100);
+        gameObject.transform.position = pointPosition;
+        await Task.Delay(100);
+        rb.isKinematic = false;
+        ragdoll.enabled = true;
+        ragdoll.RagdollBlend = 0;
+        await Task.Delay(50);
+        ragdoll.enabled = false;
+        await Task.Delay(50);
+        ragdoll.enabled = true;
+        ragdoll.RagdollBlend = 100;
+        ResetState();
+    }
+    public void TakeHit(int newHealth)
+    {
+        Debug.Log($"Minha vida ?: {GetHealth()} agr a vida ? {newHealth}");
+        if (currentState == PlayerState.Standing) health = newHealth;
+        if (health <= 0) SetIsFalling();
+        else if (health > 0) standingHealingTimer = standingTimeToHeal;
+    }
     public void SetIsFalling()
     {
         //Executar este bloco em um evento no slap
@@ -182,20 +216,12 @@ public class PlayerController : MonoBehaviour
         if (currentState == PlayerState.Downed || currentState == PlayerState.Falling) definedDownedTimer = downedTimer;
 
         currentState = PlayerState.Falling;
-        ragdoll.RA2Event_SwitchToFall();
+        ragdoll.User_SwitchFallState();
 
         lastPosition = transform.position;
         stabilityCheckTimer = stabilityCheckBaseTimer;
         wakeUpPressTimer = 0;
     }
-
-    public void SetIsDowned()
-    {
-        currentState = PlayerState.Downed;
-        downedTimer = definedDownedTimer;
-        wakeUpPressTimer = 0;
-    }
-
     public void TryingToWakeUp()
     {
         if (currentState != PlayerState.Downed) return;
@@ -210,4 +236,6 @@ public class PlayerController : MonoBehaviour
             wakeUpPressTimer = 0;
         }
     }
+    
+
 }

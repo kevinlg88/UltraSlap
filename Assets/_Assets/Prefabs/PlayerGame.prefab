@@ -983,7 +983,7 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler.UnscaledTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -993,7 +993,7 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler.ApplyPositions
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -1013,7 +1013,7 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler._EditorMotionCategory
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -1029,7 +1029,7 @@ PrefabInstance:
         type: 3}
       propertyPath: handler.TargetParentForRagdollDummy
       value: 
-      objectReference: {fileID: 6177632234658003788}
+      objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler.MakeAnchorKinematicOnMaxSpring
@@ -7691,7 +7691,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGame
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6938453818131755669, guid: 23f25bad1aea53240916c6d6e0b124b3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4110323665663547653, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -8003,12 +8004,6 @@ MonoBehaviour:
 --- !u!137 &5339185523323432561 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8220451030145531459, guid: 23f25bad1aea53240916c6d6e0b124b3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4038726495593074738}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6177632234658003788 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7905835572390947710, guid: 23f25bad1aea53240916c6d6e0b124b3,
     type: 3}
   m_PrefabInstance: {fileID: 4038726495593074738}
   m_PrefabAsset: {fileID: 0}

@@ -8,16 +8,18 @@ public class TriggerHitbox : MonoBehaviour
     [SerializeField] PlayerController player;
     private PlayerSlap playerSlap;
     private RagdollAnimator2 myragdoll;
+    [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
 
     [Header("Slap Setup")]
+    [SerializeField] private LayerMask glassLayer;
     [SerializeField] float slapPowerFallingThreshold;
-    [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
     [SerializeField] bool isSlapping = false;
 
 
     [Header("Slap Effect Setup")]
     [SerializeField] GameObject effectPrefab;
-    [SerializeField] float maxEffectPrefabScale = 3.5f; //Variável para definição de tamanho máximo que o vfx do tapa é pode chegar, de acordo com a intensidade do slapPower
+    [SerializeField] float maxEffectPrefabScale = 3.5f;
+
 
 
     void Awake()
@@ -28,43 +30,28 @@ public class TriggerHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isSlapping || other.gameObject.layer == 10) return;
         if (!other.attachedRigidbody)
         {
             slapEnvironment.PlayFeedbacks(); // Implementar o Manager de feedbacks para ativar por eventos
-            if (other.gameObject.layer == LayerMask.NameToLayer("Glass")) SlapWindow(other);
+            if (other.gameObject.layer == glassLayer) SlapWindow(other);
         }
         else Slap(other);
     }
 
     private void Slap(Collider other)
     {
-        if (isSlapping || other.gameObject.layer == 10) return;
         isSlapping = true;
         RagdollAnimator2 ragdoll = GetRagdoll(other.attachedRigidbody.gameObject);
         if (ragdoll != null)
         {
             if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
-            // Debug.Log($"Bateu: {ragdoll.gameObject.name}" + "\n" +
-            // $"slapPower: {playerSlap.GetPower()} de slapPowerFallingThreshold {slapPowerFallingThreshold}");
-            ApplyDamage(player);
-            if (playerSlap.GetPower() >= slapPowerFallingThreshold) //esse if força a ativação do falling no adversário que recebe o ataque, se o slapPower >= slapPowerFallingThreshold
+            ApplyDamage(ragdoll.GetComponent<PlayerController>());
+            if (playerSlap.GetPower() >= slapPowerFallingThreshold)
             {
-                player.SetIsFalling();
-                
-                //ragdoll.User_SwitchFallState(); //TODO => Colocar estado de cair no player controller
-                // Rigidbody gameRigidbody = ragdoll.Handler.GetAnchorBoneController.GameRigidbody;
-                // Animator mecanim = ragdoll.Handler.Mecanim;
-
-                // //TODO => Mover este setup de ragdoll fall para o player controller
-                // mecanim.CrossFadeInFixedTime("Fall", 0.25f);
-                // gameRigidbody.maxAngularVelocity = 20f;
-                // Vector3 rotationPower = ragdoll.User_BoneWorldRight(ragdoll.Handler.GetAnchorBoneController) * 30f;
-                // ragdoll.User_SetPhysicalTorqueOnRigidbody(gameRigidbody, rotationPower, 0.75f, false, ForceMode.VelocityChange);
-                // ragdoll.User_ChangeAllRigidbodiesDrag(0.5f);
-                // ragdoll.User_SwitchAllBonesMaxVelocity(30f);
-                // ragdoll.RagdollBlend = 1;
+                //ragdoll.GetComponent<PlayerController>().SetIsFalling();
             }
-            slapEnemy.PlayFeedbacks(); //TODO => mover para evento de feedbacks
+            slapEnemy.PlayFeedbacks();
         }
 
         if (ragdoll) ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * playerSlap.GetPower());
@@ -74,19 +61,17 @@ public class TriggerHitbox : MonoBehaviour
     }
     private void SlapWindow(Collider other)
     {
-        if (isSlapping) return;
         isSlapping = true;
-
         if (other.TryGetComponent(out BreakableWindow breakableWindow))
         {
-            if (breakableWindow.isBroken || breakableWindow == null) return; // Se o vidro já estiver quebrado, saia
-            breakableWindow.health -= playerSlap.GetPower(); // Diminui a vida do vidro
+            if (breakableWindow.isBroken || breakableWindow == null) return;
+            breakableWindow.health -= playerSlap.GetPower();
             if (breakableWindow.health <= 0) breakableWindow.breakWindow();
         }
     }
     private void ApplyDamage(PlayerController targetStatus)
     {
-        int newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(playerSlap.GetPower()); //Subtraindo o dano (arredondado) causado do health atual
+        int newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(playerSlap.GetPower());
         targetStatus.TakeHit(newHealth);
     }
 
@@ -104,14 +89,11 @@ public class TriggerHitbox : MonoBehaviour
 
     private void SpawnSlapEffect()
     {
-        // Normaliza o slapPower entre 0 e 1
         float t = Mathf.InverseLerp(playerSlap.GetMinPower(), playerSlap.GetMaxPower(), playerSlap.GetPower());
-        // Interpola entre 1 (escala base) e o valor máximo
         float finalScale = Mathf.Lerp(1f, maxEffectPrefabScale, t);
         GameObject go = Instantiate(effectPrefab, this.transform.position, Quaternion.identity);
-        go.transform.localScale = Vector3.one * finalScale; // a escala do VFX é definida de acordo com a intensidade do powerSlap
-        // Mover o efeito levemente nos eixos globais Y (altura) e Z (frente da câmera)
-        go.transform.position += new Vector3(0f, 0.9f, 1.0f); // Ajuste esses valores conforme necessário
+        go.transform.localScale = Vector3.one * finalScale; 
+        go.transform.position += new Vector3(0f, 0.9f, 1.0f);
         Destroy(go, 1f);
     }
     private void OnDisable() => isSlapping = false;
