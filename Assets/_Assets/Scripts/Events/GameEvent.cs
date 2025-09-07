@@ -7,5 +7,4 @@ public class GameEvent
     public UnityEvent onPlayerDeath = new();
     public UnityEvent onRoundStart = new();
     public UnityEvent<Team> onRoundEnd = new();
-    public UnityEvent onSetupNextRound = new();
 }

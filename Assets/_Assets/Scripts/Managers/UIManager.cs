@@ -25,27 +25,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float animDuration;
     [SerializeField] Ease easeType;
 
-    private List<Team> teams = new();
     private GameEvent _gameEvent;
+    private ScoreManager _scoreManager;
     [Inject]
-    public void Construct(GameEvent gameEvent)
+    public void Construct(GameEvent gameEvent, ScoreManager scoreManager)
     {
         _gameEvent = gameEvent;
-        gameEvent.onPlayersJoined.AddListener(OnPlayersJoined);
+        _scoreManager = scoreManager;
         gameEvent.onRoundEnd.AddListener(OnRoundEnd);
-    }
-
-    private void OnPlayersJoined(List<PlayerController> players)
-    {
-        HashSet<Team> teams = new();
-        foreach (PlayerController player in players)
-        {
-            if (player.PlayerData != null && !teams.Contains(player.PlayerData.Team))
-            {
-                teams.Add(player.PlayerData.Team);
-            }
-        }
-        this.teams = new List<Team>(teams);
     }
     private async void OnRoundEnd(Team winnerTeam)
     {
@@ -54,7 +41,6 @@ public class UIManager : MonoBehaviour
         await StartMatchTransitionAnim();
         await SetTeamScore(winnerTeam);
         await Task.Delay(5000);
-        _gameEvent.onSetupNextRound.Invoke();
         await FadeIn();
         await Task.Delay(1000);
         uiScoreMain.SetActive(false);
@@ -65,32 +51,19 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("SetTeamScore");
         uiScoreMain.SetActive(true);
-        if (teamsField.transform.childCount == 0)
+        _scoreManager.AddScore(winnerTeam);
+        foreach (ScoreData scoreData in _scoreManager.GetListScores())
         {
-            foreach (Team team in teams)
+            GameObject go = Instantiate(teamPrefab, teamsField.transform);
+            go.GetComponent<Image>().color = scoreData.team.Color;
+            scoreData.team.GameObjectUI = go;
+
+            for (int i = 0; i < scoreData.score; i++)
             {
-                GameObject go = Instantiate(teamPrefab, teamsField.transform);
-                go.GetComponent<Image>().color = team.Color;
-                team.GameObjectUI = go;
-                if (team == winnerTeam)
-                {
-                    team.Score += 1;
-                    Instantiate(scorePrefab, go.transform);
-                }
+                Instantiate(scorePrefab, go.transform);
             }
         }
-        else
-        {
-            foreach (Team team in teams)
-            {
-                if (team == winnerTeam)
-                {
-                    team.Score += 1;
-                    Instantiate(scorePrefab, team.GameObjectUI.transform);
-                }
-            }
-            //Check Win Match (Verificar scores dos times com score maximo de rounds)
-        }
+        //Check Win Match (Verificar scores dos times com score maximo de rounds)
         await Task.CompletedTask;
     }
 

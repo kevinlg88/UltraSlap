@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using MoreMountains.Feedbacks;
-using FIMSpace.FProceduralAnimation;
-using System.Threading.Tasks;
 
 public class LevelManager : MonoBehaviour
 {
@@ -49,7 +47,6 @@ public class LevelManager : MonoBehaviour
 
         //Events
         _gameEvent.onRoundStart.AddListener(OnRoundStart);
-        _gameEvent.onSetupNextRound.AddListener(OnSetupNextRound);
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
 
         _gameEvent.onPlayersJoined.Invoke(playersInGame);
@@ -57,25 +54,18 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        levelSong.PlayFeedbacks(); //Create a Audio manager for this
+        levelSong.PlayFeedbacks(); //TODO: Create a Audio manager for this
     }
-    private void OnRoundStart() => Time.timeScale = 1;
+    private void OnRoundStart()
+    {
+        Time.timeScale = 1;
+        //Load Game Scene
+    }
     private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
         player.gameObject.transform.position = new Vector3(0, 1000, 0);
         CheckIfRoundIsOver();
-    }
-    private async void OnSetupNextRound()
-    {
-        Time.timeScale = 1;
-        foreach (PlayerController player in playersInGame)
-        {
-            Vector3 pos = spawnPoints[player.PlayerData.PlayerID].transform.position + spawnOffset;
-            await player.ResetPositionAndRagdoll(pos);
-        }
-        _gameEvent.onPlayersJoined.Invoke(playersInGame);
-        Time.timeScale = 0;
     }
     private void CheckIfRoundIsOver()
     {

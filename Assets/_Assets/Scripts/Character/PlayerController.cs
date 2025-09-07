@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
     public bool IsDead => isDead;
     RagdollAnimator2 ragdoll;
     Rigidbody rb;
+    PlayerSlap playerSlap;
 
+
+    #region  ==== PLAYER STATE VARIABLES ====
 
     [Header("Stability Detection")]
     private Vector3 lastPosition;
@@ -57,17 +60,17 @@ public class PlayerController : MonoBehaviour
     private float wakeUpBaseTimeCheck = 1f;        // Intervalo de tempo em que é verificado quantas vezes o botão foi apertado
 
     [Header("Player Status")]
-    // este é o campo serializado (vai aparecer no Inspector)
-    [SerializeField]
-    private PlayerState currentState = PlayerState.Standing;
+    [SerializeField] private PlayerState currentState = PlayerState.Standing;
 
-    // esta é a propriedade só de leitura (usada no código)
     public PlayerState CurrentState => currentState;
+
+    #endregion
 
     void Awake()
     {
         ragdoll = GetComponent<RagdollAnimator2>();
         rb = GetComponent<Rigidbody>();
+        playerSlap = GetComponent<PlayerSlap>();
     }
     void Start()
     {
@@ -76,6 +79,21 @@ public class PlayerController : MonoBehaviour
         isDead = false;
     }
     void Update()
+    {
+        UpdatePlayerState();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("DeathBox") && !isDead)
+        {
+            isDead = true;
+            _gameEvent.onPlayerDeath.Invoke();
+        }
+    }
+
+    #region  ==== PLAYER STATE FUNCTIONS ====
+    private void UpdatePlayerState()
     {
         if (currentState == PlayerState.Downed)
         {
@@ -110,15 +128,6 @@ public class PlayerController : MonoBehaviour
         lastPosition = transform.position;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("DeathBox") && !isDead)
-        {
-            isDead = true;
-            _gameEvent.onPlayerDeath.Invoke();
-        }
-    }
-
     private bool IsTransformStable() //Checa se o personagem está "estável" no chão
     {
         float posDiff = Vector3.Distance(transform.position, lastPosition);
@@ -131,10 +140,7 @@ public class PlayerController : MonoBehaviour
         if (deltaY < fallingCheckTolerance) // tolerância pequena para não pegar microvariações
         {
             fallingTimer += Time.deltaTime;
-            if (fallingTimer >= timeToFalling)
-            {
-                SetIsFalling();
-            }
+            if (fallingTimer >= timeToFalling) SetIsFalling();
         }
         else fallingTimer = 0;
     }
@@ -154,8 +160,6 @@ public class PlayerController : MonoBehaviour
         wakeUpPressTimer = 0;
     }
 
-
-
     private void SetIsDowned()
     {
         currentState = PlayerState.Downed;
@@ -163,33 +167,8 @@ public class PlayerController : MonoBehaviour
         wakeUpPressTimer = 0;
     }
 
-    private void ResetState()
-    {
-        currentState = PlayerState.Standing;
-        SetIsStanding();
-        health = maxHealth;
-        isDead = false;
-    }
     public int GetHealth() => health;
     public PlayerState GetCurrentState() => currentState;
-
-    public async Task ResetPositionAndRagdoll(Vector3 pointPosition)
-    {
-        ragdoll.enabled = false;
-        rb.isKinematic = true;
-        await Task.Delay(100);
-        gameObject.transform.position = pointPosition;
-        await Task.Delay(100);
-        rb.isKinematic = false;
-        ragdoll.enabled = true;
-        ragdoll.RagdollBlend = 0;
-        await Task.Delay(50);
-        ragdoll.enabled = false;
-        await Task.Delay(50);
-        ragdoll.enabled = true;
-        ragdoll.RagdollBlend = 100;
-        ResetState();
-    }
     public void TakeHit(int newHealth)
     {
         Debug.Log($"Minha vida ?: {GetHealth()} agr a vida ? {newHealth}");
@@ -200,12 +179,12 @@ public class PlayerController : MonoBehaviour
     public void SetIsFalling()
     {
         //Executar este bloco em um evento no slap
-        if (GetComponent<PlayerSlap>().GetIsCharging())
+        if (playerSlap.GetIsCharging())
         {
-            GetComponent<PlayerSlap>().StopSlapFeedback();
-            GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+            playerSlap.StopSlapFeedback();
+            playerSlap.AnimEvt_SlappingEnd();
         }
-        GetComponent<PlayerSlap>().AnimEvt_SlappingEnd();
+        playerSlap.AnimEvt_SlappingEnd();
         //-------------------------------------------
 
         if (currentState == PlayerState.Standing)
@@ -237,5 +216,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    #endregion
 
 }

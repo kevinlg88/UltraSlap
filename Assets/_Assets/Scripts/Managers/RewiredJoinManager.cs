@@ -8,7 +8,6 @@ public class RewiredJoinManager : MonoBehaviour
 {
     [SerializeField] GameObject playerPrefab;
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
-    [SerializeField] int minPlayers = 2;
     [SerializeField] int minTeams = 2;
 
     [Header("Action Names")]
@@ -21,6 +20,13 @@ public class RewiredJoinManager : MonoBehaviour
 
     [Inject]
     private PlayerManager _playerManager;
+    private ScoreManager _scoreManager;
+
+    [Inject]
+    public void Construct(ScoreManager scoreManager)
+    {
+        _scoreManager = scoreManager;
+    }
 
     void Start()
     {
@@ -198,11 +204,13 @@ public class RewiredJoinManager : MonoBehaviour
 
     private void TryStartGame()
     {
-        if (_playerManager.Players.Count < minPlayers || _playerManager.GetTeams().Count < minTeams) return;
+        if (_playerManager.GetTeams().Count < minTeams) return;
         foreach (PlayerData playerData in _playerManager.Players)
         {
             if (!playerData.IsReady) return;
         }
+        _scoreManager.ResetScores();
+        _scoreManager.SetTeams(_playerManager.GetTeams());
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
