@@ -2,16 +2,19 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-enum SceneIndexEnum
+public enum SceneIndexEnum
 {
     Menu,
     Game,
-    ConstructionLevel
+    ConstructionLevel,
+    TestLevel
 }
 public class LevelSpawnManager
 {
+    public SceneIndexEnum currentLevel;
     public async Task StartGame(int sceneIndex)
     {
+        currentLevel = (SceneIndexEnum)sceneIndex;
         Time.timeScale = 0;
         await LoadSceneAdditive(sceneIndex);
         await ReloadSceneAdditive((int)SceneIndexEnum.Game);

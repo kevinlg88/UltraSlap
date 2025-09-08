@@ -11002,7 +11002,7 @@ MonoBehaviour:
   - {fileID: 1818590884}
   - {fileID: 562336304}
   - {fileID: 1559086868}
-  minPlayers: 2
+  currentLevel: 2
   minTeams: 2
   joinAction: Join
   cancelAction: Cancel

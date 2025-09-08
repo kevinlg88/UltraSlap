@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour
     }
     private async void OnRoundRestart()
     {
-        await _levelSpawnManager.StartGame((int)SceneIndexEnum.ConstructionLevel);
+        await _levelSpawnManager.StartGame((int)_levelSpawnManager.currentLevel);
     }
     private void OnPlayerDeath()
     {

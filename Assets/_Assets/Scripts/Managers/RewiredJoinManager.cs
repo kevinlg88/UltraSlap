@@ -8,11 +8,15 @@ using System;
 
 public class RewiredJoinManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] GameObject playerPrefab;
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
+
+    [Header("Start Game Setup")]
+    [SerializeField] SceneIndexEnum currentLevel;
     [SerializeField] int minTeams = 2;
 
-    [Header("Action Names")]
+    [Header("Input Setup")]
     [SerializeField] string joinAction = "Join";
     [SerializeField] string cancelAction = "Cancel";
 
@@ -215,7 +219,7 @@ public class RewiredJoinManager : MonoBehaviour
         }
         _scoreManager.ResetScores();
         _scoreManager.SetTeams(_playerManager.GetTeams());
-        await _levelSpawnManager.StartGame((int)SceneIndexEnum.ConstructionLevel);
+        await _levelSpawnManager.StartGame((int)currentLevel);
     }
 
     public void ExitPlayer(int id)
