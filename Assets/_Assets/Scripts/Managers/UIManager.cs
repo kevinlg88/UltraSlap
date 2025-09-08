@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
         await Task.Delay(1000);
         uiScoreMain.SetActive(false);
         await FadeOut();
-        _gameEvent.onRoundStart.Invoke();
+        _gameEvent.onRoundRestart.Invoke();
     }
     private async Task SetTeamScore(Team winnerTeam)
     {

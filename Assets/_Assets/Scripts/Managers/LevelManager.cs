@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using MoreMountains.Feedbacks;
+using System.Threading.Tasks;
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,14 +16,15 @@ public class LevelManager : MonoBehaviour
     private List<PlayerController> playersInGame = new();
     private PlayerManager _playerManager;
     private GameEvent _gameEvent;
-
+    private LevelSpawnManager _levelSpawnManager;
 
 
     [Inject]
-    public void Construct(PlayerManager playerManager, GameEvent gameEvent)
+    public void Construct(PlayerManager playerManager, LevelSpawnManager levelSpawnManager, GameEvent gameEvent)
     {
         _playerManager = playerManager;
         _gameEvent = gameEvent;
+        _levelSpawnManager = levelSpawnManager;
         foreach (PlayerData player in _playerManager.Players)
         {
             GameObject newPlayer = Instantiate(playerPrefab,
@@ -46,8 +48,8 @@ public class LevelManager : MonoBehaviour
         }
 
         //Events
-        _gameEvent.onRoundStart.AddListener(OnRoundStart);
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
+        _gameEvent.onRoundRestart.AddListener(OnRoundRestart);
 
         _gameEvent.onPlayersJoined.Invoke(playersInGame);
     }
@@ -56,10 +58,9 @@ public class LevelManager : MonoBehaviour
     {
         levelSong.PlayFeedbacks(); //TODO: Create a Audio manager for this
     }
-    private void OnRoundStart()
+    private async void OnRoundRestart()
     {
-        Time.timeScale = 1;
-        //Load Game Scene
+        await _levelSpawnManager.StartGame((int)SceneIndexEnum.ConstructionLevel);
     }
     private void OnPlayerDeath()
     {

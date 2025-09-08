@@ -7,7 +7,8 @@ public class GameInstaller: MonoInstaller
     {
         Debug.Log("GameInstaller: PlayerManager bound as single instance.");
         Container.Bind<PlayerManager>().AsSingle().NonLazy();
-        Container.Bind<GameEvent>().AsSingle();
         Container.Bind<ScoreManager>().AsSingle();
+        Container.Bind<LevelSpawnManager>().AsSingle();
+        Container.Bind<GameEvent>().AsSingle();
     }
 }

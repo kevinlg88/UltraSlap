@@ -3,6 +3,8 @@ using Rewired;
 using System.Collections.Generic;
 using Zenject;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+using System;
 
 public class RewiredJoinManager : MonoBehaviour
 {
@@ -21,11 +23,13 @@ public class RewiredJoinManager : MonoBehaviour
     [Inject]
     private PlayerManager _playerManager;
     private ScoreManager _scoreManager;
+    private LevelSpawnManager _levelSpawnManager;
 
     [Inject]
-    public void Construct(ScoreManager scoreManager)
+    public void Construct(ScoreManager scoreManager, LevelSpawnManager levelSpawnManager)
     {
         _scoreManager = scoreManager;
+        _levelSpawnManager = levelSpawnManager;
     }
 
     void Start()
@@ -202,7 +206,7 @@ public class RewiredJoinManager : MonoBehaviour
         }
     }
 
-    private void TryStartGame()
+    private async void TryStartGame()
     {
         if (_playerManager.GetTeams().Count < minTeams) return;
         foreach (PlayerData playerData in _playerManager.Players)
@@ -211,7 +215,7 @@ public class RewiredJoinManager : MonoBehaviour
         }
         _scoreManager.ResetScores();
         _scoreManager.SetTeams(_playerManager.GetTeams());
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        await _levelSpawnManager.StartGame((int)SceneIndexEnum.ConstructionLevel);
     }
 
     public void ExitPlayer(int id)
