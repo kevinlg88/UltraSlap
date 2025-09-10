@@ -20,7 +20,7 @@ Material:
   - _FOG_ON
   - _GREYSCALESTAGE_BEFORELIGHTING
   - _HEIGHTGRADIENTPOSITIONSPACE_LOCAL
-  - _LIGHTMODEL_TOONRAMP
+  - _LIGHTMODEL_TOON
   - _MATCAPBLENDMODE_REPLACE
   - _OUTLINETYPE_NONE
   - _REFLECTIONS_NONE
@@ -251,7 +251,7 @@ Material:
     - _IntersectionFadeFactor: 0.18
     - _IntersectionFadeOn: 0
     - _IntersectionGlowOn: 0
-    - _LightModel: 3
+    - _LightModel: 2
     - _LineSize: 0.298
     - _Matcap: 0
     - _MatcapBlend: 1
@@ -304,13 +304,13 @@ Material:
     - _ShadingModel: 0
     - _ShakeBlend: 1
     - _ShakeSpeedMult: 1
-    - _Shininess: 2.1
+    - _Shininess: 6.1
     - _Smoothness: 1
     - _SpecularAdditionalLights: 1
-    - _SpecularAtten: 1
+    - _SpecularAtten: 0.274
     - _SpecularModel: 2
-    - _SpecularToonCutoff: 0.7
-    - _SpecularToonSmoothness: 0.296
+    - _SpecularToonCutoff: 0.129
+    - _SpecularToonSmoothness: 0.433
     - _SpherizeNormals: 0
     - _StochasticSampling: 0
     - _StochasticScale: 3.464
@@ -321,9 +321,9 @@ Material:
     - _TextureBlendingSource: 0
     - _TimingSeed: 0
     - _ToonColorAttenuation: 0.25
-    - _ToonCutoff: 0.5
+    - _ToonCutoff: 0.144
     - _ToonFactor: 0
-    - _ToonSmoothness: 0
+    - _ToonSmoothness: 0.726
     - _TopNormalStrength: 4.03
     - _TriplanarMappingOn: 0
     - _TriplanarNormalSpace: 1
