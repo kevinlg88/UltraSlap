@@ -20,7 +20,7 @@ Material:
   - _FOG_ON
   - _GREYSCALESTAGE_BEFORELIGHTING
   - _HEIGHTGRADIENTPOSITIONSPACE_LOCAL
-  - _LIGHTMODEL_TOON
+  - _LIGHTMODEL_TOONRAMP
   - _MATCAPBLENDMODE_REPLACE
   - _OUTLINETYPE_NONE
   - _REFLECTIONS_NONE
@@ -123,7 +123,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonRamp:
-        m_Texture: {fileID: 2800000, guid: 339398f75cfa2714d93579662d08ec9a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c514a404d71cebc43acb944341ace8d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TripalanarTopNormalMap:
@@ -251,7 +251,7 @@ Material:
     - _IntersectionFadeFactor: 0.18
     - _IntersectionFadeOn: 0
     - _IntersectionGlowOn: 0
-    - _LightModel: 2
+    - _LightModel: 3
     - _LineSize: 0.298
     - _Matcap: 0
     - _MatcapBlend: 1
@@ -304,13 +304,13 @@ Material:
     - _ShadingModel: 0
     - _ShakeBlend: 1
     - _ShakeSpeedMult: 1
-    - _Shininess: 3
+    - _Shininess: 2.1
     - _Smoothness: 1
     - _SpecularAdditionalLights: 1
     - _SpecularAtten: 1
     - _SpecularModel: 2
     - _SpecularToonCutoff: 0.7
-    - _SpecularToonSmoothness: 0
+    - _SpecularToonSmoothness: 0.296
     - _SpherizeNormals: 0
     - _StochasticSampling: 0
     - _StochasticScale: 3.464
