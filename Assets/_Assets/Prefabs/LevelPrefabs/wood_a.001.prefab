@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8031552663255679302}
   - component: {fileID: 2691096903534629879}
   - component: {fileID: 1753841835064225051}
+  - component: {fileID: 70141781396573082}
   m_Layer: 0
   m_Name: wood_a.001
   m_TagString: Untagged
@@ -83,3 +84,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &70141781396573082
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555147955158191468}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.018777339, y: 0.019999998, z: 0.019572588}
+  m_Center: {x: -0.0014430709, y: 4.6566126e-10, z: 0.00045939875}
