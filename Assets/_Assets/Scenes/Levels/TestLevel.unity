@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.55788934, g: 0.73788965, b: 1.0243524, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10759,19 +10759,19 @@ PrefabInstance:
     - {fileID: 2625119247103831360, guid: 6eabd0e3473ec6f479038614be818630, type: 3}
     - {fileID: 5579923311511749495, guid: 6eabd0e3473ec6f479038614be818630, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2905398512738412770, guid: 6eabd0e3473ec6f479038614be818630,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1224296798}
     - targetCorrespondingSourceObject: {fileID: 7655335559634595397, guid: 6eabd0e3473ec6f479038614be818630,
         type: 3}
       insertIndex: 3
       addedObject: {fileID: 1137005763}
-    - targetCorrespondingSourceObject: {fileID: 5146864307653471996, guid: 6eabd0e3473ec6f479038614be818630,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1224296798}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eabd0e3473ec6f479038614be818630, type: 3}
 --- !u!4 &1291066285 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5146864307653471996, guid: 6eabd0e3473ec6f479038614be818630,
+  m_CorrespondingSourceObject: {fileID: 2905398512738412770, guid: 6eabd0e3473ec6f479038614be818630,
     type: 3}
   m_PrefabInstance: {fileID: 1291066284}
   m_PrefabAsset: {fileID: 0}
@@ -12438,8 +12438,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.7028302, g: 0.94305956, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Color: {r: 1, g: 0.93333334, b: 0.8156863, a: 1}
+  m_Intensity: 1.35
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -12482,7 +12482,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 15796
+  m_ColorTemperature: 5300
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
