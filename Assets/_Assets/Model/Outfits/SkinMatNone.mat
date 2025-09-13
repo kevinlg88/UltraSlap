@@ -307,7 +307,7 @@ Material:
     - _Shininess: 6.1
     - _Smoothness: 1
     - _SpecularAdditionalLights: 1
-    - _SpecularAtten: 0.274
+    - _SpecularAtten: 0.249
     - _SpecularModel: 2
     - _SpecularToonCutoff: 0.129
     - _SpecularToonSmoothness: 0.433
@@ -323,7 +323,7 @@ Material:
     - _ToonColorAttenuation: 0.25
     - _ToonCutoff: 0.38
     - _ToonFactor: 0
-    - _ToonSmoothness: 0.03
+    - _ToonSmoothness: 0.057
     - _TopNormalStrength: 4.03
     - _TriplanarMappingOn: 0
     - _TriplanarNormalSpace: 1
