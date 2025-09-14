@@ -307,7 +307,7 @@ Material:
     - _Shininess: 6.1
     - _Smoothness: 1
     - _SpecularAdditionalLights: 1
-    - _SpecularAtten: 0.249
+    - _SpecularAtten: 0.041
     - _SpecularModel: 2
     - _SpecularToonCutoff: 0.129
     - _SpecularToonSmoothness: 0.433
