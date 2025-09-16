@@ -49,7 +49,7 @@ public class TriggerHitbox : MonoBehaviour
             ApplyDamage(ragdoll.GetComponent<PlayerController>());
             if (playerSlap.GetPower() >= slapPowerFallingThreshold)
             {
-                //ragdoll.GetComponent<PlayerController>().SetIsFalling();
+                ragdoll.GetComponent<PlayerController>().SetIsFalling();
             }
             slapEnemy.PlayFeedbacks();
         }

@@ -998,7 +998,7 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler._EditorCategory
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
