@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.55788934, g: 0.73788965, b: 1.0243524, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -560,14 +560,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 330585546}
-  minZoom: 32
-  maxZoom: 60
-  zoomFactor: 5
-  zoomSpeed: 30
-  offset: {x: 0.053, y: 0.72, z: 1.85}
   playersOnCamera:
   - {fileID: 0}
   - {fileID: 0}
+  minZoom: 35
+  maxZoom: 50
+  zoomFactor: 7
+  zoomSpeed: 20
+  offset: {x: 0, y: 0.73, z: 5.86}
+  yLimitFactor: 0.43
+  xLimitFactor: 1
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0

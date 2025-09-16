@@ -5,14 +5,20 @@ using Zenject;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
+
+    [SerializeField] private List<PlayerController> playersOnCamera = new List<PlayerController>();
+    private GameEvent _gameEvent;
+
+    [Header("Zoom Control")]
     [SerializeField] private float minZoom = 5f;
     [SerializeField] private float maxZoom = 20f;
     [SerializeField] private float zoomFactor = 1.2f;
     [SerializeField] private float zoomSpeed = 5f;
     [SerializeField] private Vector3 offset = new(0, 5, -10);
 
-    [SerializeField] private List<PlayerController> playersOnCamera = new List<PlayerController>();
-    private GameEvent _gameEvent;
+    [Header("Dynamic Limit Factors")]
+    [SerializeField] private float yLimitFactor = 0.5f;   // quanto maior o zoom, mais sobe o mínimo Y
+    [SerializeField] private float xLimitFactor = 0.8f;   // quanto maior o zoom, mais restringe X
 
     [Inject]
     public void Construct(GameEvent gameEvent)
@@ -50,6 +56,15 @@ public class CameraZoom : MonoBehaviour
 
             targetPosition = midPoint + offset.normalized * targetZoom;
         }
+
+        // Calcula limites dinâmicos com base no zoom
+        float dynamicMinY = targetZoom * yLimitFactor;
+        float dynamicMinX = -targetZoom * xLimitFactor;
+        float dynamicMaxX = targetZoom * xLimitFactor;
+
+        // Aplica os limites dinâmicos
+        targetPosition.y = Mathf.Max(targetPosition.y, dynamicMinY);
+        targetPosition.x = Mathf.Clamp(targetPosition.x, dynamicMinX, dynamicMaxX);
 
         cameraTransform.position = Vector3.Lerp(
             cameraTransform.position,
