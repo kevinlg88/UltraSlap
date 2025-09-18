@@ -1141,6 +1141,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -29.400488
       objectReference: {fileID: 0}
+    - target: {fileID: 5933436007469292989, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: RandomSfx.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4afcd2d4a24d2f0429f53ab22e63529b, type: 3}
+    - target: {fileID: 5933436007469292989, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: RandomSfx.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 10e9c21bf8beeb34090832cb2493e52f, type: 3}
+    - target: {fileID: 5933436007469292989, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: RandomSfx.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: f2898f146e8115a43952f6177eb03218, type: 3}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: AutoPlayOnStart
