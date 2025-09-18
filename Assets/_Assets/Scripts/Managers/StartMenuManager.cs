@@ -3,9 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 using Rewired;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using TMPro;
+
+
+public enum GameState
+{
+    Logo,
+    Splash,
+    StartMenu,
+    Options,
+    Credits
+}
 
 public class StartMenuManager : MonoBehaviour
 {
+    public GameState currentGameState = GameState.Logo;
+
     private Player systemPlayer;
 
     [SerializeField] private GameObject pressAnyBtn;
@@ -18,6 +33,11 @@ public class StartMenuManager : MonoBehaviour
     [SerializeField] private MMFeedbacks LogoToSplashMMFeedbacks;
     [SerializeField] private MMFeedbacks SplashToStartMenuMMFeedbacks;
 
+    [Header("First Selected Options")]
+    [SerializeField] private GameObject startingMenuFirst;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +45,7 @@ public class StartMenuManager : MonoBehaviour
         systemPlayer = ReInput.players.SystemPlayer;
 
         LogoToSplashMMFeedbacks.PlayFeedbacks();
+
     }
 
     // Update is called once per frame
@@ -52,4 +73,33 @@ public class StartMenuManager : MonoBehaviour
         }
 
     }
+
+    public void SwitchToSplash()
+    {
+        currentGameState = GameState.Splash;
+
+    }
+
+    public void SwitchToStartMenu()
+    {
+        currentGameState = GameState.StartMenu;
+
+        EventSystem.current.SetSelectedGameObject(startingMenuFirst);
+    }
+
+
+    public void OnStartClick()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void OnExitClick()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
+
+
 }
