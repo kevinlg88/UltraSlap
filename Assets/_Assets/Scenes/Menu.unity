@@ -3377,7 +3377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1825746942}
   m_Layer: 0
-  m_Name: StartMenuFeelManager
+  m_Name: StartPlayerSetupFeelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
