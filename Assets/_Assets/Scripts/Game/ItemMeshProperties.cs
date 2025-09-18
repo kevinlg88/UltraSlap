@@ -13,7 +13,19 @@ public class ItemMeshProperties : MonoBehaviour
     public void SetSkinColor(SkinColor skinColor)
     {
         currentRenderer.materials = currentRenderer.materials
-            .Select(m => (m == skinMaterial || m.name.StartsWith(skinMaterial.name)) ? new Material(m) { color = skinColor.color, mainTexture = skinColor.texture } : m)
+            .Select(m =>
+            {
+                if (m == skinMaterial || m.name.StartsWith(skinMaterial.name))
+                {
+                    var newMat = new Material(m)
+                    {
+                        color = skinColor.color
+                    };
+                    newMat.SetTexture("_ColorRampTex", skinColor.texture);
+                    return newMat;
+                }
+                return m;
+            })
             .ToArray();
     }
 
