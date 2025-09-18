@@ -16,6 +16,7 @@ Material:
   - _ALPHA_CUTOFF_ON
   - _CAST_SHADOWS_ON
   - _COLORRAMPLIGHTINGSTAGE_AFTERLIGHTING
+  - _COLOR_RAMP_ON
   - _FADE_BURN_ON
   - _FOG_ON
   - _GREYSCALESTAGE_BEFORELIGHTING
@@ -176,10 +177,10 @@ Material:
     - _Brightness: 0.255
     - _CastShadowsOn: 1
     - _ColorMask: 15
-    - _ColorRampBlend: 1
+    - _ColorRampBlend: 0.755
     - _ColorRampLightingStage: 1
-    - _ColorRampLuminosity: 0
-    - _ColorRampOn: 0
+    - _ColorRampLuminosity: 0.044
+    - _ColorRampOn: 1
     - _ColorRampScrollSpeed: 0
     - _ColorRampTiling: 1
     - _Contrast: 2.55

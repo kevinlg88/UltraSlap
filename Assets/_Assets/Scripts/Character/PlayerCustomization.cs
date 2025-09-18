@@ -56,7 +56,8 @@ public class PlayerCustomization : MonoBehaviour
             colorSkinIndex--;
             if (colorSkinIndex < 0) colorSkinIndex = item.skinColors.Count - 1;
         }
-        head.materials[0].color = item.skinColors[colorSkinIndex];
+        head.materials[0].color = item.skinColors[colorSkinIndex].color;
+        head.materials[0].SetTexture("_ColorRampTex", item.skinColors[colorSkinIndex].texture);
 
         GetCurrentSlot(clothSlot).GetComponent<ItemMeshProperties>()
             .SetSkinColor(item.skinColors[colorSkinIndex]);  
@@ -135,7 +136,8 @@ public class PlayerCustomization : MonoBehaviour
 
     public void LoadPlayerSkinColor()
     {
-        head.materials[0].color = item.skinColors[colorSkinIndex];
+        head.materials[0].color = item.skinColors[colorSkinIndex].color;
+        head.materials[0].SetTexture("_ColorRampTex", item.skinColors[colorSkinIndex].texture);
     }
     public void LoadHeadAccessory()
     {

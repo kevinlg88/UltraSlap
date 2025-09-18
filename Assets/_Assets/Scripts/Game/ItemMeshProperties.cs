@@ -10,12 +10,13 @@ public class ItemMeshProperties : MonoBehaviour
     [SerializeField] Material primaryMaterial;
     [SerializeField] Material neutralMaterial;
 
-    public void SetSkinColor(Color color)
+    public void SetSkinColor(SkinColor skinColor)
     {
         currentRenderer.materials = currentRenderer.materials
-            .Select(m => (m == skinMaterial || m.name.StartsWith(skinMaterial.name)) ? new Material(m) { color = color } : m)
+            .Select(m => (m == skinMaterial || m.name.StartsWith(skinMaterial.name)) ? new Material(m) { color = skinColor.color, mainTexture = skinColor.texture } : m)
             .ToArray();
     }
+
     public void SetPrimaryColor(Color color)
     {
         currentRenderer.materials = currentRenderer.materials
