@@ -18,4 +18,7 @@ public class SkinColor
 {
     public Color color;
     public Texture2D texture;
+    public float ColorRampLuminosity;
+    public float ColorRampBlend;
+    public float SpecularAttenuation;
 }

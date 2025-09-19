@@ -22,6 +22,9 @@ public class ItemMeshProperties : MonoBehaviour
                         color = skinColor.color
                     };
                     newMat.SetTexture("_ColorRampTex", skinColor.texture);
+                    newMat.SetFloat("_ColorRampLuminosity", skinColor.ColorRampLuminosity);
+                    newMat.SetFloat("_ColorRampBlend", skinColor.ColorRampBlend);
+                    newMat.SetFloat("_SpecularAtten", skinColor.SpecularAttenuation);
                     return newMat;
                 }
                 return m;
