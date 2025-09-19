@@ -563,7 +563,7 @@ MonoBehaviour:
   playersOnCamera:
   - {fileID: 0}
   - {fileID: 0}
-  minZoom: 35
+  minZoom: 30
   maxZoom: 50
   zoomFactor: 7
   zoomSpeed: 20
