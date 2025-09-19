@@ -177,9 +177,9 @@ Material:
     - _Brightness: 0.255
     - _CastShadowsOn: 1
     - _ColorMask: 15
-    - _ColorRampBlend: 0.755
+    - _ColorRampBlend: 0.9
     - _ColorRampLightingStage: 1
-    - _ColorRampLuminosity: 0.044
+    - _ColorRampLuminosity: 0.636
     - _ColorRampOn: 1
     - _ColorRampScrollSpeed: 0
     - _ColorRampTiling: 1
@@ -308,7 +308,7 @@ Material:
     - _Shininess: 6.1
     - _Smoothness: 1
     - _SpecularAdditionalLights: 1
-    - _SpecularAtten: 0.041
+    - _SpecularAtten: 1
     - _SpecularModel: 2
     - _SpecularToonCutoff: 0.129
     - _SpecularToonSmoothness: 0.433
