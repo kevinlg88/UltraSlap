@@ -141,6 +141,9 @@ public class PlayerCustomization : MonoBehaviour
     {
         head.materials[0].color = item.skinColors[colorSkinIndex].color;
         head.materials[0].SetTexture("_ColorRampTex", item.skinColors[colorSkinIndex].texture);
+        head.materials[0].SetFloat("_ColorRampLuminosity", item.skinColors[colorSkinIndex].ColorRampLuminosity);
+        head.materials[0].SetFloat("_ColorRampBlend", item.skinColors[colorSkinIndex].ColorRampBlend);
+        head.materials[0].SetFloat("_SpecularAtten", item.skinColors[colorSkinIndex].SpecularAttenuation);
     }
     public void LoadHeadAccessory()
     {
