@@ -563,12 +563,12 @@ MonoBehaviour:
   playersOnCamera:
   - {fileID: 0}
   - {fileID: 0}
-  minZoom: 36
-  maxZoom: 55
+  minZoom: 28
+  maxZoom: 21
   zoomFactor: 5
-  zoomSpeed: 20
+  zoomSpeed: 2
   offset: {x: 0, y: 0, z: 5.86}
-  yLimitFactor: 0.44
+  yLimitFactor: 0.42
   xLimitFactor: 1
 --- !u!114 &330585550
 MonoBehaviour:
