@@ -9,11 +9,15 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_WhitePlasticMat
   m_Shader: {fileID: 4800000, guid: 0dde7f0097aeb2541aea684ca0ad0e3c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALBEDOVERTEXCOLORMODE_REPLACE
   - _ALPHA_CUTOFF_ON
   - _CAST_SHADOWS_ON
   - _COLORRAMPLIGHTINGSTAGE_BEFORELIGHTING
+  - _COLOR_RAMP_ON
+  - _EMISSION_ON
   - _GREYSCALESTAGE_BEFORELIGHTING
   - _HEIGHTGRADIENTPOSITIONSPACE_LOCAL
   - _HUE_SHIFT_ON
@@ -23,7 +27,6 @@ Material:
   - _OUTLINETYPE_NONE
   - _REFLECTIONS_CLASSIC
   - _RIMLIGHTINGSTAGE_BEFORELIGHTING
-  - _RIM_LIGHTING_ON
   - _SHADINGMODEL_PBR
   - _SPECULARMODEL_CLASSIC
   - _TEXTUREBLENDINGMODE_RGB
@@ -37,6 +40,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -201,8 +205,8 @@ Material:
     - _ColorMask: 15
     - _ColorRampBlend: 1
     - _ColorRampLightingStage: 0
-    - _ColorRampLuminosity: 0
-    - _ColorRampOn: 0
+    - _ColorRampLuminosity: 0.337
+    - _ColorRampOn: 1
     - _ColorRampScrollSpeed: 0
     - _ColorRampTiling: 1
     - _Contrast: 1
@@ -220,14 +224,15 @@ Material:
     - _DistortTexXSpeed: 2
     - _DistortTexYSpeed: 2
     - _DstBlend: 0
-    - _EmissionEnabled: 0
-    - _EmissionSelfGlow: 1
+    - _EmissionEnabled: 1
+    - _EmissionSelfGlow: 3.53
     - _ExtrudeBlend: 1
     - _FaceDownCutoff: 0.25
     - _FadeAmount: 0
     - _FadeBurnOn: 0
     - _FadeBurnWidth: 0.01
     - _FadeOn: 0
+    - _FadePower: 1
     - _FadeTransition: 0.2
     - _FogOn: 0
     - _GeneralAlpha: 1
@@ -290,7 +295,7 @@ Material:
     - _MaxGradientHeight: 0.75
     - _MaxHologramAlpha: 1
     - _MaxInflate: 0.2
-    - _MaxRim: 0.921
+    - _MaxRim: 0.336
     - _MaxToonLight: 0.51
     - _MaxToonLightSpecular: 0.51
     - _Metallic: 0.387
@@ -299,7 +304,7 @@ Material:
     - _MinGradientHeight: 0
     - _MinHologramAlpha: 0
     - _MinInflate: 0
-    - _MinRim: 0.546
+    - _MinRim: 0.223
     - _MinToonLight: 0.5
     - _MinToonLightSpecular: 0.5
     - _Mode: 0
@@ -320,8 +325,8 @@ Material:
     - _Reflections: 1
     - _ReflectionsAtten: 0.25
     - _RenderPreset: 1
-    - _RimAttenuation: 0.7
-    - _RimLighting: 1
+    - _RimAttenuation: 0.714
+    - _RimLighting: 0
     - _RimLightingStage: 0
     - _SSSAtten: 1
     - _SSSFrontAtten: 0.3
@@ -392,7 +397,7 @@ Material:
     - _AOColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.77688676, g: 0.80291593, b: 0.8490566, a: 1}
     - _DepthGlowColor: {r: 1, g: 0.9869999, b: 0.6, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.4811321, g: 0.34341004, b: 0, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
     - _GlitchOffset: {r: -0.5, g: 0, b: 0, a: 0}
     - _GradientHeightColor01: {r: 0.2, g: 0.2, b: 0.2, a: 1}
@@ -403,8 +408,8 @@ Material:
     - _HitColor: {r: 1, g: 1, b: 1, a: 1}
     - _HologramColor: {r: 0.35, g: 0.8, b: 2, a: 1}
     - _HologramLineDirection: {r: 0, g: 1, b: 0, a: 0}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimOffset: {r: 0.01, g: 0, b: 0, a: 0}
+    - _RimColor: {r: 0.013527942, g: 0.08977289, b: 0.1509434, a: 1}
+    - _RimOffset: {r: 1.14, g: 0, b: 0, a: 0}
     - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShakeMaxDisplacement: {r: 0.1, g: 0.1, b: 0.1, a: 0}
     - _ShakeSpeed: {r: 41, g: 49, b: 45, a: 0}
