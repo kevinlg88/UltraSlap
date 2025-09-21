@@ -23,7 +23,7 @@ TagManager:
   - Wall
   - Glass
   - Splinters
-  - 
+  - UIWorldSpace
   - 
   - 
   - 
@@ -45,12 +45,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 2106121099
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Effects
     uniqueID: 2120286187
     locked: 0
-  - name: UI
-    uniqueID: 2106121099
+  - name: UIWorldSpace
+    uniqueID: 1445624261
     locked: 0
