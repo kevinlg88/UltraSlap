@@ -8278,7 +8278,7 @@ MonoBehaviour:
   standingTimeToHeal: 5
   standingHealingTimer: 0
   standingHealingPercentage: 0.02
-  fallingCheckTolerance: -15
+  fallingCheckTolerance: -22
   currentVerticalSpeed: 0
   soundImpactMultiplier: 0.1
   baseDownedTimer: 5
