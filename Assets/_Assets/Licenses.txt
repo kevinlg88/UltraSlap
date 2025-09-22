@@ -1,0 +1,6 @@
+*LICENCE - Attribution 4.0 International
+
+1- Elevator Sounds
+Project Location: E:\Unity Projects\UltraSlap\Assets\_Assets\Sounds\SFX\Elevator
+Source:https://freesound.org/people/namikiri/sounds/433666/
+Author Page: https://freesound.org/people/namikiri/

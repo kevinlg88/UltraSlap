@@ -30,11 +30,27 @@ public class TriggerHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isSlapping || other.gameObject.layer == 10) return;
+        //Debug.Log($"Bateu no seguinte objeto: {other}");
+
+        if (isSlapping || other.gameObject.layer == 10) return; //Se bateu em splinters (cacos de vidro), ignore
         if (!other.attachedRigidbody)
         {
             slapEnvironment.PlayFeedbacks(); // Implementar o Manager de feedbacks para ativar por eventos
             if (other.gameObject.layer == glassLayer) SlapWindow(other);
+
+            if (other.gameObject.layer == 12) //Se bateu em um device activator
+            {
+                // Pega o MMF_Player no objeto que bateu
+                MMF_Player feedbackPlayer = other.gameObject.GetComponent<MMF_Player>();
+                if (feedbackPlayer != null)
+                {
+                    feedbackPlayer.PlayFeedbacks();
+                }
+                else
+                {
+                    Debug.LogWarning($"O objeto {other.gameObject.name} está na layer DeviceActivator mas não tem MMF_Player.");
+                }
+            }
         }
         else Slap(other);
     }
