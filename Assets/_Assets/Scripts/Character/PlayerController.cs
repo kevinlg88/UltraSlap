@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
-            Debug.Log($"Impacto no chão! Velocidade: {currentVerticalSpeed}");
+            //Debug.Log($"Impacto no chão! Velocidade: {currentVerticalSpeed}");
 
             if (currentState == PlayerState.Downed || currentState == PlayerState.Falling || health <= 0)
             {
@@ -251,11 +251,9 @@ public class PlayerController : MonoBehaviour
                 soundFeedback.MinVolume *= volumeScale;
                 soundFeedback.MaxVolume *= volumeScale;
 
-                //Debug.Log($"Impacto no chão! Velocidade: {rb.velocity.y} | Intensidade: {intensity} | Volume: {volumeScale}");
-
                 bodyDropMMFeedbacks.PlayFeedbacks();
 
-                Debug.Log($"VolumeScale: {volumeScale} | MinVolume: {soundFeedback.MinVolume} | MaxVolume: {soundFeedback.MaxVolume}");
+                //Debug.Log($"VolumeScale: {volumeScale} | MinVolume: {soundFeedback.MinVolume} | MaxVolume: {soundFeedback.MaxVolume}");
 
                 soundFeedback.MinVolume = originalMinVolume;
                 soundFeedback.MaxVolume = originalMaxVolume;
