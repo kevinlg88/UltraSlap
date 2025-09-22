@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 using Zenject;
+using MoreMountains.Feedbacks;
+using MoreMountains.FeedbacksForThirdParty;
 
 
 public enum PlayerState
@@ -23,14 +25,15 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     PlayerSlap playerSlap;
 
+    [Header("Body Drop SFX")]
+    [SerializeField] private MMFeedbacks bodyDropMMFeedbacks; // Efeito a ser tocado quando o personagem cai no chão
+    [SerializeField] private float fallVolumeMultiplier = 14f; // constante para fine tuning
+    [SerializeField] private float maxAllowedMultiplier = 2.5f; // limite do multiplicador dos volumes
 
     #region  ==== PLAYER STATE VARIABLES ====
 
     [Header("Stability Detection")]
-    private Vector3 lastPosition;
-    [SerializeField] private float stabilityCheckBaseTimer = 0.5f;
-    [SerializeField] private float stabilityCheckTimer; // Timer para iniciar a checagem se o personagem está estável no chão
-    [SerializeField] private float transformStabilityThreshold = 0.008f; // velocidade mínima para considerar parado. Quanto menor é mais fácil de ser considerado parado.
+    [SerializeField] private float stabilityCheckTolerance = -1.5f;
 
     [Header("Health")]
     [SerializeField] private int maxHealth;
@@ -43,9 +46,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float standingHealingPercentage; //Percentual de health points a ser recuperado quando sem receber dano durante um tempo no estado Standing
 
     [Header("Falling State")]
-    [SerializeField] private float timeToFalling; //Tempo "no ar" para mudar de outros estados para falling (quando já não está em falling)
-    [SerializeField] private float fallingTimer; //Timer para contar se o tempo no ar atingiu o tempo especificado para mudar para o estado falling
-    [SerializeField] private float fallingCheckTolerance = -0.06f; //Tolerância para checagem da queda
+    [SerializeField] private float fallingCheckTolerance = -15f; //Tolerância para checagem da queda
+    // Variáveis para cálculo da velocidade pelo Transform
+    [SerializeField] private float currentVerticalSpeed;      // velocidade vertical calculada
+    private Vector3 lastPositionForImpact;   // posição no frame anterior
+    [SerializeField] private float soundImpactMultiplier = 0.025f;
 
     [Header("Downed State")]
     [SerializeField] private float baseDownedTimer = 5; //Tempo base de tempo no estado caído
@@ -80,7 +85,17 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        calculateImpactSpeed();
+
         UpdatePlayerState();
+    }
+
+    void calculateImpactSpeed()
+    {
+        // Atualiza a velocidade do impacto
+        Vector3 deltaPos = transform.position - lastPositionForImpact;
+        currentVerticalSpeed = deltaPos.y / Time.deltaTime;
+        lastPositionForImpact = transform.position;
     }
 
     void OnTriggerEnter(Collider other)
@@ -89,6 +104,21 @@ public class PlayerController : MonoBehaviour
         {
             isDead = true;
             _gameEvent.onPlayerDeath.Invoke();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        {
+            Debug.Log($"Impacto no chão! Velocidade: {currentVerticalSpeed}");
+
+            if (currentState == PlayerState.Downed || currentState == PlayerState.Falling || health <= 0)
+            {
+                SetIsDowned();
+                float intensity = (fallingCheckTolerance * (-1)); //passando para positivo para que possa agir como um fator multiplicador do som do impacto
+                PlayFallSound(intensity);
+            }
         }
     }
 
@@ -106,12 +136,7 @@ public class PlayerController : MonoBehaviour
             }
             wakeUpPressTimer += Time.deltaTime;
         }
-        if (currentState == PlayerState.Falling)
-        {
-            stabilityCheckTimer -= Time.deltaTime;
-            if (stabilityCheckTimer <= 0) stabilityCheckTimer = 0;
-            if (IsTransformStable() && stabilityCheckTimer <= 0) SetIsDowned();
-        }
+
         if (currentState == PlayerState.Standing)
         {
             FallingCheck();
@@ -125,24 +150,17 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        lastPosition = transform.position;
     }
 
-    private bool IsTransformStable() //Checa se o personagem está "estável" no chão
-    {
-        float posDiff = Vector3.Distance(transform.position, lastPosition);
-        return posDiff < transformStabilityThreshold;
-    }
 
     private void FallingCheck() //Checa se o personagem deve entrar no estado de queda mesmo sem ter levado um tapa
     {
-        float deltaY = transform.position.y - lastPosition.y;
-        if (deltaY < fallingCheckTolerance) // tolerância pequena para não pegar microvariações
+        // --- Está caindo (movimento para baixo além da tolerância) ---
+        if (currentVerticalSpeed < fallingCheckTolerance) //como a velocidade é negativa para quedas, o valor tem que ser "menor que"
         {
-            fallingTimer += Time.deltaTime;
-            if (fallingTimer >= timeToFalling) SetIsFalling();
+            SetIsFalling();
         }
-        else fallingTimer = 0;
+
     }
 
     private void SetIsStanding()
@@ -197,8 +215,6 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Falling;
         ragdoll.User_SwitchFallState();
 
-        lastPosition = transform.position;
-        stabilityCheckTimer = stabilityCheckBaseTimer;
         wakeUpPressTimer = 0;
     }
     public void TryingToWakeUp()
@@ -215,7 +231,36 @@ public class PlayerController : MonoBehaviour
             wakeUpPressTimer = 0;
         }
     }
-    
+
     #endregion
 
+    private void PlayFallSound(float intensity)
+    {
+        if (bodyDropMMFeedbacks == null) return;
+
+
+
+        foreach (var feedback in bodyDropMMFeedbacks.Feedbacks)
+        {
+            if (feedback is MMFeedbackMMSoundManagerSound soundFeedback)
+            {
+                float originalMinVolume = soundFeedback.MinVolume;
+                float originalMaxVolume = soundFeedback.MaxVolume;
+
+                float volumeScale = Mathf.Clamp(intensity * soundImpactMultiplier, 1f, maxAllowedMultiplier);
+                soundFeedback.MinVolume *= volumeScale;
+                soundFeedback.MaxVolume *= volumeScale;
+
+                //Debug.Log($"Impacto no chão! Velocidade: {rb.velocity.y} | Intensidade: {intensity} | Volume: {volumeScale}");
+
+                bodyDropMMFeedbacks.PlayFeedbacks();
+
+                Debug.Log($"VolumeScale: {volumeScale} | MinVolume: {soundFeedback.MinVolume} | MaxVolume: {soundFeedback.MaxVolume}");
+
+                soundFeedback.MinVolume = originalMinVolume;
+                soundFeedback.MaxVolume = originalMaxVolume;
+            }
+        }
+
+    }
 }

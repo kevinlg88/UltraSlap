@@ -564,7 +564,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   minZoom: 28
-  maxZoom: 21
+  maxZoom: 45
   zoomFactor: 5
   zoomSpeed: 2
   offset: {x: 0, y: 0, z: 5.86}
