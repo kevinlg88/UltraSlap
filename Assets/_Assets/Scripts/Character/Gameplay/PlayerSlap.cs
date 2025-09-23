@@ -70,7 +70,11 @@ public class PlayerSlap : MonoBehaviour
         else if (isOnCooldown)
         {
             cooldownTimer -= Time.deltaTime;
-            if (cooldownTimer <= 0) isOnCooldown = false;
+            if (cooldownTimer <= 0) {
+                cooldownTimer = 0;
+                isOnCooldown = false;
+            }
+            
         }
 
         else if (!playerInput.GetButtonDown("Slap") && isSlapping && !animator.GetCurrentAnimatorStateInfo(0).IsTag("Slap"))
