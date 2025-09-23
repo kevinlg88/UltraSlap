@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 
-public class Device : MonoBehaviour
+public class ZigZagDevice : MonoBehaviour
 {
     [Header("State")]
     [SerializeField] private bool isActive = false;       // indica se o device está ativo ou não
