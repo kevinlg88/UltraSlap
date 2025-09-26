@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CloudSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject cloudPrefab;
-    [SerializeField] private float minSpawnInterval = 1f;
-    [SerializeField] private float maxSpawnInterval = 3f;
+    [SerializeField] private GameObject[] cloudPrefabs; // vetor de nuvens
+    [SerializeField] private float minSpawnInterval = 30f;
+    [SerializeField] private float maxSpawnInterval = 60f;
 
     private float timer;
     private float nextSpawnTime;
@@ -28,7 +28,7 @@ public class CloudSpawner : MonoBehaviour
 
     void SpawnCloud()
     {
-        if (meshRenderer == null || cloudPrefab == null) return;
+        if (meshRenderer == null || cloudPrefabs == null) return;
 
         // Tamanho do plano em local space
         Vector3 localSize = transform.InverseTransformVector(meshRenderer.bounds.size);
@@ -44,11 +44,15 @@ public class CloudSpawner : MonoBehaviour
         // Converte para posição global
         Vector3 worldPos = transform.TransformPoint(localPos);
 
-        // Instancia a nuvem
-        GameObject cloud = Instantiate(cloudPrefab, worldPos, Quaternion.identity);
+        // Sorteia um prefab aleatório
+        int randomIndex = Random.Range(0, cloudPrefabs.Length);
+        GameObject chosenCloud = cloudPrefabs[randomIndex];
 
-        // Rotação: spawner + 90° no eixo X local
-        cloud.transform.rotation = transform.rotation * Quaternion.Euler(90f, 0f, 0f);
+        // Instancia a nuvem
+        GameObject cloud = Instantiate(chosenCloud, worldPos, Quaternion.identity);
+
+        // Rotação: spawner + 90° no eixo Z local
+        cloud.transform.rotation = transform.rotation * Quaternion.Euler(0f, 0f, 90f);
     }
 
     void SetNextSpawnTime()
