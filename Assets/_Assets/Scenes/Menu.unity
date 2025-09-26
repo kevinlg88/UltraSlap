@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.1833913, g: 0.22899404, b: 0.30606312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7124,9 +7124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
   rewiredInputManager: {fileID: 4700416174832396380}
-  useAllRewiredGamePlayers: 1
+  useAllRewiredGamePlayers: 0
   useRewiredSystemPlayer: 1
-  rewiredPlayerIds: 00000000
+  rewiredPlayerIds: 7f969800
   usePlayingPlayersOnly: 0
   playerMice: []
   moveOneElementPerAxisPress: 0
@@ -7135,10 +7135,10 @@ MonoBehaviour:
   verticalActionId: -1
   submitActionId: -1
   cancelActionId: -1
-  m_HorizontalAxis: UIHorizontal
-  m_VerticalAxis: UIVertical
-  m_SubmitButton: UISubmit
-  m_CancelButton: UICancel
+  m_HorizontalAxis: Move Horizontal
+  m_VerticalAxis: Move Vertical
+  m_SubmitButton: Join
+  m_CancelButton: Cancel
   m_InputActionsPerSecond: 4.5
   m_RepeatDelay: 0
   m_allowMouseInput: 1
