@@ -1,4 +1,5 @@
 using UnityEngine;
+using MoreMountains.Feedbacks;
 using Rewired;
 using System.Collections.Generic;
 using Zenject;
@@ -11,6 +12,10 @@ public class RewiredJoinManager : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject playerPrefab;
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
+    [SerializeField] private MatchSetupManager matchSetupManager;
+
+    [Header("MMFeedbacks")]
+    [SerializeField] private MMFeedbacks ReadyConfirmMMFeedbacks;
 
     [Header("Start Game Setup")]
     [SerializeField] SceneIndexEnum currentLevel;
@@ -44,6 +49,10 @@ public class RewiredJoinManager : MonoBehaviour
     private void Update()
     {
         if (!ReInput.isReady && _playerManager == null) return;
+
+        if (matchSetupManager.currentSetupState != SetupState.CharacterSetup)
+            return;
+
         AddSystemPlayerAllControllers();
         KeyboardJoinInput();
         JoystickJoinInput();
@@ -53,6 +62,7 @@ public class RewiredJoinManager : MonoBehaviour
     private void KeyboardJoinInput()
     {
         if (!ReInput.players.SystemPlayer.GetButtonDown(joinAction)) return;
+
         if (ReInput.controllers.Keyboard.GetAnyButtonDown())
         {
             Player player = FindAvailablePlayer();
@@ -182,7 +192,7 @@ public class RewiredJoinManager : MonoBehaviour
             if (player.GetButtonDown(joinAction))
             {
                 Debug.Log("Player " + playerData.PlayerID + " menu Join");
-                if (playerData.IsReady) TryStartGame();
+                if (playerData.IsReady) ReadToMatchSetup();
                 else
                 {
                     playerData.IsReady = true;
@@ -210,16 +220,19 @@ public class RewiredJoinManager : MonoBehaviour
         }
     }
 
-    private async void TryStartGame()
+    private async void ReadToMatchSetup()
     {
         if (_playerManager.GetTeams().Count < minTeams) return;
         foreach (PlayerData playerData in _playerManager.Players)
         {
             if (!playerData.IsReady) return;
         }
-        _scoreManager.ResetScores();
+
+        ReadyConfirmMMFeedbacks.PlayFeedbacks();
+
+        /*_scoreManager.ResetScores();
         _scoreManager.SetTeams(_playerManager.GetTeams());
-        await _levelSpawnManager.StartGame((int)currentLevel);
+        await _levelSpawnManager.StartGame((int)currentLevel);*/
     }
 
     public void ExitPlayer(int id)
