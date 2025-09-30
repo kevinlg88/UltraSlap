@@ -149,4 +149,19 @@ public class MatchSetupManager : MonoBehaviour
         _scoreManager.SetTeams(_playerManager.GetTeams());
         await _levelSpawnManager.StartGame((int)currentLevel);
     }
+
+    public void UpdateCurrentLevel(string levelName)
+    {
+        // Tenta converter o string para o enum correspondente
+        if (Enum.TryParse<SceneIndexEnum>(levelName, out var parsedLevel))
+        {
+            currentLevel = parsedLevel;
+            Debug.Log("Current Level atualizado para -> " + currentLevel);
+        }
+        else
+        {
+            Debug.LogWarning("Nome de nível inválido: " + levelName);
+        }
+    }
+
 }
