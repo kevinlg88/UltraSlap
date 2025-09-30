@@ -44,7 +44,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -56,27 +56,27 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BlendingNormalMapB:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6246e3fe4a63c1f4f9acec9623576fc7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BlendingNormalMapG:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8175cba73bf87af41aeba7bbd2f3c4cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BlendingNormalMapWhite:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8175cba73bf87af41aeba7bbd2f3c4cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BlendingTextureB:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f39690d17007ab242928cd91e5a530a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BlendingTextureG:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2af6ba1567607124eb61349fa044375b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BlendingTextureWhite:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2af6ba1567607124eb61349fa044375b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorRampTex:
@@ -84,15 +84,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
-        m_Texture: {fileID: 2800000, guid: baea65a7abf3c5a4095956327ddb1122, type: 3}
+        m_Texture: {fileID: 2800000, guid: fcb69fdadf254834880fe3c443965278, type: 3}
         m_Scale: {x: 15, y: 15}
         m_Offset: {x: 5, y: 5}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: e8745f0a17582af43aa61e323be9d994, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
     - _FadeTex:
-        m_Texture: {fileID: 2800000, guid: baea65a7abf3c5a4095956327ddb1122, type: 3}
+        m_Texture: {fileID: 2800000, guid: fcb69fdadf254834880fe3c443965278, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -116,7 +116,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TexBlendingMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5a775794f8704ba4385b9c92cf9f1224, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
@@ -124,7 +124,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonRamp:
-        m_Texture: {fileID: 2800000, guid: c514a404d71cebc43acb944341ace8d3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 339398f75cfa2714d93579662d08ec9a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TripalanarTopNormalMap:
@@ -136,15 +136,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TriplanarTopNormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8175cba73bf87af41aeba7bbd2f3c4cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TriplanarTopTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2af6ba1567607124eb61349fa044375b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VertexDistortionNoiseTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fcb69fdadf254834880fe3c443965278, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VertexExtrudeNoiseTex:
@@ -276,8 +276,8 @@ Material:
     - _NormalStrength: 1.92
     - _NumLines: 5
     - _NumReflectionColors: 5
-    - _OutlineMode: 6
-    - _OutlineThickness: 28.9
+    - _OutlineMode: 8
+    - _OutlineThickness: 2800
     - _OutlineType: 0
     - _Pixelate: 0
     - _PixelateSize: 32
@@ -313,6 +313,7 @@ Material:
     - _SpecularToonCutoff: 0.129
     - _SpecularToonSmoothness: 0.433
     - _SpherizeNormals: 0
+    - _StencilRef: 1
     - _StochasticSampling: 0
     - _StochasticScale: 3.464
     - _StochasticSkew: 0.57735026
@@ -366,6 +367,7 @@ Material:
     - _HitColor: {r: 1, g: 0, b: 0, a: 1}
     - _HologramColor: {r: 0.35, g: 0.8, b: 2, a: 1}
     - _HologramLineDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 1, b: 0.056907415, a: 1}
     - _RimOffset: {r: 0, g: 0, b: 0, a: 0}
     - _SSSColor: {r: 0.32500762, g: 2.388027, b: 0.22979122, a: 1}
