@@ -14,13 +14,13 @@ public class LevelManager : MonoBehaviour
     [Header("Setup")]
     [SerializeField] Vector3 spawnOffset = new(0, 0.34f, 0);
     private List<PlayerController> playersInGame = new();
-    private PlayerManager _playerManager;
+    private MatchData _playerManager;
     private GameEvent _gameEvent;
     private LevelSpawnManager _levelSpawnManager;
 
 
     [Inject]
-    public void Construct(PlayerManager playerManager, LevelSpawnManager levelSpawnManager, GameEvent gameEvent)
+    public void Construct(MatchData playerManager, LevelSpawnManager levelSpawnManager, GameEvent gameEvent)
     {
         _playerManager = playerManager;
         _gameEvent = gameEvent;

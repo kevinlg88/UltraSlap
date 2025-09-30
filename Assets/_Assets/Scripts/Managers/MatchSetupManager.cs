@@ -41,7 +41,7 @@ public class MatchSetupManager : MonoBehaviour
     [SerializeField] private GameObject startingMatchSetupFirst;
 
     [Inject]
-    private PlayerManager _playerManager;
+    private MatchData _MatchData;
     private ScoreManager _scoreManager;
     private LevelSpawnManager _levelSpawnManager;
 
@@ -146,7 +146,7 @@ public class MatchSetupManager : MonoBehaviour
     public async void TryStartGame()
     {
         _scoreManager.ResetScores();
-        _scoreManager.SetTeams(_playerManager.GetTeams());
+        _scoreManager.SetTeams(_MatchData.GetTeams());
         await _levelSpawnManager.StartGame((int)currentLevel);
     }
 
@@ -161,6 +161,15 @@ public class MatchSetupManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Nome de nível inválido: " + levelName);
+        }
+    }
+
+    public void AddRound() => _MatchData.RoundNumber++;
+    public void SubtractRound()
+    {
+        if (_MatchData.RoundNumber > 0)
+        {
+            _MatchData.RoundNumber--;
         }
     }
 

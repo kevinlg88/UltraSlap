@@ -30,7 +30,7 @@ public class RewiredJoinManager : MonoBehaviour
     [SerializeField] int playerDebugId = 2;
 
     [Inject]
-    private PlayerManager _playerManager;
+    private MatchData _playerManager;
     private ScoreManager _scoreManager;
     private LevelSpawnManager _levelSpawnManager;
 
