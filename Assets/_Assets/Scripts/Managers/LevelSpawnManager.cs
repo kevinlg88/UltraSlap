@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public enum SceneIndexEnum
 {
-    Menu,
+    Start_Menu,
+    Match_Setup,
     Game,
     ConstructionLevel,
     TestLevel

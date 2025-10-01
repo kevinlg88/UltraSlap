@@ -49,7 +49,7 @@ public class ValueSelector : MonoBehaviour
             currentIndex = (currentIndex - 1 + options.Length) % options.Length;
             UpdateValueText();
             OnValueChanged();
-            Debug.Log("UI_Left acionado");
+            //Debug.Log("UI_Left acionado");
         }
 
         if (systemPlayer.GetButtonDown(uiRight))
@@ -57,7 +57,7 @@ public class ValueSelector : MonoBehaviour
             currentIndex = (currentIndex + 1) % options.Length;
             UpdateValueText();
             OnValueChanged();
-            Debug.Log("UI_Right acionado");
+            //Debug.Log("UI_Right acionado");
         }
     }
 

@@ -5501,7 +5501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSetupState: 0
-  currentLevel: 2
+  currentLevel: 3
   rewiredEventSystem: {fileID: 778883793}
   joinAction: Join
   cancelAction: Cancel
@@ -21148,7 +21148,7 @@ MonoBehaviour:
   - {fileID: 1559086868}
   matchSetupManager: {fileID: 518158950}
   ReadyConfirmMMFeedbacks: {fileID: 660760827}
-  currentLevel: 2
+  currentLevel: 3
   minTeams: 2
   joinAction: Join
   cancelAction: Cancel

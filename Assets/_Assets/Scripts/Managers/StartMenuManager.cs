@@ -90,7 +90,7 @@ public class StartMenuManager : MonoBehaviour
 
     public void OnStartClick()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Match_Setup");
     }
 
     public void OnExitClick()
