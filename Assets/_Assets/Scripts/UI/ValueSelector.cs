@@ -24,6 +24,8 @@ public class ValueSelector : MonoBehaviour
     private int currentIndex = 2;
     private Player systemPlayer;
 
+    private MatchSetupManager matchSetupManager;
+
 
     private void Start()
     {
@@ -66,6 +68,7 @@ public class ValueSelector : MonoBehaviour
         if (valueText != null)
             valueText.text = options[currentIndex];
     }
+
 
     // Chamado sempre que o valor muda
     private void OnValueChanged()

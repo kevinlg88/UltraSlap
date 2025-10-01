@@ -25,6 +25,7 @@ public class MatchSetupManager : MonoBehaviour
 
     [Header("Start Game Setup")]
     [SerializeField] SceneIndexEnum currentLevel;
+    [SerializeField] private ValueSelector WinsGameObject;
 
     [Header("UI References")]
     [SerializeField] private RewiredEventSystem rewiredEventSystem;
@@ -145,6 +146,8 @@ public class MatchSetupManager : MonoBehaviour
 
     public async void TryStartGame()
     {
+        DefineWins();
+
         _scoreManager.ResetScores();
         _scoreManager.SetTeams(_MatchData.GetTeams());
         await _levelSpawnManager.StartGame((int)currentLevel);
@@ -164,12 +167,29 @@ public class MatchSetupManager : MonoBehaviour
         }
     }
 
-    public void AddRound() => _MatchData.RoundNumber++;
+    public void DefineWins()  // Pega o número de wins no objeto da interface que carrega essa informação, e joga no correspondente em MatchData
+    {
+        int definedWins;
+        bool success = int.TryParse(WinsGameObject.GetCurrentValue(), out definedWins);
+
+
+        if (success)
+        {
+            _MatchData.numberOfWins = definedWins;
+            Debug.Log("Número convertido: " + _MatchData.numberOfWins);
+        }
+        else
+        {
+            Debug.Log("Não foi possível converter a string em número.");
+        }
+    }
+
+    public void AddRound() => _MatchData.numberOfWins++;
     public void SubtractRound()
     {
-        if (_MatchData.RoundNumber > 0)
+        if (_MatchData.numberOfWins > 0)
         {
-            _MatchData.RoundNumber--;
+            _MatchData.numberOfWins--;
         }
     }
 

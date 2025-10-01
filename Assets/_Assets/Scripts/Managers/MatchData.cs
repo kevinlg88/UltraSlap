@@ -7,7 +7,7 @@ using Zenject;
 public class MatchData
 {
     public List<PlayerData> Players { get; private set; } = new List<PlayerData>();
-    public int RoundNumber { get; set; } = 0;
+    public int numberOfWins { get; set; } = 0;
 
     public void AddPlayer(PlayerData playerData)
     {
