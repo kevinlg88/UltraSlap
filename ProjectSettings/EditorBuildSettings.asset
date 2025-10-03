@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Assets/Scenes/Levels/TestLevel.unity
     guid: a1640ec3507c37046a881a84c4aeff5c
+  - enabled: 1
+    path: Assets/_Assets/Scenes/AdditiveLoadingScreen.unity
+    guid: 1be6e2532f28d9b488e705e5164020c6
   m_configObjects: {}
