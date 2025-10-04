@@ -31,7 +31,6 @@ public class ZigZagDevice : MonoBehaviour
         {
             MoveToPositionA();
         }
-
     }
 
     // Função para mover até a posição A
@@ -44,6 +43,26 @@ public class ZigZagDevice : MonoBehaviour
 
         // Atualiza estado
         isAtPositionB = false;
+    }
+
+    // Chama apenas o movimento para A se estiver no ponto B e não estiver ativo
+    public void CallToPositionA()
+    {
+        // Só funciona se o device não estiver ativo e estiver em B
+        if (!isActive && isAtPositionB)
+        {
+            Activate(); // usa a lógica existente do Activate()
+        }
+    }
+
+    // Chama apenas o movimento para B se estiver no ponto A e não estiver ativo
+    public void CallToPositionB()
+    {
+        // Só funciona se o device não estiver ativo e estiver em B
+        if (!isActive && !isAtPositionB)
+        {
+            Activate(); // usa a lógica existente do Activate()
+        }
     }
 
     // Função para mover até a posição B
