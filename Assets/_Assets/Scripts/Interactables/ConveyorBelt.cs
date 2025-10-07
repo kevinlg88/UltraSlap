@@ -3,7 +3,14 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class ConveyorBelt : MonoBehaviour
 {
-    public float speed = 2f; // velocidade da esteira
+    public float positiveSpeed = 2f; // velocidade base da esteira
+    public float negativeSpeed = -1.5f; // velocidade base da esteira
+    public float speed; // velocidade atual da esteira
+
+    void start()
+    {
+        speed = positiveSpeed;
+    }
 
     void OnCollisionStay(Collision collision)
     {
@@ -21,5 +28,20 @@ public class ConveyorBelt : MonoBehaviour
             // Empurra o objeto ao longo do eixo Z local
             rb.AddForce(dir * speed, ForceMode.VelocityChange);
         }
+    }
+
+    public void SwitchToPositiveSpeed()
+    {
+        speed = positiveSpeed;
+    }
+
+    public void SwitchToNegativeSpeed()
+    {
+        speed = negativeSpeed;
+    }
+
+    public void SwitchToZeroSpeed()
+    {
+        speed = 0;
     }
 }
