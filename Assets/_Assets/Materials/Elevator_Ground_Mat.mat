@@ -6,7 +6,7 @@ Texture2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: z__GradientRampTex{"mode":0,"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.5323567390441895},{"color":{"r":0.7264150977134705,"g":0.7264150977134705,"b":0.7264150977134705,"a":1.0},"time":0.8029450178146362},{"color":{"r":0.018867909908294679,"g":0.018867909908294679,"b":0.018867909908294679,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_Name: z__GradientRampTex{"mode":0,"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.014709697104990483},{"color":{"r":0.7264150977134705,"g":0.7264150977134705,"b":0.7264150977134705,"a":1.0},"time":0.46471351385116579},{"color":{"r":0.018867909908294679,"g":0.018867909908294679,"b":0.018867909908294679,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -42,7 +42,7 @@ Texture2D:
   m_ColorSpace: 1
   m_PlatformBlob: 
   image data: 1024
-  _typelessdata: fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefefefffdfdfdfffcfcfcfffbfbfbfffafafafff9f9f9fff8f8f8fff7f7f7fff6f6f6fff5f5f5fff4f4f4fff3f3f3fff2f2f2fff1f1f1fff0f0f0ffefefefffeeeeeeffedededffecececffebebebffeaeaeaffe9e9e9ffe7e7e7ffe6e6e6ffe5e5e5ffe4e4e4ffe3e3e3ffe2e2e2ffe1e1e1ffe0e0e0ffdfdfdfffdededeffddddddffdcdcdcffdbdbdbffdadadaffd9d9d9ffd8d8d8ffd7d7d7ffd6d6d6ffd5d5d5ffd4d4d4ffd3d3d3ffd2d2d2ffd1d1d1ffd0d0d0ffcfcfcfffcececeffcdcdcdffccccccffcbcbcbffcacacaffc9c9c9ffc8c8c8ffc7c7c7ffc6c6c6ffc5c5c5ffc4c4c4ffc3c3c3ffc2c2c2ffc1c1c1ffc0c0c0ffbfbfbfffbebebeffbdbdbdffbcbcbcffbbbbbbffbababaffb8b8b8ffb5b5b5ffb1b1b1ffaeaeaeffaaaaaaffa6a6a6ffa3a3a3ff9f9f9fff9c9c9cff989898ff949494ff919191ff8d8d8dff8a8a8aff868686ff828282ff7f7f7fff7b7b7bff787878ff747474ff717171ff6d6d6dff696969ff666666ff626262ff5f5f5fff5b5b5bff575757ff545454ff505050ff4d4d4dff494949ff454545ff424242ff3e3e3eff3b3b3bff373737ff333333ff303030ff2c2c2cff292929ff252525ff222222ff1e1e1eff1a1a1aff171717ff131313ff101010ff0c0c0cff080808ff050505
+  _typelessdata: fffffffffffffffffffffffffffffffffffffffffffefefefffefefefffdfdfdfffcfcfcfffcfcfcfffbfbfbfffbfbfbfffafafafff9f9f9fff9f9f9fff8f8f8fff8f8f8fff7f7f7fff6f6f6fff6f6f6fff5f5f5fff5f5f5fff4f4f4fff3f3f3fff3f3f3fff2f2f2fff1f1f1fff1f1f1fff0f0f0fff0f0f0ffefefefffeeeeeeffeeeeeeffedededffedededffecececffebebebffebebebffeaeaeaffeaeaeaffe9e9e9ffe8e8e8ffe8e8e8ffe7e7e7ffe7e7e7ffe6e6e6ffe5e5e5ffe5e5e5ffe4e4e4ffe3e3e3ffe3e3e3ffe2e2e2ffe2e2e2ffe1e1e1ffe0e0e0ffe0e0e0ffdfdfdfffdfdfdfffdededeffddddddffddddddffdcdcdcffdcdcdcffdbdbdbffdadadaffdadadaffd9d9d9ffd9d9d9ffd8d8d8ffd7d7d7ffd7d7d7ffd6d6d6ffd6d6d6ffd5d5d5ffd4d4d4ffd4d4d4ffd3d3d3ffd2d2d2ffd2d2d2ffd1d1d1ffd1d1d1ffd0d0d0ffcfcfcfffcfcfcfffcececeffcececeffcdcdcdffccccccffccccccffcbcbcbffcbcbcbffcacacaffc9c9c9ffc9c9c9ffc8c8c8ffc8c8c8ffc7c7c7ffc6c6c6ffc6c6c6ffc5c5c5ffc4c4c4ffc4c4c4ffc3c3c3ffc3c3c3ffc2c2c2ffc1c1c1ffc1c1c1ffc0c0c0ffc0c0c0ffbfbfbfffbebebeffbebebeffbdbdbdffbdbdbdffbcbcbcffbbbbbbffbbbbbbffbababaffbababaffb9b9b9ffb7b7b7ffb6b6b6ffb5b5b5ffb3b3b3ffb2b2b2ffb1b1b1ffafafafffaeaeaeffadadadffabababffaaaaaaffa9a9a9ffa7a7a7ffa6a6a6ffa5a5a5ffa3a3a3ffa2a2a2ffa1a1a1ff9f9f9fff9e9e9eff9d9d9dff9b9b9bff9a9a9aff999999ff989898ff969696ff959595ff949494ff929292ff919191ff909090ff8e8e8eff8d8d8dff8c8c8cff8a8a8aff898989ff888888ff868686ff858585ff848484ff828282ff818181ff808080ff7e7e7eff7d7d7dff7c7c7cff7a7a7aff797979ff787878ff767676ff757575ff747474ff737373ff717171ff707070ff6f6f6fff6d6d6dff6c6c6cff6b6b6bff696969ff686868ff676767ff656565ff646464ff636363ff616161ff606060ff5f5f5fff5d5d5dff5c5c5cff5b5b5bff595959ff585858ff575757ff555555ff545454ff535353ff515151ff505050ff4f4f4fff4e4e4eff4c4c4cff4b4b4bff4a4a4aff484848ff474747ff464646ff444444ff434343ff424242ff404040ff3f3f3fff3e3e3eff3c3c3cff3b3b3bff3a3a3aff383838ff373737ff363636ff343434ff333333ff323232ff303030ff2f2f2fff2e2e2eff2c2c2cff2b2b2bff2a2a2aff292929ff272727ff262626ff252525ff232323ff222222ff212121ff1f1f1fff1e1e1eff1d1d1dff1b1b1bff1a1a1aff191919ff171717ff161616ff151515ff131313ff121212ff111111ff0f0f0fff0e0e0eff0d0d0dff0b0b0bff0a0a0aff090909ff070707ff060606ff050505
   m_StreamData:
     serializedVersion: 2
     offset: 0
@@ -61,6 +61,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DR_GRADIENT_ON
+  - DR_RIM_ON
   - _DETAILMAPBLENDINGMODE_MULTIPLY
   - _NORMALMAP
   - _TEXTUREBLENDINGMODE_MULTIPLY
@@ -86,7 +87,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: b6331fb4beaee3f45896329174ae2499, type: 3}
+        m_Texture: {fileID: 2800000, guid: aeb6f8fc98ed9954b97515d35db0c44d, type: 3}
         m_Scale: {x: 0.82, y: 0.82}
         m_Offset: {x: -0.91, y: -0.91}
     - _BlendingNormalMapB:
@@ -114,7 +115,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 06833fa713538d845892924104ed14d3, type: 3}
+        m_Texture: {fileID: 2800000, guid: d003c9208fc1e4c42bb74559a1dfc4dd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorRampTex:
@@ -126,7 +127,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMap:
-        m_Texture: {fileID: 2800000, guid: 6b907d0b24b66a348971d064c47a050b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
@@ -274,7 +275,7 @@ Material:
     - _DepthGlowPower: 25
     - _DetailAlbedoMapScale: 1
     - _DetailMapBlendingMode: 0
-    - _DetailMapImpact: 0.731
+    - _DetailMapImpact: 0.341
     - _DetailNormalMapScale: 1
     - _DistortAmount: 0.3
     - _DistortTexXSpeed: 2
@@ -291,9 +292,9 @@ Material:
     - _FadeOn: 0
     - _FadePower: 1
     - _FadeTransition: 0.2
-    - _FlatRimEdgeSmoothness: 0.5
-    - _FlatRimLightAlign: 0
-    - _FlatRimSize: 0.5
+    - _FlatRimEdgeSmoothness: 0.354
+    - _FlatRimLightAlign: 0.593
+    - _FlatRimSize: 0.516
     - _FlatSpecularEdgeSmoothness: 0.181
     - _FlatSpecularSize: 0.404
     - _FogOn: 0
@@ -306,7 +307,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientAngle: 49
+    - _GradientAngle: 128
     - _GradientCenterX: 10.02
     - _GradientCenterY: 0.49
     - _GradientEnabled: 1
@@ -348,7 +349,7 @@ Material:
     - _IntersectionFadeFactor: 1
     - _IntersectionFadeOn: 0
     - _IntersectionGlowOn: 0
-    - _LightContribution: 0.122
+    - _LightContribution: 0.163
     - _LightModel: 1
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
@@ -388,7 +389,7 @@ Material:
     - _ReflectionsAtten: 0.5
     - _RenderPreset: 1
     - _RimAttenuation: 1
-    - _RimEnabled: 0
+    - _RimEnabled: 1
     - _RimLighting: 0
     - _RimLightingStage: 0
     - _SSSAtten: 1
@@ -400,7 +401,7 @@ Material:
     - _ScrollTextureOn: 0
     - _ScrollTextureX: 1
     - _ScrollTextureY: 1
-    - _SelfShadingSize: 0.386
+    - _SelfShadingSize: 0.321
     - _ShadingModel: 0
     - _ShakeBlend: 1
     - _ShakeSpeedMult: 1
@@ -458,12 +459,12 @@ Material:
     - _AOColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 1}
     - _Color: {r: 1, g: 0.12735847, b: 0.12735847, a: 1}
-    - _ColorGradient: {r: 0.7264151, g: 0.70928264, b: 0.70928264, a: 1}
+    - _ColorGradient: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
     - _DepthGlowColor: {r: 1, g: 0.9869999, b: 0.6, a: 1}
-    - _DetailMapColor: {r: 0.6792453, g: 0.61196154, b: 0.61196154, a: 0.7607843}
+    - _DetailMapColor: {r: 0.5188679, g: 0.5017355, b: 0.5017355, a: 0.7607843}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
-    - _FlatRimColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _FlatRimColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0.85056}
     - _FlatSpecularColor: {r: 0.6981132, g: 0.20745817, b: 0.20745817, a: 0.50980395}
     - _GlitchOffset: {r: -0.5, g: 0, b: 0, a: 0}
     - _GradientHeightColor01: {r: 0.2, g: 0.2, b: 0.2, a: 1}
