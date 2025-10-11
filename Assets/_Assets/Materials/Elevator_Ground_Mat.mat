@@ -292,9 +292,9 @@ Material:
     - _FadeOn: 0
     - _FadePower: 1
     - _FadeTransition: 0.2
-    - _FlatRimEdgeSmoothness: 0.354
-    - _FlatRimLightAlign: 0.593
-    - _FlatRimSize: 0.516
+    - _FlatRimEdgeSmoothness: 0.564
+    - _FlatRimLightAlign: 0.774
+    - _FlatRimSize: 0.487
     - _FlatSpecularEdgeSmoothness: 0.181
     - _FlatSpecularSize: 0.404
     - _FogOn: 0
@@ -307,7 +307,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientAngle: 128
+    - _GradientAngle: 170
     - _GradientCenterX: 10.02
     - _GradientCenterY: 0.49
     - _GradientEnabled: 1
@@ -401,7 +401,7 @@ Material:
     - _ScrollTextureOn: 0
     - _ScrollTextureX: 1
     - _ScrollTextureY: 1
-    - _SelfShadingSize: 0.321
+    - _SelfShadingSize: 0.104
     - _ShadingModel: 0
     - _ShakeBlend: 1
     - _ShakeSpeedMult: 1
@@ -425,7 +425,7 @@ Material:
     - _TextureBlending: 0
     - _TextureBlendingMode: 0
     - _TextureBlendingSource: 0
-    - _TextureImpact: 1
+    - _TextureImpact: 0.747
     - _TimingSeed: 0
     - _ToonCutoff: 0.5
     - _ToonFactor: 0
