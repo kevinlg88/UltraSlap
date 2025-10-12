@@ -1,6 +1,7 @@
 using FIMSpace.FProceduralAnimation;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using System.Collections.Generic;
 
 public class TriggerHitbox : MonoBehaviour
 {
@@ -10,16 +11,17 @@ public class TriggerHitbox : MonoBehaviour
     private RagdollAnimator2 myragdoll;
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
 
+    [Header("Target Control")] // NOVO: mantém controle sobre o que já foi atingido
+    private HashSet<GameObject> hitObjects = new HashSet<GameObject>(); // objetos comuns
+    private HashSet<RagdollAnimator2> hitRagdolls = new HashSet<RagdollAnimator2>(); // ragdolls já atingidos
+
     [Header("Slap Setup")]
-    [SerializeField] private LayerMask glassLayer;
     [SerializeField] float slapPowerFallingThreshold;
     [SerializeField] bool isSlapping = false;
-
 
     [Header("Slap Effect Setup")]
     [SerializeField] GameObject effectPrefab;
     [SerializeField] float maxEffectPrefabScale = 3.5f;
-
 
 
     void Awake()
@@ -28,15 +30,21 @@ public class TriggerHitbox : MonoBehaviour
         myragdoll = player?.GetComponent<RagdollAnimator2>();
     }
 
+    private void OnEnable()
+    {
+        hitObjects.Clear();  // Cada vez que a hitbox é instanciada, o histórico de acertos é limpo.
+        hitRagdolls.Clear(); // Cada vez que a hitbox é instanciada, o histórico de acertos é limpo.
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log($"Bateu no seguinte objeto: {other}");
 
-        if (isSlapping || other.gameObject.layer == 10) return; //Se bateu em splinters (cacos de vidro), ignore
+        if (isSlapping) return;
+
         if (!other.attachedRigidbody)
         {
             slapEnvironment.PlayFeedbacks(); // Implementar o Manager de feedbacks para ativar por eventos
-            if (other.gameObject.layer == glassLayer) SlapWindow(other);
 
             if (other.gameObject.layer == 12) //Se bateu em um device activator
             {
@@ -75,16 +83,7 @@ public class TriggerHitbox : MonoBehaviour
 
         SpawnSlapEffect();
     }
-    private void SlapWindow(Collider other)
-    {
-        isSlapping = true;
-        if (other.TryGetComponent(out BreakableWindow breakableWindow))
-        {
-            if (breakableWindow.isBroken || breakableWindow == null) return;
-            breakableWindow.health -= playerSlap.GetPower();
-            if (breakableWindow.health <= 0) breakableWindow.breakWindow();
-        }
-    }
+
     private void ApplyDamage(PlayerController targetStatus)
     {
         int newHealth = targetStatus.GetHealth() - Mathf.RoundToInt(playerSlap.GetPower());
@@ -112,5 +111,6 @@ public class TriggerHitbox : MonoBehaviour
         go.transform.position += new Vector3(0f, 0.9f, 1.0f);
         Destroy(go, 1f);
     }
+
     private void OnDisable() => isSlapping = false;
 }
