@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ItemsSO : ScriptableObject
 {
     public List<GameObject> headAccessories = new();
+    public List<GameObject> eyeAccessories = new();
     public List<GameObject> faceAccessories = new();
     public List<GameObject> cloths = new();
     public List<SkinColor> skinColors = new();

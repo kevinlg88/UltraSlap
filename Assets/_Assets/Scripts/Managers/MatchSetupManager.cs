@@ -158,7 +158,8 @@ public class MatchSetupManager : MonoBehaviour
 
         _scoreManager.ResetScores();
         _scoreManager.SetTeams(_MatchData.GetTeams());
-        await _levelSpawnManager.StartGame((int)currentLevel);
+        //TODO: Colocar Loading Screen
+        //await _levelSpawnManager.StartGame((int)currentLevel);
     }
 
     public void UpdateCurrentLevel(string levelName)

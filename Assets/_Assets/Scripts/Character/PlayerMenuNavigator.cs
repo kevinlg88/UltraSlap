@@ -14,6 +14,7 @@ public class PlayerMenuNavigator : MonoBehaviour
         Team,
         SkinColor,
         Head,
+        Eyes,
         Face,
         Cloth,
         Presets
@@ -156,6 +157,10 @@ public class PlayerMenuNavigator : MonoBehaviour
                 break;
             case PlayerMenuButtons.Head:
                 playerMenuCustomization.ChangeHeadAccessory(isRightArrow);
+                break;
+            case PlayerMenuButtons.Eyes:
+                Debug.Log($"Eyes Selected");
+                //playerMenuCustomization.ChangeEyesAccessory(isRightArrow);
                 break;
             case PlayerMenuButtons.Face:
                 playerMenuCustomization.ChangeFaceAccessory(isRightArrow);
