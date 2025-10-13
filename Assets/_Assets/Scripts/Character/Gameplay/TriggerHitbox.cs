@@ -113,6 +113,13 @@ public class TriggerHitbox : MonoBehaviour
             // Aplica força física no objeto
             other.attachedRigidbody.AddForce(transform.forward * playerSlap.GetPower(), ForceMode.Impulse);
 
+            var brickIntegrity = other.GetComponent<BrickIntegrity>();
+
+            if (brickIntegrity != null && other.GetComponent<Rigidbody>().isKinematic)
+            {
+                brickIntegrity.OnAttacked(playerSlap.GetPower() / 10);
+            }
+
         }
 
         SpawnSlapEffect();

@@ -13,7 +13,7 @@ public class BrickIntegrity : MonoBehaviour
     public float detachThreshold = 1.0f; // quão longe pode se mover antes de soltar
 
     private Rigidbody rb;
-    private float currentIntegrity;
+    public float currentIntegrity;
     private Vector3 initialPosition;
 
 
@@ -30,7 +30,7 @@ public class BrickIntegrity : MonoBehaviour
     void FixedUpdate()
     {
         // Se o tijolo se mover além do limite, considera-se solto
-        if (!responsiveProp.detached && Vector3.Distance(transform.position, initialPosition) > detachThreshold)
+        if ((!responsiveProp.detached && Vector3.Distance(transform.position, initialPosition) > detachThreshold) || currentIntegrity<=minIntegrity)
         {
             Detach();
         }
@@ -47,6 +47,19 @@ public class BrickIntegrity : MonoBehaviour
             currentIntegrity -= impact * decayRate * Time.deltaTime;
             currentIntegrity = Mathf.Max(currentIntegrity, minIntegrity);
             rb.mass = currentIntegrity;
+
+        }
+    }
+
+    public void OnAttacked(float damage) //Permite causar dano direto na integridade, quando o IsKinematic é true
+    {
+        if (responsiveProp.detached) return;
+
+        if (damage > impactThreshold*10)
+        {
+            currentIntegrity -= damage;
+            currentIntegrity = Mathf.Max(currentIntegrity, minIntegrity);
+            rb.mass = currentIntegrity;
         }
     }
 
@@ -56,6 +69,6 @@ public class BrickIntegrity : MonoBehaviour
         responsiveProp.detached = true;
         rb.mass = detachedMass;
         rb.isKinematic = false;
-        rb.AddExplosionForce(100f, transform.position, 1f);
+        //rb.AddExplosionForce(100f, transform.position, 1f);
     }
 }
