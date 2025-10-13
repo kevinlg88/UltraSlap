@@ -11,9 +11,10 @@ public class TriggerHitbox : MonoBehaviour
     private RagdollAnimator2 myragdoll;
     [SerializeField] private MMFeedbacks slapEnemy, slapProp, slapEnvironment;
 
-    [Header("Target Control")] // NOVO: mantém controle sobre o que já foi atingido
+    [Header("Target Control")] // mantém controle sobre o que já foi atingido
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>(); // objetos comuns
     private HashSet<RagdollAnimator2> hitRagdolls = new HashSet<RagdollAnimator2>(); // ragdolls já atingidos
+    private bool propFeedbackPlayed = false; //novo controle para evitar múltiplos slapProp
 
     [Header("Slap Setup")]
     [SerializeField] float slapPowerFallingThreshold;
@@ -34,13 +35,16 @@ public class TriggerHitbox : MonoBehaviour
     {
         hitObjects.Clear();  // Cada vez que a hitbox é instanciada, o histórico de acertos é limpo.
         hitRagdolls.Clear(); // Cada vez que a hitbox é instanciada, o histórico de acertos é limpo.
+
+        propFeedbackPlayed = false; //reseta a flag quando a hitbox é recriada
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log($"Bateu no seguinte objeto: {other}");
 
-        if (isSlapping) return;
+        if (!other) return;
+        if (hitObjects.Contains(other.gameObject)) return; // evita hits duplicados
 
         if (!other.attachedRigidbody)
         {
@@ -65,21 +69,51 @@ public class TriggerHitbox : MonoBehaviour
 
     private void Slap(Collider other)
     {
-        isSlapping = true;
+
         RagdollAnimator2 ragdoll = GetRagdoll(other.attachedRigidbody.gameObject);
+
+        // Caso tenha atingido um ragdoll, verifica se já acertou o mesmo dono
         if (ragdoll != null)
         {
-            if (ragdoll.gameObject.name == myragdoll.gameObject.name) return;
+            if (ragdoll == myragdoll) return; // ignora o próprio jogador
+
+            if (hitRagdolls.Contains(ragdoll))
+                return; // já atingiu esse ragdoll antes neste tapa
+
+            hitRagdolls.Add(ragdoll); // registra que esse ragdoll foi atingido
+
+            // Aplica dano e efeitos
             ApplyDamage(ragdoll.GetComponent<PlayerController>());
             if (playerSlap.GetPower() >= slapPowerFallingThreshold)
-            {
                 ragdoll.GetComponent<PlayerController>().SetIsFalling();
-            }
-            slapEnemy.PlayFeedbacks();
+
+            slapEnemy?.PlayFeedbacks();
+            ragdoll.RA2Event_AddHeadImpact(transform.forward * playerSlap.GetPower());
         }
 
-        if (ragdoll) ragdoll.RA2Event_AddHeadImpact(this.gameObject.transform.forward * playerSlap.GetPower());
-        else other.attachedRigidbody.AddForce(this.gameObject.transform.forward * playerSlap.GetPower(), ForceMode.Impulse);
+        else // Não é ragdoll (pode ser uma caixa, vaso, etc.)
+        {
+            var responsive = other.GetComponent<ResponsiveProp>();
+
+            if (responsive != null) // Caso o objeto tenha o componente ResponsiveProp
+            {
+                // Se não estiver solto (detached = false) e ainda não tocou slapProp neste hitbox
+                if (!responsive.detached && !propFeedbackPlayed)
+                {
+                    slapProp?.PlayFeedbacks();
+                    propFeedbackPlayed = true; // marca como tocado
+                }
+            }
+            else
+            {
+                // Se o objeto NÃO tiver ResponsiveProp, toca sempre (pois são objetos independentes)
+                slapProp?.PlayFeedbacks();
+            }
+
+            // Aplica força física no objeto
+            other.attachedRigidbody.AddForce(transform.forward * playerSlap.GetPower(), ForceMode.Impulse);
+
+        }
 
         SpawnSlapEffect();
     }
@@ -98,7 +132,7 @@ public class TriggerHitbox : MonoBehaviour
         if(parent.TryGetComponent(out RagdollAnimatorDummyReference ragdollAnimatorDummyRef))
             return ragdollAnimatorDummyRef.ParentComponent as RagdollAnimator2;
         
-        slapProp.PlayFeedbacks(); //TODO => EVENT DE FEEDBACKS
+        //slapProp.PlayFeedbacks(); //TODO => EVENT DE FEEDBACKS
         return null;
     }
 

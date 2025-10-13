@@ -178,8 +178,8 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _FlatRimEdgeSmoothness: 0.418
-    - _FlatRimLightAlign: 0.198
-    - _FlatRimSize: 0.376
+    - _FlatRimLightAlign: 0.205
+    - _FlatRimSize: 0.3
     - _FlatSpecularEdgeSmoothness: 0
     - _FlatSpecularSize: 0.6
     - _GlossMapScale: 0
@@ -206,7 +206,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimEnabled: 1
-    - _SelfShadingSize: 0.768
+    - _SelfShadingSize: 0.615
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularEnabled: 0
