@@ -5215,6 +5215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSetupState: 0
   currentLevel: 3
+  startMatchMMFPlayer: {fileID: 2006064135}
   WinsGameObject: {fileID: 15110750}
   rewiredEventSystem: {fileID: 778883793}
   joinAction: Join
@@ -19079,7 +19080,7 @@ MonoBehaviour:
     - rid: 3458609539045916827
       type: {class: MMF_LoadScene, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks.MMTools}
       data:
-        Active: 0
+        Active: 1
         UniqueID: 363187549
         Label: Load Scene
         ChannelMode: 0
@@ -19144,9 +19145,9 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 2006064135}
         DebugActive: 0
-        LoadingSceneName: AdditiveLoadingScreen
+        LoadingSceneName: LoadingScreen
         DestinationSceneName: 
-        LoadingMode: 2
+        LoadingMode: 1
         Priority: 4
         SecureLoad: 1
         UnloadMethod: 2
