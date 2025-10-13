@@ -25,8 +25,8 @@ public class MatchSetupManager : MonoBehaviour
 
     [Header("Start Game Setup")]
     [SerializeField] SceneIndexEnum currentLevel;
-    //[SerializeField] private MMF_Player startMatchMMFPlayer;//Referência ao MMfeedback de carregamento de cena para que o nome da cena a ser carregada possa ser atualizada diretamnete no feedback
-    //private MMF_LoadScene loadSceneFeedback; //Variável que vai receber o feedback Load Scene do MMF_player startMatchMMFPlayer
+    [SerializeField] private MMF_Player startMatchMMFPlayer;//Referência ao MMfeedback de carregamento de cena para que o nome da cena a ser carregada possa ser atualizada diretamente no feedback
+    private MMF_LoadScene loadSceneFeedback; //Variável que vai receber o feedback Load Scene do MMF_player startMatchMMFPlayer
     [SerializeField] private ValueSelector WinsGameObject;
 
     [Header("UI References")]
@@ -62,11 +62,11 @@ public class MatchSetupManager : MonoBehaviour
         // SystemPlayer é sempre válido e pega input global
         systemPlayer = ReInput.players.SystemPlayer;
 
-        /*if (startMatchMMFPlayer != null)
+        if (startMatchMMFPlayer != null)
         {
             loadSceneFeedback = startMatchMMFPlayer.GetFeedbackOfType<MMF_LoadScene>();
         }
-        */
+
 
     }
 
@@ -176,14 +176,12 @@ public class MatchSetupManager : MonoBehaviour
             Debug.LogWarning("Nome de nível inválido: " + levelName);
         }
 
-        /*
-        // Atualiza o feedback do MMF LoadScene
         if (loadSceneFeedback != null)
         {
             loadSceneFeedback.DestinationSceneName = levelName;
             Debug.Log("DestinationSceneName atualizado no MMF Feedback -> " + levelName);
         }
-        */
+
     }
 
     public void DefineWins()  // Pega o número de wins no objeto da interface que carrega essa informação, e joga no correspondente em MatchData
