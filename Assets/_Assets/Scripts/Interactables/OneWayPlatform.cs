@@ -99,33 +99,28 @@ public class OneWayPlatform : MonoBehaviour
         Vector3 delta = newPos - rb.position;
         rb.MovePosition(newPos);
 
-        // Aplica força aos ragdolls sobre a plataforma
-        ApplyForceToRagdolls(delta);
 
         lastPosition = newPos;
     }
 
-    private void ApplyForceToRagdolls(Vector3 delta)
-    {
-        // Detecta todos os colliders próximos à plataforma (em cima)
-        Collider[] hits = Physics.OverlapBox(transform.position + Vector3.up * 0.05f,
-                                             new Vector3(1f, 0.05f, 1f),
-                                             Quaternion.identity);
 
-        foreach (var hit in hits)
+    private void OnCollisionStay(Collision collision)
+    {
+        Debug.Log("Chegou a verificação de ragdolls");
+
+        // Tenta pegar o RagdollAnimator2 diretamente no objeto que bateu
+        RagdollAnimator2 ragdoll = collision.gameObject.GetComponent<RagdollAnimator2>();
+        if (ragdoll != null)
         {
-            Debug.Log("Chegou a verificação de ragdolls");
-            // Verifica se tem RagdollAnimator2 no objeto
-            RagdollAnimator2 ragdoll = hit.GetComponentInParent<RagdollAnimator2>();
-            if (ragdoll != null)
+            Debug.Log("Achou um ragdoll");
+
+            Rigidbody rb = ragdoll.GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                Debug.Log("Achou um ragdoll");
-                // Pega o Rigidbody do mesmo GameObject que o ragdoll
-                Rigidbody ragdollRb = ragdoll.GetComponent<Rigidbody>();
-                if (ragdollRb != null)
-                {
-                    ragdollRb.AddForce(delta / Time.fixedDeltaTime * ragdollSpeedMultiplier, ForceMode.VelocityChange);
-                }
+
+                // Aplica força proporcional à velocidade da plataforma
+                Vector3 dir = currentState == MoveState.MovingPositive ? Vector3.right : Vector3.left;
+                rb.AddForce(dir * moveSpeed * ragdollSpeedMultiplier, ForceMode.VelocityChange);
             }
         }
     }

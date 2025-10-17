@@ -15901,7 +15901,7 @@ MonoBehaviour:
             m_Calls:
             - m_Target: {fileID: 585500246}
               m_TargetAssemblyTypeName: ZigZagDevice, Assembly-CSharp
-              m_MethodName: Activate
+              m_MethodName: Deactivate
               m_Mode: 1
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
@@ -17451,17 +17451,17 @@ PrefabInstance:
     - target: {fileID: 8805790870340777979, guid: e2f9b2e0813ac3440919a64784b9bc1a,
         type: 3}
       propertyPath: FeedbacksList.Array.data[2]
-      value: 3458609840819798175
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805790870340777979, guid: e2f9b2e0813ac3440919a64784b9bc1a,
-        type: 3}
-      propertyPath: FeedbacksList.Array.data[3]
       value: 3458609539045916843
       objectReference: {fileID: 0}
     - target: {fileID: 8805790870340777979, guid: e2f9b2e0813ac3440919a64784b9bc1a,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[4]
+      propertyPath: FeedbacksList.Array.data[3]
       value: 3458609539045916844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805790870340777979, guid: e2f9b2e0813ac3440919a64784b9bc1a,
+        type: 3}
+      propertyPath: FeedbacksList.Array.data[4]
+      value: 3458609840819798175
       objectReference: {fileID: 0}
     - target: {fileID: 8805790870340777979, guid: e2f9b2e0813ac3440919a64784b9bc1a,
         type: 3}
