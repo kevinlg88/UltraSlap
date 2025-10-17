@@ -18,6 +18,7 @@ MonoBehaviour:
   - {fileID: 3075112267765167606, guid: ca95e6446aa4b794ca46c00d08307e18, type: 3}
   - {fileID: 7708512875194542912, guid: fc61e8eadc68826459bec66afefd028b, type: 3}
   - {fileID: 5301962861819756922, guid: 36d220e0579469240929f4b5be8bc44c, type: 3}
+  eyeAccessories: []
   faceAccessories:
   - {fileID: 3440144839866458970, guid: 3a8fbfdbe4e2e204ab2723d48cf8994b, type: 3}
   - {fileID: 4979139155902313074, guid: 0067f60e354ff14418f3cead0769c469, type: 3}
@@ -72,5 +73,5 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0, b: 1, a: 1}
   - {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
-  - {r: 0.64705884, g: 0.16470589, b: 0.16470589, a: 1}
+  - {r: 0.39607844, g: 0.2627451, b: 0.12941177, a: 1}
   - {r: 1, g: 0.64705884, b: 0, a: 1}
