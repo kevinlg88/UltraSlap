@@ -357,6 +357,51 @@ Transform:
   - {fileID: 4899725453126000977}
   m_Father: {fileID: 2762541487859986123}
   m_LocalEulerAnglesHint: {x: 10.136379, y: 13.351508, z: 26.080507}
+--- !u!1 &1023540873209057152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5388968719286043865}
+  - component: {fileID: 2804670370986655621}
+  m_Layer: 0
+  m_Name: eyes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5388968719286043865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023540873209057152}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3643797214391041728}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2804670370986655621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023540873209057152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fbdf5f6ec18621b5892e32d37c053af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4680219682285410669}
 --- !u!1 &1162384706157157630
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,9 +550,6 @@ MonoBehaviour:
   slapEnemy: {fileID: 8254234158647348083}
   slapProp: {fileID: 1027013813812703395}
   slapEnvironment: {fileID: 1590479134853669964}
-  glassLayer:
-    serializedVersion: 2
-    m_Bits: 0
   slapPowerFallingThreshold: 200
   isSlapping: 0
   effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
@@ -8845,6 +8887,7 @@ Transform:
   m_Children:
   - {fileID: 4240477517557823920}
   - {fileID: 1116984904345901621}
+  - {fileID: 5388968719286043865}
   - {fileID: 3749998809763318532}
   - {fileID: 4523785126816701920}
   m_Father: {fileID: 7905835572390947710}
@@ -14798,9 +14841,6 @@ MonoBehaviour:
   slapEnemy: {fileID: 8254234158647348083}
   slapProp: {fileID: 1027013813812703395}
   slapEnvironment: {fileID: 1590479134853669964}
-  glassLayer:
-    serializedVersion: 2
-    m_Bits: 0
   slapPowerFallingThreshold: 200
   isSlapping: 0
   effectPrefab: {fileID: 2169725235821505602, guid: 514013d303d6cad4580525a9f71f582b,
@@ -16994,6 +17034,7 @@ MonoBehaviour:
   head: {fileID: 4858387360349818282}
   body: {fileID: 1548730488004190740}
   headSlot: {fileID: 1116984904345901621}
+  eyesSlot: {fileID: 5388968719286043865}
   faceSlot: {fileID: 3749998809763318532}
   clothSlot: {fileID: 4523785126816701920}
   GlovesSlot: {fileID: 0}

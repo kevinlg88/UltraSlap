@@ -159,8 +159,7 @@ public class PlayerMenuNavigator : MonoBehaviour
                 playerMenuCustomization.ChangeHeadAccessory(isRightArrow);
                 break;
             case PlayerMenuButtons.Eyes:
-                Debug.Log($"Eyes Selected");
-                //playerMenuCustomization.ChangeEyesAccessory(isRightArrow);
+                playerMenuCustomization.ChangeEyesAccessory(isRightArrow);
                 break;
             case PlayerMenuButtons.Face:
                 playerMenuCustomization.ChangeFaceAccessory(isRightArrow);

@@ -17,6 +17,7 @@ public class PlayerCustomization : MonoBehaviour
 
     [Header("Slots Point References")]
     [SerializeField] private Transform headSlot;
+    [SerializeField] private Transform eyesSlot;
     [SerializeField] private Transform faceSlot;
     [SerializeField] private Transform clothSlot;
     [SerializeField] private Transform GlovesSlot;
@@ -24,6 +25,7 @@ public class PlayerCustomization : MonoBehaviour
     int teamIndex = 0;
     int colorSkinIndex = 0;
     int headIndex = 0;
+    int eyesIndex = 0;
     int faceIndex = 0;
     int clothIndex = 0;
 
@@ -88,6 +90,27 @@ public class PlayerCustomization : MonoBehaviour
         }
     }
 
+    public void ChangeEyesAccessory(bool isNext)
+    {
+        RemoveAccessory(eyesSlot);
+        if (isNext)
+        {
+            eyesIndex++;
+            if (eyesIndex >= item.eyeAccessories.Count) eyesIndex = 0;
+        }
+        else
+        {
+            eyesIndex--;
+            if (eyesIndex < 0) eyesIndex = item.eyeAccessories.Count - 1;
+        }
+
+        GameObject accessory = Instantiate(item.eyeAccessories[eyesIndex], eyesSlot);
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
+    }
     public void ChangeFaceAccessory(bool isNext)
     {
         RemoveAccessory(faceSlot);
@@ -155,6 +178,17 @@ public class PlayerCustomization : MonoBehaviour
             smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
         }
     }
+
+    public void LoadEyesAccessory()
+    {
+        RemoveAccessory(eyesSlot);
+        GameObject accessory = Instantiate(item.eyeAccessories[eyesIndex], eyesSlot);
+        if (accessory.TryGetComponent(out SkinnedMeshRenderer smr))
+        {
+            smr.bones = (body as SkinnedMeshRenderer).bones;
+            smr.rootBone = (body as SkinnedMeshRenderer).rootBone;
+        }
+    }
     public void LoadFaceAccessory()
     {
         RemoveAccessory(faceSlot);
@@ -186,7 +220,7 @@ public class PlayerCustomization : MonoBehaviour
         {
 
             playerData.Team = new Team((TeamEnum) teamIndex, item.teamColors[teamIndex]);
-            playerData.PlayerVisual = new CharacterVisualData(headIndex, faceIndex, clothIndex, colorSkinIndex);
+            playerData.PlayerVisual = new CharacterVisualData(headIndex, eyesIndex, faceIndex, clothIndex, colorSkinIndex);
         }
     }
 
@@ -197,11 +231,13 @@ public class PlayerCustomization : MonoBehaviour
             teamIndex = (int)playerData.Team.TeamEnum;
             colorSkinIndex = playerData.PlayerVisual.GetColorIndex();
             headIndex = playerData.PlayerVisual.GetHeadIndex();
+            eyesIndex = playerData.PlayerVisual.GetEyesIndex();
             faceIndex = playerData.PlayerVisual.GetFaceIndex();
             clothIndex = playerData.PlayerVisual.GetSkinIndex();
 
             LoadPlayerSkinColor();
             LoadHeadAccessory();
+            LoadEyesAccessory();
             LoadFaceAccessory();
             LoadCloth();
         }
