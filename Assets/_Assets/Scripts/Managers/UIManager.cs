@@ -41,16 +41,16 @@ public class UIManager : MonoBehaviour
         await StartMatchTransitionAnim();
         await SetTeamScore(winnerTeam);
         await Task.Delay(5000);
-        await FadeIn();
+        //await FadeIn();
         await Task.Delay(1000);
-        uiScoreMain.SetActive(false);
-        await FadeOut();
+        //uiScoreMain.SetActive(false);
+        //await FadeOut();
         _gameEvent.onRoundRestart.Invoke();
     }
     private async Task SetTeamScore(Team winnerTeam)
     {
         Debug.Log("SetTeamScore");
-        uiScoreMain.SetActive(true);
+        //uiScoreMain.SetActive(true);
         _scoreManager.AddScore(winnerTeam);
         foreach (ScoreData scoreData in _scoreManager.GetListScores())
         {
@@ -69,6 +69,14 @@ public class UIManager : MonoBehaviour
 
     #region ==== Slap Transition Anim ====
 
+
+    private async Task StartMatchTransitionAnim()
+    {
+        Debug.Log("Começou transição");
+    }
+
+
+    /*
     private async Task FadeIn()
     {
         uiRoundTransitionMain.SetActive(true);
@@ -117,7 +125,7 @@ public class UIManager : MonoBehaviour
 
         Debug.Log("Terminou");
     }
-
+    */
 
     #endregion
 }
