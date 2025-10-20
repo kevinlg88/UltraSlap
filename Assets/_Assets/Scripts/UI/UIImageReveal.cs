@@ -47,7 +47,7 @@ public class UIImageReveal : MonoBehaviour
         }
 
         // A largura alvo é a largura do targetImage em pixels neste layout atual
-        maxWidth = targetImage.sizeDelta.x;
+        maxWidth = targetImage.rect.width;
         initialized = true;
         // opcional debug
         Debug.Log($"UIImageReveal inicializado: maxWidth = {maxWidth}");
