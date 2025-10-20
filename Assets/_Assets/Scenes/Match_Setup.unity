@@ -16244,7 +16244,7 @@ MonoBehaviour:
   minTeams: 2
   joinAction: Join
   cancelAction: Cancel
-  isDebugMode: 1
+  isDebugMode: 0
   playerDebugId: 1
 --- !u!64 &38660988532060317
 MeshCollider:

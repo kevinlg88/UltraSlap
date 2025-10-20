@@ -73,16 +73,29 @@ public class LevelManager : MonoBehaviour
         List<Team> teams = GetTeamsInGame();
         if (teams.Count <= 1)
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             _gameEvent.onRoundEnd.Invoke(teams[0]);
         }
     }
-    private List<Team> GetTeamsInGame()
+    public List<Team> GetTeamsInGame() //Pega somente o time sobrevivente do match
     {
         HashSet<Team> teams = new();
         foreach (PlayerController player in playersInGame)
         {
             if (player.PlayerData != null && !player.IsDead && !teams.Contains(player.PlayerData.Team))
+            {
+                teams.Add(player.PlayerData.Team);
+            }
+        }
+        return new List<Team>(teams);
+    }
+
+    public List<Team> GetAllTeamsInMatch() //Pega todos os times que estão no match, ativos ou não
+    {
+        HashSet<Team> teams = new();
+        foreach (PlayerController player in playersInGame)
+        {
+            if (player.PlayerData != null && player.PlayerData.Team != null)
             {
                 teams.Add(player.PlayerData.Team);
             }
