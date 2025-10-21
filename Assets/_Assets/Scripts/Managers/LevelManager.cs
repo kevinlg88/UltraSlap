@@ -49,7 +49,6 @@ public class LevelManager : MonoBehaviour
 
         //Events
         _gameEvent.onPlayerDeath.AddListener(OnPlayerDeath);
-        _gameEvent.onRoundRestart.AddListener(OnRoundRestart);
 
         _gameEvent.onPlayersJoined.Invoke(playersInGame);
     }
@@ -58,10 +57,7 @@ public class LevelManager : MonoBehaviour
     {
         levelSong.PlayFeedbacks(); //TODO: Create a Audio manager for this
     }
-    private async void OnRoundRestart()
-    {
-        await _levelSpawnManager.StartGame((int)_levelSpawnManager.currentLevel);
-    }
+
     private void OnPlayerDeath()
     {
         PlayerController player = playersInGame.Find(dead => dead.IsDead);
@@ -77,6 +73,7 @@ public class LevelManager : MonoBehaviour
             _gameEvent.onRoundEnd.Invoke(teams[0]);
         }
     }
+
     public List<Team> GetTeamsInGame() //Pega somente o time sobrevivente do match
     {
         HashSet<Team> teams = new();

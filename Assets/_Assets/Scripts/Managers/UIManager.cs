@@ -19,7 +19,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI team8ScoreText;
 
     [Header("UI RoundTransition References")]
-    [SerializeField] private MMFeedbacks roundTransitionIn; //Game Object com o MMF Player que dá start na transição de rounds
+    [SerializeField] private MMFeedbacks callRoundStatistics; //Game Object com o MMF Player que dá start na transição de rounds
+    [SerializeField] private MMFeedbacks StartNewRound; //Game Object com o MMF Player que inicia o novo round
+
     [SerializeField] private GameObject orangeTeamTag;
     [SerializeField] private GameObject brownTeamTag;
     [SerializeField] private GameObject pinkTeamTag;
@@ -102,11 +104,20 @@ public class UIManager : MonoBehaviour
         }
     }
     
+
     private void AddWinnerPoint(Team winnerTeam)
     {
         _scoreManager.AddScore(winnerTeam);
         UpdateScoreUI();
     }
+   
+
+    /*public void AddWinnerPoint()
+    {
+        Debug.Log($"O time campeão foi: {winningTeam}");
+        _scoreManager.AddScore(winningTeam);
+        UpdateScoreUI();
+    }*/
 
     private async Task StartMatchTransitionAnim()
     {
@@ -131,7 +142,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        roundTransitionIn.PlayFeedbacks();
+        callRoundStatistics.PlayFeedbacks();
     }
 
     public void WinnerUIAnim()
@@ -150,5 +161,10 @@ public class UIManager : MonoBehaviour
             case TeamEnum.Team7: brownWinner.SetActive(true); break;
             case TeamEnum.Team8: orangeWinner.SetActive(true); break;
         }
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = 1;
     }
 }
