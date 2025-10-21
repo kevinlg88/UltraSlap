@@ -50280,7 +50280,8 @@ MonoBehaviour:
   team7ScoreText: {fileID: 439989031}
   team8ScoreText: {fileID: 1849655547}
   callRoundStatistics: {fileID: 1462996607}
-  StartNewRound: {fileID: 793166093}
+  RoundTransition: {fileID: 793166093}
+  ContinueButton: {fileID: 277538015}
   orangeTeamTag: {fileID: 1947957257}
   brownTeamTag: {fileID: 1967457033}
   pinkTeamTag: {fileID: 273520943}

@@ -20,7 +20,8 @@ public class UIManager : MonoBehaviour
 
     [Header("UI RoundTransition References")]
     [SerializeField] private MMFeedbacks callRoundStatistics; //Game Object com o MMF Player que dá start na transição de rounds
-    [SerializeField] private MMFeedbacks StartNewRound; //Game Object com o MMF Player que inicia o novo round
+    [SerializeField] private MMFeedbacks RoundTransition; //Game Object com o MMF Player que inicia o novo round
+    [SerializeField] private GameObject ContinueButton; //Referência para o gameObject do botão "Continue" Só deve permitir passar para o próximo round se esse game object estiver ativo.
 
     [SerializeField] private GameObject orangeTeamTag;
     [SerializeField] private GameObject brownTeamTag;
