@@ -19,19 +19,28 @@ public class ScoreManager
     {
         foreach (ScoreData score in scores)
         {
-            if (score.team == team)
+            if (score.team.TeamEnum == team.TeamEnum)
             {
                 score.score += 1;
+                Debug.Log($"Team {team.TeamEnum} scored! New score: {score.score}");
                 return;
             }
         }
-        Debug.LogError($"Team {team.TeamEnum.DisplayName()} not setted");
+    }
+    public List<Team> GetAllTeamsInMatch()
+    {
+        List<Team> teamsInMatch = new();
+        foreach (ScoreData score in scores)
+        {
+            teamsInMatch.Add(score.team);
+        }
+        return teamsInMatch;
     }
     public int GetScoreByTeam(Team team)
     {
         foreach (ScoreData score in scores)
         {
-            if (score.team == team) return score.score;
+            if (score.team.TeamEnum == team.TeamEnum) return score.score;
         }
         return 0;
     }

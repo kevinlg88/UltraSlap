@@ -18,7 +18,6 @@ public class RewiredJoinManager : MonoBehaviour
     [SerializeField] private MMFeedbacks ReadyConfirmMMFeedbacks;
 
     [Header("Start Game Setup")]
-    [SerializeField] SceneIndexEnum currentLevel;
     [SerializeField] int minTeams = 2;
 
     [Header("Input Setup")]
@@ -31,15 +30,6 @@ public class RewiredJoinManager : MonoBehaviour
 
     [Inject]
     private MatchData _playerManager;
-    private ScoreManager _scoreManager;
-    private LevelSpawnManager _levelSpawnManager;
-
-    [Inject]
-    public void Construct(ScoreManager scoreManager, LevelSpawnManager levelSpawnManager)
-    {
-        _scoreManager = scoreManager;
-        _levelSpawnManager = levelSpawnManager;
-    }
 
     void Start()
     {
@@ -229,10 +219,6 @@ public class RewiredJoinManager : MonoBehaviour
         }
 
         ReadyConfirmMMFeedbacks.PlayFeedbacks();
-
-        /*_scoreManager.ResetScores();
-        _scoreManager.SetTeams(_playerManager.GetTeams());
-        await _levelSpawnManager.StartGame((int)currentLevel);*/
     }
 
     public void ExitPlayer(int id)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.55788934, g: 0.73788965, b: 1.0243524, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2525,7 +2525,7 @@ GameObject:
   - component: {fileID: 59847697}
   - component: {fileID: 59847696}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Yellow Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14316,7 +14316,7 @@ GameObject:
   - component: {fileID: 439989032}
   - component: {fileID: 439989031}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Brown Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28220,7 +28220,7 @@ GameObject:
   - component: {fileID: 877366337}
   - component: {fileID: 877366336}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Green Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35305,7 +35305,7 @@ GameObject:
   - component: {fileID: 1102902508}
   - component: {fileID: 1102902507}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Purple Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38888,7 +38888,7 @@ GameObject:
   - component: {fileID: 1362306490}
   - component: {fileID: 1362306489}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Blue Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39892,55 +39892,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: cbc93a2507793a9468d0de30f09e7d65, type: 3}
---- !u!1 &1416187905
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1416187907}
-  - component: {fileID: 1416187906}
-  m_Layer: 0
-  m_Name: PostProcessing
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1416187906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416187905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 51ca3910d0e422b4a95bb5d2e3989cd7, type: 2}
---- !u!4 &1416187907
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416187905}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9484176, y: -1.4463863, z: -5.3527684}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1425530704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43955,7 +43906,7 @@ GameObject:
   - component: {fileID: 1538185923}
   - component: {fileID: 1538185922}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Pink Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49813,74 +49764,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1448507197}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1801088361
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1801088364}
-  - component: {fileID: 1801088363}
-  - component: {fileID: 1801088362}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1801088362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1801088361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &1801088363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1801088361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1801088364
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1801088361}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807283085
 GameObject:
   m_ObjectHideFlags: 0
@@ -49910,16 +49793,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea9170637cf8ec4d9e9cec9f18f6e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiScoreMain: {fileID: 1647141257}
-  teamsField: {fileID: 1923620519}
-  uiRoundTransitionMain: {fileID: 1689899117}
-  maskHandTransparent: {fileID: 1983762837}
-  handBlackScreen: {fileID: 729319772}
-  delayStartTransition: 1
-  maskHandFinalScale: {x: 15, y: 15, z: 15}
-  animDuration: 1
-  easeType: 1
-  levelManager: {fileID: 1990201865}
+  team1ScoreText: {fileID: 1362306489}
+  team2ScoreText: {fileID: 59847696}
+  team3ScoreText: {fileID: 877366336}
+  team4ScoreText: {fileID: 1845581086}
+  team5ScoreText: {fileID: 1538185922}
+  team6ScoreText: {fileID: 1102902507}
+  team7ScoreText: {fileID: 439989031}
+  team8ScoreText: {fileID: 1849655547}
   roundTransitionIn: {fileID: 1462996607}
   orangeTeamTag: {fileID: 1947957257}
   brownTeamTag: {fileID: 1967457033}
@@ -50158,7 +50039,7 @@ GameObject:
   - component: {fileID: 1845581087}
   - component: {fileID: 1845581086}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Red Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50293,7 +50174,7 @@ GameObject:
   - component: {fileID: 1849655548}
   - component: {fileID: 1849655547}
   m_Layer: 5
-  m_Name: Number of Wins Text (TMP)
+  m_Name: Orange Number of Wins Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80981,13 +80862,13 @@ SceneRoots:
   - {fileID: 856712407}
   - {fileID: 1962679493}
   - {fileID: 2134232195}
-  - {fileID: 194662883}
   - {fileID: 1065818286}
-  - {fileID: 842093126}
+  - {fileID: 194662883}
   - {fileID: 333614469}
   - {fileID: 740571693}
   - {fileID: 1807283087}
   - {fileID: 1990201866}
+  - {fileID: 842093126}
   - {fileID: 1533195692}
   - {fileID: 834015453}
   - {fileID: 330585546}
@@ -80995,7 +80876,6 @@ SceneRoots:
   - {fileID: 1875313583}
   - {fileID: 1623677350}
   - {fileID: 646244526}
-  - {fileID: 1416187907}
   - {fileID: 153847042}
   - {fileID: 637870417}
   - {fileID: 389807543}
@@ -81014,4 +80894,3 @@ SceneRoots:
   - {fileID: 377122322}
   - {fileID: 1721853}
   - {fileID: 494495307}
-  - {fileID: 1801088364}

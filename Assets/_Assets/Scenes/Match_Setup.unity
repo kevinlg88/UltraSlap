@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18261583, g: 0.22553019, b: 0.29092148, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15125,6 +15125,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 518158950}
+        m_TargetAssemblyTypeName: MatchSetupManager, Assembly-CSharp
+        m_MethodName: PrepareToStartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 2006064135}
         m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
         m_MethodName: PlayFeedbacks
@@ -15360,10 +15372,10 @@ MonoBehaviour:
         m_Calls: []
   DebugActive: 0
   FeedbacksList:
+  - rid: 286718113916911775
   - rid: 3458609539045916827
   - rid: 286718070760407205
   - rid: 286718070760407204
-  - rid: 286718113916911775
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   StopFeedbacksOnDisable: 0
@@ -16240,7 +16252,6 @@ MonoBehaviour:
   - {fileID: 1559086868}
   matchSetupManager: {fileID: 518158950}
   ReadyConfirmMMFeedbacks: {fileID: 660760827}
-  currentLevel: 3
   minTeams: 2
   joinAction: Join
   cancelAction: Cancel

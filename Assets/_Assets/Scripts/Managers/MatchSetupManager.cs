@@ -46,13 +46,11 @@ public class MatchSetupManager : MonoBehaviour
     [Inject]
     private MatchData _MatchData;
     private ScoreManager _scoreManager;
-    private LevelSpawnManager _levelSpawnManager;
 
     [Inject]
-    public void Construct(ScoreManager scoreManager, LevelSpawnManager levelSpawnManager)
+    public void Construct(ScoreManager scoreManager)
     {
         _scoreManager = scoreManager;
-        _levelSpawnManager = levelSpawnManager;
     }
 
 
@@ -66,8 +64,6 @@ public class MatchSetupManager : MonoBehaviour
         {
             loadSceneFeedback = startMatchMMFPlayer.GetFeedbackOfType<MMF_LoadScene>();
         }
-
-
     }
 
 
@@ -78,14 +74,14 @@ public class MatchSetupManager : MonoBehaviour
         {
             GetPlayerInput();
 
-            if (EventSystem.current.currentSelectedGameObject != null)
+            /*if (EventSystem.current.currentSelectedGameObject != null)
             {
                 Debug.Log("Selecionado: " + rewiredEventSystem.currentSelectedGameObject.name);
             }
             else
             {
                 Debug.Log("Nada selecionado");
-            }
+            }*/
         }
 
     }
@@ -152,14 +148,13 @@ public class MatchSetupManager : MonoBehaviour
         }
     }
 
-    public async void PrepareToStartGame()
+    public void PrepareToStartGame()
     {
         DefineWins();
 
         _scoreManager.ResetScores();
         _scoreManager.SetTeams(_MatchData.GetTeams());
-        //TODO: Colocar Loading Screen
-        //await _levelSpawnManager.StartGame((int)currentLevel);
+        Debug.Log($"Teams setados no ScoreManager: {_scoreManager.GetAllTeamsInMatch().Count}");
     }
 
     public void UpdateCurrentLevel(string levelName)
@@ -186,8 +181,7 @@ public class MatchSetupManager : MonoBehaviour
 
     public void DefineWins()  // Pega o número de wins no objeto da interface que carrega essa informação, e joga no correspondente em MatchData
     {
-        int definedWins;
-        bool success = int.TryParse(WinsGameObject.GetCurrentValue(), out definedWins);
+        bool success = int.TryParse(WinsGameObject.GetCurrentValue(), out int definedWins);
 
 
         if (success)

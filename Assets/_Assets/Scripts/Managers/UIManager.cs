@@ -1,30 +1,22 @@
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using System.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Zenject;
+using TMPro;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("UI Score")]
-    [SerializeField] private GameObject uiScoreMain;
-    [SerializeField] private GameObject teamsField;
-
-    [Header("UI RoundTransition")]
-    [SerializeField] private GameObject uiRoundTransitionMain;
-    [SerializeField] private GameObject maskHandTransparent;
-    [SerializeField] private GameObject handBlackScreen;
-
-    [Header("UI RoundTransition Setup")]
-    [SerializeField] private int delayStartTransition = 1000;
-    [SerializeField] private Vector3 maskHandFinalScale;
-    [SerializeField] private float animDuration;
-    [SerializeField] Ease easeType;
-    [SerializeField] private LevelManager levelManager; // para poder acessar informações dos times na partida
-
+    [Header("Score UI References")]
+    [SerializeField] private TextMeshProUGUI team1ScoreText;
+    [SerializeField] private TextMeshProUGUI team2ScoreText;
+    [SerializeField] private TextMeshProUGUI team3ScoreText;
+    [SerializeField] private TextMeshProUGUI team4ScoreText;
+    [SerializeField] private TextMeshProUGUI team5ScoreText;
+    [SerializeField] private TextMeshProUGUI team6ScoreText;
+    [SerializeField] private TextMeshProUGUI team7ScoreText;
+    [SerializeField] private TextMeshProUGUI team8ScoreText;
 
     [Header("UI RoundTransition References")]
     [SerializeField] private MMFeedbacks roundTransitionIn; //Game Object com o MMF Player que dá start na transição de rounds
@@ -48,49 +40,80 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject redWinner;
 
 
-    private GameEvent _gameEvent;
     private ScoreManager _scoreManager;
+    private Team winningTeam;
+
     [Inject]
     public void Construct(GameEvent gameEvent, ScoreManager scoreManager)
     {
-        _gameEvent = gameEvent;
         _scoreManager = scoreManager;
         gameEvent.onRoundEnd.AddListener(OnRoundEnd);
     }
     private async void OnRoundEnd(Team winnerTeam)
     {
         Debug.Log("ITS OVER!!!");
-        await Task.Delay(2000);
+        winningTeam = winnerTeam;
+        await Task.Delay(1000);
         await StartMatchTransitionAnim();
-        await SetTeamScore(winnerTeam);
-        //await Task.Delay(5000);
-        //await FadeIn();
-        //await Task.Delay(1000);
-        //uiScoreMain.SetActive(false);
-        //await FadeOut();
-        //_gameEvent.onRoundRestart.Invoke();
     }
-    private async Task SetTeamScore(Team winnerTeam)
+
+    private void UpdateScoreUI()
     {
-        Debug.Log("SetTeamScore");
-        /*
-        //uiScoreMain.SetActive(true);
-        _scoreManager.AddScore(winnerTeam);
-
-        //Check Win Match (Verificar scores dos times com score maximo de rounds)
-        await Task.CompletedTask;
-        */
+        List<Team> activeTeams = _scoreManager.GetAllTeamsInMatch();
+        Debug.Log($"Active Teams Count: {activeTeams.Count}");
+        // Ativa as tags correspondentes
+        foreach (Team team in activeTeams)
+        {
+            switch (team.TeamEnum)
+            {
+                case TeamEnum.Team1:
+                    team1ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 1 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team2:
+                    team2ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 2 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team3:
+                    team3ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 3 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team4:
+                    team4ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 4 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team5:
+                    team5ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 5 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team6:
+                    team6ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 6 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team7:
+                    team7ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 7 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+                case TeamEnum.Team8:
+                    team8ScoreText.text = _scoreManager.GetScoreByTeam(team).ToString();
+                    Debug.Log($"Team 8 Score Updated: {_scoreManager.GetScoreByTeam(team)}");
+                    break;
+            }
+        }
     }
-
-    #region ==== Slap Transition Anim ====
-
+    
+    private void AddWinnerPoint(Team winnerTeam)
+    {
+        _scoreManager.AddScore(winnerTeam);
+        UpdateScoreUI();
+    }
 
     private async Task StartMatchTransitionAnim()
     {
         Debug.Log("Começou transição");
-
+        UpdateScoreUI();
         // Pega os times ativos
-        List<Team> activeTeams = levelManager.GetAllTeamsInMatch();
+        List<Team> activeTeams = _scoreManager.GetAllTeamsInMatch();
 
         // Ativa as tags correspondentes
         foreach (Team team in activeTeams)
@@ -108,92 +131,24 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //await Task.CompletedTask;
-
-
         roundTransitionIn.PlayFeedbacks();
     }
-
 
     public void WinnerUIAnim()
     {
         Debug.Log("Começou a transição de winner UI");
+        AddWinnerPoint(winningTeam);
 
-        // Pega os times ativos
-        List<Team> activeTeams = levelManager.GetTeamsInGame();
-
-        // Ativa as tags correspondentes
-        foreach (Team team in activeTeams)
+        switch (winningTeam.TeamEnum)
         {
-            switch (team.TeamEnum)
-            {
-                case TeamEnum.Team1: blueWinner.SetActive(true); break;
-                case TeamEnum.Team2: yellowWinner.SetActive(true); break;
-                case TeamEnum.Team3: greenWinner.SetActive(true); break;
-                case TeamEnum.Team4: redWinner.SetActive(true); break;
-                case TeamEnum.Team5: pinkWinner.SetActive(true); break;
-                case TeamEnum.Team6: purpleWinner.SetActive(true); break;
-                case TeamEnum.Team7: brownWinner.SetActive(true); break;
-                case TeamEnum.Team8: orangeWinner.SetActive(true); break;
-            }
+            case TeamEnum.Team1: blueWinner.SetActive(true); break;
+            case TeamEnum.Team2: yellowWinner.SetActive(true); break;
+            case TeamEnum.Team3: greenWinner.SetActive(true); break;
+            case TeamEnum.Team4: redWinner.SetActive(true); break;
+            case TeamEnum.Team5: pinkWinner.SetActive(true); break;
+            case TeamEnum.Team6: purpleWinner.SetActive(true); break;
+            case TeamEnum.Team7: brownWinner.SetActive(true); break;
+            case TeamEnum.Team8: orangeWinner.SetActive(true); break;
         }
-
-        //await Task.CompletedTask;
-
-
-        //roundTransitionIn.PlayFeedbacks();
     }
-
-    /*
-    private async Task FadeIn()
-    {
-        uiRoundTransitionMain.SetActive(true);
-        await Task.Delay(delayStartTransition);
-        await HandBlackScreenTransitionAnim();
-    }
-    private async Task FadeOut()
-    {
-        uiRoundTransitionMain.SetActive(true);
-        await Task.Delay(delayStartTransition);
-        await MaskScreenTransitionAnim();
-    }
-    private async Task StartMatchTransitionAnim()
-    {
-        Debug.Log("Começou transição");
-        uiRoundTransitionMain.SetActive(true);
-        await Task.Delay(delayStartTransition);
-        await HandBlackScreenTransitionAnim();
-        uiScoreMain.SetActive(true);
-        await MaskScreenTransitionAnim();
-    }
-    private async Task HandBlackScreenTransitionAnim()
-    {
-        await handBlackScreen.transform
-            .DOScale(maskHandFinalScale, animDuration)
-            .SetEase(easeType)
-            .SetUpdate(true)
-            .AsyncWaitForCompletion();
-    }
-
-    private async Task MaskScreenTransitionAnim()
-    {
-        maskHandTransparent.SetActive(true);
-
-        await maskHandTransparent.transform
-            .DOScale(maskHandFinalScale, animDuration)
-            .SetEase(easeType)
-            .SetUpdate(true)
-            .AsyncWaitForCompletion();
-
-        maskHandTransparent.transform.localScale = Vector3.zero;
-        handBlackScreen.transform.localScale = Vector3.zero;
-
-        maskHandTransparent.SetActive(false);
-        uiRoundTransitionMain.SetActive(false);
-
-        Debug.Log("Terminou");
-    }
-    */
-
-    #endregion
 }
