@@ -60,7 +60,7 @@ public class UIImageReveal : MonoBehaviour
         float curWidth = maskRect.sizeDelta.x;
         if (curWidth >= maxWidth) return;
 
-        float newWidth = curWidth + speed * Time.deltaTime;
+        float newWidth = curWidth + speed * Time.unscaledDeltaTime;
         newWidth = Mathf.Min(newWidth, maxWidth);
 
         Vector2 sd = maskRect.sizeDelta;

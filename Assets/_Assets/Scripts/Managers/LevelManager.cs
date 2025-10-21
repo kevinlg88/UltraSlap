@@ -73,7 +73,7 @@ public class LevelManager : MonoBehaviour
         List<Team> teams = GetTeamsInGame();
         if (teams.Count <= 1)
         {
-            //Time.timeScale = 0;
+            Time.timeScale = 0;
             _gameEvent.onRoundEnd.Invoke(teams[0]);
         }
     }
