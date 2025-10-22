@@ -26,6 +26,9 @@ public class OneWayPlatform : MonoBehaviour
     [Tooltip("Se true, durante o teleporte o collider do target é desativado momentaneamente para evitar esmagamento.")]
     public bool disableColliderDuringTeleport = true;
 
+    [Tooltip("Se verdadeiro, a plataforma irá inverter a direção ao invés de se teletransportar.")]
+    public bool twoWayPlatform = false;
+
     private Rigidbody rb;
     private Collider targetCollider;
 
@@ -82,8 +85,16 @@ public class OneWayPlatform : MonoBehaviour
             newPos += Vector3.right * moveSpeed * Time.fixedDeltaTime;
             if (newPos.x >= highLimit.position.x)
             {
-                TeleportTo(lowLimit.position.x);
-                return;
+                if (twoWayPlatform)
+                {
+                    // Inverte direção
+                    currentState = MoveState.MovingNegative;
+                }
+                else
+                {
+                    TeleportTo(lowLimit.position.x);
+                    return;
+                }
             }
         }
         else if (currentState == MoveState.MovingNegative)
@@ -91,8 +102,16 @@ public class OneWayPlatform : MonoBehaviour
             newPos += Vector3.left * moveSpeed * Time.fixedDeltaTime;
             if (newPos.x <= lowLimit.position.x)
             {
-                TeleportTo(highLimit.position.x);
-                return;
+                if (twoWayPlatform)
+                {
+                    // Inverte direção
+                    currentState = MoveState.MovingPositive;
+                }
+                else
+                {
+                    TeleportTo(highLimit.position.x);
+                    return;
+                }
             }
         }
 

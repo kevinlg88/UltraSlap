@@ -15631,7 +15631,7 @@ GameObject:
   - component: {fileID: 467378193}
   - component: {fileID: 467378194}
   m_Layer: 3
-  m_Name: 1WayLowerPlatform
+  m_Name: 2WayHigherPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15656,6 +15656,7 @@ MonoBehaviour:
   ragdollSpeedMultiplier: 1
   startMovingPositive: 1
   disableColliderDuringTeleport: 1
+  twoWayPlatform: 1
 --- !u!54 &467378194
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19408,6 +19409,7 @@ MonoBehaviour:
   ragdollSpeedMultiplier: 1
   startMovingPositive: 0
   disableColliderDuringTeleport: 1
+  twoWayPlatform: 0
 --- !u!54 &657875087
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29776,7 +29778,7 @@ Transform:
   m_GameObject: {fileID: 904648509}
   serializedVersion: 2
   m_LocalRotation: {x: -1.110223e-16, y: -0.7071068, z: -2.4199392e-16, w: 0.7071068}
-  m_LocalPosition: {x: -31.89, y: 1.47, z: 3.71}
+  m_LocalPosition: {x: -31.86, y: 1.47, z: 2.6}
   m_LocalScale: {x: 2.813805, y: 0.27117357, z: 3.78988}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37768,7 +37770,7 @@ Transform:
   m_GameObject: {fileID: 1203696912}
   serializedVersion: 2
   m_LocalRotation: {x: -1.110223e-16, y: -0.7071068, z: -2.4199392e-16, w: 0.7071068}
-  m_LocalPosition: {x: -31.55, y: 1.47, z: -9.8}
+  m_LocalPosition: {x: -31.58, y: 1.47, z: -8.67}
   m_LocalScale: {x: 2.813805, y: 0.27117357, z: 3.78988}
   m_ConstrainProportionsScale: 0
   m_Children: []
