@@ -36,6 +36,9 @@ MonoBehaviour:
   - {fileID: 6111960901637067554, guid: 4e0c4d5027357114f81a7ad3403ae625, type: 3}
   - {fileID: 7015715935307553774, guid: e7e33a156aabed94fa83cbc58b106608, type: 3}
   - {fileID: 563118945468043070, guid: 01e14d6e7520ad34797cec17b037ab6f, type: 3}
+  - {fileID: 3181468482517445129, guid: a296fe89191654f40b1624b97efc5253, type: 3}
+  - {fileID: 8927477736715940146, guid: 504002094bdb0f1489a2a72ae680dbdc, type: 3}
+  - {fileID: 413880994777131062, guid: fc14b888e2269d24abe50b8c4f6ac456, type: 3}
   skinColors:
   - color: {r: 0.5943396, g: 0.36725706, b: 0.2999733, a: 1}
     texture: {fileID: 2800000, guid: c2e94f1a03456f24db4bcc157ade5f8b, type: 3}
