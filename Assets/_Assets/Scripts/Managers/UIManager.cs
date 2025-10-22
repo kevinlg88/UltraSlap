@@ -106,19 +106,11 @@ public class UIManager : MonoBehaviour
     }
     
 
-    private void AddWinnerPoint(Team winnerTeam)
+    public void AddWinnerPoint()
     {
-        _scoreManager.AddScore(winnerTeam);
+        if(winningTeam != null) _scoreManager.AddScore(winningTeam);
         UpdateScoreUI();
     }
-   
-
-    /*public void AddWinnerPoint()
-    {
-        Debug.Log($"O time campeão foi: {winningTeam}");
-        _scoreManager.AddScore(winningTeam);
-        UpdateScoreUI();
-    }*/
 
     private async Task StartMatchTransitionAnim()
     {
@@ -149,8 +141,7 @@ public class UIManager : MonoBehaviour
     public void WinnerUIAnim()
     {
         Debug.Log("Começou a transição de winner UI");
-        AddWinnerPoint(winningTeam);
-
+        //AddWinnerPoint();
         switch (winningTeam.TeamEnum)
         {
             case TeamEnum.Team1: blueWinner.SetActive(true); break;
