@@ -5,9 +5,14 @@ using UnityEngine;
 using Zenject;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.UI;
+using Rewired.Integration.UnityUI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("General UI References")]
+    [SerializeField] private RewiredEventSystem rewiredEventSystem; //Rewired Event System para permitir o uso de UI com Rewired
+
     [Header("Score UI References")]
     [SerializeField] private TextMeshProUGUI team1ScoreText;
     [SerializeField] private TextMeshProUGUI team2ScoreText;
@@ -21,7 +26,7 @@ public class UIManager : MonoBehaviour
     [Header("UI RoundTransition References")]
     [SerializeField] private MMFeedbacks callRoundStatistics; //Game Object com o MMF Player que dá start na transição de rounds
     [SerializeField] private MMFeedbacks RoundTransition; //Game Object com o MMF Player que inicia o novo round
-    [SerializeField] private GameObject ContinueButton; //Referência para o gameObject do botão "Continue" Só deve permitir passar para o próximo round se esse game object estiver ativo.
+    [SerializeField] private Button ContinueButton; //Referência para o gameObject do botão "Continue" Só deve permitir passar para o próximo round se esse game object estiver ativo.
 
     [SerializeField] private GameObject orangeTeamTag;
     [SerializeField] private GameObject brownTeamTag;
@@ -51,6 +56,10 @@ public class UIManager : MonoBehaviour
     {
         _scoreManager = scoreManager;
         gameEvent.onRoundEnd.AddListener(OnRoundEnd);
+        ContinueButton.onClick.AddListener(() => {
+            RoundTransition.PlayFeedbacks();
+            ContinueButton.interactable = false;
+        });
     }
     private async void OnRoundEnd(Team winnerTeam)
     {
@@ -114,6 +123,7 @@ public class UIManager : MonoBehaviour
 
     private async Task StartMatchTransitionAnim()
     {
+        rewiredEventSystem.SetSelectedGameObject(ContinueButton.gameObject);
         Debug.Log("Começou transição");
         UpdateScoreUI();
         // Pega os times ativos
