@@ -51,6 +51,8 @@ public class UIManager : MonoBehaviour
     private ScoreManager _scoreManager;
     private Team winningTeam;
 
+    public static bool canPause { get; private set; } = false; // por padrão, o jogo pode pausar
+
     [Inject]
     public void Construct(GameEvent gameEvent, ScoreManager scoreManager)
     {
@@ -63,6 +65,8 @@ public class UIManager : MonoBehaviour
     }
     private async void OnRoundEnd(Team winnerTeam)
     {
+        canPause = false; // Bloqueia pausa durante a transição
+
         Debug.Log("ITS OVER!!!");
         winningTeam = winnerTeam;
         await Task.Delay(1000);
@@ -168,5 +172,10 @@ public class UIManager : MonoBehaviour
     public void Unpause()
     {
         Time.timeScale = 1;
+    }
+
+    public void SetCanPause(bool value)
+    {
+        canPause = value;
     }
 }

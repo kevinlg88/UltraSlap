@@ -62,6 +62,8 @@ public class RigidbodyController : MonoBehaviour
         if (!initialized) Initialize();
         if (!rb || !groundCheck || Camera.main == null) return;
 
+        if (PauseMenuManager.isPaused) return; //se o jogo está pausado, não precisa verificar esses inputs especificamente
+
         UpdateGroundedStatus();
         HandleMovementInput();
         HandleJumpInput();

@@ -38,7 +38,10 @@ public class PlayerSlap : MonoBehaviour
     [SerializeField] float power;               //Variáveis para a definição da intensidade do tapa, de acordo com o tempo de carregamento
     [SerializeField] float cooldown;
 
-
+    [Header("Block New Slaps After Unpause")] // Variáveis para bloqueio de um novo tapa, por uma fração de segundos logo após sair do "pause" 
+    private bool blockNewSlapsAfterUnpause = false;
+    [SerializeField] private float postUnpauseBlockDuration = 0.1f;
+    private float blockTimer = 0f;
 
     private Player playerInput;
     private Animator animator;
@@ -51,8 +54,15 @@ public class PlayerSlap : MonoBehaviour
     }
     void Update()
     {
+        if (blockNewSlapsAfterUnpause)
+        {
+            blockTimer -= Time.unscaledDeltaTime;
+            if (blockTimer <= 0f)
+                blockNewSlapsAfterUnpause = false;
+        }
+
         if (playerInput == null) return;
-        if (playerInput.GetButtonDown("Slap") && !isCharging && !isSlapping && !isOnCooldown)
+        if (!blockNewSlapsAfterUnpause && playerInput.GetButtonDown("Slap") && !isCharging && !isSlapping && !isOnCooldown)
         {
             if (!(playerController.GetCurrentState() == PlayerState.Standing)) //Verifica se não está na condição Standing
                 return;
@@ -91,7 +101,13 @@ public class PlayerSlap : MonoBehaviour
     }
 
     public void PauseChargeAnimation(){ if (isCharging) chargingSlap.PlayFeedbacks();}
-    
+
+    public void BlockNewSlapsAfterUnpause()
+    {
+        blockNewSlapsAfterUnpause = true;
+        blockTimer = postUnpauseBlockDuration;
+    }
+
     private void QuickSlap()
     {
         if (!isSlapping)
