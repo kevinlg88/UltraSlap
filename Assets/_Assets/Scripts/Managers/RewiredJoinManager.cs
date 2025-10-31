@@ -139,10 +139,10 @@ public class RewiredJoinManager : MonoBehaviour
         playerData.PlayerName = "Player " + player.id;
 
 
-        //Spawning Player UI
+        //Spawning Player
         GameObject newPlayer = Instantiate(playerPrefab,
             spawnPoints[player.id].transform.position,
-            Quaternion.identity);
+            spawnPoints[player.id].transform.rotation);
         newPlayer.name = "Player " + player.id;
         PlayerMenuNavigator playerMenuNav = newPlayer.GetComponent<PlayerMenuNavigator>();
         playerMenuNav.SetPlayerId(player.id);
