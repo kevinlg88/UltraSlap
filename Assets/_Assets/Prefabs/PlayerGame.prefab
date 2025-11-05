@@ -1225,8 +1225,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
+      propertyPath: handler.RagdollBlend
+      value: 0.7955665
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
       propertyPath: handler.UnscaledTime
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.ReferenceMass
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -1241,7 +1251,7 @@ PrefabInstance:
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: handler._EditorCategory
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -1252,6 +1262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: handler._EditorMainCategory
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: handler.JointContactDistance
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5130161327891548589, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -7880,8 +7895,18 @@ PrefabInstance:
       objectReference: {fileID: 5564860348157876501}
     - target: {fileID: 7839656485259759793, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
+      propertyPath: jumpForce
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839656485259759793, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839656485259759793, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: fallMultiplier
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7862927122502354397, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
