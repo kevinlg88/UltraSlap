@@ -5,6 +5,9 @@ using UnityEngine;
 public class ScoreManager
 {
     private List<ScoreData> scores = new();
+    private int currentRound = 0;
+
+    public int CurrentRound { get => currentRound; set => currentRound = value; }
 
     public void SetTeams(List<Team> teams)
     {
@@ -43,6 +46,17 @@ public class ScoreManager
             if (score.team.TeamEnum == team.TeamEnum) return score.score;
         }
         return 0;
+    }
+    public Team GetWinningTeam(int numberMaxWins)
+    {
+        foreach (ScoreData score in scores)
+        {
+            if (score.score >= numberMaxWins)
+            {
+                return score.team;
+            }
+        }
+        return null;
     }
     public List<ScoreData> GetListScores() => scores;
     public void ResetScores() => scores = new();
