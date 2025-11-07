@@ -19,6 +19,7 @@ MonoBehaviour:
   - {fileID: 7708512875194542912, guid: fc61e8eadc68826459bec66afefd028b, type: 3}
   - {fileID: 5301962861819756922, guid: 36d220e0579469240929f4b5be8bc44c, type: 3}
   - {fileID: 337286234466387740, guid: 44f883414dae04a4392dec71e2d74c2d, type: 3}
+  - {fileID: 33012235498329049, guid: c10c767829ce15544a6ba50522e3766f, type: 3}
   eyeAccessories:
   - {fileID: 3440144839866458970, guid: 3a8fbfdbe4e2e204ab2723d48cf8994b, type: 3}
   - {fileID: 4979139155902313074, guid: 0067f60e354ff14418f3cead0769c469, type: 3}
