@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     [Header("UI RoundTransition References")]
     [SerializeField] private MMFeedbacks callRoundStatistics; //Game Object com o MMF Player que dá start na transição de rounds
     [SerializeField] private MMFeedbacks RoundTransition; //Game Object com o MMF Player que inicia o novo round
-    [SerializeField] private MMFeedbacks RoundEndFeel; //Game Object com o MMF Player que inicia o novo round
+    [SerializeField] private MMFeedbacks MatchEndFeel; //Game Object com o MMF Player que sai da partida após algum time alcançar todas as vitórias requeridas
     [SerializeField] private Button ContinueButton; //Referência para o gameObject do botão "Continue" Só deve permitir passar para o próximo round se esse game object estiver ativo.
 
     [SerializeField] private GameObject orangeTeamTag;
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     private ScoreManager _scoreManager;
     private Team winningTeam;
-    private int numberMaxWins;
+    public int numberMaxWins;
 
     public static bool canPause { get; private set; } = false; // por padrão, o jogo pode pausar
 
@@ -62,15 +62,29 @@ public class UIManager : MonoBehaviour
         numberMaxWins = matchData.numberOfWins;
         gameEvent.onRoundEnd.AddListener(OnRoundEnd);
         ContinueButton.onClick.AddListener(() => {
-            RoundTransition.PlayFeedbacks();
-            ContinueButton.interactable = false;
+
+            // Verifica se já existe um vencedor
+            Team matchWinner = _scoreManager.GetWinningTeam(numberMaxWins);
+
+            if (matchWinner == null)
+            {
+                // Ninguém atingiu o máximo ainda -> segue pro próximo round
+                RoundTransition.PlayFeedbacks();
+                ContinueButton.interactable = false;
+            }
+            else
+            {
+                // Alguém atingiu o número máximo de vitórias -> fim da partida
+                MatchEndFeel.PlayFeedbacks();
+            }
+
         });
     }
     private async void OnRoundEnd(Team winnerTeam)
     {
         canPause = false; // Bloqueia pausa durante a transição
 
-        Debug.Log("ITS OVER!!!");
+        //Debug.Log("ITS OVER!!!");
         winningTeam = winnerTeam;
         await Task.Delay(1000);
         await StartMatchTransitionAnim();
@@ -128,10 +142,6 @@ public class UIManager : MonoBehaviour
         {
             _scoreManager.AddScore(winningTeam);
             _scoreManager.CurrentRound += 1;
-            if (_scoreManager.CurrentRound >= numberMaxWins)
-            {
-                RoundEndFeel.PlayFeedbacks();
-            }
         }
         UpdateScoreUI();
     }
