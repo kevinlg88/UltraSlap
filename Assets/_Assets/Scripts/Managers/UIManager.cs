@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     private ScoreManager _scoreManager;
     private Team winningTeam;
-    public int numberMaxWins;
+    private int numberMaxWins;
 
     public static bool canPause { get; private set; } = false; // por padrão, o jogo pode pausar
 
