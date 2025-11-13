@@ -6,15 +6,15 @@ using UnityEngine.InputSystem;
 public class PlayerData
 {
 
-    private int _playerID;
-    private string _playerName;
-    private bool _isReady;
-    private Team _team;
-    private int _playerHealth;
-    private int _playerMaxHealth;
-    private int _playerScore;
-    private GameObject _playerGameObjectRef;
-    private CharacterVisualData _playervisual;
+    private int _playerID = -1;
+    private string _playerName = "Undefined";
+    private bool _isReady = false;
+    private Team _team = null;
+    private int _playerHealth = 0;
+    private int _playerMaxHealth = 0;
+    private int _playerScore = 0;
+    private GameObject _playerGameObjectRef = null;
+    private CharacterVisualData _playervisual = null;
 
     public int PlayerID {get=>_playerID; set=>_playerID = value;}
     public string PlayerName {get=>_playerName; set=>_playerName = value;}

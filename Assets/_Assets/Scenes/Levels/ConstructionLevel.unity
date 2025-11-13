@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.55788934, g: 0.73788965, b: 1.0243524, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30364,7 +30364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &848507769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30377,7 +30377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581b3e3c96df0ef42aef16b63b27b87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dontDestroyOnLoad: 1
+  _dontDestroyOnLoad: 0
   _userData:
     configVars:
       updateMode: 0
@@ -54231,7 +54231,6 @@ MonoBehaviour:
   yellowWinner: {fileID: 123508460}
   purpleWinner: {fileID: 673628765}
   redWinner: {fileID: 410120363}
-  numberMaxWins: 0
 --- !u!4 &1807283087
 Transform:
   m_ObjectHideFlags: 0

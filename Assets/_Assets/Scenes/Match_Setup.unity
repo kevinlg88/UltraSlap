@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18261446, g: 0.22553036, b: 0.29092097, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17695,7 +17695,7 @@ GameObject:
   - component: {fileID: 310817360806449450}
   - component: {fileID: 4700416174832396380}
   m_Layer: 0
-  m_Name: Rewired Input Manager
+  m_Name: Rewired Input Manager Match Setup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

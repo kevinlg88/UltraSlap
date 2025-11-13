@@ -54,6 +54,7 @@ public class RigidbodyController : MonoBehaviour
         playerInput = ReInput.players.GetPlayer(playerID);
         playerSlap.SetPlayer(playerInput);
         initialized = true;
+        Debug.Log("RigidbodyController initialized for Player " + playerID);
     }
 
     void Update()
@@ -61,7 +62,7 @@ public class RigidbodyController : MonoBehaviour
         if (!ReInput.isReady) return; // Exit if Rewired isn't ready. This would only happen during a script recompile in the editor.
         if (!initialized) Initialize();
         if (!rb || !groundCheck || Camera.main == null) return;
-
+        Debug.Log("Updating RigidbodyController for Player " + playerID);
         if (PauseMenuManager.isPaused) return; //se o jogo está pausado, não precisa verificar esses inputs especificamente
 
         UpdateGroundedStatus();
@@ -105,6 +106,7 @@ public class RigidbodyController : MonoBehaviour
         if (!isGrounded || !(player.GetCurrentState() == PlayerState.Standing)) //Verifica se está no chão ou não está na condição Standing
             return;
 
+        Debug.Log("Handling movement input for Player " + playerID);
         Vector2 moveInput = new Vector2(playerInput.GetAxis("Move Horizontal"), playerInput.GetAxis("Move Vertical"));
         Vector2 input = playerSlap && !playerSlap.GetIsSlapping() ? moveInput : Vector2.zero;
 

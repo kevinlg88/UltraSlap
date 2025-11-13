@@ -33,8 +33,9 @@ public class RewiredJoinManager : MonoBehaviour
 
     void Start()
     {
-        _playerManager.ClearPlayers();
+        //_playerManager.ClearPlayers();
         Debug.Log("JoinManager: PlayerManager cleared.");
+        LoadPlayers();
     }
     private void Update()
     {
@@ -219,6 +220,36 @@ public class RewiredJoinManager : MonoBehaviour
         }
 
         ReadyConfirmMMFeedbacks.PlayFeedbacks();
+    }
+
+    private void LoadPlayers()
+    {
+        if (_playerManager.Players.Count == 0) return;
+        List<PlayerData> tempListPlayers = new List<PlayerData>();
+        foreach (PlayerData playerData in _playerManager.Players)
+        {
+            PlayerData newPlayerData = new PlayerData();
+            Debug.Log("Player joined: " + playerData.PlayerID);
+            newPlayerData.PlayerID = playerData.PlayerID;
+            newPlayerData.PlayerName = "Player " + playerData.PlayerID;
+            Debug.Log($"player {playerData.PlayerID} is ready: {playerData.IsReady}");
+            //Spawning Player
+            GameObject newPlayer = Instantiate(playerPrefab,
+                spawnPoints[playerData.PlayerID].transform.position,
+                spawnPoints[playerData.PlayerID].transform.rotation);
+            newPlayer.name = "Player " + playerData.PlayerID;
+            PlayerMenuNavigator playerMenuNav = newPlayer.GetComponent<PlayerMenuNavigator>();
+            playerMenuNav.SetPlayerId(playerData.PlayerID);
+
+            //Adiciona a customização do player
+            PlayerCustomization playerCustomization = newPlayer.GetComponent<PlayerCustomization>();
+            playerCustomization.LoadCharacterVisual(playerData);
+
+            newPlayerData.PlayerGameObjectRef = newPlayer;
+            tempListPlayers.Add(newPlayerData);
+        }
+        _playerManager.ClearPlayers();
+        _playerManager.Players.AddRange(tempListPlayers);
     }
 
     public void ExitPlayer(int id)
