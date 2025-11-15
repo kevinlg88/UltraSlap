@@ -27,7 +27,7 @@ namespace FIMSpace.RagdollAnimatorDemo
 
             if( Mover.isGrounded == false )
             {
-                if( Mover.Rigb.velocity.y < -0.25f ) fallingTime += Time.fixedDeltaTime;
+                if( Mover.Rigb.linearVelocity.y < -0.25f ) fallingTime += Time.fixedDeltaTime;
                 lastFallingTime = fallingTime;
 
                 if( fallSwitchFlag == false && !Ragdoll.IsInFallingOrSleepMode )

@@ -133,7 +133,7 @@ namespace FIMSpace.FProceduralAnimation
             // Checking distance to ground below
             Physics.Raycast( ParentRagdollHandler.User_GetPosition_AnchorCenter() + safeUpRaycastOffset, Vector3.down, out lastHit, 100f, groundMaskV.GetInt(), QueryTriggerInteraction.Ignore );
 
-            Vector3 pelvisVelo = anchor.GameRigidbody.velocity;
+            Vector3 pelvisVelo = anchor.GameRigidbody.linearVelocity;
             Quaternion refRotation = ragdoll.User_GetRotation_Mapped( Vector3.up );
 
             // Computing local velocity vector
@@ -437,7 +437,8 @@ namespace FIMSpace.FProceduralAnimation
             GUILayout.Space( 4 );
             var groundMask = helper.RequestVariable( "Ground Mask:", 0 << 0 );
             int layer = groundMask.GetInt();
-            layer = EditorGUILayout.MaskField( new GUIContent( "Ground Mask:", "Ground below check layer mask" ), layer, InternalEditorUtility.layers );
+            layer = EditorGUILayout.MaskField(new GUIContent("Ground Mask:", "Ground below check layer mask"), InternalEditorUtility.LayerMaskToConcatenatedLayersMask(layer), InternalEditorUtility.layers);
+            layer = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(layer);
             groundMask.SetValue( layer );
 
             EditorGUIUtility.labelWidth = 0;

@@ -36,7 +36,7 @@ namespace FIMSpace.RagdollAnimatorDemo
             indicator.ParentRagdollAnimator.User_ChangeAllRigidbodiesDrag( 1f );
             indicator.ParentRagdollAnimator.User_ChangeAllRigidbodiesAngularDrag( 1f );
 
-            float hitVelocity = indicator.DummyBoneRigidbody.velocity.magnitude;
+            float hitVelocity = indicator.DummyBoneRigidbody.linearVelocity.magnitude;
 
             if( hitVelocity > 4f )
             {

@@ -205,7 +205,7 @@ namespace FIMSpace.FProceduralAnimation
                 Collider collider = null;
                 Transform subTransform = null;
 
-                PhysicMaterial colliderMaterial = bone.OverrideMaterial; // By default null
+                PhysicsMaterial colliderMaterial = bone.OverrideMaterial; // By default null
                 if( colliderMaterial == null ) if( chain.ParentHandler != null ) if( chain.ParentHandler.CollidersPhysicMaterial )
                         {
                             if( chain.ParentHandler.PhysicMaterialOnFall && fallMode )
@@ -567,7 +567,7 @@ namespace FIMSpace.FProceduralAnimation
         public float GetThirdAxisAngleLimit( RagdollBonesChain chain )
         { return ThirdAxisAngleLimit * chain.AxisLimitRange; }
 
-        public PhysicMaterial OverrideMaterial = null;
+        public PhysicsMaterial OverrideMaterial = null;
 
         public bool UseIndividualParameters = false;
 
@@ -710,8 +710,8 @@ namespace FIMSpace.FProceduralAnimation
                 rigid.interpolation = OverrideInterpolation;
                 rigid.collisionDetectionMode = OverrideDetectionMode;
 
-                rigid.drag = OverrideDragValue;
-                rigid.angularDrag = OverrideAngularDrag;
+                rigid.linearDamping = OverrideDragValue;
+                rigid.angularDamping = OverrideAngularDrag;
 
                 RefreshSolversCount( handler );
             }
@@ -719,8 +719,8 @@ namespace FIMSpace.FProceduralAnimation
             {
                 RefreshRigidbodyOptimizationParameters( handler );
 
-                rigid.drag = GetRigidbodyDrag( chain );
-                rigid.angularDrag = GetRigidbodyAngularDrag( chain );
+                rigid.linearDamping = GetRigidbodyDrag( chain );
+                rigid.angularDamping = GetRigidbodyAngularDrag( chain );
             }
 
             return rigid;
@@ -762,7 +762,7 @@ namespace FIMSpace.FProceduralAnimation
             }
         }
 
-        public void ApplyPhysicMaterial( PhysicMaterial pMaterial )
+        public void ApplyPhysicMaterial( PhysicsMaterial pMaterial )
         {
             ApplyToAllColliders( ( Collider c ) => c.sharedMaterial = pMaterial );
         }
@@ -784,7 +784,7 @@ namespace FIMSpace.FProceduralAnimation
             return collider;
         }
 
-        public ConfigurableJoint RefreshJoint( RagdollBonesChain chain, bool fallMode, bool onSource, bool playmodeRefresh )
+        public ConfigurableJoint RefreshJoint( RagdollBonesChain chain, bool fallMode, bool onSource, bool playmodeRefresh, bool applyConnectedMassScale)
         {
             Transform targetT = onSource ? SourceBone : PhysicalDummyBone;
             ConfigurableJoint joint = Joint;
@@ -808,7 +808,7 @@ namespace FIMSpace.FProceduralAnimation
 
             Joint_UpdateAngleLimits( chain );
             Joint_UpdateAngularSpringLimits( chain );
-            RefreshDynamicPhysicalParameters( chain, fallMode );
+            RefreshDynamicPhysicalParameters( chain, fallMode, applyConnectedMassScale );
 
             joint.enableCollision = false;
             joint.enablePreprocessing = chain.ParentHandler.PreProcessing;
@@ -850,16 +850,20 @@ namespace FIMSpace.FProceduralAnimation
             }
         }
 
+        /// <summary> Used for smooth transitioning connected mass scale value </summary>
+        public float TargetConnectedMassScale { get; private set; } = 1f;
+
         /// <summary>
         /// (Runtime) Updating joint dynamic parameters like connected mass scale etc.
         /// </summary>
-        public void RefreshDynamicPhysicalParameters( RagdollBonesChain chain, bool fallMode )
+        public void RefreshDynamicPhysicalParameters( RagdollBonesChain chain, bool fallMode, bool applyConnectedMassScale )
         {
             float mul = chain.ParentHandler.FadeInBlend;
 
             if( ConnectionMassOverride > 0f )
             {
-                Joint.connectedMassScale = ConnectionMassOverride * mul;
+                TargetConnectedMassScale = ConnectionMassOverride * mul;
+                if (applyConnectedMassScale) Joint.connectedMassScale = TargetConnectedMassScale;
                 return;
             }
 
@@ -867,9 +871,16 @@ namespace FIMSpace.FProceduralAnimation
             {
                 if( Joint )
                 {
-                    if( chain.ConnectedMassOverride ) Joint.connectedMassScale = chain.ConnectedMassScale;
+                    if (chain.ConnectedMassOverride)
+                    {
+                        TargetConnectedMassScale = chain.ConnectedMassScale;
+                        if (applyConnectedMassScale) Joint.connectedMassScale = TargetConnectedMassScale;
+                    }
                     else
-                        Joint.connectedMassScale = chain.ConnectedMassScale * chain.ParentHandler.MassMultiplyOnFalling * mul;
+                    {
+                        TargetConnectedMassScale = chain.ConnectedMassScale * chain.ParentHandler.MassMultiplyOnFalling * mul;
+                        if (applyConnectedMassScale) Joint.connectedMassScale = TargetConnectedMassScale;
+                    }
                 }
 
                 if( chain.ParentHandler.NoGravityOnStanding ) GameRigidbody.useGravity = true;
@@ -878,9 +889,16 @@ namespace FIMSpace.FProceduralAnimation
             {
                 if( Joint )
                 {
-                    if( chain.ConnectedMassOverride ) Joint.connectedMassScale = chain.ConnectedMassScale;
+                    if (chain.ConnectedMassOverride)
+                    {
+                        TargetConnectedMassScale = chain.ConnectedMassScale;
+                        if (applyConnectedMassScale) Joint.connectedMassScale = TargetConnectedMassScale;
+                    }
                     else
-                        Joint.connectedMassScale = chain.ConnectedMassScale * chain.ParentHandler.ConnectedMassMultiply * mul;
+                    {
+                        TargetConnectedMassScale = chain.ConnectedMassScale * chain.ParentHandler.ConnectedMassMultiply * mul;
+                        if (applyConnectedMassScale) Joint.connectedMassScale = TargetConnectedMassScale;
+                    }
                 }
 
                 if( chain.ParentHandler.NoGravityOnStanding ) GameRigidbody.useGravity = false;
@@ -898,7 +916,7 @@ namespace FIMSpace.FProceduralAnimation
                     {
                         // Prevent bones pop to target position immedietely when starting stand up transition - wait 0.15 sec
                         chain.ParentHandler.Caller.StartCoroutine( chain.ParentHandler._IE_CallAfter( 0f,
-                            () => { SwitchIsKinematic( true ); },
+                            () => { if(chain.ParentHandler.AnimatingMode == RagdollHandler.EAnimatingMode.Standing) SwitchIsKinematic( true ); }, // Check if still standing after delay
                             Mathf.RoundToInt( Mathf.Max( 1f, 0.15f / Time.fixedDeltaTime ) ) ) );
                     }
 
@@ -1396,7 +1414,7 @@ namespace FIMSpace.FProceduralAnimation
             {
                 if( GameRigidbody.isKinematic == false )
                 {
-                    GameRigidbody.velocity = Vector3.zero;
+                    GameRigidbody.linearVelocity = Vector3.zero;
                     GameRigidbody.angularVelocity = Vector3.zero;
                 }
 
@@ -1406,6 +1424,7 @@ namespace FIMSpace.FProceduralAnimation
             else
             {
                 GameRigidbody.isKinematic = kinematicOnDisabled;
+                if (ParentChain != null && ParentChain.ParentHandler != null) RefreshRigidbodyOptimizationParameters(ParentChain.ParentHandler);
             }
 
             GameRigidbody.detectCollisions = enable;

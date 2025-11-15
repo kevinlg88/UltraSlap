@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace FIMSpace.FProceduralAnimation
 {
-    [AddComponentMenu( "", 0 )]
+    [AddComponentMenu("", 0)]
     public class RA2BoneCollisionHandler : RA2BoneCollisionHandlerBase
     {
         /// <summary> Used when enabling collecting collisions </summary>
@@ -35,33 +35,40 @@ namespace FIMSpace.FProceduralAnimation
 
         public override void EnableSavingEnteredCollisionsList()
         {
-            if( EnteredCollisions == null ) EnteredCollisions = new Dictionary<Transform, CollisionCapture>();
-            if( EnteredSelfCollisions == null ) EnteredSelfCollisions = new Dictionary<Transform, CollisionCapture>();
+            if (EnteredCollisions == null) EnteredCollisions = new Dictionary<Transform, CollisionCapture>();
+            if (EnteredSelfCollisions == null) EnteredSelfCollisions = new Dictionary<Transform, CollisionCapture>();
             CollectCollisions = true;
         }
 
-        public override RagdollAnimator2BoneIndicator Initialize( RagdollHandler handler, RagdollBoneProcessor boneProcessor, RagdollBonesChain parentChain, bool isAnimatorBone = false, RA2AttachableObject attachable = null )
+        public override RagdollAnimator2BoneIndicator Initialize(RagdollHandler handler, RagdollBoneProcessor boneProcessor, RagdollBonesChain parentChain, bool isAnimatorBone = false, RA2AttachableObject attachable = null)
         {
             LatestEnterCollision = null;
             LatestExitCollision = null;
 
-            return base.Initialize( handler, boneProcessor, parentChain, isAnimatorBone, attachable );
+            return base.Initialize(handler, boneProcessor, parentChain, isAnimatorBone, attachable);
         }
 
-        private void OnCollisionEnter( Collision collision )
+        public void CleanupCollisions()
         {
-            if( Ignores.Contains( collision.transform ) ) return;
+            LatestExitCollision = null;
+            if (EnteredCollisions != null) EnteredCollisions.Clear();
+            if (EnteredSelfCollisions != null) EnteredSelfCollisions.Clear();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (Ignores.Contains(collision.transform)) return;
 
             LatestEnterCollision = collision;
 
-            if( CollectCollisions )
+            if (CollectCollisions)
             {
                 CollisionCapture capture;
 
                 // Self Collision
-                if( ParentRagdollProcessor.ContainsPhysicalBoneTransform( collision.transform ) )
+                if (ParentRagdollProcessor.ContainsPhysicalBoneTransform(collision.transform))
                 {
-                    if( EnteredSelfCollisions.TryGetValue( collision.transform, out capture ) )
+                    if (EnteredSelfCollisions.TryGetValue(collision.transform, out capture))
                     {
                         capture.Enters += 1;
                         capture.Lastest = collision;
@@ -73,14 +80,14 @@ namespace FIMSpace.FProceduralAnimation
                         capture.Entered = collision.transform;
                         capture.Enters = 1;
                         capture.Lastest = collision;
-                        EnteredSelfCollisions.Add( collision.transform, capture );
+                        EnteredSelfCollisions.Add(collision.transform, capture);
                     }
                 }
                 else
                 {
                     LatestEnterNonSelfCollision = collision;
 
-                    if( EnteredCollisions.TryGetValue( collision.transform, out capture ) )
+                    if (EnteredCollisions.TryGetValue(collision.transform, out capture))
                     {
                         capture.Enters += 1;
                         capture.Lastest = collision;
@@ -92,89 +99,89 @@ namespace FIMSpace.FProceduralAnimation
                         capture.Entered = collision.transform;
                         capture.Enters = 1;
                         capture.Lastest = collision;
-                        EnteredCollisions.Add( collision.transform, capture );
+                        EnteredCollisions.Add(collision.transform, capture);
                     }
                 }
 
                 Colliding = true;
             }
 
-            ParentHandler.OnCollisionEnterEvent( this, collision );
+            ParentHandler.OnCollisionEnterEvent(this, collision);
         }
 
         public Collision LatestExitCollision { get; private set; }
 
-        private void OnCollisionExit( Collision collision )
+        private void OnCollisionExit(Collision collision)
         {
             LatestExitCollision = collision;
 
-            if( CollectCollisions )
+            if (CollectCollisions)
             {
                 CollisionCapture capture;
 
                 // Self Collision
-                if( ParentRagdollProcessor.ContainsPhysicalBoneTransform( collision.transform ) )
+                if (ParentRagdollProcessor.ContainsPhysicalBoneTransform(collision.transform))
                 {
-                    if( EnteredSelfCollisions.TryGetValue( collision.transform, out capture ) )
+                    if (EnteredSelfCollisions.TryGetValue(collision.transform, out capture))
                     {
                         capture.Enters -= 1;
                         capture.Lastest = collision;
-                        if( capture.Enters <= 0 ) { EnteredSelfCollisions.Remove( collision.transform ); }
+                        if (capture.Enters <= 0) { EnteredSelfCollisions.Remove(collision.transform); }
                         else EnteredSelfCollisions[collision.transform] = capture;
                     }
                 }
                 else
                 {
-                    if( EnteredCollisions.TryGetValue( collision.transform, out capture ) )
+                    if (EnteredCollisions.TryGetValue(collision.transform, out capture))
                     {
                         capture.Enters -= 1;
                         capture.Lastest = collision;
-                        if( capture.Enters <= 0 ) { EnteredCollisions.Remove( collision.transform ); }
+                        if (capture.Enters <= 0) { EnteredCollisions.Remove(collision.transform); }
                         else EnteredCollisions[collision.transform] = capture;
                     }
                 }
 
-                if( UseSelfCollisions )
+                if (UseSelfCollisions)
                 {
-                    if( EnteredCollisions.Count == 0 && EnteredSelfCollisions.Count == 0 ) Colliding = false;
+                    if (EnteredCollisions.Count == 0 && EnteredSelfCollisions.Count == 0) Colliding = false;
                 }
                 else
                 {
-                    if( EnteredCollisions.Count == 0 ) Colliding = false;
+                    if (EnteredCollisions.Count == 0) Colliding = false;
                 }
             }
         }
 
-        public override bool IsCollidingWith( Collider collider )
+        public override bool IsCollidingWith(Collider collider)
         {
-            if( EnteredCollisions == null )
+            if (EnteredCollisions == null)
             {
-                if( Colliding == false ) return false;
-                if( LatestEnterCollision != null ) if( LatestEnterCollision.collider == collider ) return true;
+                if (Colliding == false) return false;
+                if (LatestEnterCollision != null) if (LatestEnterCollision.collider == collider) return true;
                 return false;
             }
 
-            if( LatestEnterNonSelfCollision.collider == collider ) return true;
+            if (LatestEnterNonSelfCollision.collider == collider) return true;
 
-            foreach( var c in EnteredCollisions )
-                if( c.Value.Lastest.collider == collider ) return true;
+            foreach (var c in EnteredCollisions)
+                if (c.Value.Lastest.collider == collider) return true;
 
             return false;
         }
 
         public override bool CollidesWithAnything()
         {
-            if( EnteredCollisions == null ) return false;
+            if (EnteredCollisions == null) return false;
             return EnteredCollisions.Count > 0;
         }
 
         public override Collider GetFirstCollidingCollider()
         {
-            if( EnteredCollisions == null ) return null;
-            if( EnteredCollisions.Count > 0 )
+            if (EnteredCollisions == null) return null;
+            if (EnteredCollisions.Count > 0)
             {
                 var coll = EnteredCollisions.FirstOrDefault();
-                if( coll.Value.Lastest != null ) return coll.Value.Lastest.collider;
+                if (coll.Value.Lastest != null) return coll.Value.Lastest.collider;
             }
             return null;
         }
@@ -184,44 +191,44 @@ namespace FIMSpace.FProceduralAnimation
 #if UNITY_EDITOR
 
         [UnityEditor.CanEditMultipleObjects]
-        [UnityEditor.CustomEditor( typeof( RA2BoneCollisionHandler ), true )]
+        [UnityEditor.CustomEditor(typeof(RA2BoneCollisionHandler), true)]
         public class RagdollAnimator2BoneCollisionHandlerEditor : RagdollAnimator2BoneIndicatorEditor
         {
             public RA2BoneCollisionHandler Get
-            { get { if( _get == null ) _get = (RA2BoneCollisionHandler)target; return _get; } }
+            { get { if (_get == null) _get = (RA2BoneCollisionHandler)target; return _get; } }
             private RA2BoneCollisionHandler _get;
 
             public override void OnInspectorGUI()
             {
                 base.OnInspectorGUI();
 
-                if( Get.CollectCollisions == false )
+                if (Get.CollectCollisions == false)
                 {
-                    EditorGUILayout.HelpBox( "You need to enable collecting collisions in order to detect ' Colliding = true ' properly!", UnityEditor.MessageType.Info );
+                    EditorGUILayout.HelpBox("You need to enable collecting collisions in order to detect ' Colliding = true ' properly!", UnityEditor.MessageType.Info);
                 }
 
-                if( Get.EnteredSelfCollisions != null && Get.EnteredSelfCollisions.Count > 0 )
+                if (Get.EnteredSelfCollisions != null && Get.EnteredSelfCollisions.Count > 0)
                 {
-                    EditorGUILayout.LabelField( "Entered Self Colliders: " );
+                    EditorGUILayout.LabelField("Entered Self Colliders: ");
 
-                    foreach( var item in Get.EnteredSelfCollisions )
+                    foreach (var item in Get.EnteredSelfCollisions)
                     {
-                        if( item.Value.Lastest == null ) continue;
-                        EditorGUILayout.ObjectField( item.Value.Lastest.collider, typeof( Collider ), true );
+                        if (item.Value.Lastest == null) continue;
+                        EditorGUILayout.ObjectField(item.Value.Lastest.collider, typeof(Collider), true);
                     }
 
-                    GUILayout.Space( 6 );
+                    GUILayout.Space(6);
                 }
 
-                if( Get.EnteredCollisions == null ) return;
-                if( Get.EnteredCollisions.Count == 0 ) return;
+                if (Get.EnteredCollisions == null) return;
+                if (Get.EnteredCollisions.Count == 0) return;
 
-                EditorGUILayout.LabelField( "Entered: " );
+                EditorGUILayout.LabelField("Entered: ");
 
-                foreach( var item in Get.EnteredCollisions )
+                foreach (var item in Get.EnteredCollisions)
                 {
-                    if( item.Value.Lastest == null ) continue;
-                    EditorGUILayout.ObjectField( item.Value.Lastest.collider, typeof( Collider ), true );
+                    if (item.Value.Lastest == null) continue;
+                    EditorGUILayout.ObjectField(item.Value.Lastest.collider, typeof(Collider), true);
                 }
             }
         }

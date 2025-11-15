@@ -50,7 +50,9 @@ namespace FIMSpace.FProceduralAnimation
 
                     if( _selectedPhysicsSetupBone == bone ) GUI.color = new Color( 0.2f, 1f, 0.4f, 1f );
 
-                    if( GUILayout.Button( new GUIContent( bone.SourceBone.name, "Click here on the bone name label, to display its settings in different way than foldout." ), EditorStyles.label ) )
+                    string boneTitle = bone.SourceBone ? bone.SourceBone.name : "MISSING!";
+
+                    if( GUILayout.Button( new GUIContent(boneTitle, "Click here on the bone name label, to display its settings in different way than foldout." ), EditorStyles.label ) )
                     {
                         handler.Editor_HandlesUndoRecord();
 

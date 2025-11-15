@@ -46,7 +46,7 @@ namespace FIMSpace.RagdollAnimatorDemo
         protected virtual void FixedUpdate()
         {
             previousFrameVelocity = lastVelocity;
-            lastVelocity = Mover.Rigb.velocity;
+            lastVelocity = Mover.Rigb.linearVelocity;
 
             if( wasGrounded != Mover.isGrounded )
             {

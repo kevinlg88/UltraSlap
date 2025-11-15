@@ -9,6 +9,8 @@ namespace FIMSpace.FProceduralAnimation
         internal Coroutine _Coro_FadeMuscles = null;
         internal Coroutine _Coro_FadeMusclesMul = null;
 
+        readonly WaitForFixedUpdate _fixedWait = new WaitForFixedUpdate();
+
         /// <summary>
         /// Adding physical push impact to single rigidbody limb
         /// </summary>
@@ -18,7 +20,6 @@ namespace FIMSpace.FProceduralAnimation
         internal IEnumerator _IE_SetPhysicalImpact( Rigidbody limb, Vector3 powerDirection, float duration, ForceMode forceMode = ForceMode.Impulse, float delay = 0f, int waitFixedFrames = 0 )
         {
             float elapsed = -0.0001f;
-            WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
 
             if( waitFixedFrames > 0 )
             {
@@ -26,7 +27,7 @@ namespace FIMSpace.FProceduralAnimation
                 while( f < waitFixedFrames )
                 {
                     f += 1;
-                    yield return fixedWait;
+                    yield return _fixedWait;
                 }
             }
 
@@ -38,7 +39,76 @@ namespace FIMSpace.FProceduralAnimation
             {
                 RagdollHandlerUtilities.ApplyLimbImpact( limb, powerDirection, forceMode );
                 elapsed += Time.fixedDeltaTime;
-                yield return fixedWait;
+                yield return _fixedWait;
+            }
+
+            yield break;
+        }
+
+
+        /// <summary>
+        /// Adding physical push impact to single rigidbody limb
+        /// </summary>
+        /// <param name="limb"> Access 'Parameters' for ragdoll limb </param>
+        /// <param name="powerDirection"> World space direction vector </param>
+        /// <param name="duration"> Time in seconds </param>
+        internal IEnumerator _IE_SetPhysicalImpactAtPosition(Rigidbody limb, Vector3 powerDirection, Vector3 position, float duration, ForceMode forceMode = ForceMode.Impulse, float delay = 0f, int waitFixedFrames = 0)
+        {
+            float elapsed = -0.0001f;
+
+            if (waitFixedFrames > 0)
+            {
+                int f = 0;
+                while (f < waitFixedFrames)
+                {
+                    f += 1;
+                    yield return _fixedWait;
+                }
+            }
+
+            if (delay > 0f) yield return new WaitForSeconds(delay);
+
+            powerDirection *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
+
+            while (elapsed < duration)
+            {
+                RagdollHandlerUtilities.ApplyLimbImpactAtPosition(limb, powerDirection, position, forceMode);
+                elapsed += Time.fixedDeltaTime;
+                yield return _fixedWait;
+            }
+
+            yield break;
+        }
+
+        /// <summary>
+        /// Adding physical explosion push impact to single rigidbody limb
+        /// </summary>
+        /// <param name="limb"> Access 'Parameters' for ragdoll limb </param>
+        /// <param name="powerDirection"> World space direction vector </param>
+        /// <param name="duration"> Time in seconds </param>
+        internal IEnumerator _IE_SetExplosionImpact(Rigidbody limb, float explosionForce, Vector3 explosionPosition, float explosionRadius, float duration, float upwardsModifier = 0f, ForceMode forceMode = ForceMode.Impulse, float delay = 0f, int waitFixedFrames = 0)
+        {
+            float elapsed = -0.0001f;
+
+            if (waitFixedFrames > 0)
+            {
+                int f = 0;
+                while (f < waitFixedFrames)
+                {
+                    f += 1;
+                    yield return _fixedWait;
+                }
+            }
+
+            if (delay > 0f) yield return new WaitForSeconds(delay);
+
+            //explosionForce *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
+
+            while (elapsed < duration)
+            {
+                RagdollHandlerUtilities.ApplyLimbExplosionForce(limb, explosionForce, explosionPosition, explosionRadius, upwardsModifier, forceMode);
+                elapsed += Time.fixedDeltaTime;
+                yield return _fixedWait;
             }
 
             yield break;
@@ -53,7 +123,6 @@ namespace FIMSpace.FProceduralAnimation
         internal IEnumerator _IE_SetChainPhysicalImpact( RagdollBonesChain chain, Vector3 powerDirection, float duration, ForceMode forceMode = ForceMode.Impulse )
         {
             float elapsed = -0.0001f;
-            WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
 
             powerDirection *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
 
@@ -66,7 +135,35 @@ namespace FIMSpace.FProceduralAnimation
 
                 elapsed += Time.fixedDeltaTime;
 
-                yield return fixedWait;
+                yield return _fixedWait;
+            }
+
+            yield break;
+        }
+
+
+        /// <summary>
+        /// Adding physical push impact to chain bones
+        /// </summary>
+        /// <param name="limb"> Access 'Parameters' for ragdoll limb </param>
+        /// <param name="powerDirection"> World space direction vector </param>
+        /// <param name="duration"> Time in seconds </param>
+        internal IEnumerator _IE_SetChainPhysicalImpactAtPosition(RagdollBonesChain chain, Vector3 powerDirection, Vector3 forcePosition, float duration, ForceMode forceMode = ForceMode.Impulse)
+        {
+            float elapsed = -0.0001f;
+
+            powerDirection *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
+
+            while (elapsed < duration)
+            {
+                foreach (var bone in chain.BoneSetups)
+                {
+                    bone.GameRigidbody.AddForceAtPosition(powerDirection, forcePosition, forceMode);
+                }
+
+                elapsed += Time.fixedDeltaTime;
+
+                yield return _fixedWait;
             }
 
             yield break;
@@ -88,7 +185,6 @@ namespace FIMSpace.FProceduralAnimation
         internal IEnumerator _IE_SetPhysicalImpactAll( Vector3 powerDirection, float duration, ForceMode forceMode = ForceMode.Impulse )
         {
             float elapsed = -0.0001f;
-            WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
 
             powerDirection *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
 
@@ -104,7 +200,7 @@ namespace FIMSpace.FProceduralAnimation
 
                 elapsed += Time.fixedDeltaTime;
 
-                yield return fixedWait;
+                yield return _fixedWait;
             }
 
             yield break;
@@ -118,7 +214,6 @@ namespace FIMSpace.FProceduralAnimation
         internal IEnumerator _IE_SetPhysicalTorque( Vector3 rotationPower, float duration, bool relativeSpace = true, ForceMode forceMode = ForceMode.Impulse )
         {
             float elapsed = -0.0001f;
-            WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
 
             rotationPower *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
 
@@ -135,7 +230,7 @@ namespace FIMSpace.FProceduralAnimation
 
                 elapsed += Time.fixedDeltaTime;
 
-                yield return fixedWait;
+                yield return _fixedWait;
             }
 
             yield break;
@@ -144,7 +239,6 @@ namespace FIMSpace.FProceduralAnimation
         internal IEnumerator _IE_SetPhysicalTorque( Rigidbody limb, Vector3 rotationPower, float duration, bool relativeSpace = true, ForceMode forceMode = ForceMode.Impulse )
         {
             float elapsed = -0.0001f;
-            WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
 
             rotationPower *= GetFixedDeltaMultiplicator(); // Unify impact when using different timestep
 
@@ -156,7 +250,7 @@ namespace FIMSpace.FProceduralAnimation
                     limb.AddTorque( rotationPower, forceMode );
 
                 elapsed += Time.fixedDeltaTime;
-                yield return fixedWait;
+                yield return _fixedWait;
             }
 
             yield break;
@@ -190,7 +284,7 @@ namespace FIMSpace.FProceduralAnimation
             if( delay > 0f ) yield return new WaitForSeconds( delay );
 
             float startMusclesForce = musclesPowerMultiplier;
-            float elapsed = -0.0001f;
+            float elapsed = 0f;
 
             while( elapsed < duration )
             {
@@ -202,18 +296,21 @@ namespace FIMSpace.FProceduralAnimation
             }
 
             musclesPowerMultiplier = targetMusclesForce;
+            User_UpdateJointsPlayParameters(false);
 
             yield break;
         }
 
 
         internal Coroutine standUpCoroutine = null;
+        public bool IsStandUpCoroutineRunning { get; private set; } = false;
 
         /// <summary> Helper flag, is true when calling Get Up from ragdolled but standing on both legs pose </summary>
         public bool GetUpCall_StandingRestore { get; private set; } = false;
 
         internal IEnumerator _IE_TransitionToStandingMode( float duration, float animatorFadeOffFor = 0.6f, float animatorTransitionDelay = 0.1f, float freezeSourceAnimatedHips = 0f, float delay = 0f, bool isOnLegsRestoreCall = false, float? targetMusclesPower = null, float? targetHardMatching = null )
         {
+            IsStandUpCoroutineRunning = true;
             GetUpCall_StandingRestore = isOnLegsRestoreCall;
 
             if( delay > 0f )
@@ -235,7 +332,7 @@ namespace FIMSpace.FProceduralAnimation
             }
 
             yield return null;
-            yield return new WaitForFixedUpdate();
+            yield return _fixedWait;
 
             float startMusclesForce = MusclesPower;
             float startHardMatching = HardMatchingOnFalling;
@@ -243,7 +340,7 @@ namespace FIMSpace.FProceduralAnimation
 
             while( elapsed < duration )
             {
-                if( AnimatingMode != EAnimatingMode.Standing ) { StandUpTransitionBlend = 1f; yield break; }
+                if( AnimatingMode != EAnimatingMode.Standing ) { StandUpTransitionBlend = 1f; IsStandUpCoroutineRunning = false; yield break; }
 
                 elapsed += delta;
                 float progress = elapsed / duration;
@@ -282,6 +379,7 @@ namespace FIMSpace.FProceduralAnimation
                 }
             }
 
+            IsStandUpCoroutineRunning = false;
             yield break;
         }
 
@@ -371,7 +469,7 @@ namespace FIMSpace.FProceduralAnimation
 
         internal IEnumerator _IE_CallAfter( float delay, System.Action act, int waitExtraFixedSteps = 0 )
         {
-            if( waitExtraFixedSteps > 0 ) for( int i = 0; i < waitExtraFixedSteps; i++ ) yield return new WaitForFixedUpdate();
+            if( waitExtraFixedSteps > 0 ) for( int i = 0; i < waitExtraFixedSteps; i++ ) yield return _fixedWait;
             if( act == null ) yield break;
             if( delay > 0 ) yield return new WaitForSeconds( delay );
             act.Invoke();
@@ -385,7 +483,18 @@ namespace FIMSpace.FProceduralAnimation
             for( int i = 0; i < framesToCall; i++ )
             {
                 act.Invoke();
-                yield return new WaitForFixedUpdate();
+                yield return _fixedWait;
+            }
+
+            yield break;
+        }
+
+        internal IEnumerator _IE_FreezeRigidbodyVelocityFor(Rigidbody rig, Vector3 velo, int framesToCall = 0)
+        {
+            for (int i = 0; i < framesToCall; i++)
+            {
+                rig.linearVelocity = velo;
+                yield return _fixedWait;
             }
 
             yield break;
@@ -404,7 +513,7 @@ namespace FIMSpace.FProceduralAnimation
                 {
                     if( b.GameRigidbody.isKinematic == false )
                     {
-                        b.GameRigidbody.velocity = Vector3.zero;
+                        b.GameRigidbody.linearVelocity = Vector3.zero;
                         b.GameRigidbody.angularVelocity = Vector3.zero;
                     }
                 } );
@@ -426,13 +535,13 @@ namespace FIMSpace.FProceduralAnimation
                 {
                     if( b.GameRigidbody.isKinematic == false )
                     {
-                        b.GameRigidbody.velocity = Vector3.zero;
+                        b.GameRigidbody.linearVelocity = Vector3.zero;
                         b.GameRigidbody.angularVelocity = Vector3.zero;
                     }
                 } );
 
                 c += 1;
-                yield return new WaitForFixedUpdate();
+                yield return _fixedWait;
             }
         }
 

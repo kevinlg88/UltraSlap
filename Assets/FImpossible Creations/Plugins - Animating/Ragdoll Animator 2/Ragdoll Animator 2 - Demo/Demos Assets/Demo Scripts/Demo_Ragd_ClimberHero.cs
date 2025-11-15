@@ -82,7 +82,7 @@ namespace FIMSpace.RagdollAnimatorDemo
 
         private void Update()
         {
-            float velocity = Mover.Rigb.velocity.y / VelocityParamDiv;
+            float velocity = Mover.Rigb.linearVelocity.y / VelocityParamDiv;
             velocity = Mathf.Clamp( velocity, -1f, 1f );
 
             bool anyCatched = AnyCatched();
@@ -180,7 +180,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                 if( AnyCatched() )
                 {
                     var anchor = RagdollAnimator.Handler.GetAnchorBoneController;
-                    Mover.Rigb.velocity = anchor.GameRigidbody.velocity;
+                    Mover.Rigb.linearVelocity = anchor.GameRigidbody.linearVelocity;
                     Mover.Rigb.position = RagdollAnimator.User_GetPosition_FeetMiddle();
                 }
             }
@@ -205,7 +205,7 @@ namespace FIMSpace.RagdollAnimatorDemo
         {
             wasJump = true;
             var anchor = RagdollAnimator.Handler.GetAnchorBoneController;
-            anchor.GameRigidbody.velocity = Mover.Rigb.velocity;
+            anchor.GameRigidbody.linearVelocity = Mover.Rigb.linearVelocity;
             Mecanim.CrossFadeInFixedTime( "Jump", 0.07f );
             catchCulldown = 0.6f;
 

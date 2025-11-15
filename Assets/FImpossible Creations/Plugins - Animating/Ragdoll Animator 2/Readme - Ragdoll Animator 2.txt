@@ -1,7 +1,7 @@
 ﻿__________________________________________________________________________________________
 
 Package "Ragdoll Animator 2"
-Version 1.0.2.8
+Version 1.0.4.0.6
 
 Made by FImpossible Creations - Filip Moeglich
 http://www.fimpossiblecreations.pl
@@ -30,6 +30,99 @@ If you encounter something like spine jittery, try lowering muscles spring power
 
 __________________________________________________________________________________________
 Changelog:
+
+version 1.0.4.0.6
+- Fixed bone direction calculation for get up detection, which could trigger wrong get up animation in exception cases.
+- GUI fix for missing bone gui layout issue
+- Added few extra comments in User_ methods
+
+version 1.0.4.0.5
+- Added "Auto Scale Handles" toggle under Construct -> Colliders bookmark, which you can toggle off, when you experience giant scene colliders editing handles with your model
+
+version 1.0.4.0.4
+- Added 'StartNonPhysicsCollision()' method to collision handlers to force colliding flag without need for unity colliders colliding
+- When disabling Ragdoll Animator, the attachables objects will be disabled as well
+- Added PhysicalImpactAtPosition and ExplosionImpact User_ utility methods
+
+version 1.0.4.0.3
+- Added 'User_TranslateTo(Vector3 newPosition)' helper method, to translate physical body during falling mode
+
+version 1.0.4.0.2
+- Fixed collisions memory on ragdoll enable/disable toggle
+- Added raycast range multiplier, spherecast and boxcast option for the Auto Get Up Extra Feature
+
+version 1.0.4.0.1
+- Fixed few GUI bugs
+
+version 1.0.4.0
+- Added improvements for the Attachable objects, which will give better motion when attachable mass is set to zero
+- Added 'Smooth Change' option for the Connected Mass Scale parameter, to avoid unity physics glitch which was happening on get up when character was pushed far away from the sight
+
+version 1.0.3.9
+- Feet Middle repose mode for extra features
+- Standing Restore repose mode selector for 'Get Up Animate' extra feature
+- 'Needs Core Grounded' property for 'Auto Get Up' extra feature
+
+version 1.0.3.8
+- Added Coroutines optimizations
+- When fall impact was called in the same moment when Get Up action occured, in the same time with kinematic feet extra feature, the feet bones was stuck - fixed
+
+version 1.0.3.7.4
+- Fixed muscles power value refresh on instant calls on muscle power multipliers
+
+version 1.0.3.7.3
+- Fixed duplicated Bone Indicator components on the ragdoll dummy bones
+
+version 1.0.3.7.2
+- Removed unneccesary GC alloc caused by procedural ()=> action call
+
+version 1.0.3.7.1
+- Added protection for using no-collider on BlendOnCollisions extra feature.
+
+version 1.0.3.7
+- Possibility to use bones with no Collider, for example for shoulder bones to improve physical animation match.
+To use no Collider, under Construct bookmark select collider type 'Other' and left reference field empty.
+- Added 'Dont Destroy On Load Dummy' Extra Feature
+
+version 1.0.3.6
+- Now if component has chain with no bones, there will be no errors in console
+- When Ragdoll Animator is re-enabled, the rigidbodies collision detection mode is refreshed now
+
+version 1.0.3.5
+- Fixed collision event trigger, when applying rotation offset to the collider and using just one collider for the bone.
+- AddToUpdateLoop and similar methods are public now, so can be accessed by assembly definitions.
+- Fixed gui horizontal issue on Motion -> Limbs bookmark which could happen in exception situation
+- Dismemberement manager now has extra methods for calling restore on selective bones
+
+version 1.0.3.4
+- The 'Repose Base Transform on Falling' Extra Feature is now including new rotation computing options
+- New 'Fade on played animator' Extra Feature which allows to mask out ragdoll animator motion when certain animation clip/tagged clip plays in the Animator component
+Can be inherited to create cutstom extra feature which animates ragdoll properties when certain animation clip/tagged clips plays.
+
+version 1.0.3.3
+- Implemented 'myRagdoll.Handler.IsStandUpCoroutineRunning' property
+
+version 1.0.3.2
+- Optimize On Zero Blend + Kinematic Anchor On Max + Enable back from 'Optimize On Zero Blend' state anchor bone freeze fix
+- Implemented 'ForceSyncRoot' method to sync dummy position, before running the ragdoll from the disabled state
+
+version 1.0.3.1
+- Default settings for fist/feet bones should be scaled with source bone lossy scale (to avoid generating default huge colliders if lossy scale is giant like 100)
+
+version 1.0.3
+- Added collission detection events support for attachables
+
+version 1.0.2.11
+- Fixed issue with re-attaching Attachables with multiple colliders
+
+version 1.0.2.10
+- Fixed auto get up layer mask field
+- Fixed blend tree poser layer mask field
+- Disabling scene icons of bone indicators
+- Fixed Unity 6 Preview Warning
+
+version 1.0.2.9
+- Ragdoll Animator component's Motion Influence compensation effect will not be applied during fall mode.
 
 version 1.0.2.8
 - Added object pooling example scene in the demos .unitypackage

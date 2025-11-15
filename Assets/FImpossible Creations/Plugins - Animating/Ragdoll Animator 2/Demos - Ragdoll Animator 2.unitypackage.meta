@@ -1,8 +1,16 @@
 fileFormatVersion: 2
-guid: b7659966bf3a91c47a2ce94be10f9828
+guid: 54a52c98b0ccf8c4f8753af29f224554
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 285638
+  packageName: Ragdoll Animator 2
+  packageVersion: 1.0.4.0.6
+  assetPath: Assets/FImpossible Creations/Plugins - Animating/Ragdoll Animator 2/Demos
+    - Ragdoll Animator 2.unitypackage
+  uploadId: 815424

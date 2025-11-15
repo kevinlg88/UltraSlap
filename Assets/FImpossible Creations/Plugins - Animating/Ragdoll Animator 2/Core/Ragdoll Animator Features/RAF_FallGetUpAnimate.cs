@@ -32,6 +32,7 @@ namespace FIMSpace.FProceduralAnimation
         protected FUniversalVariable bodyVelocityV;
         protected FUniversalVariable supportGetupRestoreV;
         protected FUniversalVariable getupRestoreClipStateV;
+        protected FUniversalVariable getupRestoreReposeV;
 
         //FUniversalVariable ragdollStandupBlendDuration;
         protected FUniversalVariable modeV;
@@ -63,6 +64,7 @@ namespace FIMSpace.FProceduralAnimation
 
             supportGetupRestoreV = InitializedWith.RequestVariable("Support Standing Restore:", false);
             getupRestoreClipStateV = InitializedWith.RequestVariable("On Restore Animation:", "");
+            getupRestoreReposeV = InitializedWith.RequestVariable("On Restore Repose:", -1);
 
             repositionBaseTransformV = InitializedWith.RequestVariable("Reposition Base Transform:", true);
             findRigidbodyV = InitializedWith.RequestVariable("Find Character Rigidbody:", false);
@@ -157,12 +159,14 @@ namespace FIMSpace.FProceduralAnimation
                 {
                     if (handler.GetUpCall_StandingRestore)
                     {
-                        EBaseTransformRepose reposeMode = (EBaseTransformRepose)modeV.GetInt();
+                        int getupRestoreMode = getupRestoreReposeV.GetInt();
+                        if (getupRestoreMode < 0) getupRestoreMode = modeV.GetInt();
+                        EBaseTransformRepose reposeMode = (EBaseTransformRepose)getupRestoreMode;
 
                         if (groundHit.transform == null)
                         {
                             groundHit = new RaycastHit();
-                            Vector3 pos = RAF_ReposeOnFall.GetReposePosition(handler, EBaseTransformRepose.AnchorToFootPosition);
+                            Vector3 pos = RAF_ReposeOnFall.GetReposePosition(handler, reposeMode);
                             groundHit.point = pos;
                         }
 
@@ -529,6 +533,7 @@ namespace FIMSpace.FProceduralAnimation
 
             EditorGUIUtility.labelWidth = 0;
 
+            GUILayout.Space(4);
             var supportGetupRestoreV = helper.RequestVariable("Support Standing Restore:", false);
             supportGetupRestoreV.AssignTooltip("Use if you detect character standing on both legs during falling-ragdolled state. (check Auto Get Up Extra Feature)");
             supportGetupRestoreV.Editor_DisplayVariableGUI();
@@ -732,6 +737,42 @@ namespace FIMSpace.FProceduralAnimation
             ClipStateSelector(ragdollHandler, getupRestoreClipStateV, getUpAnimatorLayer.GetInt(), handlerProp);
 
             EditorGUILayout.EndHorizontal();
+
+            var repositionBaseTransformV = helper.RequestVariable("Reposition Base Transform:", true);
+
+            if (repositionBaseTransformV.GetBool())
+            {
+                getupRestoreReposeV = helper.RequestVariable("On Restore Repose:", -1);
+                int reposeV = getupRestoreReposeV.GetInt();
+                GUIContent reposeLabel = new GUIContent("Repose on stand restore:", "Repose mode for standing restore action. Click on the first letters of this property name, to use the same mode as main repose mode (it will make property grayed)");
+                var modeV = helper.RequestVariable("Reposition Mode:", 1);
+
+                EBaseTransformRepose restoreRepose = (EBaseTransformRepose)modeV.GetInt();
+                EBaseTransformRepose newRepose = (EBaseTransformRepose)getupRestoreReposeV.GetInt();
+                int currentReposeValue = getupRestoreReposeV.GetInt();
+
+                if (reposeV < 0)
+                {
+                    GUI.color = new Color(1f, 1f, 1f, 0.7f);
+                    EditorGUI.BeginChangeCheck();
+                    var selRepos = (EBaseTransformRepose)EditorGUILayout.EnumPopup(reposeLabel, restoreRepose);
+                    if (EditorGUI.EndChangeCheck()) newRepose = selRepos;
+                    GUI.color = Color.white;
+                }
+                else
+                {
+                    newRepose = (EBaseTransformRepose)EditorGUILayout.EnumPopup(reposeLabel, newRepose);
+                    var rect = GUILayoutUtility.GetLastRect();
+                    rect.width = 60;
+                    if (GUI.Button(rect, GUIContent.none, EditorStyles.label)) newRepose = (EBaseTransformRepose)(-1);
+                }
+
+                if (currentReposeValue != (int)(newRepose))
+                {
+                    getupRestoreReposeV.SetValue((int)newRepose);
+                }
+            }
+
         }
 
 #endif

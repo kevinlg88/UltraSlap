@@ -12,6 +12,8 @@ namespace FIMSpace.FProceduralAnimation
         [Tooltip( "If self collisions count should be used to define 'Colliding' state" )]
         public bool UseSelfCollisions = true;
 
+        protected float LastNonPhysicsCollisionTime = -1f;
+
         public readonly List<Transform> Ignores = new List<Transform>();
 
         public abstract void EnableSavingEnteredCollisionsList();
@@ -21,5 +23,18 @@ namespace FIMSpace.FProceduralAnimation
         public abstract bool CollidesWithAnything();
 
         public abstract Collider GetFirstCollidingCollider();
+
+        /// <summary> Call when you want to force collision flag, without need for unity colliders collide. </summary>
+        public virtual void StartNonPhysicsCollision()
+        {
+            LastNonPhysicsCollisionTime = Time.time;
+        }
+
+        /// <summary> Call StartNonPhysicsCollision() to reset custom collisions timer. </summary>
+        public virtual float GetTimeSinceLastNonPhysicsCollision()
+        {
+            return Time.time - LastNonPhysicsCollisionTime;
+        }
+
     }
 }

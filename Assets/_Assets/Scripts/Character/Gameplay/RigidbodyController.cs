@@ -77,11 +77,11 @@ public class RigidbodyController : MonoBehaviour
         }
 
         // Aplicar gravidade extra para deixar a queda mais rápida 
-        if (rb.velocity.y < 0)
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        if (rb.linearVelocity.y < 0)
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
 
-        else if (rb.velocity.y > 0 && !playerInput.GetButton("Jump"))
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        else if (rb.linearVelocity.y > 0 && !playerInput.GetButton("Jump"))
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
     }
 
     void UpdateGroundedStatus()
@@ -94,7 +94,7 @@ public class RigidbodyController : MonoBehaviour
     {
         if (!isGrounded || isJumping || !rb) return;
 
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if (animator) animator.SetTrigger("Jump");
         isJumping = true;
@@ -179,10 +179,10 @@ public class RigidbodyController : MonoBehaviour
     {
         if (!isGrounded) return;
 
-        Vector3 currentVel = rb.velocity;
+        Vector3 currentVel = rb.linearVelocity;
         float newX = Mathf.Lerp(currentVel.x, moveDir.x * moveSpeed, inertiaFactor);
         float newZ = Mathf.Lerp(currentVel.z, moveDir.z * moveSpeed, inertiaFactor);
-        rb.velocity = new Vector3(newX, currentVel.y, newZ);
+        rb.linearVelocity = new Vector3(newX, currentVel.y, newZ);
     }
 
     void RotateTowardsMovementDirection()

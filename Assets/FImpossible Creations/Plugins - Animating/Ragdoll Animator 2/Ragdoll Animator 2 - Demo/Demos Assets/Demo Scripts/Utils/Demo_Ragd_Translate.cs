@@ -14,7 +14,7 @@ namespace FIMSpace.RagdollAnimatorDemo
 
         private void FixedUpdate()
         {
-            if( ToMove ) ToMove.velocity = transform.TransformVector( LocalVelocity );
+            if( ToMove ) ToMove.linearVelocity = transform.TransformVector( LocalVelocity );
         }
     }
 }

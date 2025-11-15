@@ -6,13 +6,14 @@ namespace FIMSpace.FProceduralAnimation
         {
             foreach( var chain in ParentRagdollHandler.Chains )
             {
+                if (chain.BoneSetups.Count == 0) continue;
                 if( chain.ChainType.IsLeg() == false ) continue;
 
                 if( chain.ChainType.IsLeg() )
                 {
                     var bone = chain.BoneSetups[chain.BoneSetups.Count - 1];
                     bone.ForceKinematicOnStanding = true;
-                    bone.RefreshDynamicPhysicalParameters( chain, chain.ParentHandler.IsFallingOrSleep );
+                    bone.RefreshDynamicPhysicalParameters( chain, chain.ParentHandler.IsFallingOrSleep, ParentRagdollHandler.InstantConnectedMassChange);
                 }
             }
 
@@ -23,10 +24,11 @@ namespace FIMSpace.FProceduralAnimation
         {
             foreach( var chain in ParentRagdollHandler.Chains )
             {
+                if (chain.BoneSetups.Count == 0) continue;
                 if( chain.ChainType.IsLeg() == false ) continue;
 
                 chain.BoneSetups[chain.BoneSetups.Count - 1].ForceKinematicOnStanding = false;
-                chain.BoneSetups[chain.BoneSetups.Count - 1].RefreshDynamicPhysicalParameters( chain, ParentRagdollHandler.IsInFallingMode );
+                chain.BoneSetups[chain.BoneSetups.Count - 1].RefreshDynamicPhysicalParameters( chain, ParentRagdollHandler.IsInFallingMode, ParentRagdollHandler.InstantConnectedMassChange);
             }
         }
 
@@ -39,10 +41,11 @@ namespace FIMSpace.FProceduralAnimation
             // Restore values
             foreach( var chain in ragdollHandler.Chains )
             {
+                if (chain.BoneSetups.Count == 0) continue;
                 if( chain.ChainType.IsLeg() == false ) continue;
 
                 chain.BoneSetups[chain.BoneSetups.Count - 1].ForceKinematicOnStanding = false;
-                if( ragdollHandler.WasInitialized ) chain.BoneSetups[chain.BoneSetups.Count - 1].RefreshDynamicPhysicalParameters( chain, ragdollHandler.IsInFallingMode );
+                if( ragdollHandler.WasInitialized ) chain.BoneSetups[chain.BoneSetups.Count - 1].RefreshDynamicPhysicalParameters( chain, ragdollHandler.IsInFallingMode, ParentRagdollHandler.InstantConnectedMassChange);
             }
         }
 

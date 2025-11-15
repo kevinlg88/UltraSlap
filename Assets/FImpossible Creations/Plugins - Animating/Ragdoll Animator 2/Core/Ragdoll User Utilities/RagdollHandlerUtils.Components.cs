@@ -45,7 +45,10 @@ namespace FIMSpace.FProceduralAnimation
             return bones;
         }
 
-        /// <summary> If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components </summary>
+        /// <summary> 
+        /// If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components.
+        /// This method focuses on updating each bone rigidbody component parameters.
+        /// </summary>
         public static void User_UpdateRigidbodyParametersForAllBones( this IRagdollAnimator2HandlerOwner iHandler )
         {
             RagdollHandler handler = iHandler.GetRagdollHandler;
@@ -56,7 +59,10 @@ namespace FIMSpace.FProceduralAnimation
                     bone.RefreshRigidbody( handler, chain, false );
         }
 
-        /// <summary> If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components </summary>
+        /// <summary> 
+        /// If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components.
+        /// This method focuses on updating each bone collider components parameters.
+        /// </summary>
         public static void User_UpdateColliderParametersForAllBones( this IRagdollAnimator2HandlerOwner iHandler )
         {
             RagdollHandler handler = iHandler.GetRagdollHandler;
@@ -74,19 +80,23 @@ namespace FIMSpace.FProceduralAnimation
             }
         }
 
-        /// <summary> If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components </summary>
+        /// <summary> 
+        /// If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components.
+        /// This method focuses on updating each bone joint component parameters.
+        /// </summary>
         public static void User_UpdatePhysicsParametersForAllBones( this IRagdollAnimator2HandlerOwner iHandler )
         {
             if( iHandler.GetRagdollHandler.DummyWasGenerated == false ) return;
 
             bool fall = iHandler.GetRagdollHandler.IsFallingOrSleep;
+            var handler = iHandler.GetRagdollHandler;
 
-            foreach( var chain in iHandler.GetRagdollHandler.Chains )
+            foreach( var chain in handler.Chains )
             {
                 foreach( var bone in chain.BoneSetups )
                 {
                     // In case of using rotation correction //if( bone.IsAnchor ) continue;
-                    bone.RefreshJoint( chain, fall, false, true );
+                    bone.RefreshJoint( chain, fall, false, true, handler.InstantConnectedMassChange );
                 }
             }
         }
@@ -106,7 +116,8 @@ namespace FIMSpace.FProceduralAnimation
                     bone.GameRigidbody.gameObject.layer = handler.RagdollDummyLayer;
 
                     foreach( var collS in bone.Colliders )
-                        collS.GameCollider.gameObject.layer = handler.RagdollDummyLayer;
+                        if ( collS.GameCollider != null)
+                            collS.GameCollider.gameObject.layer = handler.RagdollDummyLayer;
                 }
 
                 if( chain.ParentConnectionBones != null )
@@ -125,7 +136,10 @@ namespace FIMSpace.FProceduralAnimation
             }
         }
 
-        /// <summary> If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components </summary>
+        /// <summary> 
+        /// If you changed some ragdoll handler variables through code, you need to trigger settings refresh for the ragdoll dummy components.
+        /// This method is doing full refresh - updating rigidbody, joints and collider parameters on every single bone.
+        /// </summary>
         public static void User_UpdateAllBonesParametersAfterManualChanges( this IRagdollAnimator2HandlerOwner iHandler )
         {
             RagdollHandler handler = iHandler.GetRagdollHandler;

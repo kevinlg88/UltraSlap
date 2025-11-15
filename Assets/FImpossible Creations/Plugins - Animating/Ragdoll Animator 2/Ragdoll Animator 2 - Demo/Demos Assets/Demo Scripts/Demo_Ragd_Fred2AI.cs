@@ -297,8 +297,8 @@ namespace FIMSpace.RagdollAnimatorDemo
             {
                 //if( wasRootMotion == false )
                 Vector3 vel = MovementDir * MovSpeed * accel;
-                vel.y = rig.velocity.y;
-                rig.velocity = vel;
+                vel.y = rig.linearVelocity.y;
+                rig.linearVelocity = vel;
             }
 
             if( !wasMoving )

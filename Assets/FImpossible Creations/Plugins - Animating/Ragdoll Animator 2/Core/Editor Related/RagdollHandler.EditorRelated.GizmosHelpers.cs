@@ -22,6 +22,7 @@ namespace FIMSpace.FProceduralAnimation
 
         public static bool WireframeMode = false;
         public static bool MeshMode = true;
+        public static bool AutoScaleHandles = true;
         public static bool DrawFlatColliders = false;
 
         private void TryLoadEditorMeshResources()

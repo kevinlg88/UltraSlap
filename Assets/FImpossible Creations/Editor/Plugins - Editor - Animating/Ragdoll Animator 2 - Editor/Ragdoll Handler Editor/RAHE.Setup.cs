@@ -176,6 +176,13 @@ namespace FIMSpace.FProceduralAnimation
                 EditorGUILayout.PropertyField( physProp, new GUIContent( " " + physProp.displayName, FGUI_Resources.FindIcon( "Ragdoll Animator/SPR_RagdollSprings" ), physProp.tooltip ), true );
                 EditorGUI.indentLevel++;
                 physProp.Next( false ); EditorGUILayout.PropertyField( physProp, true );
+                GUILayout.Space(4);
+                physProp.Next( false );
+                
+                bool smoothEnabled = physProp.floatValue > 0f;
+                smoothEnabled = EditorGUILayout.Toggle(new GUIContent(physProp.displayName, physProp.tooltip), smoothEnabled);
+                if (smoothEnabled) physProp.floatValue = 1f; else physProp.floatValue = 0f;
+
                 EditorGUI.indentLevel--;
                 GUI.backgroundColor = Color.white;
 
@@ -258,7 +265,8 @@ namespace FIMSpace.FProceduralAnimation
             physProp.Next( false );
             physProp.Next( false );
             physProp.Next( false );
-            physProp.Next( false );
+            physProp.Next( false ); // Phys Material Skip
+            physProp.Next( false ); // Mat On Fall Skip
 
             GUILayout.Space( 4 );
             physProp.Next( false ); EditorGUILayout.PropertyField( physProp, true );

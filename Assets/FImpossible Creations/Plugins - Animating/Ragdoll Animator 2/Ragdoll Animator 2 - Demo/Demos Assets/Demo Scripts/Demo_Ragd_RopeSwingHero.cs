@@ -53,7 +53,7 @@ namespace FIMSpace.RagdollAnimatorDemo
             if( attached )
             {
                 var anchor = RagdollAnimator.Handler.GetAnchorBoneController;
-                Mover.Rigb.velocity = anchor.GameRigidbody.velocity;
+                Mover.Rigb.linearVelocity = anchor.GameRigidbody.linearVelocity;
                 Mover.Rigb.position = RagdollAnimator.User_GetPosition_FeetMiddle();
                 Mover.UpdateInput = false;
 
@@ -75,7 +75,7 @@ namespace FIMSpace.RagdollAnimatorDemo
                     if( RagdollAnimator.IsInFallingOrSleepMode )
                     {
                         var anchor = RagdollAnimator.Handler.GetAnchorBoneController;
-                        Mover.Rigb.velocity = anchor.GameRigidbody.velocity;
+                        Mover.Rigb.linearVelocity = anchor.GameRigidbody.linearVelocity;
                         Mover.Rigb.position = RagdollAnimator.User_GetPosition_FeetMiddle();
                     }
                 }

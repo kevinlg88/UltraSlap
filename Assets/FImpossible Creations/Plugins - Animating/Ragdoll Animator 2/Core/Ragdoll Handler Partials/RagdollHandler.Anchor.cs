@@ -56,7 +56,7 @@ namespace FIMSpace.FProceduralAnimation
                         {
                             if (Vector3.Distance(anchor.PhysicalDummyBone.position, anchor.SourceBone.position) < anchor.BaseColliderSetup.CalculateSize().magnitude * 0.05f)
                             {
-                                anchor.GameRigidbody.velocity = _providedAnchorVelocity.Value;
+                                anchor.GameRigidbody.linearVelocity = _providedAnchorVelocity.Value;
                                 _providedAnchorVelocity = null;
 
                                 return; // Don't apply rigidbody forces calculated below
@@ -86,6 +86,39 @@ namespace FIMSpace.FProceduralAnimation
             }
 
         }
+
+
+        /// <summary>
+        /// Moving physical dummy immedietely towards source character placement.
+        /// Can be used just before enabling back ragdoll dummy, since starting will falling mode will not move dummy object from the old placement.
+        /// </summary>
+        public void ForceSyncRoot(bool applyUsingAnchor = false)
+        {
+            if (applyUsingAnchor)
+            {
+                Vector3 p = GetAnchorBoneController.SourceBone.position;
+                Quaternion r = _playmodeAnchorBone.SourceBone.rotation;
+
+                if (UnaffectedMovement)
+                {
+                    _playmodeAnchorBone.PhysicalDummyBone.position = p;
+                    _playmodeAnchorBone.PhysicalDummyBone.rotation = r;
+                }
+                else
+                {
+                    _playmodeAnchorBone.GameRigidbody.MovePosition(p);
+                    _playmodeAnchorBone.GameRigidbody.MoveRotation(r);
+                }
+            }
+            else
+            {
+                Vector3 p = GetAnchorBoneController.SourceBone.position - dummyContainer.position;
+                Quaternion r = GetAnchorBoneController.SourceBone.rotation * Quaternion.Inverse(dummyContainer.rotation);
+                dummyContainer.position += p;
+                dummyContainer.rotation *= r;
+            }
+        }
+
 
         private bool afterForcing = false;
 
@@ -119,13 +152,21 @@ namespace FIMSpace.FProceduralAnimation
                 {
                     ChangeAnchorKinematicState(false);
                 }
+
+                if (afterForcing)
+                {
+                    afterForcing = false;
+                    anchor.GameRigidbody.collisionDetectionMode = anchor.UseIndividualParameters ? anchor.OverrideDetectionMode : RigidbodiesDetectionMode;
+                }
             }
             else
             {
                 if (animatingModeChanged || afterForcing)
                 {
                     afterForcing = false;
-                    ChangeAnchorKinematicState(false);
+
+                    if (_playmodeAnchorBone.GameRigidbody.isKinematic == false) anchor.GameRigidbody.collisionDetectionMode = anchor.UseIndividualParameters ? anchor.OverrideDetectionMode : RigidbodiesDetectionMode;
+                    else ChangeAnchorKinematicState(false);
                 }
             }
 
@@ -135,8 +176,9 @@ namespace FIMSpace.FProceduralAnimation
                 {
                     // Maintaining kinematic rigidbody velocity
                     Vector3 velo = anchor.BoneProcessor.AverageTranslationDataRequestRaw() / Time.fixedDeltaTime;
-                    anchor.GameRigidbody.velocity = velo;
-                    if (Caller) Caller.StartCoroutine(_IE_CallForFixedFrames(() => { anchor.GameRigidbody.velocity = velo; }, 3));
+                    anchor.GameRigidbody.linearVelocity = velo;
+                    //if (Caller) Caller.StartCoroutine(_IE_CallForFixedFrames(() => { anchor.GameRigidbody.velocity = velo; }, 3)); // Was generatic GC alloc even if line was not called?
+                    if (Caller) Caller.StartCoroutine(_IE_FreezeRigidbodyVelocityFor(anchor.GameRigidbody, velo, 3));
                 }
             }
         }
@@ -145,8 +187,8 @@ namespace FIMSpace.FProceduralAnimation
         {
             if (_playmodeAnchorBone.GameRigidbody.isKinematic == isKinematic) return;
 
-            if (isKinematic) _playmodeAnchorBone.GameRigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
             _playmodeAnchorBone.GameRigidbody.isKinematic = isKinematic;
+            _playmodeAnchorBone.GameRigidbody.collisionDetectionMode = _playmodeAnchorBone.UseIndividualParameters ? _playmodeAnchorBone.OverrideDetectionMode : RigidbodiesDetectionMode;
 
             // Check detached chains change parenting
             if (isKinematic)
@@ -306,6 +348,13 @@ namespace FIMSpace.FProceduralAnimation
         Vector3 _lastFixedPosition;
         void UpdateMotionInfluence()
         {
+            if( IsInStandingMode == false ) // No motion influence on fall mode
+            {
+                _lastFixedPosition = _playmodeAnchorBone.BoneProcessor.AnimatorPosition;
+                _motionInfluenceOffset = Vector3.zero;
+                return;
+            }
+
             if (MotionInfluence == 1f) { _motionInfluenceOffset = Vector3.zero; _lastFixedPosition = _playmodeAnchorBone.BoneProcessor.AnimatorPosition; return; }
 
             Vector3 offset = _motionInfluenceOffset * (1f - MotionInfluence);

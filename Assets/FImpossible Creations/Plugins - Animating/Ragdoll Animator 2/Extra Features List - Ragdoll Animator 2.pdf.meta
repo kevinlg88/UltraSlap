@@ -1,7 +1,15 @@
 fileFormatVersion: 2
-guid: fad6c17b9d46fce41814b48d26392459
+guid: 8f1826a6a4a1be94386e10f89a7a3758
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 285638
+  packageName: Ragdoll Animator 2
+  packageVersion: 1.0.4.0.6
+  assetPath: Assets/FImpossible Creations/Plugins - Animating/Ragdoll Animator 2/Extra
+    Features List - Ragdoll Animator 2.pdf
+  uploadId: 815424

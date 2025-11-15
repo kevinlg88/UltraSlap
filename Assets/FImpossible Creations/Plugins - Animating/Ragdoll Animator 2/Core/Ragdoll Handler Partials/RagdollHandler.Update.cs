@@ -89,6 +89,7 @@ namespace FIMSpace.FProceduralAnimation
                         foreach (var bone in chain.BoneSetups)
                             bone.BoneProcessor.ResetPoseParameters();
 
+                    animatingModeChanged = true;
                     _wasSleepDisable = false;
                     _wasDisableUpdating = false;
                 }
@@ -99,7 +100,11 @@ namespace FIMSpace.FProceduralAnimation
         private void CalculateRagdollBlend()
         {
             finalBlend = GetTotalBlend();
+            RefreshTargetMusclesPower();
+        }
 
+        public void RefreshTargetMusclesPower()
+        {
             if (User_OverrideMusclesPower != null) targetMusclesPower = User_OverrideMusclesPower.Value;
             else targetMusclesPower = MusclesPower * musclesPowerMultiplier;
         }
@@ -300,6 +305,19 @@ namespace FIMSpace.FProceduralAnimation
             UpdateMotionInfluence();
 
             FixedUpdateAttachables();
+
+            if ( InstantConnectedMassChange == false)
+            {
+                float cmDelta = Time.fixedDeltaTime * ConnectedMassTransition;
+                if (animatingMode == EAnimatingMode.Falling) cmDelta *= 4f;
+
+                foreach (var chain in chains)
+                    foreach (var bone in chain.BoneSetups)
+                    {
+                        if (bone.Joint == null) continue;
+                        bone.Joint.connectedMassScale = Mathf.MoveTowards(bone.Joint.connectedMassScale, bone.TargetConnectedMassScale, cmDelta);
+                    }
+            }
         }
 
         private void ApplyAnchorBonePositionAfterAnimationCapture()
@@ -477,6 +495,7 @@ namespace FIMSpace.FProceduralAnimation
                 spring = OverrideSpringsValueOnFall == null ? GetCurrentMainSpringsValue : OverrideSpringsValueOnFall.Value;
             }
 
+            RefreshTargetMusclesPower();
             float power = targetMusclesPower * targetMusclesPower;
 
             foreach (var chain in chains)

@@ -113,6 +113,7 @@ namespace FIMSpace.FProceduralAnimation
 
         protected virtual RA2BoneCollisionHandlerBase GetCollisionHandler( RagdollChainBone bone )
         {
+            if (bone.MainBoneCollider == null) return null;
             return bone.MainBoneCollider.GetComponent<RA2BoneCollisionHandler>();
         }
 
@@ -123,6 +124,23 @@ namespace FIMSpace.FProceduralAnimation
             foreach( var chain in ParentRagdollHandler.Chains )
                 foreach( var bone in chain.BoneSetups )
                     bone.BoneBlendMultiplier = 1f; // Restore parameter
+        }
+
+
+        public override void OnDisableRagdoll()
+        {
+            if (ParentRagdollHandler == null) return;
+
+            foreach (var chain in ParentRagdollHandler.Chains)
+            {
+                foreach (var bone in chain.BoneSetups)
+                {
+                    if (bone.BoneProcessor.IndicatorComponent == null) continue;
+                    var collIndic = bone.BoneProcessor.IndicatorComponent as RA2BoneCollisionHandler;
+                    if ( collIndic == null ) continue;
+                    collIndic.CleanupCollisions();
+                }
+            }
         }
 
         private void UpdateBlending()
@@ -220,6 +238,11 @@ namespace FIMSpace.FProceduralAnimation
             }
         }
 
+        public override void OnEnableRagdoll()
+        {
+
+        }
+
         protected class BlendOnCollisionChain
         {
             public RagdollBonesChain OwnerChain;
@@ -254,6 +277,12 @@ namespace FIMSpace.FProceduralAnimation
                 for( int i = startI; i >= 0; i-- )
                 {
                     if( Bones[i].CollisionHandler.CollidesWithAnything() )
+                    {
+                        collidingBone = Bones[i];
+                        collidingIndex = i;
+                        break;
+                    }
+                    else if(Bones[i].CollisionHandler.GetTimeSinceLastNonPhysicsCollision() <= blendOffDelay) // Support for custom collide flag triggering
                     {
                         collidingBone = Bones[i];
                         collidingIndex = i;
