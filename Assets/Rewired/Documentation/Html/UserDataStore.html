@@ -182,6 +182,54 @@ public class MyUserDataStore : Rewired.Data.UserDataStore {
     <p><strong><a name="playerprefs" id="playerprefs"></a>UserDataStore_PlayerPrefs</strong></p>
     <p>This is a user data storage component that uses Unity's PlayerPrefs class for storing data.</p>
     <p><a href="#component-info">See this for information that applies to all included implementations of UserDataStore.</a></p>
+    <p><strong>Inspector:</strong></p>
+    <p><img src="files/images/user-data-store-player-prefs-inspector.png" /></p>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td valign="top">Is Enabled</td>
+        <td valign="top"><p>Should this script be used? If disabled, nothing will be saved or loaded.</p></td>
+      </tr>
+      <tr>
+        <td valign="top">Load Data On Start</td>
+        <td valign="top">Should saved data be loaded on start?</td>
+      </tr>
+      <tr>
+        <td valign="top">Load Joystick Assignments</td>
+        <td valign="top">Should Player Joystick assignments be saved and loaded? This is not totally reliable for all Joysticks on all platforms. Some platforms/input sources do not provide enough information to reliably save assignments from session to session and reboot to reboot.</td>
+      </tr>
+      <tr>
+        <td valign="top">Load Keyboard Assignments</td>
+        <td valign="top">Should Player Keyboard assignments be saved and loaded?</td>
+      </tr>
+      <tr>
+        <td valign="top">Load Mouse Assignments</td>
+        <td valign="top">Should Player Mouse assignments be saved and loaded?</td>
+      </tr>
+      <tr>
+        <td valign="top"><a name="playerprefs-action-mapping-save-mode" id="playerprefs-action-mapping-save-mode"></a>Action Mapping Save Mode</td>
+        <td valign="top"><p>How should Action mapping data be saved?</p>
+          <p>By Controller: Data is stored per-controller. Action mappings apply only to the specific controller for which it was saved.</p>
+          <p> By Controller Element Role: Data is stored per-element on the controller if the controller element has a known role. Action mappings are mirrored on controller elements with the same role on all other controllers for the Player. Example: When saving Action mappings for a gamepad, element on all gamepads that have the same roles will inherit the mappings. This allows you to remap once for all compatible gamepads simultaneously, for example. This can extend beyond just gamepads, however. For example: On a console platform, a racing wheel with A, B, X, Y, D-Pad etc. elements will also reflect the same Action mappings if the gamepad is remapped. Action mappings for any controller elements that do not have known roles will be saved per-controller. Warning: Do not use this mode if you need to allow a Player to save different mappings for multiple controllers of the same type such as gamepads. (This option currently works best for gamepads and only miminally for other controller types.)</p></td>
+      </tr>
+      <tr>
+        <td valign="top">Player Prefs Key Prefix</td>
+        <td valign="top">The PlayerPrefs key prefix. Change this to change how keys are stored in PlayerPrefs. Changing this will make saved data already stored with the old key no longer accessible.</td>
+      </tr>
+      <tr>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top"><strong>Debug Options</strong></td>
+        <td valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="22%" valign="top">Clear All PlayerPrefs Data</td>
+        <td width="78%" valign="top"><p>This will clear all player prefs data! Use this with caution!</p>
+          <p>WARNING: This will delete ALL PlayerPrefs data in your project, not just the keys used by Rewired (because there is no way to search for keys by prefix).</p></td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
 <p><strong>Limitations:</strong></p>
     <p>PlayerPrefs itself has significant limitations and negatives, for example, it isn't possible to clear only Rewired's save data from PlayerPrefs without wiping out all other PlayerPrefs data. If this is something you anticipate needing to do for whatever reason, do not use UserDataStore_PlayerPrefs and instead implement your own extension of the UserDataStore class that saves/loads data to whatever storage system you desire so you can have more control over how data is stored and managed.</p>
     <p>PlayerPrefs may not work at all or using it may have unforseen consequences on certain console platforms due to limitations in Unity's design, so be aware of these possible issues when deciding how you want to store user data.</p>
@@ -195,7 +243,59 @@ public class MyUserDataStore : Rewired.Data.UserDataStore {
     <p><a href="#component-info">See this for information that applies to all included implementations of UserDataStore.</a></p>
     <p>By default, data is saved as a JSON file to Application.persistentDataPath. If you need to store data in a different location (cloud storage, etc.), you can extend the class and change the save path and/or use your own data handler.</p>
     <p>Data can be stored as  text or  binary (compressed  text using LZF compression algorithm).</p>
-    <p><strong>Extending the class:</strong></p>
+    <p><strong>Inspector:</strong></p>
+    <p><img src="files/images/user-data-store-file-inspector.png" alt="" /></p>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td valign="top">Is Enabled</td>
+        <td valign="top"><p>Should this script be used? If disabled, nothing will be saved or loaded.</p></td>
+      </tr>
+      <tr>
+        <td valign="top">Load Data On Start</td>
+        <td valign="top">Should saved data be loaded on start?</td>
+      </tr>
+      <tr>
+        <td valign="top">Load Joystick Assignments</td>
+        <td valign="top">Should Player Joystick assignments be saved and loaded? This is not totally reliable for all Joysticks on all platforms. Some platforms/input sources do not provide enough information to reliably save assignments from session to session and reboot to reboot.</td>
+      </tr>
+      <tr>
+        <td valign="top">Load Keyboard Assignments</td>
+        <td valign="top">Should Player Keyboard assignments be saved and loaded?</td>
+      </tr>
+      <tr>
+        <td valign="top">Load Mouse Assignments</td>
+        <td valign="top">Should Player Mouse assignments be saved and loaded?</td>
+      </tr>
+      <tr>
+        <td valign="top"><a name="file-action-mapping-save-mode" id="file-action-mapping-save-mode"></a>Action Mapping Save Mode</td>
+        <td valign="top"><p>How should Action mapping data be saved?</p>
+          <p>By Controller: Data is stored per-controller. Action mappings apply only to the specific controller for which it was saved.</p>
+          <p> By Controller Element Role: Data is stored per-element on the controller if the controller element has a known role. Action mappings are mirrored on controller elements with the same role on all other controllers for the Player. Example: When saving Action mappings for a gamepad, element on all gamepads that have the same roles will inherit the mappings. This allows you to remap once for all compatible gamepads simultaneously, for example. This can extend beyond just gamepads, however. For example: On a console platform, a racing wheel with A, B, X, Y, D-Pad etc. elements will also reflect the same Action mappings if the gamepad is remapped. Action mappings for any controller elements that do not have known roles will be saved per-controller. Warning: Do not use this mode if you need to allow a Player to save different mappings for multiple controllers of the same type such as gamepads. (This option currently works best for gamepads and only miminally for other controller types.)</p></td>
+      </tr>
+      <tr>
+        <td valign="top">File Name</td>
+        <td valign="top">The data file name. Changing this will make saved data already stored with the old file name no longer accessible.</td>
+      </tr>
+      <tr>
+        <td valign="top">Data Format</td>
+        <td valign="top">Determines if the file should be stored as binary or text. Changing this will make saved data already stored no longer accessible.</td>
+      </tr>
+      <tr>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td valign="top"><strong>Debug Options</strong></td>
+        <td valign="top">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="22%" valign="top">Clear Data</td>
+        <td width="78%" valign="top"><p>This will clear saved user data.</p>
+          <p>WARNING: This will delete saved user data.</p></td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+<p><strong>Extending the class:</strong></p>
     <p>If you want to save data to somewhere other than Application.persistentDataPath or you want to save data in a different format, you should extend the class and implement your own data handler.</p>
     <p>If you need to save data in a different format or in different locations on  different build targets, you can do that in your implementation.</p>
     <p>A simple example implementation is as follows:</p>

@@ -249,6 +249,7 @@
     </ul>
     <h3><a href="#steam">Steam:</a></h3>
     <ul>
+      <li><a href="#steam-windows-gaming-input-controller-connection">Windows - Windows Gaming Input controller connection and disconnection is not detected</a></li>
       <li><a href="#steam-windows-tab-shift-keys-stuck-overlay">Windows - Tab and Shift keys get stuck on after opening Steam overlay using the keyboard</a></li>
     </ul>
 <hr />
@@ -1048,6 +1049,10 @@ public class RewiredCustomController_AndroidRemote : MonoBehaviour {
 <p></p>
 <h2><a name="steam" id="steam"></a>Steam</h2>
 <p></p>
+<h3><a name="steam-windows-gaming-input-controller-connection" id="steam-windows-gaming-input-controller-connection"></a>Windows - Windows Gaming Input controller connection and disconnection is not detected</h3>
+<p>As of November 3, 2025, the current version of Steam has a bug which prevents Rewired from detecting controller connection and disconnection events from Steam Remote Play virtual devices (and possibly all Steam-configured devices) when using the Windows Gaming Input input source. This is a new Steam bug and cannot be fixed by Rewired. <a href="RewiredEditor.html#settings-windows">The only workaround is to disable Windows Gaming Input.</a></p>
+<p>&nbsp;</p>
+<hr />
 <h3><a name="steam-windows-tab-shift-keys-stuck-overlay" id="steam-windows-tab-shift-keys-stuck-overlay"></a>Windows - Tab and Shift keys get stuck on after opening Steam overlay using the keyboard</h3>
 <p>When opening the Steam overlay with Shift + Tab key combination, the Shift and Tab keys will remain stuck on forever until the user presses each of these keys to release them.</p>
 <p>This is due to the fact that Rewired uses Raw Input for keyboard input. Steam does not forward the Raw Input key up events for these keys to the application when the overlay is opened, therefore Rewired cannot know that these keys were ever released.</p>

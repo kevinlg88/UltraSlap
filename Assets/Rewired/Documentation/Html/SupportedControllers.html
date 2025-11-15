@@ -151,7 +151,7 @@
 			<p>Rewired supports most USB and Bluetooth controllers available, many with extended support. <span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications">1</a>]</span></p>
 			<h3>Controllers with Extended Support</h3>
 			<p>Controllers with hardware definitions are recognized on each platform and are fully mappable by element name, have standardized axis directions, and may be compatible with a <a href="ControllerTemplates.html">Controller Template</a> for easy mapping. For all other controllers that do not appear in the following tables, <a href="#controllers-without-definitions">please see this important note</a>.</p>
-			<p><strong>Rewired currently includes extended support for the following game controllers as of version 1.1.57.3:</strong></p>
+			<p><strong>Rewired currently includes extended support for the following game controllers as of version 1.1.60.0:</strong></p>
 			<table width="100%" border="0" class="supported-controllers-table">
               <tr>
                 <td valign="top">&nbsp;</td>
@@ -272,7 +272,7 @@
                 <td align="center" valign="top"><span class="yes">Yes</span><br />
                 <span class="note">(Bluetooth only)</span></td>
                 <td align="center" valign="top"><span class="no">No</span></td>
-                <td align="center" valign="top"><span class="yes">iOS 13+</span></td>
+                <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top">Windows: <span  class="yes">Yes</span><br />
                   MacOS:<span  class="yes"> Yes</span></td>
               </tr>
@@ -404,7 +404,8 @@ MacOS: <span class="yes">Yes</span></td>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
                 <td valign="top">Sony DualShock 4 <span class="note">(Wired)</span></td>
                 <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
-                <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Raw Input + Enhanced Device Support</span></p></td>
+                <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Raw Input + Enhanced Device Support</span></p>
+                <p class="note">(Special features not supported if Use Windows Gaming Input enabled. [<a href="#clarifications-24">24</a>])</p></td>
                 <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
                 <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Enhanced Device Support)</span></p>
                 <p>Game Controller Framework: <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a>)</span></p></td>
@@ -423,8 +424,9 @@ MacOS: <span class="yes">Yes</span></td>
               <tr>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
                 <td valign="top">Sony DualShock 4 <span class="note">(Bluetooth)</span></td>
-                <td align="center" valign="top"><span class="yes">Yes</span><br/>
-                <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></td>
+                <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
+                <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></p>
+                <p><span class="note">(Special features not supported if Use Windows Gaming Input enabled. [<a href="#clarifications-24">24</a>])</span></p></td>
                 <td align="center" valign="top"><p><span class="yes">Yes</span><br />
                   <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Enhanced Device Support)</span></p>
                 <p>Game Controller Framework: <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a>)</span></p></td>
@@ -436,7 +438,7 @@ MacOS: <span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="yes">Yes</span></td>
-                <td align="center" valign="top"><span class="yes">iOS 13+</span></td>
+                <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top"><p>Windows: <span class="no">No</span> <strong><span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications">8</a>]</span></strong><br />
                   MacOS: 
                       <span class="partial">Partial <strong><span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications">8</a>]</span></strong></span><br />
@@ -446,7 +448,8 @@ MacOS: <span class="yes">Yes</span></td>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
                 <td valign="top">Sony DualShock 4 <span class="note">(USB Wireless Adaptor)</span></td>
                 <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
-                <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></p></td>
+                <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></p>
+                <p><span class="note">(Special features not supported if Use Windows Gaming Input enabled. [<a href="#clarifications-24">24</a>])</span></p></td>
                 <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
                   <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a> with Enhanced Device Support)</span></p>
                   <p>Game Controller Framework: <span class="note">(<a href="HowTos.html#dualshock-4-special-features">All features supported</a>)</span></p></td>
@@ -466,7 +469,8 @@ MacOS: <span class="yes">Yes</span></td>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
                 <td valign="top">Sony DualSense <span class="note">(Wired)</span></td>
                 <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
-                <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></p></td>
+                <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></p>
+                <p><span class="note">(Special features not supported if Use Windows Gaming Input enabled. [<a href="#clarifications-24">24</a>])</span></p></td>
                 <td align="center" valign="top"><p>IO Kit: <span class="yes">Yes</span><br/>
                 <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Enhanced Device Support)<br />
                 </span><br/>
@@ -488,8 +492,9 @@ MacOS: <span class="yes">Yes</span></td>
               <tr>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
                 <td valign="top">Sony DualSense <span class="note">(Bluetooth)</span></td>
-                <td align="center" valign="top"><span class="yes">Yes</span><br/>
-                <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></td>
+                <td align="center" valign="top"><p><span class="yes">Yes</span><br/>
+                <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Raw Input + Enhanced Device Support)</span></p>
+                <p><span class="note">(Special features not supported if Use Windows Gaming Input enabled. [<a href="#clarifications-24">24</a>])</span></p></td>
                 <td align="center" valign="top"><p>IO Kit: <span class="yes">Yes</span><br/>
                     <span class="note">(<a href="HowTos.html#dualsense-special-features">All features supported</a> with Enhanced Device Support)</span></p>
                 <p>Game Controller Framework: <span class="note">(<a href="HowTos.html#dualsense-special-features">All features except trigger haptics supported</a>)</span></p></td>
@@ -502,7 +507,7 @@ MacOS: <span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="maybe">Maybe</span><br />
                 <span class="note">(untested)</span></td>
-                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top"><p>Windows:<span class="yes"> As DS4</span><br />
                   MacOS:<span class="yes"> As DS4</span></p></td>
               </tr>
@@ -577,7 +582,7 @@ MacOS: <span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="yes"><span class="maybe">Unknown</span></span></td>
                 <td align="center" valign="top"><span class="yes"><span class="maybe">Unknown</span></span></td>
                 <td align="center" valign="top"><span class="partial">Android Fallback</span></td>
-                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top">Windows:<span class="no"> No</span><br />
                   MacOS:<span class="no"> No</span></td>
               </tr>
@@ -3755,6 +3760,11 @@ MacOS: <span class="no">No</span></td>
               <td valign="top">Gamepad<span class="note"></span>s</td>
               <td align="center" valign="top"><span class="yes">Yes</span></td>
             </tr>
+            <tr>
+              <td valign="top"><a href="#template-legend" class="template-icon template-icon-racing-wheel" title="Compatible with the Racing Wheel Template"></a></td>
+              <td valign="top">Steering Wheels</td>
+              <td align="center" valign="top"><span class="yes">Yes</span></td>
+            </tr>
           </table>
           <p>&nbsp;</p>
           <table width="100%" border="0" class="supported-controllers-table">
@@ -3845,6 +3855,20 @@ MacOS: <span class="no">No</span></td>
               <td width="9%" valign="top">&nbsp;</td>
               <td width="13%" valign="top"><p class="controller-type"><a name="nintendo-switch" id="nintendo-switch"></a>Nintendo Switch<br />
                   <span class="note"><a href="SpecialPlatformSupport.html#nintendo-switch">(Plugin Required) </a></span></p></td>
+              <td width="78%" align="center" valign="top"><strong>Native</strong></td>
+            </tr>
+            <tr>
+              <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
+              <td valign="top">Gamepad<span class="note"></span>s</td>
+              <td align="center" valign="top"><span class="yes">Yes</span></td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+          <table width="100%" border="0" class="supported-controllers-table">
+            <tr>
+              <td width="9%" valign="top">&nbsp;</td>
+              <td width="13%" valign="top"><p class="controller-type"><a name="nintendo-switch-2" id="nintendo-switch-2"></a>Nintendo Switch 2<br />
+                <span class="note"><a href="SpecialPlatformSupport.html#nintendo-switch-2">(Plugin Required) </a></span></p></td>
               <td width="78%" align="center" valign="top"><strong>Native</strong></td>
             </tr>
             <tr>
@@ -5183,6 +5207,7 @@ MacOS: <span class="no">No</span></td>
 <p style="font-size: 60%"><a name="clarifications-21" id="clarifications-21"></a>21  Gyro, vibration, and other special features not available.</p>
 <p style="font-size: 60%"><a name="clarifications-22" id="clarifications-22"></a>22 On MacOS, using X mode with a wired connection on Gamesir G3, G3s, G3v, and G3w can cause the entire OS input system to crash requiring a system reboot to fix. It may be related to the XInput driver version in use. YMMV.</p>
 <p style="font-size: 60%"><a name="clarifications-23" id="clarifications-23"></a>23 This device in MacOS mode emulates and appears to the system as a Sony DualShock 4 controller. However, if Enhanced Device Support is enabled, the controller will become unusable because the controller does not correctly emulate the Sony input/output report format, therefore Rewired's low-level Enhanced Device Support mode cannot properly communicate with the device. There is no way to determine that the connected device is an 8Bitdo gamepad and not a true Sony DualShock 4, so when Enhanced Device Support is enabled, the device cannot function in MacOS mode.</p>
+<p style="font-size: 60%"><a name="clarifications-24" id="clarifications-24"></a>24  At some point in the Windows 10/11 lifecycle, Microsoft added support for Sony Dual Shock 4 and Dual Sense controllers to Windows Gaming Input. When Use Windows Gaming Input is enabled, Windowns Gaming Input takes priority over other input sources such as Rewired's Enhanced Device Support (internal driver). Since Windows Gaming Input does not support motion sensors, light control, touchpad, or haptic triggers on these devices, these features are not available if using Windows Gaming Input. Disable Use Windows Gaming Input if you need to support these controller features. Sony controllers cannot be selectively excluded from Windows Gaming Input handling at this time due to complexities of how Steam handles these devices when Steam-configuration support is enabled for these controllers.</p>
 <p style="font-size: 60%">&nbsp;</p>
 <div class="bottom-pager clearfix">
   <a class="back-button" href="Documentation.html" title="Documentation"><span class="button-img"></span>Documentation</a>

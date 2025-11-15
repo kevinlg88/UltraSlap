@@ -140,7 +140,7 @@
     	<div class="main-body">
 	        <div class="logo"><a href="http://guavaman.com/projects/rewired" title="Rewired"><img src="files/images/rewired-logo.png" width="173" height="139" alt="Rewired" /></a></div>
                      
-            <h1>
+          <h1>
             <!-- InstanceBeginEditable name="PageHeader" -->Glyphs
       <!-- InstanceEndEditable -->
             </h1>
@@ -249,7 +249,9 @@ using Rewired.Glyphs.UnityUI;</pre>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="unity-ui-player-controller-element-glyph" id="unity-ui-player-controller-element-glyph"></a>Unity UI Player Controller Element Glyph</h3>
-<p>This component is responsible for displaying the glyph(s) or text for a particular Action, Player, and Action Range. If a glyph is not available, text will be displayed instead.</p>
+<p>This component is responsible for displaying the first found controller element glyph(s) or text bound to a particular Action, Player, and Action Range. If a glyph is not available, text will be displayed instead.</p>
+<p>It is important to understand that the purpose of this component is for displaying UI help glyph / text to show the user what controller element to press to activate an Action. In most cases, this is used to display the glyph for the last active controller.  This component selects the first binding it finds in the Player based on the specified criteria. It requires that the Player currently contains a Controller and an enabled Controller Map with at least one enabled binding to the Action in question.  (For more advanced use cases, <a href="#controller-element-glyph-selector-custom-filtering">custom filtering of results can be implemented through scripting</a>.)</p>
+<p>If you are attempting to display glyphs in a control rebinding UI, this is not the correct component to use. Use the <a href="#unity-ui-controller-element-glyph">Unity UI Controller Element Glyph</a> component instead.</p>
 <p>Create a GameObject with the default values from the menu:</p>
 <ul>
   <li>GameObject -&gt; Create Other -&gt; Rewired -&gt; Glyphs -&gt; Unity UI -&gt; Unity UI Player Controller Element Glyph</li>
@@ -303,7 +305,7 @@ using Rewired.Glyphs.UnityUI;</pre>
 <p>You can create a selector options asset file and share the settings among different glyphs. The options field takes a reference to an object of type ControllerElementGlyphSelectorOptionsSOBase. You can create a ControllerElementGlyphSelectorOptionsSO from the menu:</p>
 <ul>
   <li>Assets -&gt; Create -&gt; Rewired -&gt; Glyphs -&gt; Controller Element Glyph Selector Options</li>
-</ul>
+  </ul>
 <p><strong><a name="glyph-or-text-prefab" id="glyph-or-text-prefab"></a>Glyph or Text Prefab</strong></p>
 <p>It is important to understand that an Action Element Map may be bound to a number of different controller elements. Also, the two poles of an Action (positive, negative) may be bound on separate Action Element Maps. This means, when querying for an Action Range of Full, it is possible that up  to 8 glyphs will need to be displayed. (One set of 3 keyboard modifier keys and 1 primary key for up to the two poles of a split axis Action.) This class handles that, and will instantiate enough child objects as necessary from the specified prefab.</p>
 <p>To create the individual glyph or text objects, a prefab is used to instantiate the child objects. By default, no prefab is set, so it will use the current default prefab. By default, it is created automatically by Rewired, but it can be overridden. If a glyph or text prefab is set locally, it will be used, otherwise it will fall back to the default.</p>
@@ -342,6 +344,61 @@ namespace MyNamespace {
     }
 }</pre>
 <p></p>
+<p><strong><a name="controller-element-glyph-selector-custom-filtering" id="controller-element-glyph-selector-custom-filtering"></a>Custom Filtering:</strong></p>
+<p>By default, glyphs will be displayed for the first matching Action Element Map found in the Player, excluding disabled Controller Maps and Action Element Maps. If you need the ability to define which mappings are displayed, including potentially from disabled Controller Maps or from Controller Maps in only specific Map Categories for example, you can define your own filtering code by setting the ControllerElementGlyphSelectorOptions.<span class="code">isActionElementMapAllowedHandler</span> property. See the code example below for ideas.</p>
+<pre class="code">using UnityEngine;
+using Rewired;
+using Rewired.Glyphs;
+
+public class GlyphFiltering : MonoBehaviour {
+
+    <span class="comment">// Assign in the inspector</span>
+    public Rewired.Glyphs.UnityUI.UnityUIPlayerControllerElementGlyph glyph;
+
+    public void OnEnable() {
+        <span class="comment">// Assign the handler</span>
+        if (glyph.options != null) {
+            <span class="comment">// Custom options have been set in the inspector, override the handler</span>.
+            glyph.options.options.isActionElementMapAllowedHandler += FilterGlyphs;
+        } else {
+           <span class="comment"> // No custom options, override the global default options</span>.
+            <span class="comment">// This is not a great idea because it will apply this filter to all glyph components,
+            // but shown here just for illustrative purposes.</span>
+            ControllerElementGlyphSelectorOptions.defaultOptions.isActionElementMapAllowedHandler += FilterGlyphs;
+        }
+    }
+
+    public void OnDisable() {
+        <span class="comment">// Remove the handler</span>
+        if (glyph.options != null) {
+            <span class="comment">// Custom options have been set in the inspector, override the handler</span>.
+            glyph.options.options.isActionElementMapAllowedHandler -= FilterGlyphs;
+        } else {
+            <span class="comment">// No custom options, override the global default options</span>.
+            ControllerElementGlyphSelectorOptions.defaultOptions.isActionElementMapAllowedHandler -= FilterGlyphs;
+        }
+    }
+
+    bool FilterGlyphs(ActionElementMap aem) {
+
+        <span class="comment">// Exclude disabled ActionElementMaps</span>
+        if (!aem.enabled) return false;
+
+        <span class="comment">// Exclude if parent Controller Map is disabled</span>
+        if (!aem.controllerMap.enabled) return false;
+
+        <span class="comment">// Include only if Controller Map is in the &quot;Gameplay&quot; Map Category</span>
+        if (aem.controllerMap.categoryId != ReInput.mapping.GetMapCategoryId(&quot;Gameplay&quot;)) return false;
+
+        <span class="comment">// Include only if controller is a Joystick</span>
+        if (aem.controllerMap.controller.type != ControllerType.Joystick) return false;
+
+        <span class="comment">// Include only if controller element is a Button</span>
+        if (aem.elementType != ControllerElementType.Button) return false;
+
+        return true;
+    }
+}</pre>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="unity-ui-controller-element-glyph" id="unity-ui-controller-element-glyph"></a>Unity UI Controller Element Glyph</h3>
@@ -463,6 +520,8 @@ namespace MyNamespace {
 <hr />
 <h3><a name="unity-ui-text-mesh-pro-glyph-helper" id="unity-ui-text-mesh-pro-glyph-helper"></a>Unity UI Text Mesh Pro Glyph Helper</h3>
 <p><img src="files/images/glyphs-unity-ui-text-mesh-pro-glyph-helper-example1.png" alt="Press A to Shoot" width="362" height="100" style="float: right; margin-left: 2em; padding-bottom: 2em;" />A helper class to display Rewired glyphs and display names inline in TMPro Text (Unity UI). Parses tags within text and replaces them with Sprites or text. Enter text in this component's text field, not in the TMPro Text field. Text entered here will be parsed, then the Text Mesh  Pro Text component will be updated with the text, including Sprite tags.</p>
+<p>It is important to understand that the purpose of this component is for displaying UI help glyph / text to show the user what controller element to press to activate an Action. In most cases, this is used to display the glyph for the last active controller.  This component selects the first binding it finds in the Player based on the specified criteria. It requires that the Player currently contains a Controller and an enabled Controller Map with at least one enabled binding to the Action in question. (For more advanced use cases, <a href="#unity-ui-text-mesh-pro-glyph-helper-custom-filtering-element-glyphs">custom filtering of results can be implemented through scripting</a>.)</p>
+<p>If you are attempting to display glyphs in a control rebinding UI, this is not the correct component to use. Use the <a href="#unity-ui-controller-element-glyph">Unity UI Controller Element Glyph</a> component instead.</p>
 <p>To use it, create a Text Mesh Pro UGUI object, select the GameObject, and add the component from the menu:</p>
 <ul>
   <li>Component -&gt; Rewired -&gt; Glyphs -&gt; Unity UI -&gt; Unity UI Text Mesh Pro Glyph Helper</li>
@@ -509,7 +568,7 @@ namespace MyNamespace {
 <p>&nbsp;</p>
 <p><strong><a name="unity-ui-text-mesh-pro-glyph-helper-tags" id="unity-ui-text-mesh-pro-glyph-helper-tags"></a>Tags:</strong></p>
 <p>Text containing the below tags will be converted into glyphs / text for the specified parameters.</p>
-<pre><strong>Display glyph / text for a controller element bound to an Action for a Player:</strong>
+<pre><strong>Display the first found controller element glyph / text bound to an Action for a Player:</strong>
 
     &lt;rewiredElement [attributes]&gt;
 
@@ -522,9 +581,9 @@ namespace MyNamespace {
         actionRange="[full|positive|negative]" (optional, default: full)
 
     Example:
-        &lt;rewiredElement playerId=5 actionName="MoveHorizontal" actionRange="full"&gt;
+        &lt;rewiredElement playerId=5 actionName="MoveHorizontal" actionRange="full"&gt;<strong>
 
-<strong>Display the name of an Action:</strong>
+Display the name of an Action:</strong>
 
     &lt;rewiredAction [attributes]&gt;
 
@@ -547,6 +606,59 @@ namespace MyNamespace {
     Example:
         &lt;rewiredPlayer id=0&gt;
 </pre>
+<p>&nbsp;</p>
+<p><strong><a name="unity-ui-text-mesh-pro-glyph-helper-custom-filtering-element-glyphs" id="unity-ui-text-mesh-pro-glyph-helper-custom-filtering-element-glyphs"></a>Custom Filtering of Element Glyphs (&lt;rewiredElement&gt; tag):</strong></p>
+<p>By default, glyphs will be displayed for the first matching Action Element Map found in the Player, excluding disabled Controller Maps and Action Element Maps. If you need the ability to define which mappings are displayed, including potentially from disabled Controller Maps or from Controller Maps in only specific Map Categories for example, you can define your own filtering code by setting the <span class="code">UnityUITextMeshProGlyphHelper</span>.<span class="code">isRewiredElementAllowedHandler</span> property. See the code example below for ideas.</p>
+<p>Note that the <a href="#controller-element-glyph-selector-custom-filtering">ControllerElementGlyphSelectorOptions method of custom filtering</a> also works with this component, but has the disadvantage that the same filter will apply to all &lt;rewiredElement&gt; tags, whereas the <span class="code">UnityUITextMeshProGlyphHelper</span>.<span class="code">isRewiredElementAllowedHandler</span> method allows to you apply filtering separately for each tag if desired. If <span class="code">UnityUITextMeshProGlyphHelper</span>.<span class="code">isRewiredElementAllowedHandler</span> is set, it will override filtering set in ControllerElementGlyphSelectorOptions.</p>
+<pre class="code">using UnityEngine;
+using Rewired;
+
+public class GlyphFilteringTMPro : MonoBehaviour {
+
+    <span class="comment">// Assign in the inspector</span>
+    public Rewired.Glyphs.UnityUI.UnityUITextMeshProGlyphHelper tmProGlyphHelper;
+
+    public void OnEnable() {
+        <span class="comment">// Assign the handler</span>
+        tmProGlyphHelper.isRewiredElementAllowedHandler += FilterGlyphs;
+    }
+
+    public void OnDisable() {
+        <span class="comment">// Remove the handler</span>
+        tmProGlyphHelper.isRewiredElementAllowedHandler -= FilterGlyphs;
+    }
+
+    bool FilterGlyphs(int tagIndex, ActionElementMap aem) {
+
+        <span class="comment">// If you need different filtering for multiple rewiredElement tags, check tagIndex</span>
+        if (tagIndex == 0) { // this is the first tag
+            <span class="comment">// do something different</span>
+        }
+
+        <span class="comment">// Exclude disabled ActionElementMaps</span>
+        if (!aem.enabled) return false;
+
+        <span class="comment">// Exclude if parent Controller Map is disabled</span>
+        if (!aem.controllerMap.enabled) return false;
+
+        <span class="comment">// Include only if Controller Map is in the "Gameplay" Map Category</span>
+        if (aem.controllerMap.categoryId != ReInput.mapping.GetMapCategoryId("Gameplay")) return false;
+
+        <span class="comment">// Include only if controller is a Joystick</span>
+        if (aem.controllerMap.controller.type != ControllerType.Joystick) return false;
+
+        <span class="comment">// Include only if controller element is a Button</span>
+        if (aem.elementType != ControllerElementType.Button) return false;
+
+        return true;
+    }
+}</pre>
+<p><strong><a name="unity-ui-text-mesh-pro-glyph-helper-known-issues" id="unity-ui-text-mesh-pro-glyph-helper-known-issues"></a>Known Issues:</strong></p>
+<p><strong><a name="unity-ui-text-mesh-pro-glyph-helper-known-issues-stripping" id="unity-ui-text-mesh-pro-glyph-helper-known-issues-stripping"></a>Glyphs appear correctly in the editor but appear as raw tag text in a build (Unity 2020-2023)</strong></p>
+<p>Update: As of Rewired 1.1.60.0, this is no longer an issue and installing the script is not necessary or helpful.</p>
+<p> In builds made with Unity Player Managed Stripping Level is set to Medium or High, important properties may be stripped from some Text Mesh Pro classes used by this component (due to the use of reflection). If this happens, glyphs for multiple controllers will not display in a build. The first controller's glyphs may be displayed, but glyphs for subsequent controllers used will not. For example, if switching between mouse and a gamepad, the gamepad's glyphs may not display when switching to the gamepad, instead displaying the raw tag text instead.</p>
+<p>To resolve this issue, code must be added that calls the specific Text Mesh Pro properties used by the component to prevent them from being stripped. <a href="https://guavaman.com/projects/rewired/files/docs/UnityUITextMeshProGlyphHelperPreventStripping.cs">Download this script and add it to your project</a>.</p>
+<p>Note: This script will not work on very old versions of Text Mesh Pro and will result in compiler errors. This script is not necessary and should not be installed for these versions of Text Mesh Pro.</p>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="accessing-glyphs-from-scripts" id="accessing-glyphs-from-scripts"></a>Accessing Glyphs from Scripts</h3>

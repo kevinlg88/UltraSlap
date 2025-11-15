@@ -138,6 +138,7 @@ namespace Rewired.Glyphs.UnityUI {
         /// Gets the controller type order at the index.
         /// Lower values are evaulated first.
         /// </summary>
+        /// <param name="index">Index</param>
         /// <param name="controllerType">Controller type</param>
         /// <returns>Controller type at index.</returns>
         protected virtual bool TryGetControllerTypeOrder(int index, out ControllerType controllerType) {

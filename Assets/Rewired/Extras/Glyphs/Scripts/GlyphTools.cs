@@ -16,6 +16,27 @@ namespace Rewired.Glyphs {
                 out ActionElementMap aemResult1,
                 out ActionElementMap aemResult2
             ) {
+            return TryGetActionElementMaps(
+                playerId,
+                actionId,
+                actionRange,
+                options,
+                null,
+                workingActionElementMaps,
+                out aemResult1,
+                out aemResult2
+            );
+        }
+        public static bool TryGetActionElementMaps(
+                int playerId,
+                int actionId,
+                AxisRange actionRange,
+                ControllerElementGlyphSelectorOptions options,
+                System.Predicate<Rewired.ActionElementMap> isAemAllowedHandlerOverride,
+                List<ActionElementMap> workingActionElementMaps,
+                out ActionElementMap aemResult1,
+                out ActionElementMap aemResult2
+            ) {
 
             aemResult1 = null;
             aemResult2 = null;
@@ -34,6 +55,16 @@ namespace Rewired.Glyphs {
             Controller lastActiveController = player.controllers.GetLastActiveController();
 
             workingActionElementMaps.Clear();
+
+            // Get the isAllowed handler
+            System.Predicate<Rewired.ActionElementMap> isAemAllowedHandler = null;
+            if (isAemAllowedHandlerOverride != null) { // override is preferred if set
+                isAemAllowedHandler = isAemAllowedHandlerOverride;
+            } else if (options != null) { // use the handler supplied in options
+                isAemAllowedHandler = options.isActionElementMapAllowedHandler;
+            }
+            // Fall back to default handler if none set
+            if (isAemAllowedHandler == null) isAemAllowedHandler = defaultGetElementMapsWithActionisAllowedHandler;
 
             // Get all action element maps for the Action
 
@@ -59,7 +90,7 @@ namespace Rewired.Glyphs {
                 }
 
                 // Prioritize last active controller
-                if (GetElementMapsWithAction(player, lastActiveController.type, lastActiveController.id, actionId, true, workingActionElementMaps) > 0) {
+                if (GetElementMapsWithAction(player, lastActiveController.type, lastActiveController.id, actionId, isAemAllowedHandler, workingActionElementMaps) > 0) {
                     if (TryGetActionElementMaps(action, actionRange, workingActionElementMaps, out aemResult1, out aemResult2)) {
                         return true;
                     }
@@ -67,7 +98,7 @@ namespace Rewired.Glyphs {
 
                 // Fallback to secondary for keyboard/mouse
                 if (otherController != null) {
-                    if (GetElementMapsWithAction(player, otherController.type, otherController.id, actionId, true, workingActionElementMaps) > 0) {
+                    if (GetElementMapsWithAction(player, otherController.type, otherController.id, actionId, isAemAllowedHandler, workingActionElementMaps) > 0) {
                         if (TryGetActionElementMaps(action, actionRange, workingActionElementMaps, out aemResult1, out aemResult2)) {
                             return true;
                         }
@@ -76,7 +107,7 @@ namespace Rewired.Glyphs {
 
                 // Fall back to last-known active controller type without the controller id.
                 // This allows falling back to other Joysticks if binding is not found in the active one.
-                if (GetElementMapsWithAction(player, lastActiveController.type, actionId, true, workingActionElementMaps) > 0) {
+                if (GetElementMapsWithAction(player, lastActiveController.type, actionId, isAemAllowedHandler, workingActionElementMaps) > 0) {
                     if (TryGetActionElementMaps(action, actionRange, workingActionElementMaps, out aemResult1, out aemResult2)) {
                         return true;
                     }
@@ -87,7 +118,7 @@ namespace Rewired.Glyphs {
             {
                 ControllerType controllerType;
                 for (int i = 0; options.TryGetControllerTypeOrder(i, out controllerType); i++) {
-                    if (GetElementMapsWithAction(player, controllerType, actionId, true, workingActionElementMaps) > 0) {
+                    if (GetElementMapsWithAction(player, controllerType, actionId, isAemAllowedHandler, workingActionElementMaps) > 0) {
                         if (TryGetActionElementMaps(action, actionRange, workingActionElementMaps, out aemResult1, out aemResult2)) {
                             return true;
                         }
@@ -96,7 +127,7 @@ namespace Rewired.Glyphs {
             }
 
             // Fall back to any controller type
-            if (GetElementMapsWithAction(player, actionId, true, workingActionElementMaps) > 0) {
+            if (GetElementMapsWithAction(player, actionId, isAemAllowedHandler, workingActionElementMaps) > 0) {
                 if (TryGetActionElementMaps(action, actionRange, workingActionElementMaps, out aemResult1, out aemResult2)) {
                     return true;
                 }
@@ -250,34 +281,75 @@ namespace Rewired.Glyphs {
             return false;
         }
 
-        private static int GetElementMapsWithAction(Rewired.Player player, Rewired.ControllerType controllerType, int controllerId, int actionId, bool skipDisabledMaps, List<ActionElementMap> results) {
+        private static int GetElementMapsWithAction(Rewired.Player player, Rewired.ControllerType controllerType, int controllerId, int actionId, System.Predicate<Rewired.ActionElementMap> isAllowedPredicate, List<ActionElementMap> results) {
             int origCount = results.Count;
-            player.controllers.maps.GetElementMapsWithAction(controllerType, controllerId, actionId, skipDisabledMaps, results);
-            RemoveInvalidElementMaps(player, results, origCount);
+            player.controllers.maps.GetElementMapsWithAction(controllerType, controllerId, actionId, false, results);
+            RemoveInvalidElementMaps(player, results, origCount, isAllowedPredicate);
             return results.Count - origCount;
         }
-        private static int GetElementMapsWithAction(Rewired.Player player, Rewired.ControllerType controllerType, int actionId, bool skipDisabledMaps, List<ActionElementMap> results) {
+        private static int GetElementMapsWithAction(Rewired.Player player, Rewired.ControllerType controllerType, int actionId, System.Predicate<Rewired.ActionElementMap> isAllowedPredicate, List<ActionElementMap> results) {
             int origCount = results.Count;
-            player.controllers.maps.GetElementMapsWithAction(controllerType, actionId, skipDisabledMaps, results);
-            RemoveInvalidElementMaps(player, results, origCount);
+            player.controllers.maps.GetElementMapsWithAction(controllerType, actionId, false, results);
+            RemoveInvalidElementMaps(player, results, origCount, isAllowedPredicate);
             return results.Count - origCount;
         }
-        private static int GetElementMapsWithAction(Rewired.Player player, int actionId, bool skipDisabledMaps, List<ActionElementMap> results) {
+        private static int GetElementMapsWithAction(Rewired.Player player, int actionId, System.Predicate<Rewired.ActionElementMap> isAllowedPredicate, List<ActionElementMap> results) {
             int origCount = results.Count;
-            player.controllers.maps.GetElementMapsWithAction(actionId, skipDisabledMaps, results);
-            RemoveInvalidElementMaps(player, results, origCount);
+            player.controllers.maps.GetElementMapsWithAction(actionId, false, results);
+            RemoveInvalidElementMaps(player, results, origCount, isAllowedPredicate);
             return results.Count - origCount;
         }
 
-        private static int RemoveInvalidElementMaps(Rewired.Player player, List<ActionElementMap> results, int startIndex) {
-            int count = results.Count;
-            for (int i = count - 1; i >= startIndex; i--) {
-                if (!player.controllers.ContainsController(results[i].controllerMap.controller) || // controller not assigned to Player
-                    !results[i].controllerMap.controller.enabled) { // controller disabled
+        private static int RemoveInvalidElementMaps(Rewired.Player player, List<ActionElementMap> results, int startIndex, System.Predicate<Rewired.ActionElementMap> isAllowedPredicate) {
+
+            int origCount = results.Count;
+
+            // Default filtering
+            for (int i = origCount - 1; i >= startIndex; i--) {
+                if (!player.controllers.ContainsController(results[i].controllerMap.controller) || // controller is not assigned to Player
+                    !results[i].controllerMap.controller.enabled) { // controller is disabled
                     results.RemoveAt(i);
                 }
             }
-            return count - results.Count;
+
+            // User-defined filtering
+            if (isAllowedPredicate != null) {
+                int currentCount = results.Count;
+                bool remove;
+
+                // Iterate in order instead of backwards because this is exposed to the user
+                for (int i = startIndex; i < currentCount; i++) {
+                    remove = false;
+                    try {
+                        if (!isAllowedPredicate(results[i])) {
+                            remove = true;
+                        }
+                    } catch (System.Exception ex) {
+                        UnityEngine.Debug.LogError("Rewired: An exception was thrown in isAllowedPredicate callback. This exception was thrown by your code.\n" + ex);
+                        continue;
+                    }
+                    if (remove) {
+                        results.RemoveAt(i);
+                        currentCount -= 1;
+                        i -= 1;
+                    }
+                }
+            }
+            
+            return origCount - results.Count;
+        }
+
+        private static System.Predicate<Rewired.ActionElementMap> __defaultGetElementMapsWithActionisAllowedHandler;
+        private static System.Predicate<Rewired.ActionElementMap> defaultGetElementMapsWithActionisAllowedHandler {
+            get {
+                if (__defaultGetElementMapsWithActionisAllowedHandler == null) {
+                    __defaultGetElementMapsWithActionisAllowedHandler = (Rewired.ActionElementMap aem) => {
+                        if (aem == null || !aem.controllerMap.enabled || !aem.enabled) return false;
+                        return true;
+                    };
+                }
+                return __defaultGetElementMapsWithActionisAllowedHandler;
+            }
         }
     }
 }

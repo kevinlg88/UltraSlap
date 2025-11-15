@@ -1451,6 +1451,13 @@ if(controller != null) {
   <li><a href="https://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_ClearLastActiveControllerChangedDelegates.htm">Player.controllers.ClearLastActiveControllerChangedDelegates</a></li>
   </ul>
 <p>&nbsp;</p>
+<p><strong><a name="setting-last-active-controller" id="setting-last-active-controller"></a>Overriding the last active Controller:</strong></p>
+<p>The last active Controller is chosen automatically by monitoring input timestamps. However, you can manually set the last active controller if necessary. This will override the last active controller temporarily, using the current time as the last active time for the Controller. When another Controller returns input with a later timestamp, it will become the last active controller.</p>
+<ul>
+  <li><a href="https://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_ReInput_ControllerHelper_SetLastActiveController.htm">ReInput.controllers.SetLastActiveController</a></li>
+  <li><a href="https://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_SetLastActiveController.htm">Player.controllers.SetLastActiveController</a></li>
+</ul>
+<p>&nbsp;</p>
 <hr />
 <h3><a name="is-controller-gamepad" id="is-controller-gamepad"></a>Determining if a Controller is a Gamepad</h3>
 <p>All <a href="SupportedControllers.html">recognized gamepads</a> implement the <a href="https://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_IGamepadTemplate.htm">IGamepadTemplate</a> <a href="ControllerTemplates.html">Controller Template</a>. See <a href="ControllerTemplates.html#determining-if-controller-implements-template">Controller Templates - Determining if a Controller implements a particular Controller Template</a> for more information.</p>
@@ -1997,7 +2004,7 @@ namespace Rewired.Demos {
       <li>Load the map data in XML or JSON format.</li>
       <li>Set the map data in the <a href="Players.html">Player</a>.</li>
     </ol>
-    <p>Rewired  includes a basic system for storing the saved data -- <a href="UserDataStore.html">UserDataStore_PlayerPrefs</a> which may not be suitable for everyone. Since every game and platform may have different requirements for data storage, you will probably want to write your own data storage system for your specific needs. You will have to save the data in a format most suitable to your game and platform. Possible options are PlayerPrefs, a database, binary or text files, cloud storage, etc. (<a href="UserDataStore.html">UserDataStore</a> can optionally be extended to support any storage medium.)<br />
+    <p>Rewired  includes two basic systems for storing the saved data -- <a href="UserDataStore.html#playerprefs">UserDataStore_PlayerPrefs</a> and <a href="UserDataStore.html#file">UserDataStore_File</a> which may not be suitable for every use case. Since every game and platform may have different requirements for data storage, you will probably want to write your own data storage system for your specific needs. You will have to save the data in a format most suitable to your game and platform. Possible options are PlayerPrefs, a database, binary or text files, cloud storage, etc. (<a href="UserDataStore.html">UserDataStore</a> can optionally be extended to support any storage medium.)<br />
     </p>
     <p>The example mapping demo in Rewired/Examples/ControlRemapping1 includes saving and loading of <a href="ControllerMaps.html">Controller Maps</a>, Axis Calibration Maps, and <a href="InputBehaviors.html">Input Behaviors</a>. See this demo project to learn the process of saving and loading. Note: The demo project uses PlayerPrefs for the data storage medium. This is not ideal, but was done for simplicity and cross-platform compatibility for the example. It should not be difficult to substitute another storage medium suitable to your platform. </p>
     <p><strong>Example Code from the ControlRemapping1 (see example in Rewired/Examples/ControlRemapping1 for complete code)</strong></p>
@@ -3087,6 +3094,7 @@ KERNEL==&quot;hidraw*&quot;, SUBSYSTEM==&quot;hidraw&quot;, KERNELS==&quot;*057E
     to added extras, integration packs, addons, etc. installed by Rewired. Rewired relies on its internal folder structure to know where to extract addon packs when installing or upgrading them.</li>
 </ul>
 <p><strong>One   example asmdef structure:</strong></p>
+<p>NOTE: This documentation was written for Unity 2017.3. Unity 2019.4 added Assembly References, making assembly definitions a lot more versatile and obviating this example.</p>
 <p>Under 
   /Rewired/:<br />
   |--   Rewired_CSharp.asmdef</p>

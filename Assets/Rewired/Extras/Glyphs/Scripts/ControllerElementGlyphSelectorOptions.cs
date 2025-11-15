@@ -32,6 +32,9 @@ namespace Rewired.Glyphs {
             ControllerType.Keyboard
         };
 
+        [System.NonSerialized]
+        private System.Predicate<Rewired.ActionElementMap> _isActionElementMapAllowedHandler;
+
         /// <summary>
         /// Determines if the Player's last active controller is used for glyph selection.
         /// </summary>
@@ -59,6 +62,23 @@ namespace Rewired.Glyphs {
             }
             set {
                 _controllerTypeOrder = value;
+            }
+        }
+
+        /// <summary>
+        /// Allows you to filter which Action Element Maps are displayed.
+        /// When searching for mappings in the Player, the handler will be invoked for each Action Element Map found.
+        /// This allows you to, for example, allow only Action Element Maps belonging to a Controller Map in particular Map Category.
+        /// <see cref="Rewired.ActionElementMap"/> for properties which can be used as filtering criteria.
+        /// IMPORTANT: By setting this value, you are taking over the responsibility for filtering mappings results entirely. The default
+        /// filter removes disabled Action Element Maps and mappings in disabled Controller Maps. Disabled mappings are no longer removed
+        /// when this handler is overriden with your own, so you must check the enabled states if you want to exclude these mappings.
+        public System.Predicate<Rewired.ActionElementMap> isActionElementMapAllowedHandler {
+            get {
+                return _isActionElementMapAllowedHandler;
+            }
+            set {
+                _isActionElementMapAllowedHandler = value;
             }
         }
 

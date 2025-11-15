@@ -925,13 +925,11 @@ I cannot provide additional information on how to deal with MacOS file quarantin
 <p>&nbsp;</p>
 <hr />
 <h3><a name="osx-mac-app-store-joysticks-dont-work" id="osx-mac-app-store-joysticks-dont-work"></a><a name="macos-mac-app-store-joysticks-dont-work" id="macos-mac-app-store-joysticks-dont-work"></a>MacOS, Mac App Store: Joysticks don't work</h3>
-<p>To access USB or Bluetooth devices in the Mac App Store sandbox, your application must request specific entitlements.</p>
-<p>  Enable the follow entitlements for your application:</p>
+<p>To access USB or Bluetooth devices in sandboxed applications, your application must request specific entitlements. If using <a href="RewiredEditor.html#Settings">Game Controller Framework as the Primary Input Source</a>, no entitlements are necessary, however, not as many devices are supported by Game Controller Framework as the combination of Native + Use Game Controller Framework. For some devices to work when using the Native Primary Input Source, you must enable the following entitlement for your application:</p>
 <ul>
-  <li>com.apple.security.device.bluetooth</li>
   <li>com.apple.security.device.usb</li>
-  </ul>
-<p>These entitlements may not be required if the primary input source is set to <a href="RewiredEditor.html#Settings">Game Controller Framework</a>.</p>
+</ul>
+<p>The com.apple.security.device.bluetooth should not be required to support Bluetooth game controllers, and enabling it may even result in failure to pass Mac App Store review. The Bluetooth entitlement is not required to use Bluetooth devices -- the USB entitlement covers those.</p>
 <p>See the <a href="https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW1" target="_blank">Mac App Store entitlements documentation</a> for more information.</p>
 <p>&nbsp;</p>
 <hr />
@@ -960,6 +958,7 @@ I cannot provide additional information on how to deal with MacOS file quarantin
 <h2><a name="ios" id="ios"></a>iOS</h2>
 <p>&nbsp;</p>
 <h3><a name="ios-xbox-ps4-controllers" id="ios-xbox-ps4-controllers"></a>iOS 13 Xbox, PS4 Controller Support</h3>
+<p><strong>Update: This only applies to versions of Rewired prior to 1.1.60.0. These controllers are now exposed as their recognized types as of Rewired 1.1.60.0.</strong></p>
 <p>Apple will be adding support to iOS 13  for Xbox and Playstation 4 controllers.</p>
 <ol>
   <li>These controllers DO work already with no changes in Rewired.</li>
@@ -972,12 +971,17 @@ I cannot provide additional information on how to deal with MacOS file quarantin
 </ol>
 <p><strong>To determine device type to display device-specific glyphs:</strong></p>
 <p>Controller.name will return the following for these devices:<br />
-  Xbox One:  &quot;Xbox Wireless Controller&quot;<br />
-  DualShock 4: 
-  &quot;DUALSHOCK 4 Wireless Controller&quot;</p>
+  Microsoft Xbox One:  &quot;Xbox Wireless Controller&quot;<br />
+  Sony DualShock 4: 
+  &quot;DUALSHOCK 4 Wireless Controller&quot;<br />
+  Sony DualSense: &quot;DualSense Wireless Controller&quot;<br />
+  Nintendo Switch Joy-Con (L): &quot;Joy-Con (L)&quot;<br />
+Nintendo Switch  Joy-Con (R): &quot;Joy-Con (R)&quot;<br />
+Nintendo Switch  Joy-Con (L/R): &quot;Joy-Con (L/R)&quot;<br />
+Nintendo Switch Pro Controller: &quot;Pro Controller&quot;</p>
 <p>Use that to display different graphics for the elements on the MFI controller.</p>
 <p><strong>IMPORTANT:</strong><br />
-  This behavior may change in a future version of Rewired to load different controller definitions for Xbox and PlayStation controllers requiring you to change the way glyphs are implemented.</p>
+  This behavior may change in a future version of Rewired to load different controller definitions for Xbox and PlayStation controllers requiring you to change the way glyphs are implemented. (Update: This is no longer required as of Rewired 1.1.60.0.)</p>
 <p>&nbsp;</p>
 <hr />
 <h3><a name="ios-controllers-not-detected" id="ios-controllers-not-detected"></a>Game controllers not detected</h3>
