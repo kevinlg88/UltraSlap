@@ -100,3 +100,4 @@ Material:
     - _RimColor: {r: 0.8301887, g: 0.035243843, b: 0.121402875, a: 1}
     - _SSSColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

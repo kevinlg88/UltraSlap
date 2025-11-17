@@ -785,6 +785,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Glow_PS
       objectReference: {fileID: 0}
+    - target: {fileID: 6044779031957274704, guid: 61ee753fc697f4d4880331c11247b044,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6965070452179399529, guid: 61ee753fc697f4d4880331c11247b044,
         type: 3}
       propertyPath: playOnAwake
@@ -882,12 +887,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 767083767133601834, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9891f9aff0fa32a4ca8ae3c578dd57ef, type: 2}
     - target: {fileID: 767083767133601834, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 4d59d828f0f494949b95e18f1a482126, type: 2}
     - target: {fileID: 792400460550403193, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -934,6 +939,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 109.11411
+      objectReference: {fileID: 0}
+    - target: {fileID: 1300529905049349759, guid: 23f25bad1aea53240916c6d6e0b124b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1303742196674489654, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -1413,17 +1423,17 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5933436007469292989, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: RandomSfx.Array.data[0]
+      propertyPath: 'RandomSfx.Array.data[0]'
       value: 
       objectReference: {fileID: 8300000, guid: 4afcd2d4a24d2f0429f53ab22e63529b, type: 3}
     - target: {fileID: 5933436007469292989, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: RandomSfx.Array.data[1]
+      propertyPath: 'RandomSfx.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 10e9c21bf8beeb34090832cb2493e52f, type: 3}
     - target: {fileID: 5933436007469292989, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: RandomSfx.Array.data[2]
+      propertyPath: 'RandomSfx.Array.data[2]'
       value: 
       objectReference: {fileID: 8300000, guid: f2898f146e8115a43952f6177eb03218, type: 3}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -1438,52 +1448,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[3]
+      propertyPath: 'FeedbacksList.Array.data[3]'
       value: 7586592136842444957
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[4]
+      propertyPath: 'FeedbacksList.Array.data[4]'
       value: 7586592136842444958
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[5]
+      propertyPath: 'FeedbacksList.Array.data[5]'
       value: 7586592170513793180
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[6]
+      propertyPath: 'FeedbacksList.Array.data[6]'
       value: 7586592395386683547
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444956]
+      propertyPath: 'managedReferences[7586592136842444956]'
       value: MoreMountains.Feedbacks MoreMountains.Feedbacks.MMF_Material
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444957]
+      propertyPath: 'managedReferences[7586592136842444957]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444958]
+      propertyPath: 'managedReferences[7586592136842444958]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592170513793180]
+      propertyPath: 'managedReferences[7586592170513793180]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592395386683546]
+      propertyPath: 'managedReferences[7586592395386683546]'
       value: MoreMountains.Feedbacks MoreMountains.Feedbacks.MMF_ParticlesInstantiation
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592395386683547]
+      propertyPath: 'managedReferences[7586592395386683547]'
       value: MoreMountains.Feedbacks MoreMountains.Feedbacks.MMF_Particles
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -2080,7 +2090,7 @@ PrefabInstance:
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
       propertyPath: managedReferences[7586592136842444957].OneTimeRemapMax
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
@@ -3514,7 +3524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444956].RendererMaterialIndexes.Array.data[0]
+      propertyPath: 'managedReferences[7586592136842444956].RendererMaterialIndexes.Array.data[0]'
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -3714,12 +3724,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444957].TargetShaderControllerList.Array.data[0]
+      propertyPath: 'managedReferences[7586592136842444957].TargetShaderControllerList.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444957].TargetShaderControllerList.Array.data[1]
+      propertyPath: 'managedReferences[7586592136842444957].TargetShaderControllerList.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6303212243255115372, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -4895,47 +4905,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[0]
+      propertyPath: 'FeedbacksList.Array.data[0]'
       value: 8694595439833382914
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[1]
+      propertyPath: 'FeedbacksList.Array.data[1]'
       value: 7586592136842444954
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[2]
+      propertyPath: 'FeedbacksList.Array.data[2]'
       value: 7586592170513793178
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[3]
+      propertyPath: 'FeedbacksList.Array.data[3]'
       value: 7586592170513793179
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: FeedbacksList.Array.data[4]
+      propertyPath: 'FeedbacksList.Array.data[4]'
       value: 7586592170513793181
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592136842444955]
+      propertyPath: 'managedReferences[7586592136842444955]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592170513793178]
+      propertyPath: 'managedReferences[7586592170513793178]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592170513793179]
+      propertyPath: 'managedReferences[7586592170513793179]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: managedReferences[7586592170513793181]
+      propertyPath: 'managedReferences[7586592170513793181]'
       value: MoreMountains.Feedbacks.MMTools MoreMountains.Feedbacks.MMF_ShaderController
       objectReference: {fileID: 0}
     - target: {fileID: 6725627023822384777, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -7980,12 +7990,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8220451030145531459, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ea304c177e627be4297486307b78dd64, type: 2}
     - target: {fileID: 8220451030145531459, guid: 23f25bad1aea53240916c6d6e0b124b3,
         type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 3409050ff7205c145bae00d314781084, type: 2}
     - target: {fileID: 8351315860164027596, guid: 23f25bad1aea53240916c6d6e0b124b3,
@@ -8180,7 +8190,7 @@ MonoBehaviour:
   OneTimeDuration: 1
   OneTimeAmplitude: 1
   OneTimeRemapMin: 0
-  OneTimeRemapMax: 1
+  OneTimeRemapMax: 10
   OneTimeCurve:
     serializedVersion: 2
     m_Curve:
